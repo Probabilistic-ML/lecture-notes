@@ -1,0 +1,52 @@
+# Book settings
+title: Advanced Machine Learning
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+html:
+  favicon                   : ""  # A path to a favicon image
+  use_edit_page_button      : false  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
+  use_repository_button     : false  # Whether to add a link to your repository button
+  extra_navbar              : test
+  baseurl                   : ""  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
+  use_repository_button     : true
+
+  # Information about where the book exists on the web
+repository:
+  url                       : https://github.com/Probabilistic-ML/colab-notes  # Online location of your book
+
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
+
+sphinx:
+  extra_extensions:
+   - sphinx.ext.intersphinx
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    intersphinx_mapping:
+      Python 3: ['https://docs.python.org/3/', null]
+      tensorflow: ['https://www.tensorflow.org/api_docs/python', 'https://github.com/mr-ubik/tensorflow-intersphinx/raw/master/tf2_py_objects.inv']
+      matplotlib [stable]: ['https://matplotlib.org/stable/', null]
+      numpy [stable]: ['https://numpy.org/doc/stable/', null]
+      pandas [latest?]: ['https://pandas.pydata.org/docs/', null]
+      scikit-learn [stable]: ['https://scikit-learn.org/stable/', null]
+      scipy [latest]: ['https://docs.scipy.org/doc/scipy/reference/', null]
+      jax [latest]: ['https://jax.readthedocs.io/en/latest/', null]
+      seaborn [stable]: ['https://seaborn.pydata.org/', null]
+
+
+execute:
+  timeout: -1
+
+#jupyter_execute_notebooks: force
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - dollarmath
+    - linkify
+    - substitution
+
