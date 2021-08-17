@@ -2,6 +2,7 @@
 title: Advanced Machine Learning
 author: R. Vosshall, C. Bogoclu & N. Friedlich
 logo: logo.jpg
+exclude_patterns: ["README.md", "probML/BayesianNN.md"]
 
 latex:
   latex_documents:
@@ -17,9 +18,9 @@ html:
   baseurl                   : "https://probabilistic-ml.github.io/lecture-notes/preface.html"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
   use_repository_button     : true
 
-  # Information about where the book exists on the web
+# Information about where the book exists on the web
 repository:
-  url                       : https://github.com/Probabilistic-ML/colab-notes  # Online location of your book
+  url                       : https://github.com/Probabilistic-ML/lecture-notes  # Online location of your book
 
 launch_buttons:
   colab_url: "https://colab.research.google.com"
@@ -53,4 +54,3 @@ parse:
     - dollarmath
     - linkify
     - substitution
-

@@ -1,10 +1,14 @@
 format: jb-book
-root: preface
+root: welcome
 parts:
+- caption: Preface
+  numbered: false
+  chapters:
+  - file: preface/preface
+  - file: preface/notation
 - caption: Fundamentals
   numbered: true
   chapters:
-  - file: fund/notation
   - file: fund/fundprob
   - file: fund/stat
   - file: fund/bayes
@@ -23,3 +27,7 @@ parts:
   - file: appl/BO
   - file: appl/uncertainty
   - file: appl/RL
+#- caption: Appendix
+#  numbered: false
+#  chapters:
+#  - file:

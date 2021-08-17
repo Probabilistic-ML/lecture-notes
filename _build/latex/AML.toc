@@ -1,34 +1,36 @@
 \selectlanguage *{english}
-\contentsline {part}{I\hspace {1em}Fundamentals}{3}{part.1}%
-\contentsline {chapter}{\numberline {1}Notation}{5}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Fundamentals of Probability Theory}{7}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Probability Spaces}{7}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Discrete Probability Spaces}{8}{subsection.2.1.1}%
-\contentsline {section}{\numberline {2.2}Continuous Probability Spaces}{9}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Random Variables}{10}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Independence}{11}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Important Probability Distributions}{11}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Discrete Distributions}{11}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Continuous Distributions}{11}{subsection.2.5.2}%
-\contentsline {chapter}{\numberline {3}Bayesian vs. Frequentists View}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Bayes’ Theorem}{13}{section.3.1}%
-\contentsline {chapter}{\numberline {4}MLE, MAP \& Bayesian Inference}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Bayesian Inference}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Maximum Likelihood Estimation (MLE)}{15}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Maximum A\sphinxhyphen {}posteriori Method (MAP)}{15}{section.4.3}%
-\contentsline {chapter}{\numberline {5}An illustrative example for MLE and MAP: Linear Regression}{17}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Ordinary Least Squares}{17}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Ridge Regression}{17}{section.5.2}%
-\contentsline {section}{\numberline {5.3}LASSO}{17}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Optimization Methods}{19}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Machine Learning Workflow}{21}{chapter.7}%
-\contentsline {part}{II\hspace {1em}Probabilistic Machine Learning}{23}{part.2}%
-\contentsline {chapter}{\numberline {8}Motivation of Probabilistic Models}{25}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Kernel\sphinxhyphen {}based Methods}{27}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Gaussian Processes}{27}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Additional Kernel\sphinxhyphen {}based Methods}{27}{section.9.2}%
-\contentsline {chapter}{\numberline {10}Overview of Further Probabilistic Models}{29}{chapter.10}%
-\contentsline {part}{III\hspace {1em}Applications}{31}{part.3}%
-\contentsline {chapter}{\numberline {11}Bayesian Optimization}{33}{chapter.11}%
-\contentsline {chapter}{\numberline {12}Quantification of design uncertainty}{35}{chapter.12}%
-\contentsline {chapter}{\numberline {13}Data\sphinxhyphen {}efficient Reinforcement Learning}{37}{chapter.13}%
+\contentsline {part}{I\hspace {1em}Preface}{3}{part.1}%
+\contentsline {chapter}{\numberline {1}Preface}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Notation}{7}{chapter.2}%
+\contentsline {part}{II\hspace {1em}Fundamentals}{9}{part.2}%
+\contentsline {chapter}{\numberline {3}Fundamentals of Probability Theory}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Probability Spaces}{11}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Discrete Probability Spaces}{12}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Continuous Probability Spaces}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Random Variables}{14}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Independence}{15}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Important Probability Distributions}{15}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Discrete Distributions}{15}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Continuous Distributions}{15}{subsection.3.5.2}%
+\contentsline {chapter}{\numberline {4}Bayesian vs. Frequentists View}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Bayes’ Theorem}{17}{section.4.1}%
+\contentsline {chapter}{\numberline {5}MLE, MAP \& Bayesian Inference}{19}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Bayesian Inference}{19}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Maximum Likelihood Estimation (MLE)}{19}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Maximum A\sphinxhyphen {}posteriori Method (MAP)}{19}{section.5.3}%
+\contentsline {chapter}{\numberline {6}An illustrative example for MLE and MAP: Linear Regression}{21}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Ordinary Least Squares}{21}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Ridge Regression}{21}{section.6.2}%
+\contentsline {section}{\numberline {6.3}LASSO}{21}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Optimization Methods}{23}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Machine Learning Workflow}{25}{chapter.8}%
+\contentsline {part}{III\hspace {1em}Probabilistic Machine Learning}{27}{part.3}%
+\contentsline {chapter}{\numberline {9}Motivation of Probabilistic Models}{29}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Kernel\sphinxhyphen {}based Methods}{31}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Gaussian Processes}{31}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Additional Kernel\sphinxhyphen {}based Methods}{31}{section.10.2}%
+\contentsline {chapter}{\numberline {11}Overview of Further Probabilistic Models}{33}{chapter.11}%
+\contentsline {part}{IV\hspace {1em}Applications}{35}{part.4}%
+\contentsline {chapter}{\numberline {12}Bayesian Optimization}{37}{chapter.12}%
+\contentsline {chapter}{\numberline {13}Quantification of design uncertainty}{39}{chapter.13}%
+\contentsline {chapter}{\numberline {14}Data\sphinxhyphen {}efficient Reinforcement Learning}{41}{chapter.14}%
