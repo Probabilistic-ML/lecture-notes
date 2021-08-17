@@ -1,7 +1,25 @@
 format: jb-book
-root: intro
+root: preface
 parts:
-- caption: A. Introduction
+- caption: Fundamentals
   numbered: true
   chapters:
-  - file: Introduction
+  - file: fund/notation
+  - file: fund/fundprob
+  - file: fund/stat
+  - file: fund/bayes
+  - file: fund/linregr
+  - file: fund/opt
+  - file: fund/MLworkflow
+- caption: Probabilistic Machine Learning
+  numbered: true
+  chapters:
+  - file: probML/motivation
+  - file: probML/kernelmethods
+  - file: probML/overview
+- caption: Applications
+  numbered: true
+  chapters:
+  - file: appl/BO
+  - file: appl/uncertainty
+  - file: appl/RL

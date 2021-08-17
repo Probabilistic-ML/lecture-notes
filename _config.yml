@@ -1,15 +1,19 @@
 # Book settings
 title: Advanced Machine Learning
+author: Robert Vosshall, Can Bogoclu & Nicolai Friedlich
+logo: logo.jpg
 
 latex:
   latex_documents:
-    targetname: book.tex
+    targetname: AML.tex
 
 html:
-  favicon                   : ""  # A path to a favicon image
+  favicon                   : "favicon.png"  # A path to a favicon image
   use_edit_page_button      : false  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
   use_repository_button     : false  # Whether to add a link to your repository button
-  extra_navbar              : test
+  extra_navbar              : By <a href="mailto:robert.vosshall@hs-niederrhein.de">Robert Vosshall</a>, 
+                                 <a href="mailto:can.bogoclu@hs-niederrhein.de">Can Bogoclu</a> & 
+                                 <a href="mailto:nicolai.friedlich@hs-niederrhein.de">Nicolai Friedlich</a>
   baseurl                   : ""  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
   use_repository_button     : true
 

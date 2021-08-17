@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. Fundamentals of Probability Theory &#8212; Advanced Machine Learning</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Bayesian vs. Frequentists View" href="stat.html" />
+    <link rel="prev" title="1. Notation" href="notation.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/logo.jpg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Advanced Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preface.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="notation.html">
+   1. Notation
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Fundamentals of Probability Theory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="stat.html">
+   3. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bayes.html">
+   4. MLE, MAP &amp; Bayesian Inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="linregr.html">
+   5. An illustrative example for MLE and MAP: Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="opt.html">
+   6. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="MLworkflow.html">
+   7. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probML/motivation.html">
+   8. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probML/kernelmethods.html">
+   9. Kernel-based Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../probML/overview.html">
+   10. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appl/BO.html">
+   11. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appl/uncertainty.html">
+   12. Quantification of design uncertainty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appl/RL.html">
+   13. Data-efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  By <a href="mailto:robert.vosshall@hs-niederrhein.de">Robert Vosshall</a>, <a href="mailto:can.bogoclu@hs-niederrhein.de">Can Bogoclu</a> & <a href="mailto:nicolai.friedlich@hs-niederrhein.de">Nicolai Friedlich</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/fund/fundprob.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/colab-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#probability-spaces">
+   2.1. Probability Spaces
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discrete-probability-spaces">
+     2.1.1. Discrete Probability Spaces
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#continuous-probability-spaces">
+   2.2. Continuous Probability Spaces
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-variables">
+   2.3. Random Variables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#independence">
+   2.4. Independence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#important-probability-distributions">
+   2.5. Important Probability Distributions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discrete-distributions">
+     2.5.1. Discrete Distributions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#continuous-distributions">
+     2.5.2. Continuous Distributions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="fundamentals-of-probability-theory">
+<h1><span class="section-number">2. </span>Fundamentals of Probability Theory<a class="headerlink" href="#fundamentals-of-probability-theory" title="Permalink to this headline">¶</a></h1>
+<p>In the present section, we define the basic terms of probability theory and statistics. Moreover, we state the most common examples of discrete and continuous probability distributions.</p>
+<p>The content follows the textbooks</p>
+<p><a class="reference external" href="https://www.springer.com/de/book/9783642548567">“Statistik für Ingenieure -
+Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich”</a></p>
+<p>by Aeneas Rooch and</p>
+<p><a class="reference external" href="https://www.springer.com/de/book/9783662541616">“Grundlagen der
+Wahrscheinlichkeitsrechnung
+und Statistik - Eine Einführung für Studierende
+der Informatik, der Ingenieur- und
+Wirtschaftswissenschaften”</a></p>
+<p>by Erhard Cramer and Udo Kamps.</p>
+<p>The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke.</p>
+<p>All three books are available free of charge via <a class="reference external" href="https://hs-niederrhein.digibib.net/">DigiBib</a>.</p>
+<div class="section" id="probability-spaces">
+<h2><span class="section-number">2.1. </span>Probability Spaces<a class="headerlink" href="#probability-spaces" title="Permalink to this headline">¶</a></h2>
+<p><strong>Definition</strong>: In order to model the outcome of a random experiment, we denote by <span class="math notranslate nohighlight">\(\Omega\)</span> the <strong>sample space</strong> of all possible outcomes, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\Omega = \{ \omega ~|~ \omega \text{ is a possible outcome of the random experiment}\}.\]</div>
+<p>Accordingly, each element <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span> is called an <strong>outcome</strong>. A subset <span class="math notranslate nohighlight">\(A\)</span> of <span class="math notranslate nohighlight">\(\Omega\)</span> of possible outcomes is called an <strong>event</strong>. If <span class="math notranslate nohighlight">\(A\)</span> contains only a single outcome <span class="math notranslate nohighlight">\(\omega\)</span>, i.e., <span class="math notranslate nohighlight">\(A=\{\omega\}\)</span> for some <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span>, <span class="math notranslate nohighlight">\(A\)</span> is also called an elementary event.</p>
+<p><strong>Example</strong>: If we model the rolling of an ordinary cubic dice, the sample space</p>
+<div class="math notranslate nohighlight">
+\[\Omega= \{1, 2, 3, 4, 5, 6\}\]</div>
+<p>is given by the 6 possible outcomes. The event <span class="math notranslate nohighlight">\(A\)</span> of rolling an even number is given by <span class="math notranslate nohighlight">\(A = \{2, 4, 6\} \subset \Omega\)</span> and the elementary event of rolling a six is given by <span class="math notranslate nohighlight">\(A=\{6\}\)</span>.</p>
+<div class="section" id="discrete-probability-spaces">
+<h3><span class="section-number">2.1.1. </span>Discrete Probability Spaces<a class="headerlink" href="#discrete-probability-spaces" title="Permalink to this headline">¶</a></h3>
+<p><strong>Definition</strong>: Let <span class="math notranslate nohighlight">\(\Omega\)</span> be a <em>finite or countable</em> sample space and denote by <span class="math notranslate nohighlight">\(\mathcal{P}(\Omega) = \{A~|~A \subset \Omega\}\)</span> the set of all subsets of <span class="math notranslate nohighlight">\(\Omega\)</span> (the so-called power set). Moreover, let <span class="math notranslate nohighlight">\(p: \Omega \rightarrow [0, 1]\)</span> be a map such that <span class="math notranslate nohighlight">\(\sum_{\omega \in \Omega} p(\omega) = 1\)</span>. Then, the map <span class="math notranslate nohighlight">\(P: \mathcal{P}(\Omega) \rightarrow [0,1]\)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[ P(A) := \sum_{\omega \in A} p(\omega) \quad \text{for } A \in \mathcal{P}(\Omega)\]</div>
+<p>is called a <strong>discrete probability measure</strong> or a <strong>discrete probability distribution</strong>. The triple <span class="math notranslate nohighlight">\((\Omega, \mathcal{P}(\Omega), P)\)</span> or briefly <span class="math notranslate nohighlight">\((\Omega, P)\)</span> is called a <strong>discrete probability space</strong>.</p>
+<p><strong>Remark</strong>:</p>
+<ul class="simple">
+<li><p>A probability measure <span class="math notranslate nohighlight">\(P\)</span> assigns to each possible event a probability between 0 (“impossible”) to 1 (“sure”).</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\)</span> is completely characterized by the elementary probabilities (i.e., the probabilities of elementary events specified by <span class="math notranslate nohighlight">\(p\)</span>) in the case of discrete probability distributions (by definition).</p></li>
+<li><p>The condition <span class="math notranslate nohighlight">\(\sum_{\omega \in \Omega} p(\omega) = 1\)</span> guarantees that <span class="math notranslate nohighlight">\(P(\Omega) = 1\)</span>. In other words, it has to be sure that the outcome of a random experiment is indeed in <span class="math notranslate nohighlight">\(\Omega\)</span> and moreover, <span class="math notranslate nohighlight">\(P(\Omega) &gt; 1\)</span> would make no sense in terms of probabilities.</p></li>
+</ul>
+<p><strong>Example</strong>: Assumed that we are dealing with a fair dice in Example 1.2, it is reasonable to define <span class="math notranslate nohighlight">\(p(\omega):=\frac{1}{6}\)</span> for each <span class="math notranslate nohighlight">\(\omega=1, \dots,6\)</span>. Hence, each outcome of a dice roll is each likely. Consequently, the probability of rolling an even number is</p>
+<div class="math notranslate nohighlight">
+\[P(\{2, 4, 6\}) = \sum_{\omega \in \{2, 4, 6\}} p(\omega) = 3 \cdot \frac{1}{6} = 0.5\]</div>
+<p>as expected.</p>
+<p><strong>Corollary</strong>: As a direct consequence of Definition 1.3, a discrete probability measure has the following properties:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0 \le P(A) \le 1\)</span> for each event <span class="math notranslate nohighlight">\(A \in \mathcal{P}(\Omega)\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(\Omega) = 1\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\)</span> is <span class="math notranslate nohighlight">\(\sigma\)</span>-additive, i.e., for pairwise disjoint events <span class="math notranslate nohighlight">\(A_i\)</span>, <span class="math notranslate nohighlight">\(i \in \mathbb{N}\)</span>, it holds</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[P(\cup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i).\]</div>
+<p><strong>Remark</strong>:</p>
+<ul class="simple">
+<li><p>The statements in Corollary 1.6 are also called <strong>Kolmogorov axioms</strong>.</p></li>
+<li><p>The term “pairwise disjoint” means that two arbitrary events do not have any common elements. For example, the events <span class="math notranslate nohighlight">\(\{2, 4, 6\}\)</span> and <span class="math notranslate nohighlight">\(\{1, 3\}\)</span> are disjoint, but the events <span class="math notranslate nohighlight">\(\{2, 4, 6\}\)</span> and <span class="math notranslate nohighlight">\(\{2, 3\}\)</span> are not, since the share the outcome <span class="math notranslate nohighlight">\(2\)</span>.</p></li>
+<li><p>The last statement of Corollary 1.6 also holds true for a <em>finite number</em> of sets <span class="math notranslate nohighlight">\(A_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, by simply choosingchoosing <span class="math notranslate nohighlight">\(A_i = \emptyset\)</span> (empty set) for <span class="math notranslate nohighlight">\(i &gt; n\)</span>. If we consider only two disjoint sets <span class="math notranslate nohighlight">\(A_1\)</span> and <span class="math notranslate nohighlight">\(A_2\)</span>, it follows that <span class="math notranslate nohighlight">\(P(A_1 \cup A_2) = P(A_1) + P(A_2)\)</span>. This means that the probability that the event <span class="math notranslate nohighlight">\(A_1\)</span> or the event <span class="math notranslate nohighlight">\(A_2\)</span> occurs equals the sum of the probabilities, which is intuitive.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="continuous-probability-spaces">
+<h2><span class="section-number">2.2. </span>Continuous Probability Spaces<a class="headerlink" href="#continuous-probability-spaces" title="Permalink to this headline">¶</a></h2>
+<p>It turns out that the definition of probability spaces requires a different approach in the case of sample spaces that contain <em>uncountably</em> many outcomes. For example, the sample space could be given by the real numbers (<span class="math notranslate nohighlight">\(\Omega = \mathbb{R}\)</span>) or a higher dimensional space (e.g. <span class="math notranslate nohighlight">\(\Omega = \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d &gt;= 2\)</span>). Indeed, the definition of (probability) measures on arbitrary sample spaces turns out to be a complex mathematical problem which is the foundation of <strong>measure theory</strong>. This theory introduces so-called <span class="math notranslate nohighlight">\(\sigma\)</span>-algebras which specify the measurable events, i.e., the events for which it is possible to assign a probability without generating any inconsistencies. An introduction can be found in the first chapter of <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke. Measure theory is the foundation of very powerful results, since it enables mathematicians to define probability measures even on infinite dimensional sample spaces such as spaces of functions which lead to so-called stochastic processes. A special case are <strong>Gaussian processes</strong> which turn out to be very useful in the context of machine learning and are an essential part of this lecture.</p>
+<p>Luckily, we do not necessarily need to consider measure theory in detail for our purposes. For the mentioned cases (<span class="math notranslate nohighlight">\(\mathbb{\Omega} = [0, 1]\)</span> or <span class="math notranslate nohighlight">\(\Omega = \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d &gt;= 1\)</span>), we can use ordinary integrals in order to define probabilities at least on “nice” events.</p>
+<p><strong>Remark</strong>:</p>
+<ul class="simple">
+<li><p>Set <span class="math notranslate nohighlight">\(C := \big\{ [a_1, b_1] \times [a_2, b_2] \times \cdots \times [a_d, b_d]~\big|~-\infty \le a_i \le b_i \le \infty, ~i = 1, \dots, d\big\}\)</span>. An event <span class="math notranslate nohighlight">\(A \in C\)</span> is simply a box. For d=1 we obtain an interval <span class="math notranslate nohighlight">\(A = [a_1, b_1]\)</span> and for d=2 we get a rectangle <span class="math notranslate nohighlight">\(A = [a_1, b_1] \times [a_2, b_2] \subset \mathbb{R}^2\)</span>.</p></li>
+<li><p>In measury theory, <span class="math notranslate nohighlight">\(C\)</span> is a so-called generating system of the <strong>Borel</strong> <span class="math notranslate nohighlight">\(\sigma\)</span>-<strong>algebra</strong> <span class="math notranslate nohighlight">\(\mathcal{B}(\mathbb{R}^d)\)</span>. The Borel <span class="math notranslate nohighlight">\(\sigma\)</span>-algebra is the smallest collection of events with sufficiently nice properties which contains alle these boxes.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{B}(\mathbb{R}^d)\)</span> is fairly abstract. Just rembember that</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{B}(\mathbb{R}^d)\)</span> contains all events we would like / are able to assign a probability to,</p></li>
+<li><p>there are subsets of <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> which are not in <span class="math notranslate nohighlight">\(\mathcal{B}(\mathbb{R}^d)\)</span>, but we do not care, since they are not important.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Definition</strong>: Let <span class="math notranslate nohighlight">\(\Omega = \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d \ge 1\)</span>, be the sample space and <span class="math notranslate nohighlight">\(f: \mathbb{R}^d \rightarrow \mathbb{R}\)</span> be an integrable non-negative function such that</p>
+<div class="math notranslate nohighlight">
+\[ \int_{\mathbb{R}^d} f(x)~dx = 1. \]</div>
+<p>Then, the map <span class="math notranslate nohighlight">\(P: C \rightarrow [0, 1]\)</span> defined by</p>
+<div class="math notranslate nohighlight">
+\[ P(A) := \int_{a_d}^{b_d} \cdots \int_{a_1}^{b_1} f(x) ~ dx \quad \text{for } A = [a_1, b_1] \times [a_2, b_2] \times \cdots \times [a_d, b_d] \in C\]</div>
+<p>extends uniquely to <span class="math notranslate nohighlight">\(\mathcal{B}(\Omega)\)</span> (not part of the lecture) and this extension is called a <strong>continuous probability measure</strong> or a <strong>continuous probability distribution</strong>. <span class="math notranslate nohighlight">\(f\)</span> is called the <strong>probability density function</strong> (PDF) of <span class="math notranslate nohighlight">\(P\)</span> or briefly probabilty density or simply density. The triple <span class="math notranslate nohighlight">\((\Omega, \mathcal{B}(\Omega), P)\)</span> or briefly <span class="math notranslate nohighlight">\((\Omega, P)\)</span> is called a <strong>continuous probability space</strong>. Furthermore, the function <span class="math notranslate nohighlight">\(F_X: \mathbb{R}^d \rightarrow [0, 1]\)</span> defined by</p>
+<div class="math notranslate nohighlight">
+\[ F(x) := P((-\infty, x_1] \times \cdots \times (-\infty, x_d]) \quad \text{for } x=(x_1, \dots, x_d) \in \mathbb{R}^d\]</div>
+<p>is called the <strong>cumulative distribution function</strong> (CDF) of <span class="math notranslate nohighlight">\(P\)</span>.</p>
+<p><strong>Example</strong> (Standard Normal Distribution): It holds</p>
+<div class="math notranslate nohighlight">
+\[ \int_{\mathbb{R}} \exp\big(-\frac{1}{2} x^2\big)~dx = \sqrt{2 \pi}.\]</div>
+<p>Therefore, <span class="math notranslate nohighlight">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span> defined by <span class="math notranslate nohighlight">\(f(x):= \frac{1}{\sqrt{2 \pi}}~\exp\big(-\frac{1}{2} x^2\big)\)</span> for <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> defines a continuous probability distribution with density <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<p><strong>Remark</strong>:</p>
+<ul class="simple">
+<li><p>As in the case of discrete probability spaces, a probability measure as defined in Definition 1.9 fulfills the <strong>Kolmogorov axioms</strong> stated in Corollary 1.6.</p></li>
+<li><p>In order to unify the notation of discrete and continuous probability spaces, we denote a general probability space by <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> denotes a <span class="math notranslate nohighlight">\(\sigma\)</span>-algebra (in our case either <span class="math notranslate nohighlight">\(\mathcal{P}(\Omega)\)</span> or <span class="math notranslate nohighlight">\(\mathcal{B}(\Omega)\)</span>).</p></li>
+<li><p>Keep in mind that <span class="math notranslate nohighlight">\(f\)</span> is simply a non-negative function whose volume under the graph is exactly one and the probability of some event <span class="math notranslate nohighlight">\(A\)</span> is the volume under the graph of <span class="math notranslate nohighlight">\(f\)</span> restricted to <span class="math notranslate nohighlight">\(A\)</span>. In the plot below, <span class="math notranslate nohighlight">\(P([-2, 0]) \approx 0.48\)</span> is illustrated for a standard normal distribution. In other words, the probability to observe an outcome between -2 and 0 in a standard normally distributed experiment is approximately 48%.</p></li>
+</ul>
+<p><img alt="" src="../_images/gaussian_pdf.png" /></p>
+</div>
+<div class="section" id="random-variables">
+<h2><span class="section-number">2.3. </span>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this headline">¶</a></h2>
+<p>Imagine that we perform multiple independent random experiments by rolling repeatedly (<span class="math notranslate nohighlight">\(n\)</span>-times) a fair dice as in Example 1.5. The corresponding sample space is given by</p>
+<div class="math notranslate nohighlight">
+\[\Omega = \{ \omega = (\omega_1, \omega_2, \dots, \omega_n)~|~\omega_i \in \{1, 2, 3, 4, 5, 6\} \ \text{for } i=1, \dots,n \}.\]</div>
+<p>Since the experiments are independent and we consider a fair dice, it is reasonable to define</p>
+<div class="math notranslate nohighlight">
+\[ p(\omega) = \frac{1}{6^n} \quad \text{for each } \omega \in \Omega\]</div>
+<p>which results in a discrete probability space <span class="math notranslate nohighlight">\((\Omega, \mathcal{P}(\Omega), P)\)</span>. Eventually, we are not interested in events with respect to <span class="math notranslate nohighlight">\(\Omega\)</span>, but for example in the average outcome of the experiments or the number of times of rolling a six. Instead of modelling these experiments directly by redefining <span class="math notranslate nohighlight">\(\Omega\)</span> and <span class="math notranslate nohighlight">\(p\)</span>, it is very useful to apply the concept of random variables:</p>
+<p><strong>Definition</strong>: Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probabiliy space. A map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d \ge 1\)</span>, is called a real-valued <strong>random variable</strong>, if</p>
+<div class="math notranslate nohighlight">
+\[ X^{-1}(A) := \{ \omega \in \Omega~|~X(\omega) \in A \} \in \mathcal{F}\]</div>
+<p>for each <span class="math notranslate nohighlight">\(A \in \mathcal{B}(\mathbb{R}^d)\)</span> and the probability measure <span class="math notranslate nohighlight">\(P_X: \mathcal{B}(\Omega) \rightarrow [0, 1]\)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[P_X(A) := P(X^{-1}(A)) \quad \text{for } A \in \mathcal{B}(\Omega)\]</div>
+<p>is called the <strong>distribution of</strong> <span class="math notranslate nohighlight">\(X\)</span> <strong>under</strong> <span class="math notranslate nohighlight">\(P\)</span>. If <span class="math notranslate nohighlight">\(P_X\)</span> admits a probability density as defined in Definition 1.9, then we denote the density by <span class="math notranslate nohighlight">\(f_X\)</span>. Furthermore, the cumulative distribution function of <span class="math notranslate nohighlight">\(P_X\)</span> is denoted by <span class="math notranslate nohighlight">\(F_X\)</span>.</p>
+<p><strong>Remark</strong>:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> is a discrete probability space as defined in Definition 1.3, <strong>each</strong> map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is a random variable, since <span class="math notranslate nohighlight">\(\mathcal{F} = \mathcal{P}(\Omega)\)</span> contains all subsets of <span class="math notranslate nohighlight">\(\Omega\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> is a continuous probability space as defined in Definition 1.9, it can be shown that at least each <strong>continuous</strong> map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is a random variable.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(d &gt; 1\)</span>, <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is a random variable if and only if each component <span class="math notranslate nohighlight">\(X_i: \Omega \rightarrow \mathbb{R}\)</span> is a random variable.</p></li>
+</ul>
+</div>
+<div class="section" id="independence">
+<h2><span class="section-number">2.4. </span>Independence<a class="headerlink" href="#independence" title="Permalink to this headline">¶</a></h2>
+<p><strong>Definition</strong>: Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probability space. Then two events <span class="math notranslate nohighlight">\(A, B \in \mathcal{F}\)</span> are called <strong>independent</strong>, if</p>
+<div class="math notranslate nohighlight">
+\[ P(A \cap B) = P(A) P(B).\]</div>
+<p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(Y: \Omega \rightarrow \mathbb{R}\)</span> be two random variables. Then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>independent random variables</strong>, if the events <span class="math notranslate nohighlight">\(X^{-1}(A)\)</span> and <span class="math notranslate nohighlight">\(Y^{-1}(B)\)</span> are independent for all <span class="math notranslate nohighlight">\(A, B \in \mathcal{B}(\mathbb{R})\)</span>. This is equivalent to the property</p>
+<div class="math notranslate nohighlight">
+\[F_{(X, Y)}(x, y) = F_X(x) F_Y(y) \quad \text{for all } x,y \in \mathbb{R}\]</div>
+<p>and if the corresponding densities exist to</p>
+<div class="math notranslate nohighlight">
+\[f_{(X, Y)}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R}.\]</div>
+<p><strong>Remark</strong>:</p>
+<ul class="simple">
+<li><p>Independence basically means that the occurrence of event A has no impact on the occurrence of event B or in terms of random variables, the random variables should not impact each other.</p></li>
+<li><p>The definition of independent random variables generalizes easily to <span class="math notranslate nohighlight">\(d &gt; 1\)</span>.</p></li>
+</ul>
+</div>
+<div class="section" id="important-probability-distributions">
+<h2><span class="section-number">2.5. </span>Important Probability Distributions<a class="headerlink" href="#important-probability-distributions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="discrete-distributions">
+<h3><span class="section-number">2.5.1. </span>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="continuous-distributions">
+<h3><span class="section-number">2.5.2. </span>Continuous Distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fund"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="notation.html" title="previous page"><span class="section-number">1. </span>Notation</a>
+    <a class='right-next' id="next-link" href="stat.html" title="next page"><span class="section-number">3. </span>Bayesian vs. Frequentists View</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Robert Vosshall, Can Bogoclu & Nicolai Friedlich<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
