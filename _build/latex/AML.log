@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2021.8.17)  17 AUG 2021 10:57
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2021.8.17)  17 AUG 2021 12:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1546,6 +1546,30 @@ LaTeX Info: Redefining \rmfamily on input line 88.
 LaTeX Info: Redefining \sffamily on input line 88.
 LaTeX Info: Redefining \ttfamily on input line 88.
 Package hyperref Info: Option `pageanchor' set `false' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\spacefactor' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@m' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\spacefactor' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@m' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\spacefactor' on input line 91.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@m' on input line 91.
 
 (/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-ascii-print.def
 File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
