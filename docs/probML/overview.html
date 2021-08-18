@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>10. Overview of Further Probabilistic Models &#8212; Advanced Machine Learning</title>
+    <title>9. Overview of Further Probabilistic Models &#8212; Advanced Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -53,8 +53,8 @@
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11. Bayesian Optimization" href="../appl/BO.html" />
-    <link rel="prev" title="9. Kernel-based Methods" href="kernelmethods.html" />
+    <link rel="next" title="10. Bayesian Optimization" href="../appl/BO.html" />
+    <link rel="prev" title="8. Kernel-based Methods" href="kernelmethods.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -86,8 +86,25 @@
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../preface.html">
+  <a class="reference internal" href="../welcome.html">
+   Welcome to the AML lecture 2021/22
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preface/preface.html">
    Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preface/notation.html">
+   Notation
   </a>
  </li>
 </ul>
@@ -98,38 +115,33 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../fund/notation.html">
-   1. Notation
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="../fund/fundprob.html">
-   2. Fundamentals of Probability Theory
+   1. Fundamentals of Probability Theory
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../fund/stat.html">
-   3. Bayesian vs. Frequentists View
+   2. Bayesian vs. Frequentists View
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../fund/bayes.html">
-   4. MLE, MAP &amp; Bayesian Inference
+   3. MLE, MAP &amp; Bayesian Inference
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../fund/linregr.html">
-   5. An illustrative example for MLE and MAP: Linear Regression
+   4. An illustrative example for MLE and MAP: Linear Regression
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../fund/opt.html">
-   6. Optimization Methods
+   5. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../fund/MLworkflow.html">
-   7. Machine Learning Workflow
+   6. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -141,17 +153,17 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="motivation.html">
-   8. Motivation of Probabilistic Models
+   7. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="kernelmethods.html">
-   9. Kernel-based Methods
+   8. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   10. Overview of Further Probabilistic Models
+   9. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -163,17 +175,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../appl/BO.html">
-   11. Bayesian Optimization
+   10. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../appl/uncertainty.html">
-   12. Quantification of design uncertainty
+   11. Quantification of design uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../appl/RL.html">
-   13. Data-efficient Reinforcement Learning
+   12. Data-efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -233,7 +245,7 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/Probabilistic-ML/colab-notes"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         
@@ -255,7 +267,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Probabilistic-ML/colab-notes/master?urlpath=tree/probML/overview.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/Probabilistic-ML/lecture-notes/master?urlpath=tree/probML/overview.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -263,7 +275,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/colab-notes/blob/master/probML/overview.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/probML/overview.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -286,7 +298,7 @@
               <div>
                 
   <div class="section" id="overview-of-further-probabilistic-models">
-<h1><span class="section-number">10. </span>Overview of Further Probabilistic Models<a class="headerlink" href="#overview-of-further-probabilistic-models" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9. </span>Overview of Further Probabilistic Models<a class="headerlink" href="#overview-of-further-probabilistic-models" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -314,8 +326,8 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="kernelmethods.html" title="previous page"><span class="section-number">9. </span>Kernel-based Methods</a>
-    <a class='right-next' id="next-link" href="../appl/BO.html" title="next page"><span class="section-number">11. </span>Bayesian Optimization</a>
+    <a class='left-prev' id="prev-link" href="kernelmethods.html" title="previous page"><span class="section-number">8. </span>Kernel-based Methods</a>
+    <a class='right-next' id="next-link" href="../appl/BO.html" title="next page"><span class="section-number">10. </span>Bayesian Optimization</a>
 
         </div>
         
