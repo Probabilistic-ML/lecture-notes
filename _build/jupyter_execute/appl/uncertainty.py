@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Quantification of design uncertainty
+# # Quantification of Design Uncertainty
 
 # In[ ]:
 

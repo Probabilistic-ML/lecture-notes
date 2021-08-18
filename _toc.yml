@@ -5,6 +5,7 @@ parts:
   numbered: false
   chapters:
   - file: preface/preface
+  - file: preface/about
   - file: preface/notation
 - caption: Fundamentals
   numbered: true
@@ -27,7 +28,7 @@ parts:
   - file: appl/BO
   - file: appl/uncertainty
   - file: appl/RL
-#- caption: Appendix
-#  numbered: false
-#  chapters:
-#  - file:
+- caption: Appendix
+  numbered: false
+  chapters:
+  - file: appendix/placeholder.md

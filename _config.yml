@@ -8,13 +8,14 @@ latex:
   latex_documents:
     targetname: AML.tex
 
+bibtex_bibfiles:
+  - references.bib
+
 html:
   favicon                   : "favicon.png"  # A path to a favicon image
   use_edit_page_button      : false  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
   use_repository_button     : false  # Whether to add a link to your repository button
-  extra_navbar              : By <a href="mailto:robert.vosshall@hs-niederrhein.de">R. Vosshall</a>, 
-                                 <a href="mailto:can.bogoclu@hs-niederrhein.de">C. Bogoclu</a> & 
-                                 <a href="mailto:nicolai.friedlich@hs-niederrhein.de">N. Friedlich</a>
+  extra_navbar              : Powered by <a href="https://jupyterbook.org/"> <img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"> </a>
   baseurl                   : "https://probabilistic-ml.github.io/lecture-notes/preface.html"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
   use_repository_button     : true
 
@@ -29,6 +30,8 @@ sphinx:
   extra_extensions:
    - sphinx.ext.intersphinx
   config:
+    bibtex_reference_style: author_year
+    latex_toplevel_sectioning: 'part'
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     intersphinx_mapping:
       Python 3: ['https://docs.python.org/3/', null]
