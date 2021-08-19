@@ -3,7 +3,7 @@
 
 # # Data-efficient Reinforcement Learning
 
-# {cite}`DeisenrothRT2011`
+# {cite}`DR11`
 # 
 # 
 # ```{bibliography}

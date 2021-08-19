@@ -30,7 +30,7 @@ sphinx:
   extra_extensions:
    - sphinx.ext.intersphinx
   config:
-    bibtex_reference_style: author_year
+    bibtex_reference_style: label # author_year
     latex_toplevel_sectioning: 'part'
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     intersphinx_mapping:

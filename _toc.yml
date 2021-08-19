@@ -6,6 +6,7 @@ parts:
   chapters:
   - file: preface/preface
   - file: preface/about
+  - file: preface/python
   - file: preface/notation
 - caption: Fundamentals
   numbered: true
