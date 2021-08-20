@@ -1,0 +1,9 @@
+jupyter-book
+ghp-import
+tensorflow>=2.4
+numpy
+scipy
+matplotlib
+scikit-learn
+seaborn
+

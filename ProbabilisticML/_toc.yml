@@ -1,0 +1,35 @@
+format: jb-book
+root: welcome
+parts:
+- caption: Preface
+  numbered: false
+  chapters:
+  - file: 00_preface/preface
+  - file: 00_preface/about
+  - file: 00_preface/python
+  - file: 00_preface/notation
+- caption: Fundamentals
+  numbered: true
+  chapters:
+  - file: 01_fund/fundprob
+  - file: 01_fund/stat
+  - file: 01_fund/bayes
+  - file: 01_fund/linregr
+  - file: 01_fund/opt
+  - file: 01_fund/MLworkflow
+- caption: Probabilistic Machine Learning
+  numbered: true
+  chapters:
+  - file: 02_probML/motivation
+  - file: 02_probML/kernelmethods
+  - file: 02_probML/overview
+- caption: Applications
+  numbered: true
+  chapters:
+  - file: 03_appl/BO
+  - file: 03_appl/uncertainty
+  - file: 03_appl/RL
+- caption: Appendix
+  numbered: false
+  chapters:
+  - file: 04_appendix/placeholder.md
