@@ -1,11 +1,11 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8. Kernel-based Methods &#8212; Advanced Machine Learning</title>
+    <title>8. Kernel-based Methods &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/preface.html/02_probML/kernelmethods.html" />
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/kernelmethods.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="14. Overview of Further Probabilistic Models" href="overview.html" />
@@ -78,7 +78,7 @@
       <img src="../_static/logo.jpg" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Advanced Machine Learning</h1>
+      <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -89,7 +89,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../welcome.html">
-   Welcome to the AML lecture 2021/22
+   Welcome
   </a>
  </li>
 </ul>
@@ -218,7 +218,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org/"> <img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"> </a>
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
 </div>
 
 </div>
@@ -491,13 +491,13 @@ We will show 2 realization of a multivariate normal distribution to show the res
 $
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f6167085-09f3-4823-86f3-858d79a4ba21">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-f6167085-09f3-4823-86f3-858d79a4ba21" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-9396f59e-bfc1-427a-89b2-e824e1d50424">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-9396f59e-bfc1-427a-89b2-e824e1d50424" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 0
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-924f5b20-41fe-4637-b2df-b29e016e3660">
-<span class="eqno">(11.2)<a class="headerlink" href="#equation-924f5b20-41fe-4637-b2df-b29e016e3660" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-adeb424b-c32c-464e-b114-74cdb49a7699">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-adeb424b-c32c-464e-b114-74cdb49a7699" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0 \\
 0 &amp; 1 
 \end{bmatrix}\]</div>
@@ -506,13 +506,13 @@ $
 <p>$
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-21f3746f-0cc0-4cde-ac8f-1423f5351de6">
-<span class="eqno">(11.3)<a class="headerlink" href="#equation-21f3746f-0cc0-4cde-ac8f-1423f5351de6" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-f437c14f-f34f-4a8d-9f45-b238d5501361">
+<span class="eqno">(11.3)<a class="headerlink" href="#equation-f437c14f-f34f-4a8d-9f45-b238d5501361" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 1
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-ff9516d6-e184-47ff-b05c-edafb2d56e16">
-<span class="eqno">(11.4)<a class="headerlink" href="#equation-ff9516d6-e184-47ff-b05c-edafb2d56e16" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-32e1f743-410d-463a-affd-815c905544cd">
+<span class="eqno">(11.4)<a class="headerlink" href="#equation-32e1f743-410d-463a-affd-815c905544cd" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0.8 \\
 0.8 &amp; 1
 \end{bmatrix}\]</div>
@@ -598,20 +598,20 @@ $
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6d6b19c4-4b73-43f5-8c84-7fc3d2b88c67">
-<span class="eqno">(11.5)<a class="headerlink" href="#equation-6d6b19c4-4b73-43f5-8c84-7fc3d2b88c67" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-ff2967cf-b693-4ec6-b5b6-4422133160a5">
+<span class="eqno">(11.5)<a class="headerlink" href="#equation-ff2967cf-b693-4ec6-b5b6-4422133160a5" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
 \end{bmatrix}\]</div>
 <p>\sim
 \mathcal{N}\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a2a135b4-cb34-4ac9-969c-7786e94a288d">
-<span class="eqno">(11.6)<a class="headerlink" href="#equation-a2a135b4-cb34-4ac9-969c-7786e94a288d" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-09dc6287-8d12-47de-bee3-35fdfa4db307">
+<span class="eqno">(11.6)<a class="headerlink" href="#equation-09dc6287-8d12-47de-bee3-35fdfa4db307" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mu_{\mathbf{x}} \\
 \mu_{\mathbf{y}}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-cab2f801-9350-4e81-9a31-1430476f19df">
-<span class="eqno">(11.7)<a class="headerlink" href="#equation-cab2f801-9350-4e81-9a31-1430476f19df" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-38ad72fd-e92b-4b2e-9013-76861b9ebcbf">
+<span class="eqno">(11.7)<a class="headerlink" href="#equation-38ad72fd-e92b-4b2e-9013-76861b9ebcbf" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 A  C \\
 C^T  B
 \end{bmatrix}\]</div>
@@ -619,8 +619,8 @@ C^T  B
 = \mathcal{N}(\mu, \Sigma)
 , \qquad
 \Sigma^{-1} = \Lambda =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-94390a73-d904-4a74-9e27-2ef15af2a91b">
-<span class="eqno">(11.8)<a class="headerlink" href="#equation-94390a73-d904-4a74-9e27-2ef15af2a91b" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-2b4fc31b-8e24-4cb4-8f1f-65d0646bf800">
+<span class="eqno">(11.8)<a class="headerlink" href="#equation-2b4fc31b-8e24-4cb4-8f1f-65d0646bf800" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \tilde{A}  \tilde{C} \\
 \tilde{C}^T \tilde{B}
 \end{bmatrix}\]</div>
@@ -975,9 +975,11 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
     <div class="container">
       <p>
         
-          By R. Vosshall, C. Bogoclu & N. Friedlich<br/>
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
         
-            &copy; Copyright 2021.<br/>
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>
+          </div>
       </p>
     </div>
   </footer>

@@ -1,6 +1,6 @@
 # Book settings
-title: Advanced Machine Learning
-author: R. Vosshall, C. Bogoclu & N. Friedlich
+title: Probabilistic Machine Learning
+author: C. Bogoclu, N. Friedlich & R. Vosshall
 logo: logo.jpg
 exclude_patterns: ["README.md", "probML/BayesianNN.md"]
 
@@ -12,11 +12,12 @@ bibtex_bibfiles:
   - references.bib
 
 html:
-  favicon                   : "favicon.png"  # A path to a favicon image
+  favicon                   : "favicon.ico"  # A path to a favicon image
   use_edit_page_button      : false  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
   use_repository_button     : false  # Whether to add a link to your repository button
-  extra_navbar              : Powered by <a href="https://jupyterbook.org/"> <img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"> </a>
-  baseurl                   : "https://probabilistic-ml.github.io/lecture-notes/preface.html"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
+  extra_navbar              : Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+  extra_footer              : Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>
+  baseurl                   : "https://probabilistic-ml.github.io/lecture-notes/welcome.html"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
   use_repository_button     : true
 
 # Information about where the book exists on the web
@@ -30,7 +31,9 @@ sphinx:
   extra_extensions:
    - sphinx.ext.intersphinx
   config:
-    bibtex_reference_style: label # author_year
+    html_show_copyright: false
+    language: en
+    bibtex_reference_style: author_year # label
     latex_toplevel_sectioning: 'part'
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     intersphinx_mapping:

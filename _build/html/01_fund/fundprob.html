@@ -1,11 +1,11 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1. Fundamentals of Probability Theory &#8212; Advanced Machine Learning</title>
+    <title>1. Fundamentals of Probability Theory &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/preface.html/01_fund/fundprob.html" />
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/fundprob.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2. Bayesian vs. Frequentists View" href="stat.html" />
@@ -78,7 +78,7 @@
       <img src="../_static/logo.jpg" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Advanced Machine Learning</h1>
+      <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -89,7 +89,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../welcome.html">
-   Welcome to the AML lecture 2021/22
+   Welcome
   </a>
  </li>
 </ul>
@@ -218,7 +218,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org/"> <img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"> </a>
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
 </div>
 
 </div>
@@ -427,14 +427,14 @@
 <p>The content follows the textbooks</p>
 <p><a class="reference external" href="https://www.springer.com/de/book/9783642548567">“Statistik für Ingenieure -
 Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich”</a></p>
-<p>by Aeneas Rooch <span id="id1">[<a class="reference internal" href="#id8">Roo14</a>]</span> and</p>
+<p>by Aeneas Rooch <span id="id1">[<a class="reference internal" href="#id8">Rooch, 2014</a>]</span> and</p>
 <p><a class="reference external" href="https://www.springer.com/de/book/9783662541616">“Grundlagen der
 Wahrscheinlichkeitsrechnung
 und Statistik - Eine Einführung für Studierende
 der Informatik, der Ingenieur- und
 Wirtschaftswissenschaften”</a></p>
-<p>by Erhard Cramer and Udo Kamps <span id="id2">[<a class="reference internal" href="#id9">CK17</a>]</span>.</p>
-<p>The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke <span id="id3">[<a class="reference internal" href="#id6">Kle13</a>]</span>.</p>
+<p>by Erhard Cramer and Udo Kamps <span id="id2">[<a class="reference internal" href="#id9">Cramer and Kamps, 2017</a>]</span>.</p>
+<p>The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke <span id="id3">[<a class="reference internal" href="#id6">Klenke, 2013</a>]</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All three books are available free of charge via <a class="reference external" href="https://hs-niederrhein.digibib.net/">DigiBib</a>.</p>
@@ -665,7 +665,7 @@ Wirtschaftswissenschaften”</a></p>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span></p></li>
 </ol>
 </div>
-<p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[<a class="reference internal" href="#id9">CK17</a>]</span>).</p>
+<p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[<a class="reference internal" href="#id9">Cramer and Kamps, 2017</a>]</span>).</p>
 <p>In many cases, we are able to observe outcomes of independent random variables with the same distribution (so-called <strong>independent identical distributed</strong> (i.i.d.) random variables), but do not know the underlying distribution exactly. Thus, we would like to make conclusions about the distribution based on our observations. In this way, our probabilistic definitions are linked to statistics and estimators. For example, think of rolling a dice multiple times and initially we do not know if the dice is fair or not. We have shown that a fair dice has an expectation of <span class="math notranslate nohighlight">\(3.5\)</span>. Thus, it is reasonable to verify this expectation in use of the given observations. If the sample mean (see below) of many independent experiments is not sufficiently close to <span class="math notranslate nohighlight">\(3.5\)</span>, we may reject the hypothesis that the dice is fair. This procedure is called <strong>hypothesis testing</strong> in statistics.</p>
 <p>Assume that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables and that <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> and <span class="math notranslate nohighlight">\(y_1, \dots, y_m\)</span> are samples of i.i.d. experiments with respect to <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span>, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts:</p>
 <ul class="simple">
@@ -797,9 +797,11 @@ Wirtschaftswissenschaften”</a></p>
     <div class="container">
       <p>
         
-          By R. Vosshall, C. Bogoclu & N. Friedlich<br/>
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
         
-            &copy; Copyright 2021.<br/>
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>
+          </div>
       </p>
     </div>
   </footer>
