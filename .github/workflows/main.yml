@@ -23,8 +23,8 @@ jobs:
 
     - name: Create book template and build page HTML 
       run: |
-        jupyter-book create mybook --content-folder content/
-        jupyter-book build ./mybook
+        jupyter-book create ProbML --content-folder content/
+        jupyter-book build ./ProbML
 
     - name: Install Ruby dependencies and make site
       run: |
