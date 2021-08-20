@@ -4,32 +4,32 @@ parts:
 - caption: Preface
   numbered: false
   chapters:
-  - file: preface/preface
-  - file: preface/about
-  - file: preface/python
-  - file: preface/notation
+  - file: 00_preface/preface
+  - file: 00_preface/about
+  - file: 00_preface/python
+  - file: 00_preface/notation
 - caption: Fundamentals
   numbered: true
   chapters:
-  - file: fund/fundprob
-  - file: fund/stat
-  - file: fund/bayes
-  - file: fund/linregr
-  - file: fund/opt
-  - file: fund/MLworkflow
+  - file: 01_fund/fundprob
+  - file: 01_fund/stat
+  - file: 01_fund/bayes
+  - file: 01_fund/linregr
+  - file: 01_fund/opt
+  - file: 01_fund/MLworkflow
 - caption: Probabilistic Machine Learning
   numbered: true
   chapters:
-  - file: probML/motivation
-  - file: probML/kernelmethods
-  - file: probML/overview
+  - file: 02_probML/motivation
+  - file: 02_probML/kernelmethods
+  - file: 02_probML/overview
 - caption: Applications
   numbered: true
   chapters:
-  - file: appl/BO
-  - file: appl/uncertainty
-  - file: appl/RL
+  - file: 03_appl/BO
+  - file: 03_appl/uncertainty
+  - file: 03_appl/RL
 - caption: Appendix
   numbered: false
   chapters:
-  - file: appendix/placeholder.md
+  - file: 04_appendix/placeholder.md
