@@ -1,7 +1,7 @@
 # Book settings
 title: Probabilistic Machine Learning
 author: C. Bogoclu, N. Friedlich & R. Vosshall
-logo: logo.jpg
+logo: logo.png
 exclude_patterns: ["README.md", "probML/BayesianNN.md"]
 
 latex:
