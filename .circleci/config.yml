@@ -1,0 +1,47 @@
+version: 2.1
+jobs:
+  build_book:
+    docker:
+      - image: circleci/ruby:2.6
+    steps:
+      - checkout
+      - run:
+          name: Install Python and dependencies to build page HTML
+          command: |
+            sudo apt-get install python3-pip
+            pip3 install --user -r requirements.txt
+            pip3 install --user -U git+https://github.com/jupyter/jupyter-book.git
+
+      - run:
+          name: Create book template and build page HTML
+          command: |
+            jupyter-book create mybook --content-folder content/
+            jupyter-book build ./mybook
+
+      - run:
+          name: Install ruby dependencies and build the book's website w/ the URL for CircleCI artifacts
+          command: |
+            cd mybook
+            make install
+            bundle exec jekyll build
+
+      # If we're on master, push to a gh-pages branch
+      - add_ssh_keys:
+          fingerprints:
+            - "16:ab:50:df:1b:35:74:27:cf:12:94:6c:7f:0d:03:9f"
+      - run:
+          name: Push to gh-pages (if on master)
+          command: |
+            if [ $CIRCLE_BRANCH	== "master" ]; then
+              pip3 install ghp-import
+              ghp-import -n -f -p mybook/_site;
+            else
+              echo "Skipping deploy because we aren't on master"
+            fi
+
+
+workflows:
+  version: 2
+  default:
+    jobs:
+      - build_book
