@@ -721,11 +721,12 @@ Wirtschaftswissenschaften”</a></p>
 <div class="math notranslate nohighlight">
 \[P(X = i) = p_i.\]</div>
 <p>Note that the distribution is completely determined by <span class="math notranslate nohighlight">\(k-1\)</span> probabilities, since <span class="math notranslate nohighlight">\(\sum_{i=1}^k p_i = 1\)</span>.</p>
+<p>The distribution of a random variable for a fair dice is categorial with <span class="math notranslate nohighlight">\(k=6\)</span> and <span class="math notranslate nohighlight">\(p_i = \frac{1}{6}\)</span> for each <span class="math notranslate nohighlight">\(k=1,\dots,6\)</span>. In this example, the categories (number of points) are ranked and the variable is called ordinal. Keep in mind that this kind of distribution also models cases with purely categorical observations (e.g., pictures of different pets) and in this case, <span class="math notranslate nohighlight">\(i\)</span> is simply a representation of some category, but it makes no sense to rank the categories.</p>
 <p>This distribution is of particular importance in machine learning with regard to multiclass classification.</p>
 </div>
 <div class="section" id="binomial-distribution">
 <h4><span class="section-number">1.4.1.3. </span>Binomial Distribution<a class="headerlink" href="#binomial-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The binomial distribution has two parameters <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span> and <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>. It describes the number of successes of <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli experiments with parameter <span class="math notranslate nohighlight">\(p\)</span>. Thus, a random variable <span class="math notranslate nohighlight">\(X\)</span> with binomial distribution takes values <span class="math notranslate nohighlight">\(\{0, \dots, n \}\)</span> and</p>
+<p>The binomial distribution <span class="math notranslate nohighlight">\(\text{B}(n, k)\)</span> has two parameters <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span> and <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>. It describes the number of successes of <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli experiments with parameter <span class="math notranslate nohighlight">\(p\)</span>. Thus, a random variable <span class="math notranslate nohighlight">\(X\)</span> with binomial distribution takes values <span class="math notranslate nohighlight">\(\{0, \dots, n \}\)</span> and</p>
 <div class="math notranslate nohighlight">
 \[P(X=k) = {{n}\choose{k}} p^k (1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k} \quad \text{for } k \in \{0, \dots, n \}.\]</div>
 <p>The binomial coefficient <span class="math notranslate nohighlight">\({{n}\choose{k}}\)</span> denotes the number of possibilities of exactly <span class="math notranslate nohighlight">\(k\)</span> successes in <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli trials.</p>
@@ -734,8 +735,8 @@ Wirtschaftswissenschaften”</a></p>
 \[P(X=0) = \frac{9!}{0!(9-0)!} 0.5^0~(1-0.5)^{9-0} = 0.5^9 \approx 0.02\%.\]</div>
 </div>
 <div class="section" id="geometric-distribution">
-<h4><span class="section-number">1.4.1.4. </span>Geometric Distribution<a class="headerlink" href="#geometric-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The geometric distribution describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in <span class="math notranslate nohighlight">\(\{1, 2, \dots\}\)</span> and</p>
+<span id="def-geom"></span><h4><span class="section-number">1.4.1.4. </span>Geometric Distribution<a class="headerlink" href="#geometric-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The geometric distribution <span class="math notranslate nohighlight">\(\text{Geom}(p)\)</span> describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in <span class="math notranslate nohighlight">\(\{1, 2, \dots\}\)</span> and</p>
 <div class="math notranslate nohighlight">
 \[P(X=k) = (1-p)^{k-1} p \quad \text{for } k=1,2,\dots,\]</div>
 <p>since <span class="math notranslate nohighlight">\(X=k\)</span> means no success in the first <span class="math notranslate nohighlight">\(k-1\)</span> Bernoulli trials (with probability <span class="math notranslate nohighlight">\(1-p\)</span> each) and finally a success in the <span class="math notranslate nohighlight">\(k\)</span>-th trial (with probability <span class="math notranslate nohighlight">\(p\)</span>). Note that <span class="math notranslate nohighlight">\(P(X=k) \rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span> as long as <span class="math notranslate nohighlight">\(p \ne 0\)</span>. For example, the probability to observe heads the first time after exactply <span class="math notranslate nohighlight">\(10\)</span> trials by tossing a fair coin is</p>
@@ -748,7 +749,7 @@ Wirtschaftswissenschaften”</a></p>
 </div>
 <div class="section" id="poisson-distribution">
 <h4><span class="section-number">1.4.1.5. </span>Poisson Distribution<a class="headerlink" href="#poisson-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The Poisson distribution describes the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> with values in <span class="math notranslate nohighlight">\(\{0, 1, \dots \}\)</span> and is given by</p>
+<p>The Poisson distribution <span class="math notranslate nohighlight">\(\text{Pois}(\lambda)\)</span> describes the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> with values in <span class="math notranslate nohighlight">\(\{0, 1, \dots \}\)</span> and is given by</p>
 <div class="math notranslate nohighlight">
 \[P(X=k) = \frac{\lambda^k e^{-k}}{k!} \quad \text{for } k=0,1,\dots\]</div>
 <p>and some parameter <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span>. It models the number of events occuring in a fixed (time or space) interval if these events happen with a known constant mean rate and independently of each other. In fact, the expectation is <span class="math notranslate nohighlight">\(\mathbb{E}(X) = \lambda\)</span> and also <span class="math notranslate nohighlight">\(\text{Cov}(X) = \lambda\)</span>. For example, the following scenarios can be modelled by a Poisson distribution:</p>
@@ -764,30 +765,86 @@ Wirtschaftswissenschaften”</a></p>
 <p>A continuous distribution is essentially specified by its probability density function.</p>
 <div class="section" id="normal-distribution">
 <span id="def-multnormal"></span><h4><span class="section-number">1.4.2.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The (multivariate) normal distribution is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in <a class="reference internal" href="#sec-probessthm"><span class="std std-ref">Essential Theorems</span></a>.</p>
+<p>The <strong>multivariate normal distribution</strong> <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \Sigma)\)</span> is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in <a class="reference internal" href="#sec-probessthm"><span class="std std-ref">Essential Theorems</span></a>.</p>
+<p>The multivariate normal distribution is completely charaterized by its expectation <span class="math notranslate nohighlight">\(\mu\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span>. The general probability distribution function is given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{(2\pi)^d |\Sigma|}} ~\exp\Big(-\frac{1}{2}~(x- \mu)^T \Sigma^{-1}(x -\mu)\Big) \quad \text{for } x \in \mathbb{R}^d,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is some vector in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> is a symmetric and positive definite matrix (in particular, <span class="math notranslate nohighlight">\(\Sigma^{-1}\)</span> exists). Consequently, the univariate normal distribution (<span class="math notranslate nohighlight">\(d=1\)</span>) has the density</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big) \quad \text{for } x \in \mathbb{R}\]</div>
+<p>as well as <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\sigma^2 &gt; 0\)</span>. Since</p>
+<div class="math notranslate nohighlight">
+\[ \int_{\mathbb{R}} x~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \mu\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\int_{\mathbb{R}} (x - \mu)^2~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \sigma^2,\]</div>
+<p>it holds <span class="math notranslate nohighlight">\(\mathbb{E}(X) = \mu\)</span> and <span class="math notranslate nohighlight">\(\text{Cov}(X) = \sigma^2\)</span> for a normally distributed random variable <span class="math notranslate nohighlight">\(X\)</span>. This generalizes to the multivariate case, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(X) = \mu \quad \text{ and } \quad \text{Cov}(X) = \Sigma.\]</div>
+<p>As mentioned before, in the case <span class="math notranslate nohighlight">\(\mu = 0\)</span> and <span class="math notranslate nohighlight">\(\Sigma = I_d\)</span> (identity matrix) we obtain the <strong>standard normal distribution</strong>.</p>
+<div class="important admonition" id="lem-normaldistr">
+<p class="admonition-title">Lemma</p>
+<p>Let</p>
+</div>
 </div>
 <div class="section" id="beta-distribution">
 <h4><span class="section-number">1.4.2.2. </span>Beta Distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The Beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span> is a continuous distribution with support on the interval <span class="math notranslate nohighlight">\([0, 1]\)</span>, i.e., the probability of events outside <span class="math notranslate nohighlight">\([0, 1]\)</span> is zero. Its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{x^{\alpha -1} (1-x)^{\beta -1}}{\text{B}(\alpha, \beta)} \mathbb{1}_{[0, 1]}(x) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}\)</span> and <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span>. Here, <span class="math notranslate nohighlight">\(\Gamma\)</span> denotes the so-called Gamma function (an extension of the factorial).</p>
 </div>
 <div class="section" id="uniform-distribution">
 <h4><span class="section-number">1.4.2.3. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The uniform distribtion <span class="math notranslate nohighlight">\(U(a, b)\)</span> is a continuous distribution with support <span class="math notranslate nohighlight">\([a, b]\)</span> for some numbers <span class="math notranslate nohighlight">\(a &lt; b\)</span>. It describes a random variable with arbitrary outcomes between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>. The probability density function reads</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{b - a} \mathbb{1}_{[a, b]}(x) \quad \text{for } x \in \mathbb{R}.\]</div>
+<p><span class="math notranslate nohighlight">\(U(0, 1)\)</span> is called standard uniform distribution. If a random variable <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(U(0, 1)\)</span>-distributed, then <span class="math notranslate nohighlight">\(X^n\)</span> is <span class="math notranslate nohighlight">\(\text{Beta}(\frac{1}{n}, 1)\)</span>-distributed. In particular, <span class="math notranslate nohighlight">\(U(0, 1) = \text{Beta}(1, 1)\)</span>.</p>
 </div>
 <div class="section" id="gamma-distribution">
 <h4><span class="section-number">1.4.2.4. </span>Gamma Distribution<a class="headerlink" href="#gamma-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The Gamma distribution <span class="math notranslate nohighlight">\(\text{Gamma}(\alpha, \beta)\)</span> is a continuous probability distribution with support on <span class="math notranslate nohighlight">\((0, \infty)\)</span> which contains some important distributions as special cases. Its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{\beta^{\alpha}}{\Gamma(\alpha)}~x^{\alpha - 1} \exp(-\beta x) ~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span>.</p>
 </div>
 <div class="section" id="exponential-distribution">
 <h4><span class="section-number">1.4.2.5. </span>Exponential Distribution<a class="headerlink" href="#exponential-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The exponential distribution <span class="math notranslate nohighlight">\(\text{Exp}(\lambda)\)</span> is the continuous analogue of the <a class="reference internal" href="#def-geom"><span class="std std-ref">geometric distribution</span></a>. Its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[\lambda \exp(-\lambda x)~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span>. It holds <span class="math notranslate nohighlight">\(\text{Exp}(\lambda) = \text{Gamma}(1, \lambda)\)</span>.</p>
+<p>For example, the exponential distribution is used to model the time between two radioactive decays, i.e., the time between two random events which occur independently and at a constant average rate.</p>
 </div>
 <div class="section" id="laplace-distribution">
 <h4><span class="section-number">1.4.2.6. </span>Laplace Distribution<a class="headerlink" href="#laplace-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The Laplace distribution <span class="math notranslate nohighlight">\(\text{Lapalce}(\mu, b)\)</span> has the probability density function</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2b}~\exp\Big(-\frac{|x-\mu|}{b}\Big) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(b &gt; 0\)</span>.</p>
+<p>Note that the density is a symmetric function around <span class="math notranslate nohighlight">\(\mu\)</span> and for <span class="math notranslate nohighlight">\(x &gt; \mu\)</span> the density equals the pdf of a <span class="math notranslate nohighlight">\(\text{Exp}(\frac{1}{b})\)</span>-distribution (up to translation by <span class="math notranslate nohighlight">\(\mu\)</span>). For this reason, the Laplace distribution is also called double exponential distribution.</p>
+<p>Moreover, the Lapalce distribution is similar to the normal distribution, but the squared difference to <span class="math notranslate nohighlight">\(\mu\)</span> in the exponential function is replace by the absolute difference.</p>
 </div>
 <div class="section" id="cauchy-distribution">
 <h4><span class="section-number">1.4.2.7. </span>Cauchy Distribution<a class="headerlink" href="#cauchy-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The Cauchy distribution <span class="math notranslate nohighlight">\(\text{Cauchy}(x_0, \gamma)\)</span> has probability density function</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\pi \gamma \big(1 + (\frac{x - x_0}{\gamma})^2 \big)} \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_0 \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\gamma &gt; 0\)</span>. <span class="math notranslate nohighlight">\(\text{Cauchy}(0, 1)\)</span> is also called standard Cauchy distribution and is the distribution of the ratio of two independent standard normally distributed random variables.</p>
+<p>This distribution is well-known, since it does not have a well-defined mean and variance.</p>
 </div>
 </div>
 </div>
 <div class="section" id="essential-theorems">
 <span id="sec-probessthm"></span><h2><span class="section-number">1.5. </span>Essential Theorems<a class="headerlink" href="#essential-theorems" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition" id="thm-lln">
+<p class="admonition-title">Theorem (Law of Large Numbers)</p>
+<p>Let</p>
+</div>
+<div class="important admonition" id="thm-clt">
+<p class="admonition-title">Theorem (Central Limit Theorem)</p>
+<p>Let</p>
+</div>
 <p id="id5"><dl class="citation">
 <dt class="label" id="id9"><span class="brackets">CK17</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
 <dd><p>E. Cramer and U. Kamps. <em>Grundlagen der Wahrscheinlichkeitsrechnung und Statistik - Eine Einführung für Studierende der Informatik, der Ingenieur- und Wirtschaftswissenschaften</em>. Springer-Lehrbuch. Springer Spektrum, 4th edition, 2017. <a class="reference external" href="https://doi.org/10.1007/978-3-662-54161-6">doi:10.1007/978-3-662-54161-6</a>.</p>

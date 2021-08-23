@@ -349,13 +349,15 @@ The categorial distribution is also called generalized Bernoulli distribution. I
 
 $$P(X = i) = p_i.$$
 
-Note that the distribution is completely determined by $k-1$ probabilities, since $\sum_{i=1}^k p_i = 1$.  
+Note that the distribution is completely determined by $k-1$ probabilities, since $\sum_{i=1}^k p_i = 1$. 
+
+The distribution of a random variable for a fair dice is categorial with $k=6$ and $p_i = \frac{1}{6}$ for each $k=1,\dots,6$. In this example, the categories (number of points) are ranked and the variable is called ordinal. Keep in mind that this kind of distribution also models cases with purely categorical observations (e.g., pictures of different pets) and in this case, $i$ is simply a representation of some category, but it makes no sense to rank the categories.  
 
 This distribution is of particular importance in machine learning with regard to multiclass classification.
 
 #### Binomial Distribution
 
-The binomial distribution has two parameters $p \in [0, 1]$ and $n \in \mathbb{N}$. It describes the number of successes of $n$ independent Bernoulli experiments with parameter $p$. Thus, a random variable $X$ with binomial distribution takes values $\{0, \dots, n \}$ and 
+The binomial distribution $\text{B}(n, k)$ has two parameters $p \in [0, 1]$ and $n \in \mathbb{N}$. It describes the number of successes of $n$ independent Bernoulli experiments with parameter $p$. Thus, a random variable $X$ with binomial distribution takes values $\{0, \dots, n \}$ and 
 
 $$P(X=k) = {{n}\choose{k}} p^k (1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k} \quad \text{for } k \in \{0, \dots, n \}.$$
 
@@ -365,9 +367,10 @@ For example, the probability of observing $0$ heads in $9$ flips of a fair coin 
 
 $$P(X=0) = \frac{9!}{0!(9-0)!} 0.5^0~(1-0.5)^{9-0} = 0.5^9 \approx 0.02\%.$$
 
+(def:geom)=
 #### Geometric Distribution
 
-The geometric distribution describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in $\{1, 2, \dots\}$ and 
+The geometric distribution $\text{Geom}(p)$ describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in $\{1, 2, \dots\}$ and 
 
 $$P(X=k) = (1-p)^{k-1} p \quad \text{for } k=1,2,\dots,$$
 
@@ -383,7 +386,7 @@ In other words, the probability to observe only tails in the first $9$ tosses is
 
 #### Poisson Distribution
 
-The Poisson distribution describes the distribution of a random variable $X$ with values in $\{0, 1, \dots \}$ and is given by
+The Poisson distribution $\text{Pois}(\lambda)$ describes the distribution of a random variable $X$ with values in $\{0, 1, \dots \}$ and is given by
 
 $$P(X=k) = \frac{\lambda^k e^{-k}}{k!} \quad \text{for } k=0,1,\dots$$
 
@@ -401,22 +404,106 @@ A continuous distribution is essentially specified by its probability density fu
 (def:multnormal)= 
 #### Normal Distribution
 
-The (multivariate) normal distribution is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in {ref}```sec:probessthm```.
+The **multivariate normal distribution** $\mathcal{N}(\mu, \Sigma)$ is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in {ref}```sec:probessthm```.  
+
+The multivariate normal distribution is completely charaterized by its expectation $\mu$ and covariance matrix $\Sigma$. The general probability distribution function is given by
+
+$$\frac{1}{\sqrt{(2\pi)^d |\Sigma|}} ~\exp\Big(-\frac{1}{2}~(x- \mu)^T \Sigma^{-1}(x -\mu)\Big) \quad \text{for } x \in \mathbb{R}^d,$$
+
+where $\mu$ is some vector in $\mathbb{R}^d$ and $\Sigma$ is a symmetric and positive definite matrix (in particular, $\Sigma^{-1}$ exists). Consequently, the univariate normal distribution ($d=1$) has the density
+
+$$\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big) \quad \text{for } x \in \mathbb{R}$$
+
+as well as $\mu \in \mathbb{R}$ and $\sigma^2 > 0$. Since
+
+$$ \int_{\mathbb{R}} x~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \mu$$
+
+and 
+
+$$\int_{\mathbb{R}} (x - \mu)^2~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \sigma^2,$$
+
+it holds $\mathbb{E}(X) = \mu$ and $\text{Cov}(X) = \sigma^2$ for a normally distributed random variable $X$. This generalizes to the multivariate case, i.e.,
+
+$$\mathbb{E}(X) = \mu \quad \text{ and } \quad \text{Cov}(X) = \Sigma.$$  
+
+As mentioned before, in the case $\mu = 0$ and $\Sigma = I_d$ (identity matrix) we obtain the **standard normal distribution**.
+
+```{admonition} Lemma
+:class: important
+:name: lem:normaldistr
+Let
+```
 
 #### Beta Distribution
 
+The Beta distribution $\text{Beta}(\alpha, \beta)$ is a continuous distribution with support on the interval $[0, 1]$, i.e., the probability of events outside $[0, 1]$ is zero. Its probability density function is given by
+
+$$\frac{x^{\alpha -1} (1-x)^{\beta -1}}{\text{B}(\alpha, \beta)} \mathbb{1}_{[0, 1]}(x) \quad \text{for } x \in \mathbb{R},$$
+
+where $\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$ and $\alpha, \beta > 0$. Here, $\Gamma$ denotes the so-called Gamma function (an extension of the factorial).
+
 #### Uniform Distribution
+
+The uniform distribtion $U(a, b)$ is a continuous distribution with support $[a, b]$ for some numbers $a < b$. It describes a random variable with arbitrary outcomes between $a$ and $b$. The probability density function reads
+
+$$\frac{1}{b - a} \mathbb{1}_{[a, b]}(x) \quad \text{for } x \in \mathbb{R}.$$
+
+$U(0, 1)$ is called standard uniform distribution. If a random variable $X$ is $U(0, 1)$-distributed, then $X^n$ is $\text{Beta}(\frac{1}{n}, 1)$-distributed. In particular, $U(0, 1) = \text{Beta}(1, 1)$.
 
 #### Gamma Distribution
 
+The Gamma distribution $\text{Gamma}(\alpha, \beta)$ is a continuous probability distribution with support on $(0, \infty)$ which contains some important distributions as special cases. Its probability density function is given by
+
+$$\frac{\beta^{\alpha}}{\Gamma(\alpha)}~x^{\alpha - 1} \exp(-\beta x) ~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},$$
+
+where $\alpha, \beta > 0$.
+
 #### Exponential Distribution
+
+The exponential distribution $\text{Exp}(\lambda)$ is the continuous analogue of the {ref}```geometric distribution<def:geom>```. Its probability density function is given by
+
+$$\lambda \exp(-\lambda x)~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},$$
+
+where $\lambda > 0$. It holds $\text{Exp}(\lambda) = \text{Gamma}(1, \lambda)$.
+
+For example, the exponential distribution is used to model the time between two radioactive decays, i.e., the time between two random events which occur independently and at a constant average rate.
 
 #### Laplace Distribution
 
+The Laplace distribution $\text{Lapalce}(\mu, b)$ has the probability density function 
+
+$$\frac{1}{2b}~\exp\Big(-\frac{|x-\mu|}{b}\Big) \quad \text{for } x \in \mathbb{R},$$
+
+where $\mu \in \mathbb{R}$ and $b > 0$. 
+
+Note that the density is a symmetric function around $\mu$ and for $x > \mu$ the density equals the pdf of a $\text{Exp}(\frac{1}{b})$-distribution (up to translation by $\mu$). For this reason, the Laplace distribution is also called double exponential distribution.
+
+Moreover, the Lapalce distribution is similar to the normal distribution, but the squared difference to $\mu$ in the exponential function is replace by the absolute difference.
+
 #### Cauchy Distribution
+
+The Cauchy distribution $\text{Cauchy}(x_0, \gamma)$ has probability density function
+
+$$\frac{1}{\pi \gamma \big(1 + (\frac{x - x_0}{\gamma})^2 \big)} \quad \text{for } x \in \mathbb{R},$$
+
+where $x_0 \in \mathbb{R}$ and $\gamma > 0$. $\text{Cauchy}(0, 1)$ is also called standard Cauchy distribution and is the distribution of the ratio of two independent standard normally distributed random variables.  
+
+This distribution is well-known, since it does not have a well-defined mean and variance.
 
 (sec:probessthm)=
 ## Essential Theorems
+
+```{admonition} Theorem (Law of Large Numbers)
+:class: important
+:name: thm:lln
+Let
+```
+
+```{admonition} Theorem (Central Limit Theorem)
+:class: important
+:name: thm:clt
+Let
+```
 
 ```{bibliography}
 :filter: docname in docnames
