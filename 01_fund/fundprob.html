@@ -42,7 +42,7 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
@@ -339,23 +339,23 @@
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#categorial-distribution">
+       1.4.1.2. Categorial Distribution
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#binomial-distribution">
-       1.4.1.2. Binomial Distribution
+       1.4.1.3. Binomial Distribution
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#geometric-distribution">
-       1.4.1.3. Geometric Distribution
+       1.4.1.4. Geometric Distribution
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#poisson-distribution">
-       1.4.1.4. Poisson Distribution
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#discrete-uniform-distribution">
-       1.4.1.5. Discrete Uniform Distribution
+       1.4.1.5. Poisson Distribution
       </a>
      </li>
     </ul>
@@ -452,6 +452,7 @@ Wirtschaftswissenschaften”</a></p>
 <div class="math notranslate nohighlight" id="equation-ex-dice">
 <span class="eqno">(1.1)<a class="headerlink" href="#equation-ex-dice" title="Permalink to this equation">¶</a></span>\[\Omega= \{1, 2, 3, 4, 5, 6\}\]</div>
 <p>is given by the 6 possible outcomes. The event <span class="math notranslate nohighlight">\(A\)</span> of rolling an even number is given by <span class="math notranslate nohighlight">\(A = \{2, 4, 6\} \subset \Omega\)</span> and the elementary event of rolling a six is given by <span class="math notranslate nohighlight">\(A=\{6\}\)</span>.</p>
+<p>Probability theory is based in the concept of probability distributions. In the following, we will distinguish between discrete und continuous distributions. It is also possible to unify these two kinds of distributions by means of measure theory, but this is outside the scope of this lecture (some remarks can be found in the section on <a class="reference internal" href="#sec-cps"><span class="std std-ref">continuous probability spaces</span></a>). As the name suggests, the distribution determines/specifies how the outcomes of random events are distributed.</p>
 <div class="section" id="discrete-probability-spaces">
 <h3><span class="section-number">1.1.1. </span>Discrete Probability Spaces<a class="headerlink" href="#discrete-probability-spaces" title="Permalink to this headline">¶</a></h3>
 <div class="tip admonition" id="def-discrdistr">
@@ -488,7 +489,7 @@ Wirtschaftswissenschaften”</a></p>
 </ul>
 </div>
 <div class="section" id="continuous-probability-spaces">
-<h3><span class="section-number">1.1.2. </span>Continuous Probability Spaces<a class="headerlink" href="#continuous-probability-spaces" title="Permalink to this headline">¶</a></h3>
+<span id="sec-cps"></span><h3><span class="section-number">1.1.2. </span>Continuous Probability Spaces<a class="headerlink" href="#continuous-probability-spaces" title="Permalink to this headline">¶</a></h3>
 <p>It turns out that the definition of probability spaces requires a different approach in the case of sample spaces that contain <em>uncountably</em> many outcomes. For example, the sample space could be given by the real numbers (<span class="math notranslate nohighlight">\(\Omega = \mathbb{R}\)</span>) or a higher dimensional space (e.g. <span class="math notranslate nohighlight">\(\Omega = \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d &gt;= 2\)</span>). Indeed, the definition of (probability) measures on arbitrary sample spaces turns out to be a complex mathematical problem which is the foundation of <strong>measure theory</strong>. This theory introduces so-called <span class="math notranslate nohighlight">\(\sigma\)</span>-algebras which specify the measurable events, i.e., the events for which it is possible to assign a probability without generating any inconsistencies. An introduction can be found in the first chapter of <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke. Measure theory is the foundation of very powerful results, since it enables mathematicians to define probability measures even on infinite dimensional sample spaces such as spaces of functions which lead to so-called stochastic processes. A special case are <strong>Gaussian processes</strong> which turn out to be very useful in the context of machine learning and are an essential part of this lecture.</p>
 <p>Luckily, we do not necessarily need to consider measure theory in detail for our purposes. For the mentioned cases (<span class="math notranslate nohighlight">\(\mathbb{\Omega} = [0, 1]\)</span> or <span class="math notranslate nohighlight">\(\Omega = \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d &gt;= 1\)</span>), we can use ordinary integrals in order to define probabilities at least on “nice” events:</p>
 <ul class="simple">
@@ -524,6 +525,9 @@ Wirtschaftswissenschaften”</a></p>
 <li><p>Keep in mind that <span class="math notranslate nohighlight">\(f\)</span> is simply a non-negative function whose volume under the graph is exactly one and the probability of some event <span class="math notranslate nohighlight">\(A\)</span> is the volume under the graph of <span class="math notranslate nohighlight">\(f\)</span> restricted to <span class="math notranslate nohighlight">\(A\)</span>. In the plot below, <span class="math notranslate nohighlight">\(P([-2, 0]) \approx 0.48\)</span> is illustrated for a standard normal distribution. In other words, the probability to observe an outcome between -2 and 0 in a standard normally distributed experiment is approximately 48%.</p></li>
 </ul>
 <p><img alt="" src="../_images/gaussian_pdf.png" /></p>
+<ul class="simple">
+<li><p>In general, regions where the probability density functions takes large values are more likely. Thus, a standard normally distributed experiment will likely have outcomes near <span class="math notranslate nohighlight">\(0\)</span>, whereas outcomes far away from <span class="math notranslate nohighlight">\(0\)</span> are very unlikely.</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="random-variables">
@@ -667,7 +671,7 @@ Wirtschaftswissenschaften”</a></p>
 </div>
 <p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[<a class="reference internal" href="#id9">Cramer and Kamps, 2017</a>]</span>).</p>
 <p>In many cases, we are able to observe outcomes of independent random variables with the same distribution (so-called <strong>independent identical distributed</strong> (i.i.d.) random variables), but do not know the underlying distribution exactly. Thus, we would like to make conclusions about the distribution based on our observations. In this way, our probabilistic definitions are linked to statistics and estimators. For example, think of rolling a dice multiple times and initially we do not know if the dice is fair or not. We have shown that a fair dice has an expectation of <span class="math notranslate nohighlight">\(3.5\)</span>. Thus, it is reasonable to verify this expectation in use of the given observations. If the sample mean (see below) of many independent experiments is not sufficiently close to <span class="math notranslate nohighlight">\(3.5\)</span>, we may reject the hypothesis that the dice is fair. This procedure is called <strong>hypothesis testing</strong> in statistics.</p>
-<p>Assume that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables and that <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> and <span class="math notranslate nohighlight">\(y_1, \dots, y_m\)</span> are samples of i.i.d. experiments with respect to <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span>, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts:</p>
+<p>Assume that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables and that <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> and <span class="math notranslate nohighlight">\(y_1, \dots, y_n\)</span> are samples of i.i.d. experiments with respect to <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span>, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts:</p>
 <ul class="simple">
 <li><p>expectation:</p></li>
 </ul>
@@ -699,26 +703,68 @@ Wirtschaftswissenschaften”</a></p>
 <p>An extensive collection of important probability distributions can be found on <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_probability_distributions">Wikipedia</a>. In the following subsections, we will shortly review some of them.</p>
 <div class="section" id="discrete-distributions">
 <h3><span class="section-number">1.4.1. </span>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h3>
+<p>Note that each discrete probability distribution is completely described by the finite or countable sample space <span class="math notranslate nohighlight">\(\Omega\)</span> and the function <span class="math notranslate nohighlight">\(p : \Omega \rightarrow [0, 1]\)</span> which specifies the probability of each elementary event.</p>
 <div class="section" id="bernoulli-distribution">
 <h4><span class="section-number">1.4.1.1. </span>Bernoulli Distribution<a class="headerlink" href="#bernoulli-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The Bernoulli distributions is the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> which takes only two possible values (usually encoded by <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>). The two values can be interpreted e.g. as false/true or failure/success. Thus,</p>
+<div class="math notranslate nohighlight">
+\[P(X = 1) = p \quad \text{for some } p \in [0, 1]\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[P(X = 0) = q := 1 - p.\]</div>
+<p>For example, a coin flip can be modelled by a Bernoulli distribution. The outcome heads (<span class="math notranslate nohighlight">\(X=1\)</span>) has some probabiltity <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span> and the outcome tails (<span class="math notranslate nohighlight">\(X=0\)</span>) has the complementary probability <span class="math notranslate nohighlight">\(q = p - 1\)</span>. In the case of a fair coin, it holds <span class="math notranslate nohighlight">\(p = 0.5\)</span>.</p>
+<p>This distribution is of particular importance in machine learning with regard to binary classification.</p>
+</div>
+<div class="section" id="categorial-distribution">
+<h4><span class="section-number">1.4.1.2. </span>Categorial Distribution<a class="headerlink" href="#categorial-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The categorial distribution is also called generalized Bernoulli distribution. Instead of only two different outcomes, it describes a random variable <span class="math notranslate nohighlight">\(X\)</span> with <span class="math notranslate nohighlight">\(k\)</span> different categories as outcomes (usually encoded by the numbers <span class="math notranslate nohighlight">\(1, \dots, k\)</span>). Each category <span class="math notranslate nohighlight">\(i \in \{1, \dots, k\}\)</span> possesses its individual probability</p>
+<div class="math notranslate nohighlight">
+\[P(X = i) = p_i.\]</div>
+<p>Note that the distribution is completely determined by <span class="math notranslate nohighlight">\(k-1\)</span> probabilities, since <span class="math notranslate nohighlight">\(\sum_{i=1}^k p_i = 1\)</span>.</p>
+<p>This distribution is of particular importance in machine learning with regard to multiclass classification.</p>
 </div>
 <div class="section" id="binomial-distribution">
-<h4><span class="section-number">1.4.1.2. </span>Binomial Distribution<a class="headerlink" href="#binomial-distribution" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">1.4.1.3. </span>Binomial Distribution<a class="headerlink" href="#binomial-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The binomial distribution has two parameters <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span> and <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>. It describes the number of successes of <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli experiments with parameter <span class="math notranslate nohighlight">\(p\)</span>. Thus, a random variable <span class="math notranslate nohighlight">\(X\)</span> with binomial distribution takes values <span class="math notranslate nohighlight">\(\{0, \dots, n \}\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[P(X=k) = {{n}\choose{k}} p^k (1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k} \quad \text{for } k \in \{0, \dots, n \}.\]</div>
+<p>The binomial coefficient <span class="math notranslate nohighlight">\({{n}\choose{k}}\)</span> denotes the number of possibilities of exactly <span class="math notranslate nohighlight">\(k\)</span> successes in <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli trials.</p>
+<p>For example, the probability of observing <span class="math notranslate nohighlight">\(0\)</span> heads in <span class="math notranslate nohighlight">\(9\)</span> flips of a fair coin is</p>
+<div class="math notranslate nohighlight">
+\[P(X=0) = \frac{9!}{0!(9-0)!} 0.5^0~(1-0.5)^{9-0} = 0.5^9 \approx 0.02\%.\]</div>
 </div>
 <div class="section" id="geometric-distribution">
-<h4><span class="section-number">1.4.1.3. </span>Geometric Distribution<a class="headerlink" href="#geometric-distribution" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">1.4.1.4. </span>Geometric Distribution<a class="headerlink" href="#geometric-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The geometric distribution describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in <span class="math notranslate nohighlight">\(\{1, 2, \dots\}\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[P(X=k) = (1-p)^{k-1} p \quad \text{for } k=1,2,\dots,\]</div>
+<p>since <span class="math notranslate nohighlight">\(X=k\)</span> means no success in the first <span class="math notranslate nohighlight">\(k-1\)</span> Bernoulli trials (with probability <span class="math notranslate nohighlight">\(1-p\)</span> each) and finally a success in the <span class="math notranslate nohighlight">\(k\)</span>-th trial (with probability <span class="math notranslate nohighlight">\(p\)</span>). Note that <span class="math notranslate nohighlight">\(P(X=k) \rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span> as long as <span class="math notranslate nohighlight">\(p \ne 0\)</span>. For example, the probability to observe heads the first time after exactply <span class="math notranslate nohighlight">\(10\)</span> trials by tossing a fair coin is</p>
+<div class="math notranslate nohighlight">
+\[P(X=10) = (1-0.5)^9 ~0.5 = 0.5^{10} \approx 0.01\%.\]</div>
+<p>Furthermore, in use of the third Kolmogorov axiom, it holds</p>
+<div class="math notranslate nohighlight">
+\[P(X &gt;= 10) = \sum_{k=10}^{\infty} (1-0.5)^{k-1} ~0.5 = \frac{0.5^{10}}{1 - 0.5} = 0.5^9 \approx 0.02\%.\]</div>
+<p>In other words, the probability to observe only tails in the first <span class="math notranslate nohighlight">\(9\)</span> tosses is approximately <span class="math notranslate nohighlight">\(0.02\%\)</span> in correspondance with the calculation in use of the binomial distribution.</p>
 </div>
 <div class="section" id="poisson-distribution">
-<h4><span class="section-number">1.4.1.4. </span>Poisson Distribution<a class="headerlink" href="#poisson-distribution" title="Permalink to this headline">¶</a></h4>
-</div>
-<div class="section" id="discrete-uniform-distribution">
-<h4><span class="section-number">1.4.1.5. </span>Discrete Uniform Distribution<a class="headerlink" href="#discrete-uniform-distribution" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">1.4.1.5. </span>Poisson Distribution<a class="headerlink" href="#poisson-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The Poisson distribution describes the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> with values in <span class="math notranslate nohighlight">\(\{0, 1, \dots \}\)</span> and is given by</p>
+<div class="math notranslate nohighlight">
+\[P(X=k) = \frac{\lambda^k e^{-k}}{k!} \quad \text{for } k=0,1,\dots\]</div>
+<p>and some parameter <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span>. It models the number of events occuring in a fixed (time or space) interval if these events happen with a known constant mean rate and independently of each other. In fact, the expectation is <span class="math notranslate nohighlight">\(\mathbb{E}(X) = \lambda\)</span> and also <span class="math notranslate nohighlight">\(\text{Cov}(X) = \lambda\)</span>. For example, the following scenarios can be modelled by a Poisson distribution:</p>
+<ul class="simple">
+<li><p>radioactive decay: number of decays in a given time period of a radioactive sample</p></li>
+<li><p>epidemiology: the number of cases of a disease in different cities</p></li>
+<li><p>sports: the number of goals in a soccer match</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="continuous-distributions">
 <h3><span class="section-number">1.4.2. </span>Continuous Distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h3>
+<p>A continuous distribution is essentially specified by its probability density function.</p>
 <div class="section" id="normal-distribution">
 <span id="def-multnormal"></span><h4><span class="section-number">1.4.2.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h4>
+<p>The (multivariate) normal distribution is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in <a class="reference internal" href="#sec-probessthm"><span class="std std-ref">Essential Theorems</span></a>.</p>
 </div>
 <div class="section" id="beta-distribution">
 <h4><span class="section-number">1.4.2.2. </span>Beta Distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">¶</a></h4>
@@ -741,7 +787,7 @@ Wirtschaftswissenschaften”</a></p>
 </div>
 </div>
 <div class="section" id="essential-theorems">
-<h2><span class="section-number">1.5. </span>Essential Theorems<a class="headerlink" href="#essential-theorems" title="Permalink to this headline">¶</a></h2>
+<span id="sec-probessthm"></span><h2><span class="section-number">1.5. </span>Essential Theorems<a class="headerlink" href="#essential-theorems" title="Permalink to this headline">¶</a></h2>
 <p id="id5"><dl class="citation">
 <dt class="label" id="id9"><span class="brackets">CK17</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
 <dd><p>E. Cramer and U. Kamps. <em>Grundlagen der Wahrscheinlichkeitsrechnung und Statistik - Eine Einführung für Studierende der Informatik, der Ingenieur- und Wirtschaftswissenschaften</em>. Springer-Lehrbuch. Springer Spektrum, 4th edition, 2017. <a class="reference external" href="https://doi.org/10.1007/978-3-662-54161-6">doi:10.1007/978-3-662-54161-6</a>.</p>

@@ -40,7 +40,10 @@ If we model the rolling of an ordinary cubic dice, the sample space
 
 $$\Omega= \{1, 2, 3, 4, 5, 6\}$$ (ex:dice)
 
-is given by the 6 possible outcomes. The event $A$ of rolling an even number is given by $A = \{2, 4, 6\} \subset \Omega$ and the elementary event of rolling a six is given by $A=\{6\}$.
+is given by the 6 possible outcomes. The event $A$ of rolling an even number is given by $A = \{2, 4, 6\} \subset \Omega$ and the elementary event of rolling a six is given by $A=\{6\}$.  
+
+
+Probability theory is based in the concept of probability distributions. In the following, we will distinguish between discrete und continuous distributions. It is also possible to unify these two kinds of distributions by means of measure theory, but this is outside the scope of this lecture (some remarks can be found in the section on {ref}```continuous probability spaces <sec:cps>```). As the name suggests, the distribution determines/specifies how the outcomes of random events are distributed.
 
 ### Discrete Probability Spaces
 
@@ -79,6 +82,7 @@ $$P(\cup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i).$$
 - The term "pairwise disjoint" means that two arbitrary events do not have any common elements. For example, the events $\{2, 4, 6\}$ and $\{1, 3\}$ are disjoint, but the events $\{2, 4, 6\}$ and $\{2, 3\}$ are not, since the share the outcome $2$.
 - The last statement also holds true for a *finite number* of sets $A_i$, $i=1,\dots,n$, by simply choosingchoosing $A_i = \emptyset$ (empty set) for $i > n$. If we consider only two disjoint sets $A_1$ and $A_2$, it follows that $P(A_1 \cup A_2) = P(A_1) + P(A_2)$. This means that the probability that the event $A_1$ or the event $A_2$ occurs equals the sum of the probabilities, which is intuitive.
 
+(sec:cps)=
 ### Continuous Probability Spaces
 
 It turns out that the definition of probability spaces requires a different approach in the case of sample spaces that contain *uncountably* many outcomes. For example, the sample space could be given by the real numbers ($\Omega = \mathbb{R}$) or a higher dimensional space (e.g. $\Omega = \mathbb{R}^d$, $d >= 2$). Indeed, the definition of (probability) measures on arbitrary sample spaces turns out to be a complex mathematical problem which is the foundation of **measure theory**. This theory introduces so-called $\sigma$-algebras which specify the measurable events, i.e., the events for which it is possible to assign a probability without generating any inconsistencies. An introduction can be found in the first chapter of ["Wahrscheinlichkeitstheorie"](https://www.springer.com/de/book/9783642360183) by Achim Klenke. Measure theory is the foundation of very powerful results, since it enables mathematicians to define probability measures even on infinite dimensional sample spaces such as spaces of functions which lead to so-called stochastic processes. A special case are **Gaussian processes** which turn out to be very useful in the context of machine learning and are an essential part of this lecture.  
@@ -119,6 +123,8 @@ Therefore, $f: \mathbb{R} \rightarrow \mathbb{R}$ defined by $f(x):= \frac{1}{\s
 - Keep in mind that $f$ is simply a non-negative function whose volume under the graph is exactly one and the probability of some event $A$ is the volume under the graph of $f$ restricted to $A$. In the plot below, $P([-2, 0]) \approx 0.48$ is illustrated for a standard normal distribution. In other words, the probability to observe an outcome between -2 and 0 in a standard normally distributed experiment is approximately 48%. 
 
 ![](gaussian_pdf.png)
+
+- In general, regions where the probability density functions takes large values are more likely. Thus, a standard normally distributed experiment will likely have outcomes near $0$, whereas outcomes far away from $0$ are very unlikely.
 
 ## Random Variables
 
@@ -294,7 +300,7 @@ If $\text{Cov}(X, Y) = 0$, $X$ and $Y$ are called **uncorrelated**. Note that in
 
 In many cases, we are able to observe outcomes of independent random variables with the same distribution (so-called **independent identical distributed** (i.i.d.) random variables), but do not know the underlying distribution exactly. Thus, we would like to make conclusions about the distribution based on our observations. In this way, our probabilistic definitions are linked to statistics and estimators. For example, think of rolling a dice multiple times and initially we do not know if the dice is fair or not. We have shown that a fair dice has an expectation of $3.5$. Thus, it is reasonable to verify this expectation in use of the given observations. If the sample mean (see below) of many independent experiments is not sufficiently close to $3.5$, we may reject the hypothesis that the dice is fair. This procedure is called **hypothesis testing** in statistics.
 
-Assume that $X$ and $Y$ are two random variables and that $x_1, \dots, x_n$ and $y_1, \dots, y_m$ are samples of i.i.d. experiments with respect to $P_X$ and $P_Y$, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts: 
+Assume that $X$ and $Y$ are two random variables and that $x_1, \dots, x_n$ and $y_1, \dots, y_n$ are samples of i.i.d. experiments with respect to $P_X$ and $P_Y$, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts: 
 - expectation:
 
 $$\overline{x} := \frac{1}{n}~\sum_{i=1}^n x_i \quad \textbf{(sample mean)}$$
@@ -321,20 +327,81 @@ An extensive collection of important probability distributions can be found on [
 
 ### Discrete Distributions
 
+Note that each discrete probability distribution is completely described by the finite or countable sample space $\Omega$ and the function $p : \Omega \rightarrow [0, 1]$ which specifies the probability of each elementary event.
+
 #### Bernoulli Distribution
+
+The Bernoulli distributions is the distribution of a random variable $X$ which takes only two possible values (usually encoded by $0$ and $1$). The two values can be interpreted e.g. as false/true or failure/success. Thus,
+
+$$P(X = 1) = p \quad \text{for some } p \in [0, 1]$$ 
+
+and 
+
+$$P(X = 0) = q := 1 - p.$$
+
+For example, a coin flip can be modelled by a Bernoulli distribution. The outcome heads ($X=1$) has some probabiltity $p \in [0, 1]$ and the outcome tails ($X=0$) has the complementary probability $q = p - 1$. In the case of a fair coin, it holds $p = 0.5$.  
+
+This distribution is of particular importance in machine learning with regard to binary classification.
+
+#### Categorial Distribution
+
+The categorial distribution is also called generalized Bernoulli distribution. Instead of only two different outcomes, it describes a random variable $X$ with $k$ different categories as outcomes (usually encoded by the numbers $1, \dots, k$). Each category $i \in \{1, \dots, k\}$ possesses its individual probability
+
+$$P(X = i) = p_i.$$
+
+Note that the distribution is completely determined by $k-1$ probabilities, since $\sum_{i=1}^k p_i = 1$.  
+
+This distribution is of particular importance in machine learning with regard to multiclass classification.
 
 #### Binomial Distribution
 
+The binomial distribution has two parameters $p \in [0, 1]$ and $n \in \mathbb{N}$. It describes the number of successes of $n$ independent Bernoulli experiments with parameter $p$. Thus, a random variable $X$ with binomial distribution takes values $\{0, \dots, n \}$ and 
+
+$$P(X=k) = {{n}\choose{k}} p^k (1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k} \quad \text{for } k \in \{0, \dots, n \}.$$
+
+The binomial coefficient ${{n}\choose{k}}$ denotes the number of possibilities of exactly $k$ successes in $n$ independent Bernoulli trials.
+
+For example, the probability of observing $0$ heads in $9$ flips of a fair coin is
+
+$$P(X=0) = \frac{9!}{0!(9-0)!} 0.5^0~(1-0.5)^{9-0} = 0.5^9 \approx 0.02\%.$$
+
 #### Geometric Distribution
+
+The geometric distribution describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in $\{1, 2, \dots\}$ and 
+
+$$P(X=k) = (1-p)^{k-1} p \quad \text{for } k=1,2,\dots,$$
+
+since $X=k$ means no success in the first $k-1$ Bernoulli trials (with probability $1-p$ each) and finally a success in the $k$-th trial (with probability $p$). Note that $P(X=k) \rightarrow 0$ as $k \rightarrow \infty$ as long as $p \ne 0$. For example, the probability to observe heads the first time after exactply $10$ trials by tossing a fair coin is 
+
+$$P(X=10) = (1-0.5)^9 ~0.5 = 0.5^{10} \approx 0.01\%.$$
+
+Furthermore, in use of the third Kolmogorov axiom, it holds
+
+$$P(X >= 10) = \sum_{k=10}^{\infty} (1-0.5)^{k-1} ~0.5 = \frac{0.5^{10}}{1 - 0.5} = 0.5^9 \approx 0.02\%.$$
+
+In other words, the probability to observe only tails in the first $9$ tosses is approximately $0.02\%$ in correspondance with the calculation in use of the binomial distribution.
 
 #### Poisson Distribution
 
-#### Discrete Uniform Distribution
+The Poisson distribution describes the distribution of a random variable $X$ with values in $\{0, 1, \dots \}$ and is given by
+
+$$P(X=k) = \frac{\lambda^k e^{-k}}{k!} \quad \text{for } k=0,1,\dots$$
+
+and some parameter $\lambda > 0$. It models the number of events occuring in a fixed (time or space) interval if these events happen with a known constant mean rate and independently of each other. In fact, the expectation is $\mathbb{E}(X) = \lambda$ and also $\text{Cov}(X) = \lambda$. For example, the following scenarios can be modelled by a Poisson distribution:
+
+- radioactive decay: number of decays in a given time period of a radioactive sample
+- epidemiology: the number of cases of a disease in different cities
+- sports: the number of goals in a soccer match
+
 
 ### Continuous Distributions
 
+A continuous distribution is essentially specified by its probability density function.
+
 (def:multnormal)= 
 #### Normal Distribution
+
+The (multivariate) normal distribution is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in {ref}```sec:probessthm```.
 
 #### Beta Distribution
 
@@ -348,6 +415,7 @@ An extensive collection of important probability distributions can be found on [
 
 #### Cauchy Distribution
 
+(sec:probessthm)=
 ## Essential Theorems
 
 ```{bibliography}
