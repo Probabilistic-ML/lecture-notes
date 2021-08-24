@@ -43,7 +43,7 @@ $$\Omega= \{1, 2, 3, 4, 5, 6\}$$ (ex:dice)
 is given by the 6 possible outcomes. The event $A$ of rolling an even number is given by $A = \{2, 4, 6\} \subset \Omega$ and the elementary event of rolling a six is given by $A=\{6\}$.  
 
 
-Probability theory is based in the concept of probability distributions. In the following, we will distinguish between discrete und continuous distributions. It is also possible to unify these two kinds of distributions by means of measure theory, but this is outside the scope of this lecture (some remarks can be found in the section on {ref}```continuous probability spaces <sec:cps>```). As the name suggests, the distribution determines/specifies how the outcomes of random events are distributed.
+Probability theory is based in the concept of probability distributions. In the following, we will distinguish between discrete und continuous distributions. It is also possible to unify these two kinds of distributions by means of measure theory, but this is outside the scope of this lecture (some remarks can be found in the section on {ref}```continuous probability spaces <sec:cps>```). As the name suggests, the distribution determines/specifies how the outcomes of random experiments are distributed.
 
 ### Discrete Probability Spaces
 
@@ -126,6 +126,32 @@ Therefore, $f: \mathbb{R} \rightarrow \mathbb{R}$ defined by $f(x):= \frac{1}{\s
 
 - In general, regions where the probability density functions takes large values are more likely. Thus, a standard normally distributed experiment will likely have outcomes near $0$, whereas outcomes far away from $0$ are very unlikely.
 
+### Conditional Probability
+
+The concept of conditional probability answers questions about probabilities of events $A$ if we already know that some other event $B$ happens for sure.
+
+```{admonition} Definition
+:class: tip
+:name: def:condprob
+Let $(\Omega, \mathcal{F}, P)$ be a probability space and $A, B \in \mathcal{F}$ such that $P(B) > 0$. Then the **conditional probability** of $A$ given $B$ is defined as  
+
+$$P(A~|~B) := \frac{P(A \cap B)}{P(B)}.$$
+```
+
+$P(A~|~B)$ is exactly the probability that $A$ and $B$ happen simultaneously normalized by the probability of $B$.
+
+By the third Kolmogorov axiom, the following theorem can be concluded:
+
+```{admonition} Theorem
+:class: important
+:name: thm:lawoftotprob
+Let $(\Omega, \mathcal{F}, P)$ be a probability space and $B_i \in \mathcal{F}$, $i=1,2,\dots$, a partition of $\Omega$. Then
+
+$$P(A) = \sum_{i=1}^{\infty} P(A \cap B_i) = \sum_{i=1}^{\infty} P(A~|~B_i)~P(B_i) \quad \text{for each } A \in \mathcal{F}.$$
+```
+
+The theorem is also called **law of total probability** and it states that the probability of an event $A$ can be considered/computed as a weighted average of conditional probabilities.
+
 ## Random Variables
 
 Imagine that we perform multiple independent random experiments by rolling repeatedly ($n$-times) a fair dice. The corresponding sample space is given by
@@ -149,7 +175,7 @@ for each $A \in \mathcal{B}(\mathbb{R}^d)$ and the probability measure $P_X: \ma
 
 $$P_X(A) := P(X^{-1}(A)) \quad \text{for } A \in \mathcal{B}(\Omega)$$
 
-is called the **distribution of** $X$ **under** $P$. If $P_X$ admits a {ref}`probability density <def:contdistr>`, then we denote the density by $f_X$. Furthermore, the cumulative distribution function of $P_X$ is denoted by $F_X$.
+is called the **distribution of** $X$ **under** $P$. We also write $X \sim P_X$ which is useful if $P_X$ is well-known (refer to {ref}```sec:impprobdistr```). If $P_X$ admits a {ref}`probability density <def:contdistr>`, then we denote the density by $f_X$. Furthermore, the cumulative distribution function of $P_X$ is denoted by $F_X$.
 ```
 
 In order to model a fair dice as a random variable simply set $\Omega= \{1, 2, 3, 4, 5, 6\}$ as well as $p(\omega) = \frac{1}{6}$ for $\omega \in \Omega$ to obtain the discrete probability space $(\Omega, P)$ and define $X$ by
@@ -240,18 +266,20 @@ Expectation and covariance have some nice properties:
 ```{admonition} Lemma
 :class: important
 :name: lem:expprop
-Let $X$ and $Y$ be random variables and $a, b \in \mathbb{R}$. Then
+Let $X$, $Y$ and $Z$ be random variables and $a, b \in \mathbb{R}$. Then
 1. $\mathbb{E}(a) = a$
 2. $\mathbb{E}(aX) = a~\mathbb{E}(X)$
 3. $\mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y)$
 4. $\mathbb{E}(|X + Y|) \le \mathbb{E}(|X|) + \mathbb{E}(|Y|)$
 5. If $X \le Y$ (i.e., $X(\omega) \le Y(\omega)$ for each $\omega \in \Omega$, then $\mathbb{E}(X) \le \mathbb{E}(Y)$
 6. $\mathbb{E}(|X|) = 0 ~ \Leftrightarrow ~ P(X \ne 0) = 0$
-7. $\text{Cov}(X, Y) = \mathbb{E}(XY^T) - \mathbb{E}(X) \mathbb{E}(Y)^T.$
-8. $\text{Cov}(X) = 0 ~ \Leftrightarrow ~ P(X \ne \mathbb{E}(X)) = 0$. In particular, $\text{Cov}(a) = 0$.
-9. $\text{Cov}(X, Y) = \text{Cov}(Y, X)$
-10. $\text{Cov}(a, b) = 0$
-10. $\text{Cov}(aX, bY) = ab~\text{Cov}(X, Y)$
+7. $\text{Cov}(X) \ge 0$
+8. $\text{Cov}(X, Y) = \text{Cov}(Y, X)$
+9. $\text{Cov}(X, Y) = \mathbb{E}(XY^T) - \mathbb{E}(X) \mathbb{E}(Y)^T$
+10. $\text{Cov}(X + Y, Z) = \text{Cov}(X, Z) + \text{Cov}(Y, Z)$
+11. $\text{Cov}(X) = 0 ~ \Leftrightarrow ~ P(X \ne \mathbb{E}(X)) = 0$. In particular, $\text{Cov}(a) = 0$.
+12. $\text{Cov}(a, b) = 0$
+13. $\text{Cov}(aX, bY) = ab~\text{Cov}(X, Y)$
 ``` 
 
 ## Independence
@@ -286,7 +314,9 @@ and if the corresponding densities exist to
 $$f_{(X, Y)}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R}.$$
 ```
 
-Independence basically means that the occurrence of event A has no impact on the occurrence of event B or in terms of random variables, the outcomes of random variables should not impact each other. The definition of independent random variables generalizes easily to $d > 1$.
+Independence basically means that the occurrence of event A has no impact on the occurrence of event B or in terms of random variables, the outcomes of random variables should not impact each other. The definition of independent random variables generalizes easily to $d > 1$. 
+
+Note that two events $A$ and $B$ are independent if and only if $P(A~|~B) = P(A)$ (i.e., the probability of $A$ does not change given $B$).  
 
 ```{admonition} Lemma
 :class: important
@@ -294,6 +324,7 @@ Independence basically means that the occurrence of event A has no impact on the
 Let $X$ and $Y$ be two independent random variables. Then
 1. $\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)$
 2. $\text{Cov}(X, Y) = 0$
+3. $\text{Cov}(X + Y) = \text{Cov}(X) + \text{Cov}(Y)$
 ```
 
 If $\text{Cov}(X, Y) = 0$, $X$ and $Y$ are called **uncorrelated**. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in {cite}```CK17```).  
@@ -321,6 +352,7 @@ $$s_x := \sqrt{s^2_x} \quad \textbf{(sample standard deviation)}$$
 
 $$r_{xy} := \frac{s_{xy}}{s_x s_y} = \frac{\sum_{i=1}^n (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^n (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^n (y_i - \overline{y})^2}} \quad \textbf{(Pearson correlation coefficient)}$$
 
+(sec:impprobdistr)=
 ## Important Probability Distributions
 
 An extensive collection of important probability distributions can be found on [Wikipedia](https://en.wikipedia.org/wiki/List_of_probability_distributions). In the following subsections, we will shortly review some of them.
@@ -357,7 +389,7 @@ This distribution is of particular importance in machine learning with regard to
 
 #### Binomial Distribution
 
-The binomial distribution $\text{B}(n, k)$ has two parameters $p \in [0, 1]$ and $n \in \mathbb{N}$. It describes the number of successes of $n$ independent Bernoulli experiments with parameter $p$. Thus, a random variable $X$ with binomial distribution takes values $\{0, \dots, n \}$ and 
+The binomial distribution $\text{B}(n, p)$ has two parameters $n \in \mathbb{N}$ and $p \in [0, 1]$. It describes the number of successes of $n$ independent Bernoulli experiments with parameter $p$. Thus, a random variable $X$ with binomial distribution takes values $\{0, \dots, n \}$ and 
 
 $$P(X=k) = {{n}\choose{k}} p^k (1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k} \quad \text{for } k \in \{0, \dots, n \}.$$
 
@@ -396,6 +428,8 @@ and some parameter $\lambda > 0$. It models the number of events occuring in a f
 - epidemiology: the number of cases of a disease in different cities
 - sports: the number of goals in a soccer match
 
+If $n$ is very large and $p$ is very small the Poisson distribution can be used to approximate the binomial distribtion $\text{B}(n, p)$ due to the **Poisson limit theorem** which is also called law of rare events.  
+
 
 ### Continuous Distributions
 
@@ -404,7 +438,7 @@ A continuous distribution is essentially specified by its probability density fu
 (def:multnormal)= 
 #### Normal Distribution
 
-The **multivariate normal distribution** $\mathcal{N}(\mu, \Sigma)$ is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in {ref}```sec:probessthm```.  
+The **multivariate normal distribution** $\mathcal{N}(\mu, \Sigma)$ is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the {ref}```central limit theorem <thm:clt>```.  
 
 The multivariate normal distribution is completely charaterized by its expectation $\mu$ and covariance matrix $\Sigma$. The general probability distribution function is given by
 
@@ -470,7 +504,7 @@ For example, the exponential distribution is used to model the time between two 
 
 #### Laplace Distribution
 
-The Laplace distribution $\text{Lapalce}(\mu, b)$ has the probability density function 
+The Laplace distribution $\text{Laplace}(\mu, b)$ has the probability density function 
 
 $$\frac{1}{2b}~\exp\Big(-\frac{|x-\mu|}{b}\Big) \quad \text{for } x \in \mathbb{R},$$
 
@@ -493,20 +527,63 @@ This distribution is well-known, since it does not have a well-defined mean and 
 (sec:probessthm)=
 ## Essential Theorems
 
-```{admonition} Theorem (Law of Large Numbers)
+### Law of Large Numbers
+
+The law of large numbers has multiple (strong and weak) versions and is of particular importance in statistics, since it justifies for example the estimation of the expectation of random variables in terms of sample means. In this section, we state one version of the strong law of large numbers:
+
+```{admonition} Theorem
 :class: important
 :name: thm:lln
-Let
+Let $X_1, X_2, \dots$ be a sequence of independent identical distributed random variables with expectation $\mu$. Then, it exists an event $N$ of probability zero such that
+
+$$ \lim_{n \rightarrow \infty} \frac{1}{n} ~\sum_{i=1}^n X_i(\omega) = \mu \quad \text{for all } \omega \in \Omega \backslash N$$
+
+or equivalently
+
+$$P\big(\lim_{n \rightarrow \infty} \frac{1}{n} ~\sum_{i=1}^n X_i = \mu \big) = 1,$$
+
+i.e., the average converges almost surely to the expectation.
 ```
 
-```{admonition} Theorem (Central Limit Theorem)
+### Central Limit Theorem
+
+The central limit theorem makes the normal distribution particularly important, since it can be considered as the limit of the average of "nice" i.i.d. random variables. Similarly to the law of large numbers, the theorem exists in several versions. In this section, we state the Lindeberg-L{\'e}vy central limit theorem: 
+
+```{admonition} Theorem
 :class: important
 :name: thm:clt
+Let $X_1, X_2, \dots$ be a sequence of independent identical distributed random variables with expectation $\mu$ and $0 < \sigma^2 < \infty$. Set 
+
+$$Z_n := \frac{\frac{1}{n} ~\sum_{i=1}^n X_i - \mu}{\sigma/\sqrt{n}} = \frac{\sum_{i=1}^n X_i - n\mu}{\sigma \sqrt{n}}.$$
+
+Then, it holds
+
+$$\lim_{n \rightarrow \infty} P(Z_n \le z) = \Phi(z) \quad \text{for each } z \in \mathbb{R},$$
+
+where $\Phi$ denotes the cumulative distribution function of the standard normal distribution.
+```
+
+Briefly speaking, the cumulative distribution function of standardized average $Z_n$ converges pointwisely to the cumulative distribution function of the standard normal distribution $\mathcal{N}(0, 1)$. By definition, this means that $Z_n$ **converges in distribution** to the standard normal distribution. The definition of $Z_n$ might seem confusing, but it simply scales the average $\frac{1}{n} ~\sum_{i=1}^n X_i$ such that its mean is $0$ and its variance is $1$ (in accordance with $\mathcal{N}(0, 1)$). 
+
+This result is really notable, since it is independent from the underlying distribution of the random variables $X_i$, $i \in \mathbb{N}$, which could be totally different from a normal distribution and possibly be a discrete distribution.  
+
+The arithmetic average fulfills
+
+$$P\big(\frac{1}{n} ~\sum_{i=1}^n X_i \le z\big) = P\big(Z_n \le \frac{z - \mu}{\sigma/\sqrt{n}}\big) \approx \underbrace{\Phi\big(\frac{z - \mu}{\sigma/\sqrt{n}}\big)}_{\text{cdf of } \mathcal{N}(\mu, \frac{\sigma^2}{n})}.$$
+
+Thus, the average can be approximated by $\mathcal{N}(\mu, \frac{\sigma^2}{n})$ for sufficiently large $n$. If the distribution of the variables $X_1, X_2, \dots$ is $\mathcal{N}(\mu, \sigma^2)$, it holds indeed that $\frac{1}{n} ~\sum_{i=1}^n X_i \sim \mathcal{N}(\mu, \frac{\sigma^2}{n})$.  
+
+### Bayes' Theorem
+
+```{admonition} Theorem
+:class: important
+:name: thm:bt
 Let
 ```
 
 ```{bibliography}
 :filter: docname in docnames
+:style: plain
 ```
 <!-- #endregion -->
 
