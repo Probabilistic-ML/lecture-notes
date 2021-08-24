@@ -291,12 +291,6 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/Probabilistic-ML/lecture-notes/master?urlpath=tree/ProbabilisticML/02_probML/kernelmethods.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
         
         
         <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/kernelmethods.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
@@ -491,13 +485,13 @@ We will show 2 realization of a multivariate normal distribution to show the res
 $
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ddd17b88-af74-476b-94e7-53ca5d1c982b">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-ddd17b88-af74-476b-94e7-53ca5d1c982b" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-878395d5-29fe-4fe3-ae53-3221c0597c73">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-878395d5-29fe-4fe3-ae53-3221c0597c73" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 0
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-b4a5c622-a38a-4304-ab74-5d720cff0029">
-<span class="eqno">(11.2)<a class="headerlink" href="#equation-b4a5c622-a38a-4304-ab74-5d720cff0029" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-d46bdc6b-3fec-4f83-9b6f-af86529da4c5">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-d46bdc6b-3fec-4f83-9b6f-af86529da4c5" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0 \\
 0 &amp; 1 
 \end{bmatrix}\]</div>
@@ -506,13 +500,13 @@ $
 <p>$
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c86b0e11-ede3-4c34-999d-7d38c99b4ef7">
-<span class="eqno">(11.3)<a class="headerlink" href="#equation-c86b0e11-ede3-4c34-999d-7d38c99b4ef7" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-af49787f-96d7-4e01-9629-1e4aacdd07cb">
+<span class="eqno">(11.3)<a class="headerlink" href="#equation-af49787f-96d7-4e01-9629-1e4aacdd07cb" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 1
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-d217da4b-3131-48c1-b87b-2341667f82b3">
-<span class="eqno">(11.4)<a class="headerlink" href="#equation-d217da4b-3131-48c1-b87b-2341667f82b3" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-54f70cab-b801-4680-ab3b-8ab90cf0c443">
+<span class="eqno">(11.4)<a class="headerlink" href="#equation-54f70cab-b801-4680-ab3b-8ab90cf0c443" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0.8 \\
 0.8 &amp; 1
 \end{bmatrix}\]</div>
@@ -598,20 +592,20 @@ $
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c92f0575-3b80-46b8-88e5-4646d1897ec5">
-<span class="eqno">(11.5)<a class="headerlink" href="#equation-c92f0575-3b80-46b8-88e5-4646d1897ec5" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-6a602d2c-5481-4191-bcfc-6c4a39e34256">
+<span class="eqno">(11.5)<a class="headerlink" href="#equation-6a602d2c-5481-4191-bcfc-6c4a39e34256" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
 \end{bmatrix}\]</div>
 <p>\sim
 \mathcal{N}\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-14395053-38a7-467c-8d34-ad331503e5d2">
-<span class="eqno">(11.6)<a class="headerlink" href="#equation-14395053-38a7-467c-8d34-ad331503e5d2" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-60fb94ce-2018-4c7a-afd8-ddf0ceb60677">
+<span class="eqno">(11.6)<a class="headerlink" href="#equation-60fb94ce-2018-4c7a-afd8-ddf0ceb60677" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mu_{\mathbf{x}} \\
 \mu_{\mathbf{y}}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-1fdb153d-ceef-42d3-b1a4-ea92b851c373">
-<span class="eqno">(11.7)<a class="headerlink" href="#equation-1fdb153d-ceef-42d3-b1a4-ea92b851c373" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-1f9f2ee9-f8e9-45ea-9186-57085d2d6c94">
+<span class="eqno">(11.7)<a class="headerlink" href="#equation-1f9f2ee9-f8e9-45ea-9186-57085d2d6c94" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 A  C \\
 C^T  B
 \end{bmatrix}\]</div>
@@ -619,8 +613,8 @@ C^T  B
 = \mathcal{N}(\mu, \Sigma)
 , \qquad
 \Sigma^{-1} = \Lambda =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c80711e1-6f4c-4535-9e12-23c5a3874d66">
-<span class="eqno">(11.8)<a class="headerlink" href="#equation-c80711e1-6f4c-4535-9e12-23c5a3874d66" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-a5e996d3-33c8-4a05-a0f2-42eea043798f">
+<span class="eqno">(11.8)<a class="headerlink" href="#equation-a5e996d3-33c8-4a05-a0f2-42eea043798f" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \tilde{A}  \tilde{C} \\
 \tilde{C}^T \tilde{B}
 \end{bmatrix}\]</div>
