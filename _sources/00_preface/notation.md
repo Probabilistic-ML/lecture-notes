@@ -1,7 +1,7 @@
 <!-- #region -->
 # Notation
 
-In the following, we state the most important notations used in the present lecture notes. This collection is certainly not complete. Please draw our attention to expression which should be included into this section.  
+In the following, we state the most important notations used in the present lecture notes. This collection is certainly not complete. Please draw our attention to expression which should be included into this section. 
 
 A set is a collection of elements. In order to combine sets to a new set, we introduce some usual notations and operations.
 

@@ -714,7 +714,7 @@ Wirtschaftswissenschaften”</a></p>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X + Y) = \text{Cov}(X) + \text{Cov}(Y)\)</span></p></li>
 </ol>
 </div>
-<p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[<a class="reference internal" href="#id9">1</a>]</span>).</p>
+<p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[]</span>).</p>
 <p>In many cases, we are able to observe outcomes of independent random variables with the same distribution (so-called <strong>independent identical distributed</strong> (i.i.d.) random variables), but do not know the underlying distribution exactly. Thus, we would like to make conclusions about the distribution based on our observations. In this way, our probabilistic definitions are linked to statistics and estimators. For example, think of rolling a dice multiple times and initially we do not know if the dice is fair or not. We have shown that a fair dice has an expectation of <span class="math notranslate nohighlight">\(3.5\)</span>. Thus, it is reasonable to verify this expectation in use of the given observations. If the sample mean (see below) of many independent experiments is not sufficiently close to <span class="math notranslate nohighlight">\(3.5\)</span>, we may reject the hypothesis that the dice is fair. This procedure is called <strong>hypothesis testing</strong> in statistics.</p>
 <p>Assume that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables and that <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> and <span class="math notranslate nohighlight">\(y_1, \dots, y_n\)</span> are samples of i.i.d. experiments with respect to <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span>, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts:</p>
 <ul class="simple">
@@ -751,7 +751,7 @@ Wirtschaftswissenschaften”</a></p>
 <p>Note that each discrete probability distribution is completely described by the finite or countable sample space <span class="math notranslate nohighlight">\(\Omega\)</span> and the function <span class="math notranslate nohighlight">\(p : \Omega \rightarrow [0, 1]\)</span> which specifies the probability of each elementary event.</p>
 <div class="section" id="bernoulli-distribution">
 <h4><span class="section-number">1.4.1.1. </span>Bernoulli Distribution<a class="headerlink" href="#bernoulli-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The Bernoulli distributions is the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> which takes only two possible values (usually encoded by <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>). The two values can be interpreted e.g. as false/true or failure/success. Thus,</p>
+<p>The Bernoulli distribution <span class="math notranslate nohighlight">\(\text{B}(1, p)\)</span> is the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> which takes only two possible values (usually encoded by <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>). The two values can be interpreted e.g. as false/true or failure/success. Thus,</p>
 <div class="math notranslate nohighlight">
 \[P(X = 1) = p \quad \text{for some } p \in [0, 1]\]</div>
 <p>and</p>
@@ -919,12 +919,16 @@ Wirtschaftswissenschaften”</a></p>
 </div>
 <div class="section" id="bayes-theorem">
 <h3><span class="section-number">1.5.3. </span>Bayes’ Theorem<a class="headerlink" href="#bayes-theorem" title="Permalink to this headline">¶</a></h3>
+<p>From a mathematical standpoint, Bayes’ theorem is a rather simple, since the statement is follows directly from the definition of conditional probabilities. Nevertheless, it has a very important interpretation which is the foundation of Bayesian inference.</p>
 <div class="important admonition" id="thm-bt">
 <p class="admonition-title">Theorem</p>
-<p>Let</p>
+<p>Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probability space and <span class="math notranslate nohighlight">\(A, B \in \mathcal{F}\)</span> with <span class="math notranslate nohighlight">\(P(B) &gt; 0\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[P(A~|~B) = \frac{P(B~|~A) P(A)}{P(B)}\]</div>
 </div>
+<p>Note that <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> is not well-defined if <span class="math notranslate nohighlight">\(P(A) = 0\)</span>, but in this case it holds <span class="math notranslate nohighlight">\(P(A~|~B) = 0\)</span> and the righthand side can also be regarded as <span class="math notranslate nohighlight">\(0\)</span>, since <span class="math notranslate nohighlight">\(P(A) = 0\)</span> and the (ill-defined) <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> should be between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.</p>
 <p id="id5"><dl class="citation">
-<dt class="label" id="id9"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>E. Cramer and U. Kamps. <em>Grundlagen der Wahrscheinlichkeitsrechnung und Statistik - Eine Einführung für Studierende der Informatik, der Ingenieur- und Wirtschaftswissenschaften</em>. Springer-Lehrbuch. Springer Spektrum, 4th edition, 2017. <a class="reference external" href="https://doi.org/10.1007/978-3-662-54161-6">doi:10.1007/978-3-662-54161-6</a>.</p>
 </dd>
 <dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
