@@ -311,6 +311,11 @@
      1.1.2. Continuous Probability Spaces
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-probability">
+     1.1.3. Conditional Probability
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -408,6 +413,23 @@
   <a class="reference internal nav-link" href="#essential-theorems">
    1.5. Essential Theorems
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#law-of-large-numbers">
+     1.5.1. Law of Large Numbers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#central-limit-theorem">
+     1.5.2. Central Limit Theorem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayes-theorem">
+     1.5.3. Bayes’ Theorem
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -452,7 +474,7 @@ Wirtschaftswissenschaften”</a></p>
 <div class="math notranslate nohighlight" id="equation-ex-dice">
 <span class="eqno">(1.1)<a class="headerlink" href="#equation-ex-dice" title="Permalink to this equation">¶</a></span>\[\Omega= \{1, 2, 3, 4, 5, 6\}\]</div>
 <p>is given by the 6 possible outcomes. The event <span class="math notranslate nohighlight">\(A\)</span> of rolling an even number is given by <span class="math notranslate nohighlight">\(A = \{2, 4, 6\} \subset \Omega\)</span> and the elementary event of rolling a six is given by <span class="math notranslate nohighlight">\(A=\{6\}\)</span>.</p>
-<p>Probability theory is based in the concept of probability distributions. In the following, we will distinguish between discrete und continuous distributions. It is also possible to unify these two kinds of distributions by means of measure theory, but this is outside the scope of this lecture (some remarks can be found in the section on <a class="reference internal" href="#sec-cps"><span class="std std-ref">continuous probability spaces</span></a>). As the name suggests, the distribution determines/specifies how the outcomes of random events are distributed.</p>
+<p>Probability theory is based in the concept of probability distributions. In the following, we will distinguish between discrete und continuous distributions. It is also possible to unify these two kinds of distributions by means of measure theory, but this is outside the scope of this lecture (some remarks can be found in the section on <a class="reference internal" href="#sec-cps"><span class="std std-ref">continuous probability spaces</span></a>). As the name suggests, the distribution determines/specifies how the outcomes of random experiments are distributed.</p>
 <div class="section" id="discrete-probability-spaces">
 <h3><span class="section-number">1.1.1. </span>Discrete Probability Spaces<a class="headerlink" href="#discrete-probability-spaces" title="Permalink to this headline">¶</a></h3>
 <div class="tip admonition" id="def-discrdistr">
@@ -529,6 +551,25 @@ Wirtschaftswissenschaften”</a></p>
 <li><p>In general, regions where the probability density functions takes large values are more likely. Thus, a standard normally distributed experiment will likely have outcomes near <span class="math notranslate nohighlight">\(0\)</span>, whereas outcomes far away from <span class="math notranslate nohighlight">\(0\)</span> are very unlikely.</p></li>
 </ul>
 </div>
+<div class="section" id="conditional-probability">
+<h3><span class="section-number">1.1.3. </span>Conditional Probability<a class="headerlink" href="#conditional-probability" title="Permalink to this headline">¶</a></h3>
+<p>The concept of conditional probability answers questions about probabilities of events <span class="math notranslate nohighlight">\(A\)</span> if we already know that some other event <span class="math notranslate nohighlight">\(B\)</span> happens for sure.</p>
+<div class="tip admonition" id="def-condprob">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probability space and <span class="math notranslate nohighlight">\(A, B \in \mathcal{F}\)</span> such that <span class="math notranslate nohighlight">\(P(B) &gt; 0\)</span>. Then the <strong>conditional probability</strong> of <span class="math notranslate nohighlight">\(A\)</span> given <span class="math notranslate nohighlight">\(B\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[P(A~|~B) := \frac{P(A \cap B)}{P(B)}.\]</div>
+</div>
+<p><span class="math notranslate nohighlight">\(P(A~|~B)\)</span> is exactly the probability that <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> happen simultaneously normalized by the probability of <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<p>By the third Kolmogorov axiom, the following theorem can be concluded:</p>
+<div class="important admonition" id="thm-lawoftotprob">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probability space and <span class="math notranslate nohighlight">\(B_i \in \mathcal{F}\)</span>, <span class="math notranslate nohighlight">\(i=1,2,\dots\)</span>, a partition of <span class="math notranslate nohighlight">\(\Omega\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[P(A) = \sum_{i=1}^{\infty} P(A \cap B_i) = \sum_{i=1}^{\infty} P(A~|~B_i)~P(B_i) \quad \text{for each } A \in \mathcal{F}.\]</div>
+</div>
+<p>The theorem is also called <strong>law of total probability</strong> and it states that the probability of an event <span class="math notranslate nohighlight">\(A\)</span> can be considered/computed as a weighted average of conditional probabilities.</p>
+</div>
 </div>
 <div class="section" id="random-variables">
 <h2><span class="section-number">1.2. </span>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this headline">¶</a></h2>
@@ -547,7 +588,7 @@ Wirtschaftswissenschaften”</a></p>
 <p>for each <span class="math notranslate nohighlight">\(A \in \mathcal{B}(\mathbb{R}^d)\)</span> and the probability measure <span class="math notranslate nohighlight">\(P_X: \mathcal{B}(\Omega) \rightarrow [0, 1]\)</span> given by</p>
 <div class="math notranslate nohighlight">
 \[P_X(A) := P(X^{-1}(A)) \quad \text{for } A \in \mathcal{B}(\Omega)\]</div>
-<p>is called the <strong>distribution of</strong> <span class="math notranslate nohighlight">\(X\)</span> <strong>under</strong> <span class="math notranslate nohighlight">\(P\)</span>. If <span class="math notranslate nohighlight">\(P_X\)</span> admits a <a class="reference internal" href="#def-contdistr"><span class="std std-ref">probability density</span></a>, then we denote the density by <span class="math notranslate nohighlight">\(f_X\)</span>. Furthermore, the cumulative distribution function of <span class="math notranslate nohighlight">\(P_X\)</span> is denoted by <span class="math notranslate nohighlight">\(F_X\)</span>.</p>
+<p>is called the <strong>distribution of</strong> <span class="math notranslate nohighlight">\(X\)</span> <strong>under</strong> <span class="math notranslate nohighlight">\(P\)</span>. We also write <span class="math notranslate nohighlight">\(X \sim P_X\)</span> which is useful if <span class="math notranslate nohighlight">\(P_X\)</span> is well-known (refer to <a class="reference internal" href="#sec-impprobdistr"><span class="std std-ref">Important Probability Distributions</span></a>). If <span class="math notranslate nohighlight">\(P_X\)</span> admits a <a class="reference internal" href="#def-contdistr"><span class="std std-ref">probability density</span></a>, then we denote the density by <span class="math notranslate nohighlight">\(f_X\)</span>. Furthermore, the cumulative distribution function of <span class="math notranslate nohighlight">\(P_X\)</span> is denoted by <span class="math notranslate nohighlight">\(F_X\)</span>.</p>
 </div>
 <p>In order to model a fair dice as a random variable simply set <span class="math notranslate nohighlight">\(\Omega= \{1, 2, 3, 4, 5, 6\}\)</span> as well as <span class="math notranslate nohighlight">\(p(\omega) = \frac{1}{6}\)</span> for <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span> to obtain the discrete probability space <span class="math notranslate nohighlight">\((\Omega, P)\)</span> and define <span class="math notranslate nohighlight">\(X\)</span> by</p>
 <div class="math notranslate nohighlight">
@@ -621,7 +662,7 @@ Wirtschaftswissenschaften”</a></p>
 <p>Expectation and covariance have some nice properties:</p>
 <div class="important admonition" id="lem-expprop">
 <p class="admonition-title">Lemma</p>
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables and <span class="math notranslate nohighlight">\(a, b \in \mathbb{R}\)</span>. Then</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> be random variables and <span class="math notranslate nohighlight">\(a, b \in \mathbb{R}\)</span>. Then</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}(a) = a\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}(aX) = a~\mathbb{E}(X)\)</span></p></li>
@@ -629,9 +670,11 @@ Wirtschaftswissenschaften”</a></p>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}(|X + Y|) \le \mathbb{E}(|X|) + \mathbb{E}(|Y|)\)</span></p></li>
 <li><p>If <span class="math notranslate nohighlight">\(X \le Y\)</span> (i.e., <span class="math notranslate nohighlight">\(X(\omega) \le Y(\omega)\)</span> for each <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span>, then <span class="math notranslate nohighlight">\(\mathbb{E}(X) \le \mathbb{E}(Y)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}(|X|) = 0 ~ \Leftrightarrow ~ P(X \ne 0) = 0\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = \mathbb{E}(XY^T) - \mathbb{E}(X) \mathbb{E}(Y)^T.\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X) = 0 ~ \Leftrightarrow ~ P(X \ne \mathbb{E}(X)) = 0\)</span>. In particular, <span class="math notranslate nohighlight">\(\text{Cov}(a) = 0\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X) \ge 0\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = \text{Cov}(Y, X)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = \mathbb{E}(XY^T) - \mathbb{E}(X) \mathbb{E}(Y)^T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X + Y, Z) = \text{Cov}(X, Z) + \text{Cov}(Y, Z)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X) = 0 ~ \Leftrightarrow ~ P(X \ne \mathbb{E}(X)) = 0\)</span>. In particular, <span class="math notranslate nohighlight">\(\text{Cov}(a) = 0\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(a, b) = 0\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(aX, bY) = ab~\text{Cov}(X, Y)\)</span></p></li>
 </ol>
@@ -661,12 +704,14 @@ Wirtschaftswissenschaften”</a></p>
 \[f_{(X, Y)}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R}.\]</div>
 </div>
 <p>Independence basically means that the occurrence of event A has no impact on the occurrence of event B or in terms of random variables, the outcomes of random variables should not impact each other. The definition of independent random variables generalizes easily to <span class="math notranslate nohighlight">\(d &gt; 1\)</span>.</p>
+<p>Note that two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent if and only if <span class="math notranslate nohighlight">\(P(A~|~B) = P(A)\)</span> (i.e., the probability of <span class="math notranslate nohighlight">\(A\)</span> does not change given <span class="math notranslate nohighlight">\(B\)</span>).</p>
 <div class="important admonition" id="lem-indep">
 <p class="admonition-title">Lemma</p>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two independent random variables. Then</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X + Y) = \text{Cov}(X) + \text{Cov}(Y)\)</span></p></li>
 </ol>
 </div>
 <p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[<a class="reference internal" href="#id9">Cramer and Kamps, 2017</a>]</span>).</p>
@@ -699,7 +744,7 @@ Wirtschaftswissenschaften”</a></p>
 \[r_{xy} := \frac{s_{xy}}{s_x s_y} = \frac{\sum_{i=1}^n (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^n (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^n (y_i - \overline{y})^2}} \quad \textbf{(Pearson correlation coefficient)}\]</div>
 </div>
 <div class="section" id="important-probability-distributions">
-<h2><span class="section-number">1.4. </span>Important Probability Distributions<a class="headerlink" href="#important-probability-distributions" title="Permalink to this headline">¶</a></h2>
+<span id="sec-impprobdistr"></span><h2><span class="section-number">1.4. </span>Important Probability Distributions<a class="headerlink" href="#important-probability-distributions" title="Permalink to this headline">¶</a></h2>
 <p>An extensive collection of important probability distributions can be found on <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_probability_distributions">Wikipedia</a>. In the following subsections, we will shortly review some of them.</p>
 <div class="section" id="discrete-distributions">
 <h3><span class="section-number">1.4.1. </span>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h3>
@@ -726,7 +771,7 @@ Wirtschaftswissenschaften”</a></p>
 </div>
 <div class="section" id="binomial-distribution">
 <h4><span class="section-number">1.4.1.3. </span>Binomial Distribution<a class="headerlink" href="#binomial-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The binomial distribution <span class="math notranslate nohighlight">\(\text{B}(n, k)\)</span> has two parameters <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span> and <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>. It describes the number of successes of <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli experiments with parameter <span class="math notranslate nohighlight">\(p\)</span>. Thus, a random variable <span class="math notranslate nohighlight">\(X\)</span> with binomial distribution takes values <span class="math notranslate nohighlight">\(\{0, \dots, n \}\)</span> and</p>
+<p>The binomial distribution <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span> has two parameters <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> and <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span>. It describes the number of successes of <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli experiments with parameter <span class="math notranslate nohighlight">\(p\)</span>. Thus, a random variable <span class="math notranslate nohighlight">\(X\)</span> with binomial distribution takes values <span class="math notranslate nohighlight">\(\{0, \dots, n \}\)</span> and</p>
 <div class="math notranslate nohighlight">
 \[P(X=k) = {{n}\choose{k}} p^k (1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k} \quad \text{for } k \in \{0, \dots, n \}.\]</div>
 <p>The binomial coefficient <span class="math notranslate nohighlight">\({{n}\choose{k}}\)</span> denotes the number of possibilities of exactly <span class="math notranslate nohighlight">\(k\)</span> successes in <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli trials.</p>
@@ -758,6 +803,7 @@ Wirtschaftswissenschaften”</a></p>
 <li><p>epidemiology: the number of cases of a disease in different cities</p></li>
 <li><p>sports: the number of goals in a soccer match</p></li>
 </ul>
+<p>If <span class="math notranslate nohighlight">\(n\)</span> is very large and <span class="math notranslate nohighlight">\(p\)</span> is very small the Poisson distribution can be used to approximate the binomial distribtion <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span> due to the <strong>Poisson limit theorem</strong> which is also called law of rare events.</p>
 </div>
 </div>
 <div class="section" id="continuous-distributions">
@@ -765,7 +811,7 @@ Wirtschaftswissenschaften”</a></p>
 <p>A continuous distribution is essentially specified by its probability density function.</p>
 <div class="section" id="normal-distribution">
 <span id="def-multnormal"></span><h4><span class="section-number">1.4.2.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The <strong>multivariate normal distribution</strong> <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \Sigma)\)</span> is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the results in <a class="reference internal" href="#sec-probessthm"><span class="std std-ref">Essential Theorems</span></a>.</p>
+<p>The <strong>multivariate normal distribution</strong> <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \Sigma)\)</span> is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the <a class="reference internal" href="#thm-clt"><span class="std std-ref">central limit theorem</span></a>.</p>
 <p>The multivariate normal distribution is completely charaterized by its expectation <span class="math notranslate nohighlight">\(\mu\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span>. The general probability distribution function is given by</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{\sqrt{(2\pi)^d |\Sigma|}} ~\exp\Big(-\frac{1}{2}~(x- \mu)^T \Sigma^{-1}(x -\mu)\Big) \quad \text{for } x \in \mathbb{R}^d,\]</div>
@@ -818,7 +864,7 @@ Wirtschaftswissenschaften”</a></p>
 </div>
 <div class="section" id="laplace-distribution">
 <h4><span class="section-number">1.4.2.6. </span>Laplace Distribution<a class="headerlink" href="#laplace-distribution" title="Permalink to this headline">¶</a></h4>
-<p>The Laplace distribution <span class="math notranslate nohighlight">\(\text{Lapalce}(\mu, b)\)</span> has the probability density function</p>
+<p>The Laplace distribution <span class="math notranslate nohighlight">\(\text{Laplace}(\mu, b)\)</span> has the probability density function</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{2b}~\exp\Big(-\frac{|x-\mu|}{b}\Big) \quad \text{for } x \in \mathbb{R},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(b &gt; 0\)</span>.</p>
@@ -837,22 +883,54 @@ Wirtschaftswissenschaften”</a></p>
 </div>
 <div class="section" id="essential-theorems">
 <span id="sec-probessthm"></span><h2><span class="section-number">1.5. </span>Essential Theorems<a class="headerlink" href="#essential-theorems" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="law-of-large-numbers">
+<h3><span class="section-number">1.5.1. </span>Law of Large Numbers<a class="headerlink" href="#law-of-large-numbers" title="Permalink to this headline">¶</a></h3>
+<p>The law of large numbers has multiple (strong and weak) versions and is of particular importance in statistics, since it justifies for example the estimation of the expectation of random variables in terms of sample means. In this section, we state one version of the strong law of large numbers:</p>
 <div class="important admonition" id="thm-lln">
-<p class="admonition-title">Theorem (Law of Large Numbers)</p>
-<p>Let</p>
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="math notranslate nohighlight">\(X_1, X_2, \dots\)</span> be a sequence of independent identical distributed random variables with expectation <span class="math notranslate nohighlight">\(\mu\)</span>. Then, it exists an event <span class="math notranslate nohighlight">\(N\)</span> of probability zero such that</p>
+<div class="math notranslate nohighlight">
+\[ \lim_{n \rightarrow \infty} \frac{1}{n} ~\sum_{i=1}^n X_i(\omega) = \mu \quad \text{for all } \omega \in \Omega \backslash N\]</div>
+<p>or equivalently</p>
+<div class="math notranslate nohighlight">
+\[P\big(\lim_{n \rightarrow \infty} \frac{1}{n} ~\sum_{i=1}^n X_i = \mu \big) = 1,\]</div>
+<p>i.e., the average converges almost surely to the expectation.</p>
 </div>
+</div>
+<div class="section" id="central-limit-theorem">
+<h3><span class="section-number">1.5.2. </span>Central Limit Theorem<a class="headerlink" href="#central-limit-theorem" title="Permalink to this headline">¶</a></h3>
+<p>The central limit theorem makes the normal distribution particularly important, since it can be considered as the limit of the average of “nice” i.i.d. random variables. Similarly to the law of large numbers, the theorem exists in several versions. In this section, we state the Lindeberg-L{‘e}vy central limit theorem:</p>
 <div class="important admonition" id="thm-clt">
-<p class="admonition-title">Theorem (Central Limit Theorem)</p>
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="math notranslate nohighlight">\(X_1, X_2, \dots\)</span> be a sequence of independent identical distributed random variables with expectation <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(0 &lt; \sigma^2 &lt; \infty\)</span>. Set</p>
+<div class="math notranslate nohighlight">
+\[Z_n := \frac{\frac{1}{n} ~\sum_{i=1}^n X_i - \mu}{\sigma/\sqrt{n}} = \frac{\sum_{i=1}^n X_i - n\mu}{\sigma \sqrt{n}}.\]</div>
+<p>Then, it holds</p>
+<div class="math notranslate nohighlight">
+\[\lim_{n \rightarrow \infty} P(Z_n \le z) = \Phi(z) \quad \text{for each } z \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Phi\)</span> denotes the cumulative distribution function of the standard normal distribution.</p>
+</div>
+<p>Briefly speaking, the cumulative distribution function of standardized average <span class="math notranslate nohighlight">\(Z_n\)</span> converges pointwisely to the cumulative distribution function of the standard normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span>. By definition, this means that <span class="math notranslate nohighlight">\(Z_n\)</span> <strong>converges in distribution</strong> to the standard normal distribution. The definition of <span class="math notranslate nohighlight">\(Z_n\)</span> might seem confusing, but it simply scales the average <span class="math notranslate nohighlight">\(\frac{1}{n} ~\sum_{i=1}^n X_i\)</span> such that its mean is <span class="math notranslate nohighlight">\(0\)</span> and its variance is <span class="math notranslate nohighlight">\(1\)</span> (in accordance with <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span>).</p>
+<p>This result is really notable, since it is independent from the underlying distribution of the random variables <span class="math notranslate nohighlight">\(X_i\)</span>, <span class="math notranslate nohighlight">\(i \in \mathbb{N}\)</span>, which could be totally different from a normal distribution and possibly be a discrete distribution.</p>
+<p>The arithmetic average fulfills</p>
+<div class="math notranslate nohighlight">
+\[P\big(\frac{1}{n} ~\sum_{i=1}^n X_i \le z\big) = P\big(Z_n \le \frac{z - \mu}{\sigma/\sqrt{n}}\big) \approx \underbrace{\Phi\big(\frac{z - \mu}{\sigma/\sqrt{n}}\big)}_{\text{cdf of } \mathcal{N}(\mu, \frac{\sigma^2}{n})}.\]</div>
+<p>Thus, the average can be approximated by <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \frac{\sigma^2}{n})\)</span> for sufficiently large <span class="math notranslate nohighlight">\(n\)</span>. If the distribution of the variables <span class="math notranslate nohighlight">\(X_1, X_2, \dots\)</span> is <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma^2)\)</span>, it holds indeed that <span class="math notranslate nohighlight">\(\frac{1}{n} ~\sum_{i=1}^n X_i \sim \mathcal{N}(\mu, \frac{\sigma^2}{n})\)</span>.</p>
+</div>
+<div class="section" id="bayes-theorem">
+<h3><span class="section-number">1.5.3. </span>Bayes’ Theorem<a class="headerlink" href="#bayes-theorem" title="Permalink to this headline">¶</a></h3>
+<div class="important admonition" id="thm-bt">
+<p class="admonition-title">Theorem</p>
 <p>Let</p>
 </div>
 <p id="id5"><dl class="citation">
-<dt class="label" id="id9"><span class="brackets">CK17</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
+<dt class="label" id="id9"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
 <dd><p>E. Cramer and U. Kamps. <em>Grundlagen der Wahrscheinlichkeitsrechnung und Statistik - Eine Einführung für Studierende der Informatik, der Ingenieur- und Wirtschaftswissenschaften</em>. Springer-Lehrbuch. Springer Spektrum, 4th edition, 2017. <a class="reference external" href="https://doi.org/10.1007/978-3-662-54161-6">doi:10.1007/978-3-662-54161-6</a>.</p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">Kle13</a></span></dt>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
 <dd><p>A. Klenke. <em>Wahrscheinlichkeitstheorie</em>. Masterclass. Springer Spektrum, 3rd edition, 2013. <a class="reference external" href="https://doi.org/10.1007/978-3-642-36018-3">doi:10.1007/978-3-642-36018-3</a>.</p>
 </dd>
-<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">Roo14</a></span></dt>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
 <dd><p>A. Rooch. <em>Statistik für Ingenieure - Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich</em>. Springer-Lehrbuch. Springer Spektrum, 1st edition, 2014. <a class="reference external" href="https://doi.org/10.1007/978-3-642-54857-4">doi:10.1007/978-3-642-54857-4</a>.</p>
 </dd>
 </dl>
@@ -860,6 +938,7 @@ Wirtschaftswissenschaften”</a></p>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
