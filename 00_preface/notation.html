@@ -49,6 +49,8 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/00_preface/notation.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -297,8 +299,53 @@
         
               <div>
                 
-  <div class="section" id="notation">
+  <!-- #region -->
+<div class="section" id="notation">
 <h1>Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h1>
+<p>In the following, we state the most important notations used in the present lecture notes. This collection is certainly not complete. Please draw our attention to expression which should be included into this section.</p>
+<p>A set is a collection of elements. In order to combine sets to a new set, we introduce some usual notations and operations.</p>
+<p>Let <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> be two sets which are subsets of a universal set <span class="math notranslate nohighlight">\(U\)</span> (i.e., <span class="math notranslate nohighlight">\(U\)</span> contains <strong>all</strong> elements of interest). Denote the empty set (i.e., the set with no elements) by <span class="math notranslate nohighlight">\(\emptyset\)</span>.</p>
+<ul class="simple">
+<li><p>subset:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \subset B ~ \Leftrightarrow ~\text{each element of $A$ is an element of $B$}\]</div>
+<ul class="simple">
+<li><p>union:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \cup B := \{x~|~x \in A \text{ or } x \in B \}\]</div>
+<ul class="simple">
+<li><p>intersection:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \cap B := \{x~|~x \in A \text{ and } x \in B \}\]</div>
+<ul class="simple">
+<li><p>disjoint union:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A ~\dot\cup~ B = A \cup B \quad \text{with $A \cap B = \emptyset$ (i.e., $A$ and $B$ have no common elements).}\]</div>
+<ul class="simple">
+<li><p>difference:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \backslash B := \{x~|~x \in A \text{ and } x \notin B \}\]</div>
+<ul class="simple">
+<li><p>complement:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A^c := U \backslash A\]</div>
+<ul class="simple">
+<li><p>partition: a partition of <span class="math notranslate nohighlight">\(U\)</span> is a collection of subset <span class="math notranslate nohighlight">\(A_1, A_2, \dots\)</span> such that <span class="math notranslate nohighlight">\(A_i \cap A_j = \emptyset\)</span> for each <span class="math notranslate nohighlight">\(i, j \in \mathbb{N}\)</span> (disjointness) and <span class="math notranslate nohighlight">\(U = \cup_{i=1}^{\infty} A_i\)</span>. In accordance with the disjoint union of two sets, we write</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[U = ~\dot\cup_{i=1}^{\infty}~A_i\]</div>
+<p><span class="math notranslate nohighlight">\(\mathbb{1}_A\)</span> denotes the indicator function which returns <span class="math notranslate nohighlight">\(1\)</span> if an input is an element of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(0\)</span> otherwise:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{1}_A(x) = \begin{cases} 1 \text{ if } x \in A \\
+                                  0 \text{ if } x \notin A
+                    \end{cases}\end{split}\]</div>
+<!-- #endregion -->
 </div>
 
     <script type="text/x-thebe-config">
