@@ -449,14 +449,14 @@
 <p>The content follows the textbooks</p>
 <p><a class="reference external" href="https://www.springer.com/de/book/9783642548567">“Statistik für Ingenieure -
 Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich”</a></p>
-<p>by Aeneas Rooch <span id="id1">[<a class="reference internal" href="#id8">Rooch, 2014</a>]</span> and</p>
+<p>by Aeneas Rooch <span id="id1">[<a class="reference internal" href="#id8">3</a>]</span> and</p>
 <p><a class="reference external" href="https://www.springer.com/de/book/9783662541616">“Grundlagen der
 Wahrscheinlichkeitsrechnung
 und Statistik - Eine Einführung für Studierende
 der Informatik, der Ingenieur- und
 Wirtschaftswissenschaften”</a></p>
-<p>by Erhard Cramer and Udo Kamps <span id="id2">[<a class="reference internal" href="#id9">Cramer and Kamps, 2017</a>]</span>.</p>
-<p>The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke <span id="id3">[<a class="reference internal" href="#id6">Klenke, 2013</a>]</span>.</p>
+<p>by Erhard Cramer and Udo Kamps <span id="id2">[<a class="reference internal" href="#id9">1</a>]</span>.</p>
+<p>The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke <span id="id3">[<a class="reference internal" href="#id6">2</a>]</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All three books are available free of charge via <a class="reference external" href="https://hs-niederrhein.digibib.net/">DigiBib</a>.</p>
@@ -714,7 +714,7 @@ Wirtschaftswissenschaften”</a></p>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X + Y) = \text{Cov}(X) + \text{Cov}(Y)\)</span></p></li>
 </ol>
 </div>
-<p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[<a class="reference internal" href="#id9">Cramer and Kamps, 2017</a>]</span>).</p>
+<p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id4">[<a class="reference internal" href="#id9">1</a>]</span>).</p>
 <p>In many cases, we are able to observe outcomes of independent random variables with the same distribution (so-called <strong>independent identical distributed</strong> (i.i.d.) random variables), but do not know the underlying distribution exactly. Thus, we would like to make conclusions about the distribution based on our observations. In this way, our probabilistic definitions are linked to statistics and estimators. For example, think of rolling a dice multiple times and initially we do not know if the dice is fair or not. We have shown that a fair dice has an expectation of <span class="math notranslate nohighlight">\(3.5\)</span>. Thus, it is reasonable to verify this expectation in use of the given observations. If the sample mean (see below) of many independent experiments is not sufficiently close to <span class="math notranslate nohighlight">\(3.5\)</span>, we may reject the hypothesis that the dice is fair. This procedure is called <strong>hypothesis testing</strong> in statistics.</p>
 <p>Assume that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables and that <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> and <span class="math notranslate nohighlight">\(y_1, \dots, y_n\)</span> are samples of i.i.d. experiments with respect to <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span>, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts:</p>
 <ul class="simple">
