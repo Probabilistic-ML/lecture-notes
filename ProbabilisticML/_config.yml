@@ -33,7 +33,7 @@ sphinx:
   config:
     html_show_copyright: false
     language: en
-    bibtex_reference_style: author_year # label
+    # bibtex_reference_style: author_year # label
     latex_toplevel_sectioning: 'part'
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     intersphinx_mapping:
