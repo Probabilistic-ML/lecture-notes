@@ -3,12 +3,12 @@
 
 In the present section, we define the basic terms of probability theory and statistics. Moreover, we state the most common examples of discrete and continuous probability distributions. 
 
-The content follows the textbooks  
+The content follows the textbooks
 
 ["Statistik für Ingenieure - 
 Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich"](https://www.springer.com/de/book/9783642548567)  
 
-by Aeneas Rooch {cite}```Rooch14``` and  
+by Aeneas Rooch {cite}```Rooch2014``` and
 
 ["Grundlagen der
 Wahrscheinlichkeitsrechnung
@@ -16,9 +16,9 @@ und Statistik - Eine Einführung für Studierende
 der Informatik, der Ingenieur- und
 Wirtschaftswissenschaften"](https://www.springer.com/de/book/9783662541616)  
 
-by Erhard Cramer and Udo Kamps {cite}```CK17```.
+by Erhard Cramer and Udo Kamps {cite}```Cramer2017```.
 
-The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in ["Wahrscheinlichkeitstheorie"](https://www.springer.com/de/book/9783642360183) by Achim Klenke {cite}```Klenke13```. 
+The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in ["Wahrscheinlichkeitstheorie"](https://www.springer.com/de/book/9783642360183) by Achim Klenke {cite}```Klenke2013```. 
 
 ```{note}
 All three books are available free of charge via [DigiBib](https://hs-niederrhein.digibib.net/).
@@ -363,7 +363,7 @@ Note that each discrete probability distribution is completely described by the 
 
 #### Bernoulli Distribution
 
-The Bernoulli distributions is the distribution of a random variable $X$ which takes only two possible values (usually encoded by $0$ and $1$). The two values can be interpreted e.g. as false/true or failure/success. Thus,
+The Bernoulli distribution $\text{B}(1, p)$ is the distribution of a random variable $X$ which takes only two possible values (usually encoded by $0$ and $1$). The two values can be interpreted e.g. as false/true or failure/success. Thus,
 
 $$P(X = 1) = p \quad \text{for some } p \in [0, 1]$$ 
 
@@ -575,11 +575,17 @@ Thus, the average can be approximated by $\mathcal{N}(\mu, \frac{\sigma^2}{n})$ 
 
 ### Bayes' Theorem
 
+From a mathematical standpoint, Bayes' theorem is a rather simple, since the statement is follows directly from the definition of conditional probabilities. Nevertheless, it has a very important interpretation which is the foundation of Bayesian inference.
+
 ```{admonition} Theorem
 :class: important
 :name: thm:bt
-Let
+Let $(\Omega, \mathcal{F}, P)$ be a probability space and $A, B \in \mathcal{F}$ with $P(B) > 0$. Then
+
+$$P(A~|~B) = \frac{P(B~|~A) P(A)}{P(B)}$$
 ```
+
+Note that $P(B~|~A)$ is not well-defined if $P(A) = 0$, but in this case it holds $P(A~|~B) = 0$ and the righthand side can also be regarded as $0$, since $P(A) = 0$ and the (ill-defined) $P(B~|~A)$ should be between $0$ and $1$.
 
 ```{bibliography}
 :filter: docname in docnames
