@@ -3,18 +3,18 @@
 
 In the present section, we define the basic terms of probability theory and statistics. Moreover, we state the most common examples of discrete and continuous probability distributions. 
 
-The content follows the textbooks
+The content follows the textbooks  
 
 ["Statistik für Ingenieure - 
-Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich"](https://www.springer.com/de/book/9783642548567)
+Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich"](https://www.springer.com/de/book/9783642548567)  
 
-by Aeneas Rooch {cite}```Rooch14``` and
+by Aeneas Rooch {cite}```Rooch14``` and  
 
 ["Grundlagen der
 Wahrscheinlichkeitsrechnung
 und Statistik - Eine Einführung für Studierende
 der Informatik, der Ingenieur- und
-Wirtschaftswissenschaften"](https://www.springer.com/de/book/9783662541616)
+Wirtschaftswissenschaften"](https://www.springer.com/de/book/9783662541616)  
 
 by Erhard Cramer and Udo Kamps {cite}```CK17```.
 
