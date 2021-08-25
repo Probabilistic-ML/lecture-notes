@@ -96,6 +96,8 @@ $$\overline{\Sigma} = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}.$$
 
 For the interested reader, we show the result for the bivariate case $d=2$ and $d_1=d_2=1$.
 
+```{admonition} Proof.
+:class: dropdown
 Let the mean value be given by
 
 $$\mu = \begin{pmatrix} \mu_1 \\
@@ -150,6 +152,7 @@ $$f_{X_1~|~X_2=x_2}(x_1) &= \frac{f_{X}(x_1, x_2)}{f_{X_2}(x_2)} \\
 &= \frac{1}{\sqrt{2\pi (1 - \rho^2) \sigma_1^2}}~\exp\Big(-\frac{1}{2} \frac{\Big( x_1 - \big(\mu_1 + \rho \frac{\sigma_1}{\sigma_2} \big(x_2 - \mu_2 \big) \big) \Big)^2}{(1 - \rho^2) \sigma_1^2} \Big), $$
 
 i.e. the conditional distribution is a normal distribution with mean $\mu_1 + \rho \frac{\sigma_1}{\sigma_2} \big(x_2 - \mu_2 \big)$ and variance $(1 - \rho^2) \sigma_1^2$.
+```
 
 ## Law of Large Numbers
 
