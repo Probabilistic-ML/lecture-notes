@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.2. Random Variables &#8212; Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/01_fundprob/02_randomvariables.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.3. Independence" href="03_independence.html" />
+    <link rel="prev" title="1.1. Probability Spaces" href="01_probabilityspaces.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/about.html">
+   About the Authors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_bayes.html">
+   3. MLE, MAP &amp; Bayesian Inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../04_linregr.html">
+   4. An illustrative example for MLE and MAP: Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../05_opt.html">
+   5. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../06_MLworkflow.html">
+   6. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/motivation.html">
+   7. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/kernelmethods.html">
+   8. Kernel-based Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/overview.html">
+   14. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   15. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   16. Quantification of Design Uncertainty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/RL.html">
+   17. Data-efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Appendix
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../04_appendix/placeholder.html">
+   Appendix A
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/01_fund/01_fundprob/02_randomvariables.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="random-variables">
+<h1><span class="section-number">1.2. </span>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this headline">¶</a></h1>
+<p>Imagine that we perform multiple independent random experiments by rolling repeatedly (<span class="math notranslate nohighlight">\(n\)</span>-times) a fair dice. The corresponding sample space is given by</p>
+<div class="math notranslate nohighlight">
+\[\Omega = \{ \omega = (\omega_1, \omega_2, \dots, \omega_n)~|~\omega_i \in \{1, 2, 3, 4, 5, 6\} \ \text{for } i=1, \dots,n \}.\]</div>
+<p>Since the experiments are independent and we consider a fair dice, it is reasonable to define</p>
+<div class="math notranslate nohighlight">
+\[ p(\omega) = \frac{1}{6^n} \quad \text{for each } \omega \in \Omega\]</div>
+<p>which results in a discrete probability space <span class="math notranslate nohighlight">\((\Omega, \mathcal{P}(\Omega), P)\)</span>. Eventually, we are not interested in events with respect to <span class="math notranslate nohighlight">\(\Omega\)</span>, but for example in the average outcome of the experiments or the number of times of rolling a six. Instead of modelling these experiments directly by redefining <span class="math notranslate nohighlight">\(\Omega\)</span> and <span class="math notranslate nohighlight">\(p\)</span>, it is very useful to apply the concept of random variables:</p>
+<div class="tip admonition" id="def-rv">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probabiliy space. A map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d \ge 1\)</span>, is called a real-valued <strong>random variable</strong>, if</p>
+<div class="math notranslate nohighlight">
+\[ X^{-1}(A) := \{ \omega \in \Omega~|~X(\omega) \in A \} \in \mathcal{F}\]</div>
+<p>for each <span class="math notranslate nohighlight">\(A \in \mathcal{B}(\mathbb{R}^d)\)</span> and the probability measure <span class="math notranslate nohighlight">\(P_X: \mathcal{B}(\Omega) \rightarrow [0, 1]\)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[P_X(A) := P(X^{-1}(A)) \quad \text{for } A \in \mathcal{B}(\Omega)\]</div>
+<p>is called the <strong>distribution of</strong> <span class="math notranslate nohighlight">\(X\)</span> <strong>under</strong> <span class="math notranslate nohighlight">\(P\)</span>. We also write <span class="math notranslate nohighlight">\(X \sim P_X\)</span> which is useful if <span class="math notranslate nohighlight">\(P_X\)</span> is well-known (refer to <a class="reference internal" href="04_impprobdistr.html#sec-impprobdistr"><span class="std std-ref">Important Probability Distributions</span></a>). If <span class="math notranslate nohighlight">\(P_X\)</span> admits a <a class="reference internal" href="01_probabilityspaces.html#def-contdistr"><span class="std std-ref">probability density</span></a>, then we denote the density by <span class="math notranslate nohighlight">\(f_X\)</span>. Furthermore, the cumulative distribution function of <span class="math notranslate nohighlight">\(P_X\)</span> is denoted by <span class="math notranslate nohighlight">\(F_X\)</span>.</p>
+</div>
+<p>In order to model a fair dice as a random variable simply set <span class="math notranslate nohighlight">\(\Omega= \{1, 2, 3, 4, 5, 6\}\)</span> as well as <span class="math notranslate nohighlight">\(p(\omega) = \frac{1}{6}\)</span> for <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span> to obtain the discrete probability space <span class="math notranslate nohighlight">\((\Omega, P)\)</span> and define <span class="math notranslate nohighlight">\(X\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[X(\omega) = \omega \quad \text{for } \omega \in \Omega.\]</div>
+<p>Observe that <span class="math notranslate nohighlight">\(X\)</span> does only take values in <span class="math notranslate nohighlight">\(\{1, 2, 3, 4, 5, 6\}\)</span>. Hence, <span class="math notranslate nohighlight">\(X\)</span> maps to <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, but <span class="math notranslate nohighlight">\(P_X(\mathbb{R} \backslash \{1, 2, 3, 4, 5, 6\}) = 0\)</span>. <span class="math notranslate nohighlight">\(\{1, 2, 3, 4, 5, 6\}\)</span> is called the <strong>support</strong> of <span class="math notranslate nohighlight">\(P_X\)</span>.</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(d &gt; 1\)</span>, <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is also called a multivariate random variable or random vector. In this case, <span class="math notranslate nohighlight">\(X\)</span> is a random variable if and only if each component <span class="math notranslate nohighlight">\(X_i: \Omega \rightarrow \mathbb{R}\)</span> is a scalar random variable.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> is a <a class="reference internal" href="01_probabilityspaces.html#def-discrdistr"><span class="std std-ref">discrete probability space</span></a>, <strong>each</strong> map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is a random variable, since <span class="math notranslate nohighlight">\(\mathcal{F} = \mathcal{P}(\Omega)\)</span> contains all subsets of <span class="math notranslate nohighlight">\(\Omega\)</span>. Moreover, note that we can identify <span class="math notranslate nohighlight">\(P_X\)</span> with a discrete probability distribution (as seen in the example of a dice), since <span class="math notranslate nohighlight">\(X\)</span> can take at most countably many distinct values in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In this case, we denote the corresponding elementary probabilities by <span class="math notranslate nohighlight">\(p_X\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> is a <a class="reference internal" href="01_probabilityspaces.html#def-contdistr"><span class="std std-ref">continuous probability space</span></a>, it can be shown that at least each <strong>continuous</strong> map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is a random variable.</p></li>
+</ul>
+<p>A very important concept is the expectation of random variables:</p>
+<div class="tip admonition" id="def-exp">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d \ge 1\)</span>, be a random variable on some probability space <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span>. The <strong>expectation</strong>, <strong>expected value</strong> or <strong>mean</strong> of X is defined by</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}(X) := \sum_{x \in X(\Omega)} x ~ p_X(x) \]</div>
+<p>for discrete probability spaces, if the sum if well-defined, as well as by</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}(X) := \int_{\mathbb{R}^d} x ~ f_X(x)~dx \]</div>
+<p>if <span class="math notranslate nohighlight">\(P_X\)</span> admits a probability density and the integral is well-defined. Sometimes <span class="math notranslate nohighlight">\(\mathbb{E}(X)\)</span> is denoted by <span class="math notranslate nohighlight">\(\mu\)</span> or <span class="math notranslate nohighlight">\(\mu_X\)</span>.</p>
+</div>
+<p>The expectation of rolling a fair dice is given by</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=1}^6 i ~ p(i) = \sum_{i=1}^6 i ~ \frac{1}{6} = \frac{21}{6} = 3.5\]</div>
+<p>In many cases, we need to compute the mean of a transformed random variable. For this purpose, the following results will be useful:</p>
+<div class="important admonition" id="thm-trans">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d \ge 1\)</span>, be a random variable and <span class="math notranslate nohighlight">\(g: \mathbb{R}^d \rightarrow \mathbb{R}^k\)</span> a function. Then</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}(g(X)) = \sum_{x \in X(\Omega)} g(x) ~ p_X(x) \]</div>
+<p>for discrete probability spaces and</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}(g(X)) := \int_{\mathbb{R}^d} g(x) ~ f_X(x)~dx \]</div>
+<p>if <span class="math notranslate nohighlight">\(P_X\)</span> admits a probability density.</p>
+</div>
+<p>At this point, we are somewhat imprecise. Indeed, the transformation <span class="math notranslate nohighlight">\(g\)</span> needs to be sufficiently nice, but at this point we neglect additional assumptions.</p>
+<p>The remaining part of this section is a little bit <strong>more involved and not necessarily required</strong>. Nevertheless, we state these results in view of a better understanding of <a class="reference internal" href="04_impprobdistr.html#def-multnormal"><span class="std std-ref">multivariate normal distributions</span></a>.</p>
+<p>In use of the above theorem, we are able to define the covariance matrix of multivariate random variables:</p>
+<div class="tip admonition" id="def-cov">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(Y: \Omega \rightarrow \mathbb{R}^k\)</span> be random variables. The <strong>covariance matrix</strong> between X and Y is defined by</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov}(X, Y) := \mathbb{E}\big((X - \mathbb{E}(X))(Y - \mathbb{E}(Y))^T \big)\]</div>
+<p>If <span class="math notranslate nohighlight">\(Y = X\)</span> the definition yields the <strong>covariance matrix of</strong> X, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[ \text{Cov}(X) := \text{Cov}(X, X).\]</div>
+</div>
+<ul class="simple">
+<li><p>From two random variables <span class="math notranslate nohighlight">\(X\)</span> with values in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> with values in <span class="math notranslate nohighlight">\(\mathbb{R}^k\)</span>, we can define a new single random variable <span class="math notranslate nohighlight">\(Z = (X, Y)\)</span> with values in <span class="math notranslate nohighlight">\(\mathbb{R}^{d + k}\)</span> by stacking the two vectors. Note that we need to consider <span class="math notranslate nohighlight">\(P_Z\)</span> in order to apply the <a class="reference internal" href="#thm-trans"><span class="std std-ref">transformation theorem</span></a> and to compute <span class="math notranslate nohighlight">\(\text{Cov}(X, Y)\)</span>. The distribution of <span class="math notranslate nohighlight">\(Z\)</span> is called the <strong>joint distribution</strong> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p>Note that in general <span class="math notranslate nohighlight">\(\text{Cov}(X, Y)\)</span> is indeed a matrix of size <span class="math notranslate nohighlight">\(d \times k\)</span>. This matrix contains the pairwise covariances of all components of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, i.e.,</p></li>
+</ul>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\text{Cov}(X, Y) = \begin{pmatrix} \text{Cov}(X_1, Y_1) &amp; \text{Cov}(X_1, Y_2) &amp; \cdots &amp; \text{Cov}(X_1, Y_k) \\
+\text{Cov}(X_2, Y_1) &amp; \text{Cov}(X_2, Y_2) &amp; \cdots &amp; \text{Cov}(X_2, Y_k) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\text{Cov}(X_d, Y_1) &amp; \text{Cov}(X_d, Y_2) &amp; \cdots &amp; \text{Cov}(X_d, Y_k)
+\end{pmatrix}
+\end{align*}\]</div>
+<ul class="simple">
+<li><p>In the case <span class="math notranslate nohighlight">\(d=1\)</span>, <span class="math notranslate nohighlight">\(\text{Cov}(X) \in \mathbb{R}\)</span> is simply called the <strong>variance of</strong> <span class="math notranslate nohighlight">\(X\)</span> which is also denoted by <span class="math notranslate nohighlight">\(\sigma^2\)</span> or <span class="math notranslate nohighlight">\(\sigma_X^2\)</span>. Furthermore, <span class="math notranslate nohighlight">\(\sigma := \sigma_X := \sqrt{\sigma_X^2}\)</span> is called the <strong>standard deviation</strong> of <span class="math notranslate nohighlight">\(X\)</span>. It holds</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\sigma^2 = \int (x - \mathbb{E}(X))^2 ~ f_X(x)~dx.\]</div>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(d=k=1\)</span>, the <strong>correlation</strong> <span class="math notranslate nohighlight">\(\text{Corr}(X, Y)\)</span> (also denoted <span class="math notranslate nohighlight">\(\rho\)</span> or <span class="math notranslate nohighlight">\(\rho_{X, Y}\)</span>) is given by</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ -1 \le \text{Corr}(X, Y) := \frac{\text{Cov}(X, Y)}{\sigma_X ~ \sigma_Y} \le 1\]</div>
+<p>Note that the correlation is only defined if the variances of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are non-zero.</p>
+<p>Expectation and covariance have some nice properties:</p>
+<div class="important admonition" id="lem-expprop">
+<p class="admonition-title">Lemma</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> be random variables and <span class="math notranslate nohighlight">\(a, b \in \mathbb{R}\)</span>. Then</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}(a) = a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}(aX) = a~\mathbb{E}(X)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}(|X + Y|) \le \mathbb{E}(|X|) + \mathbb{E}(|Y|)\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(X \le Y\)</span> (i.e., <span class="math notranslate nohighlight">\(X(\omega) \le Y(\omega)\)</span> for each <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span>, then <span class="math notranslate nohighlight">\(\mathbb{E}(X) \le \mathbb{E}(Y)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}(|X|) = 0 ~ \Leftrightarrow ~ P(X \ne 0) = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X) \ge 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = \text{Cov}(Y, X)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = \mathbb{E}(XY^T) - \mathbb{E}(X) \mathbb{E}(Y)^T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X + Y, Z) = \text{Cov}(X, Z) + \text{Cov}(Y, Z)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X) = 0 ~ \Leftrightarrow ~ P(X \ne \mathbb{E}(X)) = 0\)</span>. In particular, <span class="math notranslate nohighlight">\(\text{Cov}(a) = 0\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(a, b) = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(aX, bY) = ab~\text{Cov}(X, Y)\)</span></p></li>
+</ol>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01_fund/01_fundprob"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="01_probabilityspaces.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">1.1. </span>Probability Spaces</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="03_independence.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">1.3. </span>Independence</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall (Equal Contribution)<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

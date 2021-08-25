@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Python &#8212; Probabilistic Machine Learning</title>
+    <title>4. An illustrative example for MLE and MAP: Linear Regression &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -49,12 +49,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/00_preface/python.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/04_linregr.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Notation" href="notation.html" />
-    <link rel="prev" title="About the Authors" href="about.html" />
+    <link rel="next" title="5. Optimization Methods" href="05_opt.html" />
+    <link rel="prev" title="3. MLE, MAP &amp; Bayesian Inference" href="03_bayes.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -96,24 +96,24 @@
   Preface
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="preface.html">
+  <a class="reference internal" href="../00_preface/preface.html">
    Preface
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="about.html">
+  <a class="reference internal" href="../00_preface/about.html">
    About the Authors
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../00_preface/python.html">
    Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="notation.html">
+  <a class="reference internal" href="../00_preface/notation.html">
    Notation
   </a>
  </li>
@@ -123,9 +123,9 @@
   Fundamentals
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../01_fund/01_fundprob.html">
+  <a class="reference internal" href="01_fundprob.html">
    1. Fundamentals of Probability Theory
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -135,54 +135,54 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/01_probabilityspaces.html">
+    <a class="reference internal" href="01_fundprob/01_probabilityspaces.html">
      1.1. Probability Spaces
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/02_randomvariables.html">
+    <a class="reference internal" href="01_fundprob/02_randomvariables.html">
      1.2. Random Variables
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/03_independence.html">
+    <a class="reference internal" href="01_fundprob/03_independence.html">
      1.3. Independence
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/04_impprobdistr.html">
+    <a class="reference internal" href="01_fundprob/04_impprobdistr.html">
      1.4. Important Probability Distributions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/05_essthms.html">
+    <a class="reference internal" href="01_fundprob/05_essthms.html">
      1.5. Essential Theorems
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/02_stat.html">
+  <a class="reference internal" href="02_stat.html">
    2. Bayesian vs. Frequentists View
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/03_bayes.html">
+  <a class="reference internal" href="03_bayes.html">
    3. MLE, MAP &amp; Bayesian Inference
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/04_linregr.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    4. An illustrative example for MLE and MAP: Linear Regression
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/05_opt.html">
+  <a class="reference internal" href="05_opt.html">
    5. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/06_MLworkflow.html">
+  <a class="reference internal" href="06_MLworkflow.html">
    6. Machine Learning Workflow
   </a>
  </li>
@@ -283,7 +283,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/00_preface/python.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/01_fund/04_linregr.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -321,6 +321,29 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ordinary-least-squares">
+   4.1. Ordinary Least Squares
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ridge-regression">
+   4.2. Ridge Regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lasso">
+   4.3. LASSO
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -329,8 +352,17 @@
         
               <div>
                 
-  <div class="section" id="python">
-<h1>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="an-illustrative-example-for-mle-and-map-linear-regression">
+<h1><span class="section-number">4. </span>An illustrative example for MLE and MAP: Linear Regression<a class="headerlink" href="#an-illustrative-example-for-mle-and-map-linear-regression" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ordinary-least-squares">
+<h2><span class="section-number">4.1. </span>Ordinary Least Squares<a class="headerlink" href="#ordinary-least-squares" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="ridge-regression">
+<h2><span class="section-number">4.2. </span>Ridge Regression<a class="headerlink" href="#ridge-regression" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="lasso">
+<h2><span class="section-number">4.3. </span>LASSO<a class="headerlink" href="#lasso" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -346,7 +378,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./00_preface"
+            path: "./01_fund"
         },
         predefinedOutput: true
     }
@@ -363,19 +395,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="about.html" title="previous page">
+        <a class="left-prev" href="03_bayes.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">About the Authors</p>
+                <p class="prevnext-title"><span class="section-number">3. </span>MLE, MAP &amp; Bayesian Inference</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="notation.html" title="next page">
+        <a class="right-next" href="05_opt.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Notation</p>
+                <p class="prevnext-title"><span class="section-number">5. </span>Optimization Methods</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. Optimization Methods &#8212; Probabilistic Machine Learning</title>
+    <title>1. Fundamentals of Probability Theory &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -42,19 +42,19 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@latest/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/opt.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/01_fundprob.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Machine Learning Workflow" href="MLworkflow.html" />
-    <link rel="prev" title="4. An illustrative example for MLE and MAP: Linear Regression" href="linregr.html" />
+    <link rel="next" title="1.1. Probability Spaces" href="01_fundprob/01_probabilityspaces.html" />
+    <link rel="prev" title="Notation" href="../00_preface/notation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -82,7 +82,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -124,33 +124,65 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="fundprob.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    1. Fundamentals of Probability Theory
   </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_fundprob/01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_fundprob/02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_fundprob/03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_fundprob/04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_fundprob/05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="stat.html">
+  <a class="reference internal" href="02_stat.html">
    2. Bayesian vs. Frequentists View
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="bayes.html">
+  <a class="reference internal" href="03_bayes.html">
    3. MLE, MAP &amp; Bayesian Inference
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="linregr.html">
+  <a class="reference internal" href="04_linregr.html">
    4. An illustrative example for MLE and MAP: Linear Regression
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_opt.html">
    5. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="MLworkflow.html">
+  <a class="reference internal" href="06_MLworkflow.html">
    6. Machine Learning Workflow
   </a>
  </li>
@@ -251,7 +283,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01_fund/opt.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/01_fund/01_fundprob.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -297,8 +329,41 @@
         
               <div>
                 
-  <div class="section" id="optimization-methods">
-<h1><span class="section-number">5. </span>Optimization Methods<a class="headerlink" href="#optimization-methods" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="fundamentals-of-probability-theory">
+<h1><span class="section-number">1. </span>Fundamentals of Probability Theory<a class="headerlink" href="#fundamentals-of-probability-theory" title="Permalink to this headline">¶</a></h1>
+<p>In the present section, we define the basic terms of probability theory and statistics. Moreover, we state the most common examples of discrete and continuous probability distributions.</p>
+<p>The content follows the textbooks</p>
+<p><a class="reference external" href="https://www.springer.com/de/book/9783642548567">“Statistik für Ingenieure -
+Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich”</a></p>
+<p>by Aeneas Rooch <span id="id1">[<a class="reference internal" href="#id7">3</a>]</span> and</p>
+<p><a class="reference external" href="https://www.springer.com/de/book/9783662541616">“Grundlagen der
+Wahrscheinlichkeitsrechnung
+und Statistik - Eine Einführung für Studierende
+der Informatik, der Ingenieur- und
+Wirtschaftswissenschaften”</a></p>
+<p>by Erhard Cramer and Udo Kamps <span id="id2">[<a class="reference internal" href="#id8">1</a>]</span>.</p>
+<p>The goal is to avoid unnecessarily complex mathematical backround, but to provide the required framework to understand the subsequent machine learning methods. Nevertheless, for the the sake of completeness, additional references are given from time to time. A more profound mathematical theory can for example be found in <a class="reference external" href="https://www.springer.com/de/book/9783642360183">“Wahrscheinlichkeitstheorie”</a> by Achim Klenke <span id="id3">[<a class="reference internal" href="#id5">2</a>]</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All three books are available free of charge via <a class="reference external" href="https://hs-niederrhein.digibib.net/">DigiBib</a>.</p>
+</div>
+<p id="id4"><dl class="citation">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>E. Cramer and U. Kamps. <em>Grundlagen der Wahrscheinlichkeitsrechnung und Statistik - Eine Einführung für Studierende der Informatik, der Ingenieur- und Wirtschaftswissenschaften</em>. Springer-Lehrbuch. Springer Spektrum, 4th edition, 2017. <a class="reference external" href="https://doi.org/10.1007/978-3-662-54161-6">doi:10.1007/978-3-662-54161-6</a>.</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>A. Klenke. <em>Wahrscheinlichkeitstheorie</em>. Masterclass. Springer Spektrum, 3rd edition, 2013. <a class="reference external" href="https://doi.org/10.1007/978-3-642-36018-3">doi:10.1007/978-3-642-36018-3</a>.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
+<dd><p>A. Rooch. <em>Statistik für Ingenieure - Wahrscheinlichkeitsrechnung und Datenauswertung endlich verständlich</em>. Springer-Lehrbuch. Springer Spektrum, 1st edition, 2014. <a class="reference external" href="https://doi.org/10.1007/978-3-642-54857-4">doi:10.1007/978-3-642-54857-4</a>.</p>
+</dd>
+</dl>
+</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -324,12 +389,32 @@
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="linregr.html" title="previous page"><span class="section-number">4. </span>An illustrative example for MLE and MAP: Linear Regression</a>
-    <a class='right-next' id="next-link" href="MLworkflow.html" title="next page"><span class="section-number">6. </span>Machine Learning Workflow</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../00_preface/notation.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Notation</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="01_fundprob/01_probabilityspaces.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">1.1. </span>Probability Spaces</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>

@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.5. Essential Theorems &#8212; Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/01_fundprob/05_essthms.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="2. Bayesian vs. Frequentists View" href="../02_stat.html" />
+    <link rel="prev" title="1.4. Important Probability Distributions" href="04_impprobdistr.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/about.html">
+   About the Authors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_bayes.html">
+   3. MLE, MAP &amp; Bayesian Inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../04_linregr.html">
+   4. An illustrative example for MLE and MAP: Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../05_opt.html">
+   5. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../06_MLworkflow.html">
+   6. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/motivation.html">
+   7. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/kernelmethods.html">
+   8. Kernel-based Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/overview.html">
+   14. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   15. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   16. Quantification of Design Uncertainty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/RL.html">
+   17. Data-efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Appendix
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../04_appendix/placeholder.html">
+   Appendix A
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/01_fund/01_fundprob/05_essthms.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties-of-the-normal-distribution">
+   1.5.1. Properties of the Normal Distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#law-of-large-numbers">
+   1.5.2. Law of Large Numbers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#central-limit-theorem">
+   1.5.3. Central Limit Theorem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayes-theorem">
+   1.5.4. Bayes’ Theorem
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="essential-theorems">
+<span id="sec-probessthm"></span><h1><span class="section-number">1.5. </span>Essential Theorems<a class="headerlink" href="#essential-theorems" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="properties-of-the-normal-distribution">
+<h2><span class="section-number">1.5.1. </span>Properties of the Normal Distribution<a class="headerlink" href="#properties-of-the-normal-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition" id="lem-lintransnormaldistr">
+<p class="admonition-title">Lemma</p>
+<p>Let <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu_1, \Sigma_1)\)</span> be a <span class="math notranslate nohighlight">\(\mathbb{R}^{d_1}\)</span>-valued random variable as well as <span class="math notranslate nohighlight">\(\mu_2 \in \mathbb{R}^{d_2}\)</span> and <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{d_2 \times d_1}\)</span> be a matrix with full rank. Then,</p>
+<div class="math notranslate nohighlight">
+\[\mu_2 + AX \sim \mathcal{N}(\mu_2 + A\mu_1, A\Sigma A^T)\]</div>
+<p>In particular, <span class="math notranslate nohighlight">\(\mu_2 + AX \sim \mathcal{N}(\mu_2, AA^T)\)</span> if <span class="math notranslate nohighlight">\(X\)</span> is standard normally distributed.</p>
+</div>
+<p>As a consequence, each normally distributed random variable <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu, \Sigma)\)</span> can be written as the linear transformation of a standard normally distributed random variable <span class="math notranslate nohighlight">\(Z\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ X = \mu + A Z,\]</div>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> is the matrix root of <span class="math notranslate nohighlight">\(\Sigma\)</span>, i.e., <span class="math notranslate nohighlight">\(\Sigma = AA^T\)</span>.</p>
+<div class="important admonition" id="lem-sumnormaldistr">
+<p class="admonition-title">Lemma</p>
+<p>Let <span class="math notranslate nohighlight">\(X_1 \sim \mathcal{N}(\mu_1, \Sigma_1)\)</span> and <span class="math notranslate nohighlight">\(X_2 \sim \mathcal{N}(\mu_2, \Sigma_2)\)</span> be <span class="math notranslate nohighlight">\(\mathbb{R}^{d}\)</span>-valued independent normal distributed random variables. Then, the sum <span class="math notranslate nohighlight">\(X_1 + X_2\)</span> is also normally distributed with</p>
+<div class="math notranslate nohighlight">
+\[X_1 + X_2 \sim \mathcal{N}(\mu_1 + \mu_2, \Sigma_1 + \Sigma_2).\]</div>
+</div>
+</div>
+<div class="section" id="law-of-large-numbers">
+<h2><span class="section-number">1.5.2. </span>Law of Large Numbers<a class="headerlink" href="#law-of-large-numbers" title="Permalink to this headline">¶</a></h2>
+<p>The law of large numbers has multiple (strong and weak) versions and is of particular importance in statistics, since it justifies for example the estimation of the expectation of random variables in terms of sample means. In this section, we state one version of the strong law of large numbers:</p>
+<div class="important admonition" id="thm-lln">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="math notranslate nohighlight">\(X_1, X_2, \dots\)</span> be a sequence of independent identical distributed random variables with expectation <span class="math notranslate nohighlight">\(\mu\)</span>. Then, it exists an event <span class="math notranslate nohighlight">\(N\)</span> of probability zero such that</p>
+<div class="math notranslate nohighlight">
+\[ \lim_{n \rightarrow \infty} \frac{1}{n} ~\sum_{i=1}^n X_i(\omega) = \mu \quad \text{for all } \omega \in \Omega \backslash N\]</div>
+<p>or equivalently</p>
+<div class="math notranslate nohighlight">
+\[P\big(\lim_{n \rightarrow \infty} \frac{1}{n} ~\sum_{i=1}^n X_i = \mu \big) = 1,\]</div>
+<p>i.e., the average converges almost surely to the expectation.</p>
+</div>
+</div>
+<div class="section" id="central-limit-theorem">
+<h2><span class="section-number">1.5.3. </span>Central Limit Theorem<a class="headerlink" href="#central-limit-theorem" title="Permalink to this headline">¶</a></h2>
+<p>The central limit theorem makes the normal distribution particularly important, since it can be considered as the limit of the average of “nice” i.i.d. random variables. Similarly to the law of large numbers, the theorem exists in several versions. In this section, we state the Lindeberg-L{‘e}vy central limit theorem:</p>
+<div class="important admonition" id="thm-clt">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="math notranslate nohighlight">\(X_1, X_2, \dots\)</span> be a sequence of independent identical distributed random variables with expectation <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(0 &lt; \sigma^2 &lt; \infty\)</span>. Set</p>
+<div class="math notranslate nohighlight">
+\[Z_n := \frac{\frac{1}{n} ~\sum_{i=1}^n X_i - \mu}{\sigma/\sqrt{n}} = \frac{\sum_{i=1}^n X_i - n\mu}{\sigma \sqrt{n}}.\]</div>
+<p>Then, it holds</p>
+<div class="math notranslate nohighlight">
+\[\lim_{n \rightarrow \infty} P(Z_n \le z) = \Phi(z) \quad \text{for each } z \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Phi\)</span> denotes the cumulative distribution function of the standard normal distribution.</p>
+</div>
+<p>Briefly speaking, the cumulative distribution function of standardized average <span class="math notranslate nohighlight">\(Z_n\)</span> converges pointwisely to the cumulative distribution function of the standard normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span>. By definition, this means that <span class="math notranslate nohighlight">\(Z_n\)</span> <strong>converges in distribution</strong> to the standard normal distribution. The definition of <span class="math notranslate nohighlight">\(Z_n\)</span> might seem confusing, but it simply scales the average <span class="math notranslate nohighlight">\(\frac{1}{n} ~\sum_{i=1}^n X_i\)</span> such that its mean is <span class="math notranslate nohighlight">\(0\)</span> and its variance is <span class="math notranslate nohighlight">\(1\)</span> (in accordance with <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span>).</p>
+<p>This result is really notable, since it is independent from the underlying distribution of the random variables <span class="math notranslate nohighlight">\(X_i\)</span>, <span class="math notranslate nohighlight">\(i \in \mathbb{N}\)</span>, which could be totally different from a normal distribution and possibly be a discrete distribution.</p>
+<p>The arithmetic average fulfills</p>
+<div class="math notranslate nohighlight">
+\[P\big(\frac{1}{n} ~\sum_{i=1}^n X_i \le z\big) = P\big(Z_n \le \frac{z - \mu}{\sigma/\sqrt{n}}\big) \approx \underbrace{\Phi\big(\frac{z - \mu}{\sigma/\sqrt{n}}\big)}_{\text{cdf of } \mathcal{N}(\mu, \frac{\sigma^2}{n})}.\]</div>
+<p>Thus, the average can be approximated by <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \frac{\sigma^2}{n})\)</span> for sufficiently large <span class="math notranslate nohighlight">\(n\)</span>. If the distribution of the variables <span class="math notranslate nohighlight">\(X_1, X_2, \dots\)</span> is <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma^2)\)</span>, it holds indeed that <span class="math notranslate nohighlight">\(\frac{1}{n} ~\sum_{i=1}^n X_i \sim \mathcal{N}(\mu, \frac{\sigma^2}{n})\)</span>.</p>
+</div>
+<div class="section" id="bayes-theorem">
+<h2><span class="section-number">1.5.4. </span>Bayes’ Theorem<a class="headerlink" href="#bayes-theorem" title="Permalink to this headline">¶</a></h2>
+<p>From a mathematical standpoint, Bayes’ theorem is a rather simple, since the statement is follows directly from the definition of conditional probabilities. Nevertheless, it has a very important interpretation which is the foundation of Bayesian inference.</p>
+<div class="important admonition" id="thm-bt">
+<p class="admonition-title">Theorem</p>
+<p>Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probability space and <span class="math notranslate nohighlight">\(A, B \in \mathcal{F}\)</span> with <span class="math notranslate nohighlight">\(P(B) &gt; 0\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[P(A~|~B) = \frac{P(B~|~A) P(A)}{P(B)}\]</div>
+</div>
+<p>Note that <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> is not well-defined if <span class="math notranslate nohighlight">\(P(A) = 0\)</span>, but in this case it holds <span class="math notranslate nohighlight">\(P(A~|~B) = 0\)</span> and the righthand side can also be regarded as <span class="math notranslate nohighlight">\(0\)</span>, since <span class="math notranslate nohighlight">\(P(A) = 0\)</span> and the (ill-defined) <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> should be between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01_fund/01_fundprob"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="04_impprobdistr.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">1.4. </span>Important Probability Distributions</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../02_stat.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">2. </span>Bayesian vs. Frequentists View</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall (Equal Contribution)<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

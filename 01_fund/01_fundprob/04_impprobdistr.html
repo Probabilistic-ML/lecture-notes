@@ -1,0 +1,641 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.4. Important Probability Distributions &#8212; Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/01_fundprob/04_impprobdistr.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.5. Essential Theorems" href="05_essthms.html" />
+    <link rel="prev" title="1.3. Independence" href="03_independence.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/about.html">
+   About the Authors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_bayes.html">
+   3. MLE, MAP &amp; Bayesian Inference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../04_linregr.html">
+   4. An illustrative example for MLE and MAP: Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../05_opt.html">
+   5. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../06_MLworkflow.html">
+   6. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/motivation.html">
+   7. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/kernelmethods.html">
+   8. Kernel-based Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../02_probML/overview.html">
+   14. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   15. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   16. Quantification of Design Uncertainty
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/RL.html">
+   17. Data-efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Appendix
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../04_appendix/placeholder.html">
+   Appendix A
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/01_fund/01_fundprob/04_impprobdistr.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/01_fund/01_fundprob/04_impprobdistr.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discrete-distributions">
+   1.4.1. Discrete Distributions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bernoulli-distribution">
+     1.4.1.1. Bernoulli Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#categorial-distribution">
+     1.4.1.2. Categorial Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#binomial-distribution">
+     1.4.1.3. Binomial Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-distribution">
+     1.4.1.4. Geometric Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#poisson-distribution">
+     1.4.1.5. Poisson Distribution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#continuous-distributions">
+   1.4.2. Continuous Distributions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#normal-distribution">
+     1.4.2.1. Normal Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#beta-distribution">
+     1.4.2.2. Beta Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uniform-distribution">
+     1.4.2.3. Uniform Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gamma-distribution">
+     1.4.2.4. Gamma Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exponential-distribution">
+     1.4.2.5. Exponential Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#laplace-distribution">
+     1.4.2.6. Laplace Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cauchy-distribution">
+     1.4.2.7. Cauchy Distribution
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="important-probability-distributions">
+<span id="sec-impprobdistr"></span><h1><span class="section-number">1.4. </span>Important Probability Distributions<a class="headerlink" href="#important-probability-distributions" title="Permalink to this headline">¶</a></h1>
+<p>An extensive collection of important probability distributions can be found on <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_probability_distributions">Wikipedia</a>. In the following subsections, we will shortly review some of them.</p>
+<div class="section" id="discrete-distributions">
+<h2><span class="section-number">1.4.1. </span>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h2>
+<p>Note that each discrete probability distribution is completely described by the finite or countable sample space <span class="math notranslate nohighlight">\(\Omega\)</span> and the function <span class="math notranslate nohighlight">\(p : \Omega \rightarrow [0, 1]\)</span> which specifies the probability of each elementary event.</p>
+<div class="section" id="bernoulli-distribution">
+<h3><span class="section-number">1.4.1.1. </span>Bernoulli Distribution<a class="headerlink" href="#bernoulli-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The Bernoulli distribution <span class="math notranslate nohighlight">\(\text{B}(1, p)\)</span> is the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> which takes only two possible values (usually encoded by <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>). The two values can be interpreted e.g. as false/true or failure/success. Thus,</p>
+<div class="math notranslate nohighlight">
+\[P(X = 1) = p \quad \text{for some } p \in [0, 1]\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[P(X = 0) = q := 1 - p.\]</div>
+<p>For example, a coin flip can be modelled by a Bernoulli distribution. The outcome heads (<span class="math notranslate nohighlight">\(X=1\)</span>) has some probabiltity <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span> and the outcome tails (<span class="math notranslate nohighlight">\(X=0\)</span>) has the complementary probability <span class="math notranslate nohighlight">\(q = p - 1\)</span>. In the case of a fair coin, it holds <span class="math notranslate nohighlight">\(p = 0.5\)</span>.</p>
+<p>This distribution is of particular importance in machine learning with regard to binary classification.</p>
+</div>
+<div class="section" id="categorial-distribution">
+<h3><span class="section-number">1.4.1.2. </span>Categorial Distribution<a class="headerlink" href="#categorial-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The categorial distribution is also called generalized Bernoulli distribution. Instead of only two different outcomes, it describes a random variable <span class="math notranslate nohighlight">\(X\)</span> with <span class="math notranslate nohighlight">\(k\)</span> different categories as outcomes (usually encoded by the numbers <span class="math notranslate nohighlight">\(1, \dots, k\)</span>). Each category <span class="math notranslate nohighlight">\(i \in \{1, \dots, k\}\)</span> possesses its individual probability</p>
+<div class="math notranslate nohighlight">
+\[P(X = i) = p_i.\]</div>
+<p>Note that the distribution is completely determined by <span class="math notranslate nohighlight">\(k-1\)</span> probabilities, since <span class="math notranslate nohighlight">\(\sum_{i=1}^k p_i = 1\)</span>.</p>
+<p>The distribution of a random variable for a fair dice is categorial with <span class="math notranslate nohighlight">\(k=6\)</span> and <span class="math notranslate nohighlight">\(p_i = \frac{1}{6}\)</span> for each <span class="math notranslate nohighlight">\(k=1,\dots,6\)</span>. In this example, the categories (number of points) are ranked and the variable is called ordinal. Keep in mind that this kind of distribution also models cases with purely categorical observations (e.g., pictures of different pets) and in this case, <span class="math notranslate nohighlight">\(i\)</span> is simply a representation of some category, but it makes no sense to rank the categories.</p>
+<p>This distribution is of particular importance in machine learning with regard to multiclass classification.</p>
+</div>
+<div class="section" id="binomial-distribution">
+<h3><span class="section-number">1.4.1.3. </span>Binomial Distribution<a class="headerlink" href="#binomial-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The binomial distribution <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span> has two parameters <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> and <span class="math notranslate nohighlight">\(p \in [0, 1]\)</span>. It describes the number of successes of <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli experiments with parameter <span class="math notranslate nohighlight">\(p\)</span>. Thus, a random variable <span class="math notranslate nohighlight">\(X\)</span> with binomial distribution takes values <span class="math notranslate nohighlight">\(\{0, \dots, n \}\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[P(X=k) = {{n}\choose{k}} p^k (1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k} \quad \text{for } k \in \{0, \dots, n \}.\]</div>
+<p>The binomial coefficient <span class="math notranslate nohighlight">\({{n}\choose{k}}\)</span> denotes the number of possibilities of exactly <span class="math notranslate nohighlight">\(k\)</span> successes in <span class="math notranslate nohighlight">\(n\)</span> independent Bernoulli trials.</p>
+<p>For example, the probability of observing <span class="math notranslate nohighlight">\(0\)</span> heads in <span class="math notranslate nohighlight">\(9\)</span> flips of a fair coin is</p>
+<div class="math notranslate nohighlight">
+\[P(X=0) = \frac{9!}{0!(9-0)!} 0.5^0~(1-0.5)^{9-0} = 0.5^9 \approx 0.02\%.\]</div>
+</div>
+<div class="section" id="geometric-distribution">
+<span id="def-geom"></span><h3><span class="section-number">1.4.1.4. </span>Geometric Distribution<a class="headerlink" href="#geometric-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The geometric distribution <span class="math notranslate nohighlight">\(\text{Geom}(p)\)</span> describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in <span class="math notranslate nohighlight">\(\{1, 2, \dots\}\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[P(X=k) = (1-p)^{k-1} p \quad \text{for } k=1,2,\dots,\]</div>
+<p>since <span class="math notranslate nohighlight">\(X=k\)</span> means no success in the first <span class="math notranslate nohighlight">\(k-1\)</span> Bernoulli trials (with probability <span class="math notranslate nohighlight">\(1-p\)</span> each) and finally a success in the <span class="math notranslate nohighlight">\(k\)</span>-th trial (with probability <span class="math notranslate nohighlight">\(p\)</span>). Note that <span class="math notranslate nohighlight">\(P(X=k) \rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span> as long as <span class="math notranslate nohighlight">\(p \ne 0\)</span>. For example, the probability to observe heads the first time after exactply <span class="math notranslate nohighlight">\(10\)</span> trials by tossing a fair coin is</p>
+<div class="math notranslate nohighlight">
+\[P(X=10) = (1-0.5)^9 ~0.5 = 0.5^{10} \approx 0.01\%.\]</div>
+<p>Furthermore, in use of the third Kolmogorov axiom, it holds</p>
+<div class="math notranslate nohighlight">
+\[P(X &gt;= 10) = \sum_{k=10}^{\infty} (1-0.5)^{k-1} ~0.5 = \frac{0.5^{10}}{1 - 0.5} = 0.5^9 \approx 0.02\%.\]</div>
+<p>In other words, the probability to observe only tails in the first <span class="math notranslate nohighlight">\(9\)</span> tosses is approximately <span class="math notranslate nohighlight">\(0.02\%\)</span> in correspondance with the calculation in use of the binomial distribution.</p>
+</div>
+<div class="section" id="poisson-distribution">
+<h3><span class="section-number">1.4.1.5. </span>Poisson Distribution<a class="headerlink" href="#poisson-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The Poisson distribution <span class="math notranslate nohighlight">\(\text{Pois}(\lambda)\)</span> describes the distribution of a random variable <span class="math notranslate nohighlight">\(X\)</span> with values in <span class="math notranslate nohighlight">\(\{0, 1, \dots \}\)</span> and is given by</p>
+<div class="math notranslate nohighlight">
+\[P(X=k) = \frac{\lambda^k e^{-k}}{k!} \quad \text{for } k=0,1,\dots\]</div>
+<p>and some parameter <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span>. It models the number of events occuring in a fixed (time or space) interval if these events happen with a known constant mean rate and independently of each other. In fact, the expectation is <span class="math notranslate nohighlight">\(\mathbb{E}(X) = \lambda\)</span> and also <span class="math notranslate nohighlight">\(\text{Cov}(X) = \lambda\)</span>. For example, the following scenarios can be modelled by a Poisson distribution:</p>
+<ul class="simple">
+<li><p>radioactive decay: number of decays in a given time period of a radioactive sample</p></li>
+<li><p>epidemiology: the number of cases of a disease in different cities</p></li>
+<li><p>sports: the number of goals in a soccer match</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(n\)</span> is very large and <span class="math notranslate nohighlight">\(p\)</span> is very small the Poisson distribution can be used to approximate the binomial distribtion <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span> due to the <strong>Poisson limit theorem</strong> which is also called law of rare events.</p>
+</div>
+</div>
+<div class="section" id="continuous-distributions">
+<h2><span class="section-number">1.4.2. </span>Continuous Distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h2>
+<p>A continuous distribution is essentially specified by its probability density function.</p>
+<div class="section" id="normal-distribution">
+<span id="def-multnormal"></span><h3><span class="section-number">1.4.2.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>multivariate normal distribution</strong> <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \Sigma)\)</span> is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the <a class="reference internal" href="05_essthms.html#thm-clt"><span class="std std-ref">central limit theorem</span></a>.</p>
+<p>The multivariate normal distribution is completely charaterized by its expectation <span class="math notranslate nohighlight">\(\mu\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span>. The general probability distribution function is given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{(2\pi)^d |\Sigma|}} ~\exp\Big(-\frac{1}{2}~(x- \mu)^T \Sigma^{-1}(x -\mu)\Big) \quad \text{for } x \in \mathbb{R}^d,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is some vector in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> is a symmetric and positive definite (i.e., <span class="math notranslate nohighlight">\(x^T \Sigma x &gt; 0\)</span> for each <span class="math notranslate nohighlight">\(x \in \mahthbb{R}^d\)</span>) matrix. In particular, <span class="math notranslate nohighlight">\(\Sigma^{-1}\)</span> exists. Consequently, the univariate normal distribution (<span class="math notranslate nohighlight">\(d=1\)</span>) has the density</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big) \quad \text{for } x \in \mathbb{R}\]</div>
+<p>as well as <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\sigma^2 &gt; 0\)</span>. Since</p>
+<div class="math notranslate nohighlight">
+\[ \int_{\mathbb{R}} x~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \mu\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\int_{\mathbb{R}} (x - \mu)^2~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \sigma^2,\]</div>
+<p>it holds <span class="math notranslate nohighlight">\(\mathbb{E}(X) = \mu\)</span> and <span class="math notranslate nohighlight">\(\text{Cov}(X) = \sigma^2\)</span> for a normally distributed random variable <span class="math notranslate nohighlight">\(X\)</span>. This generalizes to the multivariate case, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(X) = \mu \quad \text{ and } \quad \text{Cov}(X) = \Sigma.\]</div>
+<p>As mentioned before, in the case <span class="math notranslate nohighlight">\(\mu = 0\)</span> and <span class="math notranslate nohighlight">\(\Sigma = I_d\)</span> (identity matrix) we obtain the <strong>standard normal distribution</strong>.</p>
+</div>
+<div class="section" id="beta-distribution">
+<h3><span class="section-number">1.4.2.2. </span>Beta Distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The Beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span> is a continuous distribution with support on the interval <span class="math notranslate nohighlight">\([0, 1]\)</span>, i.e., the probability of events outside <span class="math notranslate nohighlight">\([0, 1]\)</span> is zero. Its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{x^{\alpha -1} (1-x)^{\beta -1}}{\text{B}(\alpha, \beta)} \mathbb{1}_{[0, 1]}(x) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}\)</span> and <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span>. Here, <span class="math notranslate nohighlight">\(\Gamma\)</span> denotes the so-called Gamma function (an extension of the factorial).</p>
+</div>
+<div class="section" id="uniform-distribution">
+<h3><span class="section-number">1.4.2.3. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The uniform distribtion <span class="math notranslate nohighlight">\(U(a, b)\)</span> is a continuous distribution with support <span class="math notranslate nohighlight">\([a, b]\)</span> for some numbers <span class="math notranslate nohighlight">\(a &lt; b\)</span>. It describes a random variable with arbitrary outcomes between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>. The probability density function reads</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{b - a} \mathbb{1}_{[a, b]}(x) \quad \text{for } x \in \mathbb{R}.\]</div>
+<p><span class="math notranslate nohighlight">\(U(0, 1)\)</span> is called standard uniform distribution. If a random variable <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(U(0, 1)\)</span>-distributed, then <span class="math notranslate nohighlight">\(X^n\)</span> is <span class="math notranslate nohighlight">\(\text{Beta}(\frac{1}{n}, 1)\)</span>-distributed. In particular, <span class="math notranslate nohighlight">\(U(0, 1) = \text{Beta}(1, 1)\)</span>.</p>
+</div>
+<div class="section" id="gamma-distribution">
+<h3><span class="section-number">1.4.2.4. </span>Gamma Distribution<a class="headerlink" href="#gamma-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The Gamma distribution <span class="math notranslate nohighlight">\(\text{Gamma}(\alpha, \beta)\)</span> is a continuous probability distribution with support on <span class="math notranslate nohighlight">\((0, \infty)\)</span> which contains some important distributions as special cases. Its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{\beta^{\alpha}}{\Gamma(\alpha)}~x^{\alpha - 1} \exp(-\beta x) ~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span>.</p>
+</div>
+<div class="section" id="exponential-distribution">
+<h3><span class="section-number">1.4.2.5. </span>Exponential Distribution<a class="headerlink" href="#exponential-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The exponential distribution <span class="math notranslate nohighlight">\(\text{Exp}(\lambda)\)</span> is the continuous analogue of the <a class="reference internal" href="#def-geom"><span class="std std-ref">geometric distribution</span></a>. Its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[\lambda \exp(-\lambda x)~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span>. It holds <span class="math notranslate nohighlight">\(\text{Exp}(\lambda) = \text{Gamma}(1, \lambda)\)</span>.</p>
+<p>For example, the exponential distribution is used to model the time between two radioactive decays, i.e., the time between two random events which occur independently and at a constant average rate.</p>
+</div>
+<div class="section" id="laplace-distribution">
+<h3><span class="section-number">1.4.2.6. </span>Laplace Distribution<a class="headerlink" href="#laplace-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The Laplace distribution <span class="math notranslate nohighlight">\(\text{Laplace}(\mu, b)\)</span> has the probability density function</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{2b}~\exp\Big(-\frac{|x-\mu|}{b}\Big) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(b &gt; 0\)</span>.</p>
+<p>Note that the density is a symmetric function around <span class="math notranslate nohighlight">\(\mu\)</span> and for <span class="math notranslate nohighlight">\(x &gt; \mu\)</span> the density equals the pdf of a <span class="math notranslate nohighlight">\(\text{Exp}(\frac{1}{b})\)</span>-distribution (up to translation by <span class="math notranslate nohighlight">\(\mu\)</span>). For this reason, the Laplace distribution is also called double exponential distribution.</p>
+<p>Moreover, the Lapalce distribution is similar to the normal distribution, but the squared difference to <span class="math notranslate nohighlight">\(\mu\)</span> in the exponential function is replace by the absolute difference.</p>
+</div>
+<div class="section" id="cauchy-distribution">
+<h3><span class="section-number">1.4.2.7. </span>Cauchy Distribution<a class="headerlink" href="#cauchy-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The Cauchy distribution <span class="math notranslate nohighlight">\(\text{Cauchy}(x_0, \gamma)\)</span> has probability density function</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\pi \gamma \big(1 + (\frac{x - x_0}{\gamma})^2 \big)} \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_0 \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\gamma &gt; 0\)</span>. <span class="math notranslate nohighlight">\(\text{Cauchy}(0, 1)\)</span> is also called standard Cauchy distribution and is the distribution of the ratio of two independent standard normally distributed random variables.</p>
+<p>This distribution is well-known, since it does not have a well-defined mean and variance.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./01_fund/01_fundprob"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="03_independence.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">1.3. </span>Independence</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="05_essthms.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">1.5. </span>Essential Theorems</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall (Equal Contribution)<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
