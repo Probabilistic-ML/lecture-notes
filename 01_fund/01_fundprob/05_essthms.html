@@ -433,6 +433,8 @@ X_2 \end{pmatrix}\end{split}\]</div>
 \[\overline{\Sigma} = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}.\]</div>
 </div>
 <p>For the interested reader, we show the result for the bivariate case <span class="math notranslate nohighlight">\(d=2\)</span> and <span class="math notranslate nohighlight">\(d_1=d_2=1\)</span>.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Proof.</p>
 <p>Let the mean value be given by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mu = \begin{pmatrix} \mu_1 \\
@@ -476,6 +478,7 @@ X_2 \end{pmatrix}\end{split}\]</div>
 &amp;= \frac{1}{\sqrt{2\pi (1 - \rho^2) \sigma_1^2}}~\exp\Big(-\frac{1}{2} \frac{\Big(\frac{x_1 - \mu_1}{\sigma_1} - \rho \frac{x_2 - \mu_2}{\sigma_2} \Big)^2}{1 - \rho^2} \Big) \\
 &amp;= \frac{1}{\sqrt{2\pi (1 - \rho^2) \sigma_1^2}}~\exp\Big(-\frac{1}{2} \frac{\Big( x_1 - \big(\mu_1 + \rho \frac{\sigma_1}{\sigma_2} \big(x_2 - \mu_2 \big) \big) \Big)^2}{(1 - \rho^2) \sigma_1^2} \Big), \end{split}\]</div>
 <p>i.e. the conditional distribution is a normal distribution with mean <span class="math notranslate nohighlight">\(\mu_1 + \rho \frac{\sigma_1}{\sigma_2} \big(x_2 - \mu_2 \big)\)</span> and variance <span class="math notranslate nohighlight">\((1 - \rho^2) \sigma_1^2\)</span>.</p>
+</div>
 </div>
 <div class="section" id="law-of-large-numbers">
 <h2><span class="section-number">1.5.2. </span>Law of Large Numbers<a class="headerlink" href="#law-of-large-numbers" title="Permalink to this headline">¶</a></h2>
