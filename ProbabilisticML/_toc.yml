@@ -11,12 +11,18 @@ parts:
 - caption: Fundamentals
   numbered: true
   chapters:
-  - file: 01_fund/fundprob
-  - file: 01_fund/stat
-  - file: 01_fund/bayes
-  - file: 01_fund/linregr
-  - file: 01_fund/opt
-  - file: 01_fund/MLworkflow
+  - file: 01_fund/01_fundprob
+    sections:
+    - file: 01_fund/01_fundprob/01_probabilityspaces
+    - file: 01_fund/01_fundprob/02_randomvariables
+    - file: 01_fund/01_fundprob/03_independence
+    - file: 01_fund/01_fundprob/04_impprobdistr
+    - file: 01_fund/01_fundprob/05_essthms
+  - file: 01_fund/02_stat
+  - file: 01_fund/03_bayes
+  - file: 01_fund/04_linregr
+  - file: 01_fund/05_opt
+  - file: 01_fund/06_MLworkflow
 - caption: Probabilistic Machine Learning
   numbered: true
   chapters:
