@@ -453,7 +453,8 @@
 </div>
 <p>The idea behind this definition is that the distribution of a random vector <span class="math notranslate nohighlight">\((X, Y)\)</span> is possibly known (i.e., the joint distribution of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>). In this case, the distributions of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are known (the so-called marginal distributions), but these distributions characterize <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> independently. However, we would also like to <strong>make conclusions about the values of</strong> <span class="math notranslate nohighlight">\(X\)</span> <strong>in the case that the value for</strong> <span class="math notranslate nohighlight">\(Y\)</span> <strong>is known</strong> in use of the conditional distribution.</p>
 <p>It is also possible to express the marginal distribution in terms of the conditional distribution:</p>
-<p>$$f</p>
+<div class="math notranslate nohighlight">
+\[f_X(x) = \int f_{X, Y}(x, y) ~dy = \int f_{X~|~Y=y}(x)~f_Y(y)~dy\]</div>
 </div>
 
     <script type="text/x-thebe-config">

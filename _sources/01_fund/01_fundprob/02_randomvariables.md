@@ -150,4 +150,4 @@ The idea behind this definition is that the distribution of a random vector $(X,
 
 It is also possible to express the marginal distribution in terms of the conditional distribution:
 
-$$f
+$$f_X(x) = \int f_{X, Y}(x, y) ~dy = \int f_{X~|~Y=y}(x)~f_Y(y)~dy$$ 
