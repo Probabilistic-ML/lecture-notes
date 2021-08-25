@@ -332,14 +332,14 @@
               <div>
                 
   <div class="section" id="independence">
-<h1><span class="section-number">1.3. </span>Independence<a class="headerlink" href="#independence" title="Permalink to this headline">¶</a></h1>
+<span id="sec-indep"></span><h1><span class="section-number">1.3. </span>Independence<a class="headerlink" href="#independence" title="Permalink to this headline">¶</a></h1>
 <p>Independence of random variables can be defined in multiple, but equivalent, ways. For this purpose, the cumulative distribution function is useful:</p>
 <div class="tip admonition" id="def-cdf">
 <p class="admonition-title">Definition</p>
 <p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d \ge 1\)</span>, be a random variable on some probability space <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span>. The function <span class="math notranslate nohighlight">\(F_X: \mathbb{R}^d \rightarrow [0, 1]\)</span> defined by</p>
 <div class="math notranslate nohighlight">
 \[ F_X(x) := P_X((-\infty, x_1] \times \cdots \times (-\infty, x_d]) \quad \text{for } x=(x_1, \dots, x_d) \in \mathbb{R}^d\]</div>
-<p>is called the <strong>cumulative distribution function</strong> (CDF) of <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(P_X\)</span>.</p>
+<p>is called the <strong>cumulative distribution function</strong> (cdf) of <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(P_X\)</span>.</p>
 </div>
 <p>Now, we are able to define independence of events and random variables:</p>
 <div class="tip admonition" id="def-indep">
@@ -349,10 +349,11 @@
 \[ P(A \cap B) = P(A) P(B).\]</div>
 <p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(Y: \Omega \rightarrow \mathbb{R}\)</span> be two random variables. Then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>independent random variables</strong>, if the events <span class="math notranslate nohighlight">\(X^{-1}(A)\)</span> and <span class="math notranslate nohighlight">\(Y^{-1}(B)\)</span> are independent for all <span class="math notranslate nohighlight">\(A, B \in \mathcal{B}(\mathbb{R})\)</span>. This is equivalent to the property</p>
 <div class="math notranslate nohighlight">
-\[F_{(X, Y)}(x, y) = F_X(x) F_Y(y) \quad \text{for all } x,y \in \mathbb{R}\]</div>
+\[F_{X, Y}(x, y) = F_X(x) F_Y(y) \quad \text{for all } x,y \in \mathbb{R}\]</div>
 <p>and if the corresponding densities exist to</p>
 <div class="math notranslate nohighlight">
-\[f_{(X, Y)}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R}.\]</div>
+\[f_{X, Y}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R},\]</div>
+<p>i.e. the joint distribution of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> factorizes.</p>
 </div>
 <p>Independence basically means that the occurrence of event A has no impact on the occurrence of event B or in terms of random variables, the outcomes of random variables should not impact each other. The definition of independent random variables generalizes easily to <span class="math notranslate nohighlight">\(d &gt; 1\)</span>.</p>
 <p>Note that two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent if and only if <span class="math notranslate nohighlight">\(P(A~|~B) = P(A)\)</span> (i.e., the probability of <span class="math notranslate nohighlight">\(A\)</span> does not change given <span class="math notranslate nohighlight">\(B\)</span>).</p>

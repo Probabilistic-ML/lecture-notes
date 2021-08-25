@@ -1,3 +1,4 @@
+(sec:indep)=
 # Independence
 
 Independence of random variables can be defined in multiple, but equivalent, ways. For this purpose, the cumulative distribution function is useful: 
@@ -9,7 +10,7 @@ Let $X: \Omega \rightarrow \mathbb{R}^d$, $d \ge 1$, be a random variable on som
 
 $$ F_X(x) := P_X((-\infty, x_1] \times \cdots \times (-\infty, x_d]) \quad \text{for } x=(x_1, \dots, x_d) \in \mathbb{R}^d$$
 
-is called the **cumulative distribution function** (CDF) of $X$ or $P_X$.
+is called the **cumulative distribution function** (cdf) of $X$ or $P_X$.
 ```
 
 Now, we are able to define independence of events and random variables:
@@ -23,11 +24,13 @@ $$ P(A \cap B) = P(A) P(B).$$
 
 Let $X: \Omega \rightarrow \mathbb{R}$ and $Y: \Omega \rightarrow \mathbb{R}$ be two random variables. Then $X$ and $Y$ are called **independent random variables**, if the events $X^{-1}(A)$ and $Y^{-1}(B)$ are independent for all $A, B \in \mathcal{B}(\mathbb{R})$. This is equivalent to the property
 
-$$F_{(X, Y)}(x, y) = F_X(x) F_Y(y) \quad \text{for all } x,y \in \mathbb{R}$$
+$$F_{X, Y}(x, y) = F_X(x) F_Y(y) \quad \text{for all } x,y \in \mathbb{R}$$
 
 and if the corresponding densities exist to
 
-$$f_{(X, Y)}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R}.$$
+$$f_{X, Y}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R},$$
+
+i.e. the joint distribution of $X$ and $Y$ factorizes.
 ```
 
 Independence basically means that the occurrence of event A has no impact on the occurrence of event B or in terms of random variables, the outcomes of random variables should not impact each other. The definition of independent random variables generalizes easily to $d > 1$. 

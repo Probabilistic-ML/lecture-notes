@@ -374,12 +374,108 @@
 <div class="math notranslate nohighlight">
 \[ X = \mu + A Z,\]</div>
 <p>where <span class="math notranslate nohighlight">\(A\)</span> is the matrix root of <span class="math notranslate nohighlight">\(\Sigma\)</span>, i.e., <span class="math notranslate nohighlight">\(\Sigma = AA^T\)</span>.</p>
+<p>In many cases, the distribution of a sum of random variables is not known explicitly. Luckily, independent normally distributed random variables behave nicely in this regard:</p>
 <div class="important admonition" id="lem-sumnormaldistr">
 <p class="admonition-title">Lemma</p>
 <p>Let <span class="math notranslate nohighlight">\(X_1 \sim \mathcal{N}(\mu_1, \Sigma_1)\)</span> and <span class="math notranslate nohighlight">\(X_2 \sim \mathcal{N}(\mu_2, \Sigma_2)\)</span> be <span class="math notranslate nohighlight">\(\mathbb{R}^{d}\)</span>-valued independent normal distributed random variables. Then, the sum <span class="math notranslate nohighlight">\(X_1 + X_2\)</span> is also normally distributed with</p>
 <div class="math notranslate nohighlight">
 \[X_1 + X_2 \sim \mathcal{N}(\mu_1 + \mu_2, \Sigma_1 + \Sigma_2).\]</div>
 </div>
+<p>If <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu, \Sigma)\)</span> is a multivariate normally distributed random vector, the marginal distribution of some subvector is again a normal distribution and can simply be obtained by restriction of the mean and covariance to the relevant components. For example, for a <span class="math notranslate nohighlight">\(3\)</span>-dimensional random vector</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} X = \begin{pmatrix} X_1 \\
+X_2 \\
+X_3 \end{pmatrix}\end{split}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \mu = \begin{pmatrix} \mu_1 \\
+\mu_2 \\
+\mu_3 \end{pmatrix} \quad \text{ and } \quad
+\Sigma = \begin{pmatrix} \Sigma_{11} &amp; \Sigma_{12} &amp; \Sigma_{13} \\
+\Sigma_{21} &amp; \Sigma_{22} &amp; \Sigma_{23} \\
+\Sigma_{31} &amp; \Sigma_{32} &amp; \Sigma_{33} \end{pmatrix}\end{split}\]</div>
+<p>the subvector</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X^{\prime} = \begin{pmatrix} X_1 \\
+X_3 \end{pmatrix}\end{split}\]</div>
+<p>is again normally distributed with mean and covariance given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \mu = \begin{pmatrix} \mu_1 \\
+\mu_3 \end{pmatrix} \quad \text{ and } \quad
+\Sigma = \begin{pmatrix} \Sigma_{11} &amp; \Sigma_{13} \\
+\Sigma_{31} &amp; \Sigma_{33} \end{pmatrix}\end{split}\]</div>
+<p>Due to the definition of the pdf of a multivariate normal distribtion and the properties of the exponential function, we get the following lemma. We restrict to the bivariate case, but in view of the preceding considerations the according result holds also true for pairwise independence of general multivariate normal distributions.</p>
+<div class="important admonition" id="lem-uncorrindep">
+<p class="admonition-title">Lemma</p>
+<p>Let <span class="math notranslate nohighlight">\(X = (X_1, X_2) \sim \mathcal{N}(\mu, \Sigma)\)</span> be a random vector such that <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> are uncorrelated (i.e., <span class="math notranslate nohighlight">\(\Sigma\)</span> is a diagonal matrix). Then, <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> are independent random variables.</p>
+</div>
+<p>In <a class="reference internal" href="03_independence.html#sec-indep"><span class="std std-ref">Independence</span></a> we mentioned that uncorrelated random variables are not necessarily independent, but the preceding lemma shows that this is different for normally distributed random variables provided that <strong>the joint distribution is also Gaussian</strong>. If <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> are normally distributed, but <span class="math notranslate nohighlight">\(X\)</span> is not, the statement does not hold true!</p>
+<p>In view of the subsequent applications to Gaussian process regression, the following result will be very useful:</p>
+<div class="important admonition" id="lem-condnormaldistr">
+<p class="admonition-title">Lemma</p>
+<p>Let <span class="math notranslate nohighlight">\(X \sim \mathcal{N}(\mu, \Sigma)\)</span> be <span class="math notranslate nohighlight">\(d\)</span>-dimensional and consider a partition of <span class="math notranslate nohighlight">\(X\)</span> into two subvectors</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X = \begin{pmatrix} X_1 \\
+X_2 \end{pmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(X_1\)</span> is <span class="math notranslate nohighlight">\(d_1\)</span>-valued and <span class="math notranslate nohighlight">\(X_2\)</span> is <span class="math notranslate nohighlight">\(d_2\)</span>-valued such that <span class="math notranslate nohighlight">\(d_1 + d_2 = d\)</span>. Accordingly, the mean and covariance are partitioned as follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \mu = \begin{pmatrix} \mu_1 \\
+\mu_2 \end{pmatrix} \quad \text{ with  } \mu_1 \in \mathbb{R}^{d_1},~\mu_2 \in \mathbb{R}^{d_2}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Sigma = \begin{pmatrix} \Sigma_{11} &amp; \Sigma_{12} \\
+\Sigma_{21} &amp; \Sigma_{22} \end{pmatrix} \quad \text{ with  } \Sigma_{11} \in \mathbb{R}^{d_1 \times d_1},~\Sigma_{12} \in \mathbb{R}^{d_1 \times d_2},~\Sigma_{21} \in \mathbb{R}^{d_2 \times d_1}, ~\Sigma_{22} \in \mathbb{R}^{d_2 \times d_2}.\end{split}\]</div>
+<p>Then, the <a class="reference internal" href="02_randomvariables.html#def-conddistr"><span class="std std-ref">conditional distribution density</span></a> of <span class="math notranslate nohighlight">\(X_1\)</span> given <span class="math notranslate nohighlight">\(X_2=x_2\)</span> is the density of a normal distribution with mean and covariance given by</p>
+<div class="math notranslate nohighlight">
+\[\overline{\mu} = \mu_1 + \Sigma_{12} \Sigma_{22}^{-1}\big(x_2 - \mu_2\big)\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\overline{\Sigma} = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}.\]</div>
+</div>
+<p>For the interested reader, we show the result for the bivariate case <span class="math notranslate nohighlight">\(d=2\)</span> and <span class="math notranslate nohighlight">\(d_1=d_2=1\)</span>.</p>
+<p>Let the mean value be given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu = \begin{pmatrix} \mu_1 \\
+\mu_2 \end{pmatrix} \quad \text{ with  } \mu_1, \mu_2 \in \mathbb{R}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Sigma = \begin{pmatrix} \sigma_{1}^2 &amp; \sigma_{12} \\
+\sigma_{12} &amp; \sigma_{2}^2 \end{pmatrix}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_1^2\)</span> is the variance of <span class="math notranslate nohighlight">\(X_1\)</span>, <span class="math notranslate nohighlight">\(\sigma_2^2\)</span> is the variance of <span class="math notranslate nohighlight">\(X_2\)</span> and <span class="math notranslate nohighlight">\(\sigma_{12}\)</span> is the covariance of <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span>.</p>
+<p>Note that <span class="math notranslate nohighlight">\(\sigma_{12} = \rho \sigma_1 \sigma_2\)</span>, where <span class="math notranslate nohighlight">\(\rho\)</span> is the correlation of <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> (refer to the section <a class="reference internal" href="02_randomvariables.html#sec-rv"><span class="std std-ref">Random Variables</span></a>). Hence, the aim is to show that the conditional distribution is normally distributed with mean</p>
+<div class="math notranslate nohighlight">
+\[\overline{\mu} = \mu_1 + \frac{\sigma_{12}}{\sigma_2^2}\big(x_2 - \mu_2\big) =  \mu_1 + \rho \frac{\sigma_1}{\sigma_2}\big(x_2 - \mu_2\big)\]</div>
+<p>and variance</p>
+<div class="math notranslate nohighlight">
+\[\overline{\sigma}^2 = \sigma_1^2 - \frac{\sigma_{12}^2}{\sigma_2^2} = (1 - \rho^2) \sigma_1^2.\]</div>
+<p>According to the <a class="reference internal" href="02_randomvariables.html#def-conddistr"><span class="std std-ref">definition</span></a>, the conditional distribution of <span class="math notranslate nohighlight">\(X_1\)</span> given <span class="math notranslate nohighlight">\(X_2 = x_2\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[f_{X_1~|~X_2=x_2}(x_1) := \frac{f_{X}(x_1, x_2)}{f_{X_2}(x_2)}.\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(X_2 \sim \mathcal{N}(\mu_2, \sigma_2^2)\)</span> and thus,</p>
+<div class="math notranslate nohighlight">
+\[f_{X_2}(x_2) = \frac{1}{\sqrt{2\pi \sigma_2^2}} ~\exp\big(-\frac{1}{2}~\frac{(x_2- \mu_2)^2}{\sigma_2^2}\big).\]</div>
+<p>Moreover, it holds by assumption</p>
+<div class="math notranslate nohighlight">
+\[f_{X}(x) = \frac{1}{\sqrt{(2\pi)^2 |\Sigma|}} ~\exp\Big(-\frac{1}{2}~(x - \mu)^T \Sigma^{-1}(x -\mu)\Big)\]</div>
+<p>With <span class="math notranslate nohighlight">\(|\Sigma| = \sigma_1^2 \sigma_2^2 - \sigma_{12}^2 = (1 - \rho^2) \sigma_1^2 \sigma_2^2\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Sigma^{-1} = \frac{1}{|\Sigma|}~\begin{pmatrix} \sigma_{2}^2 &amp; -\sigma_{12} \\
+-\sigma_{12} &amp; \sigma_{1}^2 \end{pmatrix}\end{split}\]</div>
+<p>it follows that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q(x_1, x_2) &amp;:= (x - \mu)^T \Sigma^{-1}(x -\mu) \\
+              &amp;= \frac{1}{\sigma_1^2 \sigma_2^2 - \sigma_{12}^2}~\big((x_1 - \mu_1)^2 \sigma_2^2 - 2(x_1 - \mu_1)(x_2 - \mu_2)\sigma_{12} + (x_2 - \mu_2)^2\sigma_1^2 \big) \\
+&amp;= \frac{1}{(1 - \rho^2) \sigma_1^2 \sigma_2^2}~\big((x_1 - \mu_1)^2 \sigma_2^2 - 2(x_1 - \mu_1)(x_2 - \mu_2) \rho \sigma_1 \sigma_2 + (x_2 - \mu_2)^2\sigma_1^2 \big) \\
+&amp;= \frac{1}{1 - \rho^2}~\Big(\Big(\frac{x_1 - \mu_1}{\sigma_1}\Big)^2 - 2 \rho \Big(\frac{x_1 - \mu_1}{\sigma_1}\Big)\Big(\frac{x_2 - \mu_2}{\sigma_2}\Big) + \Big(\frac{x_2 - \mu_2}{\sigma_2}\Big)^2 \Big)\end{split}\]</div>
+<p>Consequently, it holds</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f_{X_1~|~X_2=x_2}(x_1) &amp;= \frac{f_{X}(x_1, x_2)}{f_{X_2}(x_2)} \\
+&amp;= \frac{\sqrt{2\pi \sigma_2^2}}{\sqrt{(2\pi)^2 (1 - \rho^2) \sigma_1^2 \sigma_2^2}}~\exp\Big(-\frac{1}{2} Q(x_1, x_2)\Big)~\exp\Big(\frac{1}{2}~\Big(\frac{x_2- \mu_2}{\sigma_2}\Big)^2\Big) \\
+&amp;= \frac{1}{\sqrt{2\pi (1 - \rho^2) \sigma_1^2}}~\exp\Big(-\frac{1}{2} \Big(Q(x_1, x_2) - \Big(\frac{x_2- \mu_2}{\sigma_2}\Big)^2 \Big)\Big) \\
+&amp;= \frac{1}{\sqrt{2\pi (1 - \rho^2) \sigma_1^2}}~\exp\Big(-\frac{1}{2} \frac{\Big(\frac{x_1 - \mu_1}{\sigma_1}\Big)^2 - 2 \rho \Big(\frac{x_1 - \mu_1}{\sigma_1}\Big)\Big(\frac{x_2 - \mu_2}{\sigma_2}\Big) + \rho^2 \Big(\frac{x_2 - \mu_2}{\sigma_2}\Big)^2}{1 - \rho^2} \Big) \\
+&amp;= \frac{1}{\sqrt{2\pi (1 - \rho^2) \sigma_1^2}}~\exp\Big(-\frac{1}{2} \frac{\Big(\frac{x_1 - \mu_1}{\sigma_1} - \rho \frac{x_2 - \mu_2}{\sigma_2} \Big)^2}{1 - \rho^2} \Big) \\
+&amp;= \frac{1}{\sqrt{2\pi (1 - \rho^2) \sigma_1^2}}~\exp\Big(-\frac{1}{2} \frac{\Big( x_1 - \big(\mu_1 + \rho \frac{\sigma_1}{\sigma_2} \big(x_2 - \mu_2 \big) \big) \Big)^2}{(1 - \rho^2) \sigma_1^2} \Big), \end{split}\]</div>
+<p>i.e. the conditional distribution is a normal distribution with mean <span class="math notranslate nohighlight">\(\mu_1 + \rho \frac{\sigma_1}{\sigma_2} \big(x_2 - \mu_2 \big)\)</span> and variance <span class="math notranslate nohighlight">\((1 - \rho^2) \sigma_1^2\)</span>.</p>
 </div>
 <div class="section" id="law-of-large-numbers">
 <h2><span class="section-number">1.5.2. </span>Law of Large Numbers<a class="headerlink" href="#law-of-large-numbers" title="Permalink to this headline">¶</a></h2>
@@ -425,6 +521,10 @@
 \[P(A~|~B) = \frac{P(B~|~A) P(A)}{P(B)}\]</div>
 </div>
 <p>Note that <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> is not well-defined if <span class="math notranslate nohighlight">\(P(A) = 0\)</span>, but in this case it holds <span class="math notranslate nohighlight">\(P(A~|~B) = 0\)</span> and the righthand side can also be regarded as <span class="math notranslate nohighlight">\(0\)</span>, since <span class="math notranslate nohighlight">\(P(A) = 0\)</span> and the (ill-defined) <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> should be between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p>Bayes’ theorem can also be formulated in terms of <a class="reference internal" href="02_randomvariables.html#def-conddistr"><span class="std std-ref">conditional distributions</span></a>:</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two continuous random variables with joint density <span class="math notranslate nohighlight">\(f_{X, Y}\)</span>. Then, it holds</p>
+<div class="math notranslate nohighlight">
+\[f_{X~|~Y=y}(x) = \frac{f_{Y~|~X=x}(y) f_X(x)}{f_Y(y)}\]</div>
 </div>
 </div>
 

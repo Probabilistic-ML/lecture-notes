@@ -497,16 +497,16 @@
 <p>A continuous distribution is essentially specified by its probability density function.</p>
 <div class="section" id="normal-distribution">
 <span id="def-multnormal"></span><h3><span class="section-number">1.4.2.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h3>
-<p>The <strong>multivariate normal distribution</strong> <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \Sigma)\)</span> is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the <a class="reference internal" href="05_essthms.html#thm-clt"><span class="std std-ref">central limit theorem</span></a>.</p>
+<p>The <strong>multivariate normal distribution</strong> or <strong>Gaussian distribution</strong> <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \Sigma)\)</span> is the most important probability distribution with regard to the subsequent chapters. In particular, it is of special importance due to the <a class="reference internal" href="05_essthms.html#thm-clt"><span class="std std-ref">central limit theorem</span></a>.</p>
 <p>The multivariate normal distribution is completely charaterized by its expectation <span class="math notranslate nohighlight">\(\mu\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span>. The general probability distribution function is given by</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{\sqrt{(2\pi)^d |\Sigma|}} ~\exp\Big(-\frac{1}{2}~(x- \mu)^T \Sigma^{-1}(x -\mu)\Big) \quad \text{for } x \in \mathbb{R}^d,\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is some vector in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> is a symmetric and positive definite (i.e., <span class="math notranslate nohighlight">\(x^T \Sigma x &gt; 0\)</span> for each <span class="math notranslate nohighlight">\(x \in \mahthbb{R}^d\)</span>) matrix. In particular, <span class="math notranslate nohighlight">\(\Sigma^{-1}\)</span> exists. Consequently, the univariate normal distribution (<span class="math notranslate nohighlight">\(d=1\)</span>) has the density</p>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is some vector in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> is a symmetric and positive definite (i.e., <span class="math notranslate nohighlight">\(x^T \Sigma x &gt; 0\)</span> for each <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span>) matrix. In particular, <span class="math notranslate nohighlight">\(\Sigma^{-1}\)</span> exists. Consequently, the univariate normal distribution (<span class="math notranslate nohighlight">\(d=1\)</span>) has the density</p>
 <div class="math notranslate nohighlight">
-\[\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big) \quad \text{for } x \in \mathbb{R}\]</div>
+\[\frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big) \quad \text{for } x \in \mathbb{R}\]</div>
 <p>as well as <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\sigma^2 &gt; 0\)</span>. Since</p>
 <div class="math notranslate nohighlight">
-\[ \int_{\mathbb{R}} x~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \mu\]</div>
+\[ \int_{\mathbb{R}} x~\frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \mu\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[\int_{\mathbb{R}} (x - \mu)^2~\frac{1}{\sqrt{(2\pi)^d \sigma^2}} ~\exp\big(-\frac{1}{2}~\frac{(x- \mu)^2}{\sigma^2}\big)~dx = \sigma^2,\]</div>

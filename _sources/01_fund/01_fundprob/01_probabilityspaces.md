@@ -84,7 +84,7 @@ Then, the map $P: C \rightarrow [0, 1]$ defined by
 
 $$ P(A) := \int_{a_d}^{b_d} \cdots \int_{a_1}^{b_1} f(x) ~ dx \quad \text{for } A = [a_1, b_1] \times [a_2, b_2] \times \cdots \times [a_d, b_d] \in C$$
 
-extends uniquely to $\mathcal{B}(\Omega)$ (not part of the lecture) and this extension is called a **continuous probability measure** or a **continuous probability distribution**. $f$ is called the **probability density function** (PDF) of $P$ or briefly probabilty density or simply density. The triple $(\Omega, \mathcal{B}(\Omega), P)$ or briefly $(\Omega, P)$ is called a **continuous probability space**.
+extends uniquely to $\mathcal{B}(\Omega)$ (not part of the lecture) and this extension is called a **continuous probability measure** or a **continuous probability distribution**. $f$ is called the **probability density function** (pdf) of $P$ or briefly probabilty density or simply density. The triple $(\Omega, \mathcal{B}(\Omega), P)$ or briefly $(\Omega, P)$ is called a **continuous probability space**.
 ```
 
 It holds

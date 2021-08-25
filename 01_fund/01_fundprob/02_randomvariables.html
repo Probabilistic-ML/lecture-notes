@@ -332,7 +332,7 @@
               <div>
                 
   <div class="section" id="random-variables">
-<h1><span class="section-number">1.2. </span>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this headline">¶</a></h1>
+<span id="sec-rv"></span><h1><span class="section-number">1.2. </span>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this headline">¶</a></h1>
 <p>Imagine that we perform multiple independent random experiments by rolling repeatedly (<span class="math notranslate nohighlight">\(n\)</span>-times) a fair dice. The corresponding sample space is given by</p>
 <div class="math notranslate nohighlight">
 \[\Omega = \{ \omega = (\omega_1, \omega_2, \dots, \omega_n)~|~\omega_i \in \{1, 2, 3, 4, 5, 6\} \ \text{for } i=1, \dots,n \}.\]</div>
@@ -355,7 +355,7 @@
 \[X(\omega) = \omega \quad \text{for } \omega \in \Omega.\]</div>
 <p>Observe that <span class="math notranslate nohighlight">\(X\)</span> does only take values in <span class="math notranslate nohighlight">\(\{1, 2, 3, 4, 5, 6\}\)</span>. Hence, <span class="math notranslate nohighlight">\(X\)</span> maps to <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, but <span class="math notranslate nohighlight">\(P_X(\mathbb{R} \backslash \{1, 2, 3, 4, 5, 6\}) = 0\)</span>. <span class="math notranslate nohighlight">\(\{1, 2, 3, 4, 5, 6\}\)</span> is called the <strong>support</strong> of <span class="math notranslate nohighlight">\(P_X\)</span>.</p>
 <ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(d &gt; 1\)</span>, <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is also called a multivariate random variable or random vector. In this case, <span class="math notranslate nohighlight">\(X\)</span> is a random variable if and only if each component <span class="math notranslate nohighlight">\(X_i: \Omega \rightarrow \mathbb{R}\)</span> is a scalar random variable.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(d &gt; 1\)</span>, <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is also called a multivariate random variable or random vector. In this case, <span class="math notranslate nohighlight">\(X\)</span> is a random variable if and only if each component <span class="math notranslate nohighlight">\(X_i: \Omega \rightarrow \mathbb{R}\)</span> is a scalar random variable. The special case <span class="math notranslate nohighlight">\(d=2\)</span> is known as bivariate random variable. For <span class="math notranslate nohighlight">\(d=1\)</span>, the term univariate is used.</p></li>
 <li><p>If <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> is a <a class="reference internal" href="01_probabilityspaces.html#def-discrdistr"><span class="std std-ref">discrete probability space</span></a>, <strong>each</strong> map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is a random variable, since <span class="math notranslate nohighlight">\(\mathcal{F} = \mathcal{P}(\Omega)\)</span> contains all subsets of <span class="math notranslate nohighlight">\(\Omega\)</span>. Moreover, note that we can identify <span class="math notranslate nohighlight">\(P_X\)</span> with a discrete probability distribution (as seen in the example of a dice), since <span class="math notranslate nohighlight">\(X\)</span> can take at most countably many distinct values in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In this case, we denote the corresponding elementary probabilities by <span class="math notranslate nohighlight">\(p_X\)</span>.</p></li>
 <li><p>If <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> is a <a class="reference internal" href="01_probabilityspaces.html#def-contdistr"><span class="std std-ref">continuous probability space</span></a>, it can be shown that at least each <strong>continuous</strong> map <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span> is a random variable.</p></li>
 </ul>
@@ -439,6 +439,21 @@
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(aX, bY) = ab~\text{Cov}(X, Y)\)</span></p></li>
 </ol>
 </div>
+<p>In analogy to conditional probabilities, it also possible to define conditional probability distributions for two random variables:</p>
+<div class="tip admonition" id="def-conddistr">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.</p>
+<p>For discrete random variables, the conditional distribution of <span class="math notranslate nohighlight">\(X\)</span> given <span class="math notranslate nohighlight">\(Y=y\)</span> is defined by</p>
+<div class="math notranslate nohighlight">
+\[P(X=x~|~Y=y) := \frac{P(X=x, Y=y)}{P(Y=y)} \quad \text{if } P(Y=y) &gt; 0.\]</div>
+<p>For continuous random variables with joint distribution density <span class="math notranslate nohighlight">\(f_{X, Y}\)</span>, the conditional distribution of <span class="math notranslate nohighlight">\(X\)</span> given <span class="math notranslate nohighlight">\(Y=y\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[f_{X~|~Y=y}(x) := \frac{f_{X, Y}(x, y)}{f_Y(y)},\]</div>
+<p>where <span class="math notranslate nohighlight">\(f_Y\)</span> is the pdf of <span class="math notranslate nohighlight">\(Y\)</span> and it is assumed that <span class="math notranslate nohighlight">\(f_Y(y) &gt; 0\)</span>.</p>
+</div>
+<p>The idea behind this definition is that the distribution of a random vector <span class="math notranslate nohighlight">\((X, Y)\)</span> is possibly known (i.e., the joint distribution of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>). In this case, the distributions of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are known (the so-called marginal distributions), but these distributions characterize <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> independently. However, we would also like to <strong>make conclusions about the values of</strong> <span class="math notranslate nohighlight">\(X\)</span> <strong>in the case that the value for</strong> <span class="math notranslate nohighlight">\(Y\)</span> <strong>is known</strong> in use of the conditional distribution.</p>
+<p>It is also possible to express the marginal distribution in terms of the conditional distribution:</p>
+<p>$$f</p>
 </div>
 
     <script type="text/x-thebe-config">
