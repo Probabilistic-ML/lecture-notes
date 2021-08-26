@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1.3. Independence &#8212; Probabilistic Machine Learning</title>
+    <title>3.1. Coin Toss &#8212; Probabilistic Machine Learning</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -52,12 +52,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/01_fundprob/03_independence.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/03_bayes/01_cointoss.html" />
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.4. Important Probability Distributions" href="04_impprobdistr.html" />
-    <link rel="prev" title="1.2. Random Variables" href="02_randomvariables.html" />
+    <link rel="next" title="3.2. Bayesian Inference" href="02_bayesianinference.html" />
+    <link rel="prev" title="3. Bayesian Inference, MLE &amp; MAP" href="../03_bayes.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -127,38 +127,38 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../01_fundprob.html">
    1. Fundamentals of Probability Theory
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="01_probabilityspaces.html">
+    <a class="reference internal" href="../01_fundprob/01_probabilityspaces.html">
      1.1. Probability Spaces
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="02_randomvariables.html">
+    <a class="reference internal" href="../01_fundprob/02_randomvariables.html">
      1.2. Random Variables
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fundprob/03_independence.html">
      1.3. Independence
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="04_impprobdistr.html">
+    <a class="reference internal" href="../01_fundprob/04_impprobdistr.html">
      1.4. Important Probability Distributions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="05_essthms.html">
+    <a class="reference internal" href="../01_fundprob/05_essthms.html">
      1.5. Essential Theorems
     </a>
    </li>
@@ -169,28 +169,28 @@
    2. Bayesian vs. Frequentists View
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../03_bayes.html">
    3. Bayesian Inference, MLE &amp; MAP
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../03_bayes/01_cointoss.html">
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      3.1. Coin Toss
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../03_bayes/02_bayesianinference.html">
+    <a class="reference internal" href="02_bayesianinference.html">
      3.2. Bayesian Inference
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../03_bayes/03_MLEandMAP.html">
+    <a class="reference internal" href="03_MLEandMAP.html">
      3.3. MLE and MAP
     </a>
    </li>
@@ -308,9 +308,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/01_fund/01_fundprob/03_independence.md"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/01_fund/03_bayes/01_cointoss.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -341,6 +341,22 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/01_fund/03_bayes/01_cointoss.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -354,69 +370,45 @@
         
               <div>
                 
-  <div class="section" id="independence">
-<span id="sec-indep"></span><h1><span class="section-number">1.3. </span>Independence<a class="headerlink" href="#independence" title="Permalink to this headline">¶</a></h1>
-<p>Independence of random variables can be defined in multiple, but equivalent, ways. For this purpose, the cumulative distribution function is useful:</p>
-<div class="tip admonition" id="def-cdf">
-<p class="admonition-title">Definition</p>
-<p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(d \ge 1\)</span>, be a random variable on some probability space <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span>. The function <span class="math notranslate nohighlight">\(F_X: \mathbb{R}^d \rightarrow [0, 1]\)</span> defined by</p>
+  <div class="section" id="coin-toss">
+<h1><span class="section-number">3.1. </span>Coin Toss<a class="headerlink" href="#coin-toss" title="Permalink to this headline">¶</a></h1>
+<p>Imagine that we toss a coin multiple times and we would like to determine the probability to toss heads. Since this kind of random experiment has only two possible outcomes, the Bernoulli distribution <span class="math notranslate nohighlight">\(\text{B}(1, p)\)</span> is an appropriate model. The multiple coin tosses yield a sequence of indepdent random experiments. Each coin toss corresponds to a random variable <span class="math notranslate nohighlight">\(X_i\)</span> with value <span class="math notranslate nohighlight">\(1\)</span> for heads and value <span class="math notranslate nohighlight">\(0\)</span> for tails (<span class="math notranslate nohighlight">\(X_i\)</span> represents the <span class="math notranslate nohighlight">\(i\)</span>-th toss). Hence, we aim to determine <span class="math notranslate nohighlight">\(p\)</span>. The sum <span class="math notranslate nohighlight">\(\sum_i^n X_i\)</span> describes the number of heads after <span class="math notranslate nohighlight">\(n\)</span> trials and has a binomial distribution <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span>.</p>
+<p>Let us assume that <strong>we doubt the fairness of the coin!</strong></p>
+<p>First, we use the frequentists approach which is strongly connected to the law of large numbers and the central limit theorem. Since we think the coin is not fair, we claim <span class="math notranslate nohighlight">\(p \ne 0.5\)</span>.</p>
+<p>Typically, we assume the opposite of our claim, i.e., the so-called <strong>null hypothesis</strong></p>
 <div class="math notranslate nohighlight">
-\[ F_X(x) := P_X((-\infty, x_1] \times \cdots \times (-\infty, x_d]) \quad \text{for } x=(x_1, \dots, x_d) \in \mathbb{R}^d\]</div>
-<p>is called the <strong>cumulative distribution function</strong> (cdf) of <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(P_X\)</span>.</p>
+\[H_0: p = 0.5\]</div>
+<p>is assumed. The strategy is to find evidence that <span class="math notranslate nohighlight">\(H_0\)</span> is most likely wrong such that it is reasonable to reject the null hypothesis. In this way, we can accept our actual claim. This procedure is called <strong>hypothesis testing</strong>.</p>
+<p>For each <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>, the outcome of the average <span class="math notranslate nohighlight">\(\overline{X}_n := \frac{1}{n} \sum_i^n X_i\)</span> can be calulated. Due to the law of large numbers, we expect that this value approaches <span class="math notranslate nohighlight">\(p\)</span> for <strong>large</strong> values of <span class="math notranslate nohighlight">\(n\)</span>. In any case, our estimate for <span class="math notranslate nohighlight">\(p\)</span> will differ at least slightly from the hypothesis <span class="math notranslate nohighlight">\(p = 0.5\)</span>. From our frequentists point of view, we have to decide whether this difference is small enough to support the hypothesis. <em>Maybe we should reject it</em>? Under the assumption <span class="math notranslate nohighlight">\(p=0.5\)</span>, we can approximate the distribution of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> by a normal distribution due to the central limit theorem and calculate a bound for the probability to observe the difference of the average to <span class="math notranslate nohighlight">\(0.5\)</span>. The larger the difference the smaller the probability. If the probability is smaller than a threshold of typically 5%, 2% or 1%, <span class="math notranslate nohighlight">\(H_0\)</span> is rejected. The correct interpretation is that our observation is not impossible if <span class="math notranslate nohighlight">\(p=0.5\)</span>, but rather unlikely. Hence, we tend to conclude that <span class="math notranslate nohighlight">\(p \ne 0.5\)</span>. The threshold is normally called <span class="math notranslate nohighlight">\(p\)</span><strong>-value</strong> (not to be confused with <span class="math notranslate nohighlight">\(p\)</span> from our hypothesis).</p>
+<p>So, let’s do the simulation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">bernoulli</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># total number of coin tosses</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.55</span> <span class="c1"># probability to toss heads (&quot;unknown&quot;)</span>
+<span class="n">thresh</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># p-value</span>
+
+<span class="n">samples</span> <span class="o">=</span> <span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span> <span class="c1"># generate independent B(1, p)-distributed observations</span>
+
+<span class="n">average</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,))</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">average</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">samples</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p=0.5&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">average</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;arithmetic average&#39;</span><span class="p">)</span>
+<span class="n">leg</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
-<p>Now, we are able to define independence of events and random variables:</p>
-<div class="tip admonition" id="def-indep">
-<p class="admonition-title">Definition</p>
-<p>Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probability space. Then two events <span class="math notranslate nohighlight">\(A, B \in \mathcal{F}\)</span> are called <strong>independent</strong>, if</p>
-<div class="math notranslate nohighlight">
-\[ P(A \cap B) = P(A) P(B).\]</div>
-<p>Let <span class="math notranslate nohighlight">\(X: \Omega \rightarrow \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(Y: \Omega \rightarrow \mathbb{R}\)</span> be two random variables. Then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>independent random variables</strong>, if the events <span class="math notranslate nohighlight">\(X^{-1}(A)\)</span> and <span class="math notranslate nohighlight">\(Y^{-1}(B)\)</span> are independent for all <span class="math notranslate nohighlight">\(A, B \in \mathcal{B}(\mathbb{R})\)</span>. This is equivalent to the property</p>
-<div class="math notranslate nohighlight">
-\[F_{X, Y}(x, y) = F_X(x) F_Y(y) \quad \text{for all } x,y \in \mathbb{R}\]</div>
-<p>and if the corresponding densities exist to</p>
-<div class="math notranslate nohighlight">
-\[f_{X, Y}(x, y) = f_X(x) f_Y(y) \quad \text{for all } x,y \in \mathbb{R},\]</div>
-<p>i.e. the joint distribution of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> factorizes.</p>
 </div>
-<p>Independence basically means that the occurrence of event A has no impact on the occurrence of event B or in terms of random variables, the outcomes of random variables should not impact each other. The definition of independent random variables generalizes easily to <span class="math notranslate nohighlight">\(d &gt; 1\)</span>.</p>
-<p>Note that two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent if and only if <span class="math notranslate nohighlight">\(P(A~|~B) = P(A)\)</span> (i.e., the probability of <span class="math notranslate nohighlight">\(A\)</span> does not change given <span class="math notranslate nohighlight">\(B\)</span>).</p>
-<div class="important admonition" id="lem-indep">
-<p class="admonition-title">Lemma</p>
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two independent random variables. Then</p>
-<ol class="simple">
-<li><p><span class="math notranslate nohighlight">\(\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X + Y) = \text{Cov}(X) + \text{Cov}(Y)\)</span></p></li>
-</ol>
+<div class="cell_output docutils container">
+<img alt="../../_images/01_cointoss_2_0.png" src="../../_images/01_cointoss_2_0.png" />
 </div>
-<p>If <span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = 0\)</span>, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are called <strong>uncorrelated</strong>. Note that independent random variables are always uncorrelated, but uncorrelated random variables are not necessarily independent (see e.g. Bemerkung C 5.21 in <span id="id1">[<a class="reference internal" href="../01_fundprob.html#id8">1</a>]</span>).</p>
-<p>In many cases, we are able to observe outcomes of independent random variables with the same distribution (so-called <strong>independent identical distributed</strong> (i.i.d.) random variables), but do not know the underlying distribution exactly. Thus, we would like to make conclusions about the distribution based on our observations. In this way, our probabilistic definitions are linked to statistics and estimators. For example, think of rolling a dice multiple times and initially we do not know if the dice is fair or not. We have shown that a fair dice has an expectation of <span class="math notranslate nohighlight">\(3.5\)</span>. Thus, it is reasonable to verify this expectation in use of the given observations. If the sample mean (see below) of many independent experiments is not sufficiently close to <span class="math notranslate nohighlight">\(3.5\)</span>, we may reject the hypothesis that the dice is fair. This procedure is called <strong>hypothesis testing</strong> in statistics.</p>
-<p>Assume that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables and that <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> and <span class="math notranslate nohighlight">\(y_1, \dots, y_n\)</span> are samples of i.i.d. experiments with respect to <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span>, respectively. Then, the preceding definitions of expectation, covariance, variance, standard deviation and correlation have the following statistical counterparts:</p>
-<ul class="simple">
-<li><p>expectation:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[\overline{x} := \frac{1}{n}~\sum_{i=1}^n x_i \quad \textbf{(sample mean)}\]</div>
-<ul class="simple">
-<li><p>covariance:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[s_{xy} := \frac{1}{n-1}~\sum_{i=1}^n (x_i - \overline{x})(y_i - \overline{y}) \quad \textbf{(sample covariance)}\]</div>
-<ul class="simple">
-<li><p>variance:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[s^2_x := s_{xx} = \frac{1}{n-1}~\sum_{i=1}^n (x_i - \overline{x})^2 \quad \textbf{(sample variance)}\]</div>
-<ul class="simple">
-<li><p>standard deviation:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[s_x := \sqrt{s^2_x} \quad \textbf{(sample standard deviation)}\]</div>
-<ul class="simple">
-<li><p>correlation:</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[r_{xy} := \frac{s_{xy}}{s_x s_y} = \frac{\sum_{i=1}^n (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum_{i=1}^n (x_i - \overline{x})^2} \sqrt{\sum_{i=1}^n (y_i - \overline{y})^2}} \quad \textbf{(Pearson correlation coefficient)}\]</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -432,7 +424,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./01_fund/01_fundprob"
+            path: "./01_fund/03_bayes"
         },
         predefinedOutput: true
     }
@@ -449,19 +441,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="02_randomvariables.html" title="previous page">
+        <a class="left-prev" href="../03_bayes.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">1.2. </span>Random Variables</p>
+                <p class="prevnext-title"><span class="section-number">3. </span>Bayesian Inference, MLE &amp; MAP</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="04_impprobdistr.html" title="next page">
+        <a class="right-next" href="02_bayesianinference.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">1.4. </span>Important Probability Distributions</p>
+                <p class="prevnext-title"><span class="section-number">3.2. </span>Bayesian Inference</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

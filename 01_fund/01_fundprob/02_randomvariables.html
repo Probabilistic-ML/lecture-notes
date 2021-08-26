@@ -169,10 +169,32 @@
    2. Bayesian vs. Frequentists View
   </a>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../03_bayes.html">
-   3. MLE, MAP &amp; Bayesian Inference
+   3. Bayesian Inference, MLE &amp; MAP
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03_bayes/03_MLEandMAP.html">
+     3.3. MLE and MAP
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../04_linregr.html">
@@ -431,7 +453,7 @@
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}(|X + Y|) \le \mathbb{E}(|X|) + \mathbb{E}(|Y|)\)</span></p></li>
 <li><p>If <span class="math notranslate nohighlight">\(X \le Y\)</span> (i.e., <span class="math notranslate nohighlight">\(X(\omega) \le Y(\omega)\)</span> for each <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span>, then <span class="math notranslate nohighlight">\(\mathbb{E}(X) \le \mathbb{E}(Y)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}(|X|) = 0 ~ \Leftrightarrow ~ P(X \ne 0) = 0\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X) \ge 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Cov}(X)\)</span> is positive definite</p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = \text{Cov}(Y, X)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X, Y) = \mathbb{E}(XY^T) - \mathbb{E}(X) \mathbb{E}(Y)^T\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\text{Cov}(X + Y, Z) = \text{Cov}(X, Z) + \text{Cov}(Y, Z)\)</span></p></li>

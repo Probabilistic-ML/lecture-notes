@@ -169,10 +169,32 @@
    2. Bayesian vs. Frequentists View
   </a>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../01_fund/03_bayes.html">
-   3. MLE, MAP &amp; Bayesian Inference
+   3. Bayesian Inference, MLE &amp; MAP
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/03_MLEandMAP.html">
+     3.3. MLE and MAP
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../01_fund/04_linregr.html">
@@ -518,13 +540,13 @@ We will show 2 realization of a multivariate normal distribution to show the res
 $
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c1daf8de-6184-4bb9-a821-2d1ab88de199">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-c1daf8de-6184-4bb9-a821-2d1ab88de199" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-bb1b94cc-a1bd-4555-bbd2-67d50cb1d598">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-bb1b94cc-a1bd-4555-bbd2-67d50cb1d598" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 0
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-fff89e54-627d-4b20-a5a2-39913b2d3250">
-<span class="eqno">(11.2)<a class="headerlink" href="#equation-fff89e54-627d-4b20-a5a2-39913b2d3250" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-7295b890-73b5-4f53-9882-39746efc371c">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-7295b890-73b5-4f53-9882-39746efc371c" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0 \\
 0 &amp; 1 
 \end{bmatrix}\]</div>
@@ -533,13 +555,13 @@ $
 <p>$
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-92ca3d79-3a1c-465d-8321-7d59c73f0d35">
-<span class="eqno">(11.3)<a class="headerlink" href="#equation-92ca3d79-3a1c-465d-8321-7d59c73f0d35" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-fd583208-363f-45f8-8a9c-247f00a2be46">
+<span class="eqno">(11.3)<a class="headerlink" href="#equation-fd583208-363f-45f8-8a9c-247f00a2be46" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 1
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-a6afc14d-a09d-4dd7-8dde-738d631d03b2">
-<span class="eqno">(11.4)<a class="headerlink" href="#equation-a6afc14d-a09d-4dd7-8dde-738d631d03b2" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-8f21f911-4283-4982-8537-ee4080ae2577">
+<span class="eqno">(11.4)<a class="headerlink" href="#equation-8f21f911-4283-4982-8537-ee4080ae2577" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0.8 \\
 0.8 &amp; 1
 \end{bmatrix}\]</div>
@@ -625,20 +647,20 @@ $
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-61e91380-4421-40cd-b8b7-b716985ff2c7">
-<span class="eqno">(11.5)<a class="headerlink" href="#equation-61e91380-4421-40cd-b8b7-b716985ff2c7" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-8ad6ff81-3171-4ad0-b0f9-fd2535357436">
+<span class="eqno">(11.5)<a class="headerlink" href="#equation-8ad6ff81-3171-4ad0-b0f9-fd2535357436" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
 \end{bmatrix}\]</div>
 <p>\sim
 \mathcal{N}\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-466254c3-0fb8-4c8c-9aee-b019d14a6872">
-<span class="eqno">(11.6)<a class="headerlink" href="#equation-466254c3-0fb8-4c8c-9aee-b019d14a6872" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-43d8fe39-f06a-461a-b7e4-e62816f6a44f">
+<span class="eqno">(11.6)<a class="headerlink" href="#equation-43d8fe39-f06a-461a-b7e4-e62816f6a44f" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mu_{\mathbf{x}} \\
 \mu_{\mathbf{y}}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-6af8503f-51cf-45ea-b3b8-e269be90b419">
-<span class="eqno">(11.7)<a class="headerlink" href="#equation-6af8503f-51cf-45ea-b3b8-e269be90b419" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-ddcc8bfa-4ac8-4950-9c0a-98ec5fffea5c">
+<span class="eqno">(11.7)<a class="headerlink" href="#equation-ddcc8bfa-4ac8-4950-9c0a-98ec5fffea5c" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 A  C \\
 C^T  B
 \end{bmatrix}\]</div>
@@ -646,8 +668,8 @@ C^T  B
 = \mathcal{N}(\mu, \Sigma)
 , \qquad
 \Sigma^{-1} = \Lambda =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b9dee18b-b125-4db2-8fe4-ef8b39434ac4">
-<span class="eqno">(11.8)<a class="headerlink" href="#equation-b9dee18b-b125-4db2-8fe4-ef8b39434ac4" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-fc6bf944-4a5a-4bcd-a000-329e425b41c5">
+<span class="eqno">(11.8)<a class="headerlink" href="#equation-fc6bf944-4a5a-4bcd-a000-329e425b41c5" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \tilde{A}  \tilde{C} \\
 \tilde{C}^T \tilde{B}
 \end{bmatrix}\]</div>

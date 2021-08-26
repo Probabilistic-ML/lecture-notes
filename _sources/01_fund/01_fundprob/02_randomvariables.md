@@ -119,7 +119,7 @@ Let $X$, $Y$ and $Z$ be random variables and $a, b \in \mathbb{R}$. Then
 4. $\mathbb{E}(|X + Y|) \le \mathbb{E}(|X|) + \mathbb{E}(|Y|)$
 5. If $X \le Y$ (i.e., $X(\omega) \le Y(\omega)$ for each $\omega \in \Omega$, then $\mathbb{E}(X) \le \mathbb{E}(Y)$
 6. $\mathbb{E}(|X|) = 0 ~ \Leftrightarrow ~ P(X \ne 0) = 0$
-7. $\text{Cov}(X) \ge 0$
+7. $\text{Cov}(X)$ is positive definite
 8. $\text{Cov}(X, Y) = \text{Cov}(Y, X)$
 9. $\text{Cov}(X, Y) = \mathbb{E}(XY^T) - \mathbb{E}(X) \mathbb{E}(Y)^T$
 10. $\text{Cov}(X + Y, Z) = \text{Cov}(X, Z) + \text{Cov}(Y, Z)$

@@ -54,7 +54,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. MLE, MAP &amp; Bayesian Inference" href="03_bayes.html" />
+    <link rel="next" title="3. Bayesian Inference, MLE &amp; MAP" href="03_bayes.html" />
     <link rel="prev" title="1.5. Essential Theorems" href="01_fundprob/05_essthms.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -167,10 +167,32 @@
    2. Bayesian vs. Frequentists View
   </a>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="03_bayes.html">
-   3. MLE, MAP &amp; Bayesian Inference
+   3. Bayesian Inference, MLE &amp; MAP
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_bayes/03_MLEandMAP.html">
+     3.3. MLE and MAP
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="04_linregr.html">
@@ -332,9 +354,28 @@
                 
   <div class="section" id="bayesian-vs-frequentists-view">
 <h1><span class="section-number">2. </span>Bayesian vs. Frequentists View<a class="headerlink" href="#bayesian-vs-frequentists-view" title="Permalink to this headline">¶</a></h1>
+<p>In probability theory and statistics two different approaches are popular: the <em>Bayesian</em> and the <em>frequentist</em> interpretation of probability. The difference results basically from the philosophical question: <em>What is probability</em>? This topic is nicely explained in the following video:</p>
 <div class="video-container">
 <iframe src="https://www.youtube.com/embed/GEFxFVESQXc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+<br>
+<p>These two points of view can be summarized as follows:</p>
+<p>Bayesian perspective:</p>
+<ul class="simple">
+<li><p>Probability is a <strong>reasonable expectation depending on the state of knowledge</strong></p></li>
+<li><p>Expresses a degree of belief</p></li>
+<li><p>Makes updates of the probability sequentially in use of prior belief and additional data/evidence</p></li>
+</ul>
+<p>Frequentists perspective:</p>
+<ul class="simple">
+<li><p>Probability <strong>exists independently from an observer</strong></p></li>
+<li><p>Probability of an event is the limit of its relative frequency in infinitely many independent random experiments</p></li>
+<li><p>In each experiment the event either occurs or not (similarly, a hypothesis is either true or not)</p></li>
+<li><p>By assumption, a repeat of the experiments would in the limit result in the same probability</p></li>
+</ul>
+<p>Hence, in frequentism probability is an <em>objective absolute quantity</em> which can be estimated by observations. In contrast, probability is subjective in the Bayesian approach and expresses a <em>quantification of belief</em> which is concluded from observations.</p>
+<p>Both approaches are very useful and have their advantages as well as disadvantages. Clearly, frequentism reflects more the principles of natural sciences like reproducibility and objectivity. Moreover, it is mostly used in basic courses on statistics. Nevertheless, Bayesian probability reflects the way humans assign probabilities to events: based on prior knowledge and additional evidence.</p>
+<p>In the following section, we illustrate the difference in use of the coin toss example.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -379,7 +420,7 @@
         <a class="right-next" href="03_bayes.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">3. </span>MLE, MAP &amp; Bayesian Inference</p>
+                <p class="prevnext-title"><span class="section-number">3. </span>Bayesian Inference, MLE &amp; MAP</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

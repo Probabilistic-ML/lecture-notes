@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3. MLE, MAP &amp; Bayesian Inference &#8212; Probabilistic Machine Learning</title>
+    <title>3. Bayesian Inference, MLE &amp; MAP &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -54,7 +54,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. An illustrative example for MLE and MAP: Linear Regression" href="04_linregr.html" />
+    <link rel="next" title="3.1. Coin Toss" href="03_bayes/01_cointoss.html" />
     <link rel="prev" title="2. Bayesian vs. Frequentists View" href="02_stat.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -167,10 +167,32 @@
    2. Bayesian vs. Frequentists View
   </a>
  </li>
- <li class="toctree-l1 current active">
+ <li class="toctree-l1 current active has-children">
   <a class="current reference internal" href="#">
-   3. MLE, MAP &amp; Bayesian Inference
+   3. Bayesian Inference, MLE &amp; MAP
   </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_bayes/03_MLEandMAP.html">
+     3.3. MLE and MAP
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="04_linregr.html">
@@ -322,29 +344,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-inference">
-   3.1. Bayesian Inference
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">
-   3.2. Maximum Likelihood Estimation (MLE)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#maximum-a-posteriori-method-map">
-   3.3. Maximum A-posteriori Method (MAP)
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -353,16 +352,13 @@
         
               <div>
                 
-  <div class="section" id="mle-map-bayesian-inference">
-<h1><span class="section-number">3. </span>MLE, MAP &amp; Bayesian Inference<a class="headerlink" href="#mle-map-bayesian-inference" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="bayesian-inference">
-<h2><span class="section-number">3.1. </span>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="maximum-likelihood-estimation-mle">
-<h2><span class="section-number">3.2. </span>Maximum Likelihood Estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="maximum-a-posteriori-method-map">
-<h2><span class="section-number">3.3. </span>Maximum A-posteriori Method (MAP)<a class="headerlink" href="#maximum-a-posteriori-method-map" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="bayesian-inference-mle-map">
+<h1><span class="section-number">3. </span>Bayesian Inference, MLE &amp; MAP<a class="headerlink" href="#bayesian-inference-mle-map" title="Permalink to this headline">¶</a></h1>
+<p>In the following sections, we explain the concepts of Bayesian inference, maximum likelihood estimation (MLE) and the maximum a-posteriori method (MAP).</p>
+<p>Bayesian inference uses <a class="reference internal" href="01_fundprob/05_essthms.html#thm-bt"><span class="std std-ref">Bayes theorem</span></a> to update the probabilities as more data/evidence is available.</p>
+<p>In many applications, it is not possible to perform full Bayesian inference, since the required terms can not be computed explicitly. To overcome this problem, MLE and MAP are useful tools in many cases.</p>
+<p>As an introduction, we discuss the coin toss example in detail. In particular, the difference between the Bayesian and the frequentists approach is illustrated.</p>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -405,10 +401,10 @@
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="04_linregr.html" title="next page">
+        <a class="right-next" href="03_bayes/01_cointoss.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">4. </span>An illustrative example for MLE and MAP: Linear Regression</p>
+                <p class="prevnext-title"><span class="section-number">3.1. </span>Coin Toss</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
