@@ -20,6 +20,10 @@ parts:
     - file: 01_fund/01_fundprob/05_essthms
   - file: 01_fund/02_stat
   - file: 01_fund/03_bayes
+    sections:
+    - file: 01_fund/03_bayes/01_cointoss
+    - file: 01_fund/03_bayes/02_bayesianinference
+    - file: 01_fund/03_bayes/03_MLEandMAP
   - file: 01_fund/04_linregr
   - file: 01_fund/05_opt
   - file: 01_fund/06_MLworkflow
