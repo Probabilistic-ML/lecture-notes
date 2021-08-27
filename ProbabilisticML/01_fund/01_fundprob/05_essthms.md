@@ -219,3 +219,7 @@ Bayes' theorem can also be formulated in terms of {ref}```conditional distributi
 Let $X$ and $Y$ be two continuous random variables with joint density $f_{X, Y}$. Then, it holds
 
 $$f_{X~|~Y=y}(x) = \frac{f_{Y~|~X=x}(y) f_X(x)}{f_Y(y)}$$
+
+```python
+
+```
