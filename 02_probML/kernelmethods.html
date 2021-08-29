@@ -251,8 +251,8 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../03_appl/RL.html">
-   17. Data-efficient Reinforcement Learning
+  <a class="reference internal" href="../03_appl/03_RL.html">
+   17. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -540,13 +540,13 @@ We will show 2 realization of a multivariate normal distribution to show the res
 $
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-daf19f74-2fe6-497c-96dc-41aadb93ca37">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-daf19f74-2fe6-497c-96dc-41aadb93ca37" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-e7ea35fb-8a1a-4b21-8b0a-2c2b7116fc17">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-e7ea35fb-8a1a-4b21-8b0a-2c2b7116fc17" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 0
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-c1f6497c-406d-4b85-bcf6-d724caa6ad91">
-<span class="eqno">(11.2)<a class="headerlink" href="#equation-c1f6497c-406d-4b85-bcf6-d724caa6ad91" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-1552c783-e977-45c3-a81b-d5fc4a5208f9">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-1552c783-e977-45c3-a81b-d5fc4a5208f9" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0 \\
 0 &amp; 1 
 \end{bmatrix}\]</div>
@@ -555,13 +555,13 @@ $
 <p>$
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2c00b149-7a17-4d29-9728-4bf23edc0483">
-<span class="eqno">(11.3)<a class="headerlink" href="#equation-2c00b149-7a17-4d29-9728-4bf23edc0483" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-a2a3c14c-8067-4891-af24-6a20507744ee">
+<span class="eqno">(11.3)<a class="headerlink" href="#equation-a2a3c14c-8067-4891-af24-6a20507744ee" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 1
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-32293e64-11cd-46c4-8aeb-c53f6f984cfb">
-<span class="eqno">(11.4)<a class="headerlink" href="#equation-32293e64-11cd-46c4-8aeb-c53f6f984cfb" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-efa96849-0054-40ba-917e-717e4bd9bb5b">
+<span class="eqno">(11.4)<a class="headerlink" href="#equation-efa96849-0054-40ba-917e-717e4bd9bb5b" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0.8 \\
 0.8 &amp; 1
 \end{bmatrix}\]</div>
@@ -647,20 +647,20 @@ $
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a5e6ba0c-799a-457d-8bcc-d9580e442e18">
-<span class="eqno">(11.5)<a class="headerlink" href="#equation-a5e6ba0c-799a-457d-8bcc-d9580e442e18" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-477d9915-0bd0-4de2-8311-8bb4c15adebd">
+<span class="eqno">(11.5)<a class="headerlink" href="#equation-477d9915-0bd0-4de2-8311-8bb4c15adebd" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
 \end{bmatrix}\]</div>
 <p>\sim
 \mathcal{N}\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3ad6b77c-beac-4c05-bbb2-4b1397e5a8c7">
-<span class="eqno">(11.6)<a class="headerlink" href="#equation-3ad6b77c-beac-4c05-bbb2-4b1397e5a8c7" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-453a5b9b-df41-48ee-b99d-00f15e143197">
+<span class="eqno">(11.6)<a class="headerlink" href="#equation-453a5b9b-df41-48ee-b99d-00f15e143197" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mu_{\mathbf{x}} \\
 \mu_{\mathbf{y}}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-9c42f6f8-5555-4283-acc9-79a7e90b42b6">
-<span class="eqno">(11.7)<a class="headerlink" href="#equation-9c42f6f8-5555-4283-acc9-79a7e90b42b6" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-3f6cbae9-e4ca-44dd-9c13-1b0f5df1a5e6">
+<span class="eqno">(11.7)<a class="headerlink" href="#equation-3f6cbae9-e4ca-44dd-9c13-1b0f5df1a5e6" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 A  C \\
 C^T  B
 \end{bmatrix}\]</div>
@@ -668,8 +668,8 @@ C^T  B
 = \mathcal{N}(\mu, \Sigma)
 , \qquad
 \Sigma^{-1} = \Lambda =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-48d5ab9f-90e5-4307-a855-4a9305c048c9">
-<span class="eqno">(11.8)<a class="headerlink" href="#equation-48d5ab9f-90e5-4307-a855-4a9305c048c9" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-0698c21f-2a09-49dc-9e77-2b9fcb24ad87">
+<span class="eqno">(11.8)<a class="headerlink" href="#equation-0698c21f-2a09-49dc-9e77-2b9fcb24ad87" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \tilde{A}  \tilde{C} \\
 \tilde{C}^T \tilde{B}
 \end{bmatrix}\]</div>
