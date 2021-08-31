@@ -483,36 +483,34 @@
 </div>
 <p>Multivariate normal distribution
 $<span class="math notranslate nohighlight">\(p(\mathbf{x} \mid \mathbf{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d \lvert\Sigma\rvert}} \exp{ \left( -\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^T \Sigma^{-1} (\mathbf{x} - \mathbf{\mu}) \right)}\)</span><span class="math notranslate nohighlight">\(
-Here is \)</span>\mathbf{x}<span class="math notranslate nohighlight">\( a random vector (for example: &quot;\)</span>[x_1,x_2]^T<span class="math notranslate nohighlight">\(&quot;), \)</span>\mathbf{\mu}<span class="math notranslate nohighlight">\( is the mean vector and \)</span>\Sigma<span class="math notranslate nohighlight">\( is the covariance.\
-We will show 2 realization of a multivariate normal distribution to show the results of different means and covariances.
-\)</span>$
-\mathcal{N}
-\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fa0ef19a-6e67-4585-a195-064b0a41e034">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-fa0ef19a-6e67-4585-a195-064b0a41e034" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+Here is \)</span>\mathbf{x}<span class="math notranslate nohighlight">\( a random vector \)</span>\mathbf{\mu}<span class="math notranslate nohighlight">\( is the mean vector and \)</span>\Sigma$ is the covariance.<br />
+We will show 2 realization of a multivariate normal distribution to show the results of different means and covariances.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-07b8be33-6246-4e16-9d3a-3551ac58a0a3">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-07b8be33-6246-4e16-9d3a-3551ac58a0a3" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\mathcal{N}\left(
+\begin{bmatrix}
 0 \\
 0
-\end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-010286d3-057b-44d3-b09d-e5edbb4b3276">
-<span class="eqno">(8.2)<a class="headerlink" href="#equation-010286d3-057b-44d3-b09d-e5edbb4b3276" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+\end{bmatrix}, 
+\begin{bmatrix}
 1 &amp; 0 \\
 0 &amp; 1 
-\end{bmatrix}\]</div>
-<div class="math notranslate nohighlight">
-\[The figure on the right is a bivariate distribution with the covariance between $x_1$ and $x_2$ set to be different than $0$ so that both variables are correlated. Increasing $x_1$ will increase the probability that $x_2$ will also increase:\]</div>
-<p>\mathcal{N}
-\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e2487137-e07c-45d2-b62b-dc01930a8d8f">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-e2487137-e07c-45d2-b62b-dc01930a8d8f" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+\end{bmatrix}\right)
+\end{align}\]</div>
+<p>The figure on the right is a bivariate distribution with the covariance between <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> set to be different than <span class="math notranslate nohighlight">\(0\)</span> so that both variables are correlated. Increasing <span class="math notranslate nohighlight">\(x_1\)</span> will increase the probability that <span class="math notranslate nohighlight">\(x_2\)</span> will also increase:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-571febc4-abe4-4ffd-94e6-7d40bd2c1e79">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-571febc4-abe4-4ffd-94e6-7d40bd2c1e79" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\mathcal{N}
+\left(
+\begin{bmatrix}
 0 \\
 1
-\end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-f903e4a4-3ffb-436e-9f30-66af4fc9c2a2">
-<span class="eqno">(8.4)<a class="headerlink" href="#equation-f903e4a4-3ffb-436e-9f30-66af4fc9c2a2" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+\end{bmatrix}
+\begin{bmatrix}
 1 &amp; 0.8 \\
 0.8 &amp; 1
-\end{bmatrix}\]</div>
-<p>$$</p>
+\end{bmatrix}\right)
+\end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multivariate_normal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">covariance</span><span class="p">):</span>
@@ -592,35 +590,32 @@ We will show 2 realization of a multivariate normal distribution to show the res
 <img alt="../_images/kernelmethods_8_0.svg" src="../_images/kernelmethods_8_0.svg" /></div>
 </div>
 <p>Marginal and Conditional normal distributions
-If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:
-$$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-20014a77-7780-48fc-be21-2ecae2901ded">
-<span class="eqno">(8.5)<a class="headerlink" href="#equation-20014a77-7780-48fc-be21-2ecae2901ded" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8dd0a7a8-edb6-4123-aa6d-d0bdeb9b2b54">
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-8dd0a7a8-edb6-4123-aa6d-d0bdeb9b2b54" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
-\end{bmatrix}\]</div>
-<p>\sim
-\mathcal{N}\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f364af7e-8ae0-4401-b3ca-fc18318ed40e">
-<span class="eqno">(8.6)<a class="headerlink" href="#equation-f364af7e-8ae0-4401-b3ca-fc18318ed40e" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+\end{bmatrix}
+\sim
+\mathcal{N}\left(
+\begin{bmatrix}
 \mu_{\mathbf{x}} \\
 \mu_{\mathbf{y}}
-\end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-7db4d376-988f-41e3-8ec7-a0c0a14f7818">
-<span class="eqno">(8.7)<a class="headerlink" href="#equation-7db4d376-988f-41e3-8ec7-a0c0a14f7818" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+\end{bmatrix},
+\begin{bmatrix}
 A  C \\
 C^T  B
-\end{bmatrix}\]</div>
-<p>\right)
+\end{bmatrix}
+\right)
 = \mathcal{N}(\mu, \Sigma)
-, \qquad
-\Sigma^{-1} = \Lambda =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-984e2d3f-9e6c-410c-8ba2-4c843e65cef3">
-<span class="eqno">(8.8)<a class="headerlink" href="#equation-984e2d3f-9e6c-410c-8ba2-4c843e65cef3" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+, \qquad 
+\Sigma^{-1} = \Lambda = 
+\begin{bmatrix}
 \tilde{A}  \tilde{C} \\
 \tilde{C}^T \tilde{B}
-\end{bmatrix}\]</div>
-<p>$$</p>
+\end{bmatrix}
+\end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># dimensions</span>
