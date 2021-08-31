@@ -43,6 +43,8 @@
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -54,7 +56,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3.3. MLE and MAP" href="03_MLEandMAP.html" />
+    <link rel="next" title="3.3. MAP and MLE" href="03_MLEandMAP.html" />
     <link rel="prev" title="3.1. Coin Toss" href="01_cointoss.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -169,7 +171,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../03_bayes.html">
-   3. Bayesian Inference, MLE &amp; MAP
+   3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -189,24 +191,24 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="03_MLEandMAP.html">
-     3.3. MLE and MAP
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_linregr.html">
+     3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../04_linregr.html">
-   4. An illustrative example for MLE and MAP: Linear Regression
+  <a class="reference internal" href="../04_opt.html">
+   4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../05_opt.html">
-   5. Optimization Methods
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../06_MLworkflow.html">
-   6. Machine Learning Workflow
+  <a class="reference internal" href="../05_MLworkflow.html">
+   5. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -218,17 +220,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/motivation.html">
-   7. Motivation of Probabilistic Models
+   6. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/kernelmethods.html">
-   8. Kernel-based Methods
+   7. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/overview.html">
-   9. Overview of Further Probabilistic Models
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -240,17 +242,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/BO.html">
-   10. Bayesian Optimization
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/uncertainty.html">
-   11. Quantification of Design Uncertainty
+   10. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/03_RL.html">
-   12. Sample Efficient Reinforcement Learning
+   11. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -352,8 +354,60 @@
         
               <div>
                 
-  <div class="section" id="bayesian-inference">
-<h1><span class="section-number">3.2. </span>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this headline">¶</a></h1>
+  <!-- #region -->
+<div class="section" id="bayesian-inference">
+<span id="sec-bayesianinference"></span><h1><span class="section-number">3.2. </span>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this headline">¶</a></h1>
+<p>We already discussed <a class="reference internal" href="../01_fundprob/05_essthms.html#thm-bt"><span class="std std-ref">Bayes’ theorem</span></a> as well as Bayesian inference using the example of a coin toss in the previous section. In the present section, we present Bayesian inference in a more formal way in order to be able to apply the general concept later on to machine learning models.</p>
+<p>The following setting is assumed:</p>
+<ul class="simple">
+<li><p>Some data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is given. For example, this data contains the outcomes of coin tosses. <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> can also contain multiple input-output pairs <span class="math notranslate nohighlight">\((x_i, y_i)\)</span> which are related by some function <span class="math notranslate nohighlight">\(f\)</span> (i.e., <span class="math notranslate nohighlight">\(y_i = f(x_i)\)</span>). This situation is of particular importance in supervised machine learning.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x\)</span> denotes a general data point</p></li>
+<li><p>A parameter <span class="math notranslate nohighlight">\(\theta\)</span> (possibly vector valued) specifies the distribution of the data. For example, <span class="math notranslate nohighlight">\(\theta\)</span> is the parameter of the Bernoulli distribution in the coin toss example.</p></li>
+</ul>
+<p>In order to perform Bayesian inference, the following steps are necessary:</p>
+<ul>
+<li><p>Assign a prior distribution to <span class="math notranslate nohighlight">\(\theta\)</span>. This distribution can again depend on some so-called hyperparameters. In the coin toss example, we used the beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span>, i.e., <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are the hyperparameters.</p></li>
+<li><p>Use Bayes’ theorem and the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> in order to caluclate the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[p(\theta~|~\mathcal{D}) = \frac{p(\mathcal{D}~|~\theta)~p(\theta)}{p(\mathcal{D})}\]</div>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(p(\theta~|~\mathcal{D})\)</span> denotes the <strong>posterior distribution</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(p(\mathcal{D}~|~\theta)\)</span> is the <strong>likelihood</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(p(\theta)\)</span> is the <strong>prior distribution</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(p(\mathcal{D})\)</span> is called the <strong>marginal likelihood</strong> or <strong>evidence</strong> and is given by</p>
+<div class="math notranslate nohighlight">
+\[p(\mathcal{D}) = \int p(\mathcal{D}~|~\theta)~p(\theta)~d\theta\]</div>
+</li>
+</ul>
+<p>In the coin toss example, it turned out that the posterior distribution is again a beta distribution.</p>
+</li>
+</ul>
+<p>The prior as well as the positrior distribution can be used to make probabilistic predicitions about the distribution of new data points. The <strong>prior predictive distribution</strong> is given by</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \int p(x~|~\theta)~p(\theta)~d\theta\]</div>
+<p>and the <strong>posterior predictive distribution</strong> by</p>
+<div class="math notranslate nohighlight">
+\[p(x~|~\mathcal{D}) = \int p(x~|~\theta)~p(\theta~|~\mathcal{D})~d\theta\]</div>
+<p>For example, in the coin toss example we can calulate the probability for heads in the next experiment. The use of the prior predictive distribution means that we only include our prior beliefs on <span class="math notranslate nohighlight">\(\theta\)</span> which was given by the <span class="math notranslate nohighlight">\(\text{Beta}(2, 2)\)</span> distribution. Recall that the likelihood is <span class="math notranslate nohighlight">\(\text{B}(1, \theta)\)</span>-distributed and therefore, <span class="math notranslate nohighlight">\(p(H~|~\theta) = \theta\)</span>, where <span class="math notranslate nohighlight">\(H\)</span> denotes the event “heads”. Thus, it follows</p>
+<div class="math notranslate nohighlight">
+\[p(H) = \int \theta~p(\theta)~d\theta = \mathbb{E}(\theta)\]</div>
+<p>The probability for heads equals in this case the expectation of the prior distribution which is <span class="math notranslate nohighlight">\(0.5\)</span> in this example. Here, we used that the expectation of <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span> is <span class="math notranslate nohighlight">\(\alpha/(\alpha + \beta)\)</span>.</p>
+<p>The posterior predictive distribution uses the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span> and hence, also the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>. Assume that we tossed the coin five times and observed 3 heads and 2 tails. In the previous section, we have seen that <span class="math notranslate nohighlight">\(\text{Beta}(2 + 3, 2 + 2) = \text{Beta}(5, 4)\)</span> is the posterior distribtion. Similarly as before,</p>
+<div class="math notranslate nohighlight">
+\[p(H~|~\mathcal{D}) = \int \theta~p(\theta~|~\mathcal{D})~d\theta\]</div>
+<p>is exactly the expectation of the posterior distribution which equals <span class="math notranslate nohighlight">\(5/9\)</span>.</p>
+<p>Hence, by observing more heads than tails our belief tend to expect heads more likely than before.</p>
+<p>Depending on the choice of the prior distribution and the distributional form of the likelihood, it can be very demanding to caluclate the marginal likelihood</p>
+<div class="math notranslate nohighlight">
+\[p(\mathcal{D}) = \int p(\mathcal{D}~|~\theta)~p(\theta)~d\theta\]</div>
+<p>In particular, in high dimensions this term can become intractable. In this case, the posterior distribution can not be caluclated expicitly, but some approximation techniques can be used. Very common are Markov chain Monte Carlo (MCMC) methods or variational inference (refer to chapters 21 to 24 in <span id="id1">[<a class="reference internal" href="#id8">1</a>]</span>). Nevertheless, these methods are out of the scope of this lecture. Instead, it is also possible to simplify the problem and <strong>not</strong> to compute the complete posterior distribution. This will be discussed in the following section.</p>
+<p id="id2"><dl class="citation">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>K. P. Murphy. <em>Machine learning : A Probabilistic Perspective</em>. MIT Press, 2012.</p>
+</dd>
+</dl>
+</p>
+<!-- #endregion -->
 </div>
 
     <script type="text/x-thebe-config">
@@ -398,7 +452,7 @@
         <a class="right-next" href="03_MLEandMAP.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">3.3. </span>MLE and MAP</p>
+                <p class="prevnext-title"><span class="section-number">3.3. </span>MAP and MLE</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

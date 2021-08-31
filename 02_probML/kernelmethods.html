@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8. Kernel-based Methods &#8212; Probabilistic Machine Learning</title>
+    <title>7. Kernel-based Methods &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. Overview of Further Probabilistic Models" href="overview.html" />
-    <link rel="prev" title="7. Motivation of Probabilistic Models" href="motivation.html" />
+    <link rel="next" title="8. Overview of Further Probabilistic Models" href="overview.html" />
+    <link rel="prev" title="6. Motivation of Probabilistic Models" href="motivation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -171,7 +171,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../01_fund/03_bayes.html">
-   3. Bayesian Inference, MLE &amp; MAP
+   3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -191,24 +191,24 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../01_fund/03_bayes/03_MLEandMAP.html">
-     3.3. MLE and MAP
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/04_linregr.html">
-   4. An illustrative example for MLE and MAP: Linear Regression
+  <a class="reference internal" href="../01_fund/04_opt.html">
+   4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/05_opt.html">
-   5. Optimization Methods
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/06_MLworkflow.html">
-   6. Machine Learning Workflow
+  <a class="reference internal" href="../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -220,17 +220,17 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="motivation.html">
-   7. Motivation of Probabilistic Models
+   6. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   8. Kernel-based Methods
+   7. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="overview.html">
-   9. Overview of Further Probabilistic Models
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -242,17 +242,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/BO.html">
-   10. Bayesian Optimization
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/uncertainty.html">
-   11. Quantification of Design Uncertainty
+   10. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/03_RL.html">
-   12. Sample Efficient Reinforcement Learning
+   11. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -369,56 +369,56 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#recap-what-do-we-need-to-understand-gaussian-process">
-   8.1. Recap: What do we need to understand Gaussian Process?
+   7.1. Recap: What do we need to understand Gaussian Process?
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#univariate-normal-distribution">
-     8.1.1. Univariate normal distribution
+     7.1.1. Univariate normal distribution
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#multivariate-normal-distribution">
-     8.1.2. Multivariate normal distribution
+     7.1.2. Multivariate normal distribution
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#marginal-distribution">
-     8.1.3. Marginal distribution
+     7.1.3. Marginal distribution
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#conditional-distribution">
-     8.1.4. Conditional distribution
+     7.1.4. Conditional distribution
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#stochastic-process">
-     8.1.5. Stochastic Process
+     7.1.5. Stochastic Process
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gaussian-process">
-   8.2. Gaussian Process
+   7.2. Gaussian Process
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#kernels">
-     8.2.1. Kernels
+     7.2.1. Kernels
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#the-prior">
-     8.2.2. The Prior
+     7.2.2. The Prior
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-kernel-based-methods">
-   8.3. Additional Kernel-based Methods
+   7.3. Additional Kernel-based Methods
   </a>
  </li>
 </ul>
@@ -433,7 +433,7 @@
               <div>
                 
   <div class="section" id="kernel-based-methods">
-<h1><span class="section-number">8. </span>Kernel-based Methods<a class="headerlink" href="#kernel-based-methods" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7. </span>Kernel-based Methods<a class="headerlink" href="#kernel-based-methods" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
@@ -455,14 +455,14 @@
 </div>
 </div>
 <div class="section" id="recap-what-do-we-need-to-understand-gaussian-process">
-<h2><span class="section-number">8.1. </span>Recap: What do we need to understand Gaussian Process?<a class="headerlink" href="#recap-what-do-we-need-to-understand-gaussian-process" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.1. </span>Recap: What do we need to understand Gaussian Process?<a class="headerlink" href="#recap-what-do-we-need-to-understand-gaussian-process" title="Permalink to this headline">¶</a></h2>
 <p>-Univariate normal distribution<br />
 -Multivariate normal distribution<br />
 -marginal distribution<br />
 -Conditional distribution<br />
 -Stochastic Process (Wiener Process)</p>
 <div class="section" id="univariate-normal-distribution">
-<h3><span class="section-number">8.1.1. </span>Univariate normal distribution<a class="headerlink" href="#univariate-normal-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.1. </span>Univariate normal distribution<a class="headerlink" href="#univariate-normal-distribution" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[p(x \mid \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp{ \left( -\frac{(x - \mu)^2}{2\sigma^2}\right)}\]</div>
 <p>where x is a random variable, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance.</p>
@@ -508,13 +508,13 @@
 </div>
 </div>
 <div class="section" id="multivariate-normal-distribution">
-<h3><span class="section-number">8.1.2. </span>Multivariate normal distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2. </span>Multivariate normal distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[p(\mathbf{x} \mid \mathbf{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d \lvert\Sigma\rvert}} \exp{ \left( -\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^T \Sigma^{-1} (\mathbf{x} - \mathbf{\mu}) \right)}\]</div>
 <p>Here is <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> a random vector <span class="math notranslate nohighlight">\(\mathbf{\mu}\)</span> is the mean vector and <span class="math notranslate nohighlight">\(\Sigma\)</span> is the covariance.<br />
 We will show 2 realization of a multivariate normal distribution to show the results of different means and covariances.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8011d2ed-5638-4946-8f9a-f8ef3f473cd3">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-8011d2ed-5638-4946-8f9a-f8ef3f473cd3" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3c32a4f0-5eaf-4427-ae4c-5def85e81405">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-3c32a4f0-5eaf-4427-ae4c-5def85e81405" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathcal{N}\left(
 \begin{bmatrix}
 0 \\
@@ -526,8 +526,8 @@ We will show 2 realization of a multivariate normal distribution to show the res
 \end{bmatrix}\right)
 \end{align}\]</div>
 <p>The figure on the right is a bivariate distribution with the covariance between <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> set to be different than <span class="math notranslate nohighlight">\(0\)</span> so that both variables are correlated. Increasing <span class="math notranslate nohighlight">\(x_1\)</span> will increase the probability that <span class="math notranslate nohighlight">\(x_2\)</span> will also increase:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0d43a12b-e183-4a15-a166-fc3525e6be0f">
-<span class="eqno">(8.2)<a class="headerlink" href="#equation-0d43a12b-e183-4a15-a166-fc3525e6be0f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-32633aa4-9ea2-4e84-85a3-64d6741a1899">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-32633aa4-9ea2-4e84-85a3-64d6741a1899" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathcal{N}
 \left(
 \begin{bmatrix}
@@ -619,8 +619,8 @@ We will show 2 realization of a multivariate normal distribution to show the res
 </div>
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ef23d72b-3c7d-47b0-9da3-2453efdedf7f">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-ef23d72b-3c7d-47b0-9da3-2453efdedf7f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-133dd12e-f4ee-4177-a3e7-15096f0df055">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-133dd12e-f4ee-4177-a3e7-15096f0df055" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
@@ -667,7 +667,7 @@ C^T  B
 </div>
 </div>
 <div class="section" id="marginal-distribution">
-<h3><span class="section-number">8.1.3. </span>Marginal distribution<a class="headerlink" href="#marginal-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.3. </span>Marginal distribution<a class="headerlink" href="#marginal-distribution" title="Permalink to this headline">¶</a></h3>
 <p>A marginal distribution is the distribution of a subset of random variables from the original distribution. It represents the probabilities or densities of the variables in the subset without reference to the other values in the original distribution.</p>
 <p>In our case of the 2D multivariate normal the marginal distributions are the univariate distributions of each component <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> separately. They are defined as:</p>
 <div class="math notranslate nohighlight">
@@ -734,7 +734,7 @@ p(\mathbf{y})  = \mathcal{N}(\mu_{\mathbf{y}}, B)
 </div>
 </div>
 <div class="section" id="conditional-distribution">
-<h3><span class="section-number">8.1.4. </span>Conditional distribution<a class="headerlink" href="#conditional-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.4. </span>Conditional distribution<a class="headerlink" href="#conditional-distribution" title="Permalink to this headline">¶</a></h3>
 <p>The conditional distribution of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> given <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is defined as:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -825,7 +825,7 @@ p(\mathbf{x} \mid \mathbf{y}) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y})
 </div>
 </div>
 <div class="section" id="stochastic-process">
-<h3><span class="section-number">8.1.5. </span>Stochastic Process<a class="headerlink" href="#stochastic-process" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.5. </span>Stochastic Process<a class="headerlink" href="#stochastic-process" title="Permalink to this headline">¶</a></h3>
 <p>A stochastic process (also random process) is the mathematical description of temporally ordered, random processes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -867,7 +867,7 @@ p(\mathbf{x} \mid \mathbf{y}) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y})
 </div>
 </div>
 <div class="section" id="gaussian-process">
-<h2><span class="section-number">8.2. </span>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2. </span>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">¶</a></h2>
 <p><strong>Definition x.x</strong>: A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.</p>
 <p>A Gaussian process is completely specified by its mean function and covaiance function. We definfe mean function <span class="math notranslate nohighlight">\(m(\mathbf{x})\)</span> and the covariance function <span class="math notranslate nohighlight">\(k(\mathbf{x},\mathbf{x}')\)</span> of a real process <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> as</p>
 <!-- \newcommand{\x}{\mathbf{x}} -->
@@ -884,7 +884,7 @@ f(\mathbf{x}) \sim \mathcal{GP}(m(\mathbf{x}),k(\mathbf{x},\mathbf{x'}))
 \)</span><span class="math notranslate nohighlight">\(
 Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
 <div class="section" id="kernels">
-<h3><span class="section-number">8.2.1. </span>Kernels<a class="headerlink" href="#kernels" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.2.1. </span>Kernels<a class="headerlink" href="#kernels" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the exponentiated quadratic </span>
@@ -920,7 +920,7 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
 </div>
 </div>
 <div class="section" id="the-prior">
-<h3><span class="section-number">8.2.2. </span>The Prior<a class="headerlink" href="#the-prior" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.2.2. </span>The Prior<a class="headerlink" href="#the-prior" title="Permalink to this headline">¶</a></h3>
 <p>Let’s first define a prior over functions with mean zero and a covariance matrix computed with kernel parameters l=1 and σf=1. To draw random functions from that GP we draw random samples from the corresponding multivariate normal. The following example draws three random samples</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1041,7 +1041,7 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
 </div>
 </div>
 <div class="section" id="additional-kernel-based-methods">
-<h2><span class="section-number">8.3. </span>Additional Kernel-based Methods<a class="headerlink" href="#additional-kernel-based-methods" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.3. </span>Additional Kernel-based Methods<a class="headerlink" href="#additional-kernel-based-methods" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -1079,7 +1079,7 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">7. </span>Motivation of Probabilistic Models</p>
+                <p class="prevnext-title"><span class="section-number">6. </span>Motivation of Probabilistic Models</p>
             </div>
         </a>
     </div>
@@ -1087,7 +1087,7 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
         <a class="right-next" href="overview.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">9. </span>Overview of Further Probabilistic Models</p>
+                <p class="prevnext-title"><span class="section-number">8. </span>Overview of Further Probabilistic Models</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

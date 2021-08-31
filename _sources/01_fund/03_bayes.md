@@ -1,6 +1,6 @@
-# Bayesian Inference, MLE & MAP
+# Bayesian Inference, MAP & MLE
 
-In the following sections, we explain the concepts of Bayesian inference, maximum likelihood estimation (MLE) and the maximum a-posteriori method (MAP). 
+In the following sections, we explain the concepts of Bayesian inference, the maximum a-posteriori method (MAP) and maximum likelihood estimation (MLE). 
 
 Bayesian inference uses {ref}```Bayes theorem<thm:bt>``` to update the probabilities as more data/evidence is available.
 

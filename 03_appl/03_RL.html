@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>12. Sample Efficient Reinforcement Learning &#8212; Probabilistic Machine Learning</title>
+    <title>11. Sample Efficient Reinforcement Learning &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Appendix A" href="../04_appendix/placeholder.html" />
-    <link rel="prev" title="11. Quantification of Design Uncertainty" href="uncertainty.html" />
+    <link rel="prev" title="10. Quantification of Design Uncertainty" href="uncertainty.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -171,7 +171,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../01_fund/03_bayes.html">
-   3. Bayesian Inference, MLE &amp; MAP
+   3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -191,24 +191,24 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../01_fund/03_bayes/03_MLEandMAP.html">
-     3.3. MLE and MAP
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/04_linregr.html">
-   4. An illustrative example for MLE and MAP: Linear Regression
+  <a class="reference internal" href="../01_fund/04_opt.html">
+   4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/05_opt.html">
-   5. Optimization Methods
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/06_MLworkflow.html">
-   6. Machine Learning Workflow
+  <a class="reference internal" href="../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -220,17 +220,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/motivation.html">
-   7. Motivation of Probabilistic Models
+   6. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/kernelmethods.html">
-   8. Kernel-based Methods
+   7. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/overview.html">
-   9. Overview of Further Probabilistic Models
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -242,17 +242,17 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="BO.html">
-   10. Bayesian Optimization
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="uncertainty.html">
-   11. Quantification of Design Uncertainty
+   10. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   12. Sample Efficient Reinforcement Learning
+   11. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -353,29 +353,29 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#problem-definition">
-   12.1. Problem definition
+   11.1. Problem definition
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#dynamic-model-and-environment">
-     12.1.1. Dynamic model and environment
+     11.1.1. Dynamic model and environment
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#optimization">
-     12.1.2. Optimization
+     11.1.2. Optimization
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#reinforcement-learning">
-     12.1.3. Reinforcement learning
+     11.1.3. Reinforcement learning
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#probabilistic-inference-for-learning-control-deisenroth2011">
-   12.2. Probabilistic Inference for Learning Control
+   11.2. Probabilistic Inference for Learning Control
    <span class="xref cite">
     Deisenroth2011
    </span>
@@ -393,15 +393,15 @@
               <div>
                 
   <div class="section" id="sample-efficient-reinforcement-learning">
-<h1><span class="section-number">12. </span>Sample Efficient Reinforcement Learning<a class="headerlink" href="#sample-efficient-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">11. </span>Sample Efficient Reinforcement Learning<a class="headerlink" href="#sample-efficient-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
 <p>So far, supervised learning (SML) tasks were considered, where an algorithm was expected to learn the relationship <span class="math notranslate nohighlight">\(f: \mathbb{R}^{n_i} : \mathbb{R}^{n_o}\)</span> using a labeled dataset <span class="math notranslate nohighlight">\(\mathbb{D} := \{ (x_j, y_j), j\in [1,  m]\}\)</span> with <span class="math notranslate nohighlight">\(m\)</span> samples, where each sample consists of a tuple of input features <span class="math notranslate nohighlight">\( x_j \in \mathbb{R}^{n_i}\)</span>  and the corresponding labels <span class="math notranslate nohighlight">\( y_j \in \mathbb{R}^{n_o}\)</span>. Although SML is useful for many engineering tasks (e.g. design optimization, model validation and calibration, reliability analysis), it in itself does not provide a solution to problems, where some system parameters are controlled to achieve the desired system behaviour. Such problems are often investigated using the optimal control theory in engineering applications.</p>
 <p>Whether the aim is to obtain the optimal trajectory for a satellite to maximize the fuel efficiency or to obtain the optimal pressure and flow rate of a medicinal ventilator, the description of the task does not coincide with SML. In contrast, reinforcement learning (RL) seeks to directly solve such problems. As such, there are many intersections regarding the optimal control theory and RL.</p>
 <div class="section" id="problem-definition">
-<h2><span class="section-number">12.1. </span>Problem definition<a class="headerlink" href="#problem-definition" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.1. </span>Problem definition<a class="headerlink" href="#problem-definition" title="Permalink to this headline">¶</a></h2>
 <p>In optimal control problems, the aim is to find the optimal sequence of <em>control</em> values with respect to objective and constraint functions, one or more of which are formulated over a dynamic system. In RL, the aim is to find the sequence of <em>action</em> values that maximize the <em>expected reward</em>, where reward is a dynamic function as part of the <em>environment</em>.</p>
 <p>Although the definitions look different since the used terminologies stem from different domains, there are many overlaps between the kind of tasks solved in these domains. Let us define individual terms to discuss this further.</p>
 <div class="section" id="dynamic-model-and-environment">
-<h3><span class="section-number">12.1.1. </span>Dynamic model and environment<a class="headerlink" href="#dynamic-model-and-environment" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.1. </span>Dynamic model and environment<a class="headerlink" href="#dynamic-model-and-environment" title="Permalink to this headline">¶</a></h3>
 <p>In this work, a dynamic model refers to a time dependent model of following type:</p>
 <div class="math notranslate nohighlight">
 \[ s_{t+dt} = f(s_{t}, a_{t})  \]</div>
@@ -423,14 +423,14 @@
 </div>
 </div>
 <div class="section" id="optimization">
-<h3><span class="section-number">12.1.2. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.2. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h3>
 <p>In the context of optimal control, there are various kinds of optimization problems considering the kind of dynamic model described above. Here, we will investigate closed-loop control problems \cite{AnyControlTheoryBook} without constraints. In such problems, the aim is to reach and maintain a target state <span class="math notranslate nohighlight">\(s^*\)</span>. Moreover, the expected result is not an optimal trajectory <span class="math notranslate nohighlight">\(\mathbb{T}^*\)</span> but a controller <span class="math notranslate nohighlight">\(\pi: \mathbb{R}^{n_s} \rightarrow \mathbb{R}^{n_a}\)</span>. Moreover, the actual problem has an infinite horizon, although a finite one <span class="math notranslate nohighlight">\(t_f\)</span> has to be chosen for evaluation due to practical reasons. Thus, a possible objective for this kind of problems can be given as</p>
 <div class="math notranslate nohighlight">
 \[ \mathrm{arg} \min_{\pi} \sum_{t=0}^{n_t}\left(s_t - s^*\right)^2 \]</div>
 <p>where expectation is computed along the time dimension. Notice that any other error metric could also be used instead of the squared error. As such, the optimal controller <span class="math notranslate nohighlight">\(\pi^*\)</span> is the one, that minimizes the chosen error metric.</p>
 </div>
 <div class="section" id="reinforcement-learning">
-<h3><span class="section-number">12.1.3. </span>Reinforcement learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.3. </span>Reinforcement learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h3>
 <p>In RL literature, the dynamic model is part of the <em>environment</em> which represents the interaction space for an <em>agent</em> <span class="math notranslate nohighlight">\(\pi\)</span>. For our purposes, <em>agent</em> has the same function as the <em>controller</em> before.
 Besides the dynamic model, environment may also define sources of noise as well as a reward function <span class="math notranslate nohighlight">\(r: \mathbb{R}^{n_s + n_a} \rightarrow \mathbb{R}\)</span> equivalent to an optimization objective. Thus, RL seeks to solve the following optimization problem</p>
 <div class="math notranslate nohighlight">
@@ -440,7 +440,7 @@ Besides the dynamic model, environment may also define sources of noise as well 
 </div>
 </div>
 <div class="section" id="probabilistic-inference-for-learning-control-deisenroth2011">
-<h2><span class="section-number">12.2. </span>Probabilistic Inference for Learning Control <span id="id1">[<a class="reference internal" href="RL.html#id4">1</a>]</span><a class="headerlink" href="#probabilistic-inference-for-learning-control-deisenroth2011" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.2. </span>Probabilistic Inference for Learning Control <span id="id1">[<a class="reference internal" href="RL.html#id4">1</a>]</span><a class="headerlink" href="#probabilistic-inference-for-learning-control-deisenroth2011" title="Permalink to this headline">¶</a></h2>
 <p>Assume that the transition function <span class="math notranslate nohighlight">\(f\)</span> in the dynamic model is not known or too expensive to optimize. As discussed earlier, SML algorithms can be used to acquire surrogate models, that are usually faster to evaluate at the cost of some accuracy loss.</p>
 <p id="id2"><dl class="citation">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -485,7 +485,7 @@ Besides the dynamic model, environment may also define sources of noise as well 
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">11. </span>Quantification of Design Uncertainty</p>
+                <p class="prevnext-title"><span class="section-number">10. </span>Quantification of Design Uncertainty</p>
             </div>
         </a>
     </div>

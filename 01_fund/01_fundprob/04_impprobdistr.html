@@ -171,7 +171,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../03_bayes.html">
-   3. Bayesian Inference, MLE &amp; MAP
+   3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -191,24 +191,24 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../03_bayes/03_MLEandMAP.html">
-     3.3. MLE and MAP
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03_bayes/04_linregr.html">
+     3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../04_linregr.html">
-   4. An illustrative example for MLE and MAP: Linear Regression
+  <a class="reference internal" href="../04_opt.html">
+   4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../05_opt.html">
-   5. Optimization Methods
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../06_MLworkflow.html">
-   6. Machine Learning Workflow
+  <a class="reference internal" href="../05_MLworkflow.html">
+   5. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -220,17 +220,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/motivation.html">
-   7. Motivation of Probabilistic Models
+   6. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/kernelmethods.html">
-   8. Kernel-based Methods
+   7. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/overview.html">
-   9. Overview of Further Probabilistic Models
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -242,17 +242,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/BO.html">
-   10. Bayesian Optimization
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/uncertainty.html">
-   11. Quantification of Design Uncertainty
+   10. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/03_RL.html">
-   12. Sample Efficient Reinforcement Learning
+   11. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -425,18 +425,23 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inverse-gamma-distribution">
+     1.4.2.5. Inverse Gamma Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#exponential-distribution">
-     1.4.2.5. Exponential Distribution
+     1.4.2.6. Exponential Distribution
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#laplace-distribution">
-     1.4.2.6. Laplace Distribution
+     1.4.2.7. Laplace Distribution
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#cauchy-distribution">
-     1.4.2.7. Cauchy Distribution
+     1.4.2.8. Cauchy Distribution
     </a>
    </li>
   </ul>
@@ -540,7 +545,7 @@
 </div>
 <div class="section" id="beta-distribution">
 <h3><span class="section-number">1.4.2.2. </span>Beta Distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">¶</a></h3>
-<p>The Beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span> is a continuous distribution with support on the interval <span class="math notranslate nohighlight">\([0, 1]\)</span>, i.e., the probability of events outside <span class="math notranslate nohighlight">\([0, 1]\)</span> is zero. Its probability density function is given by</p>
+<p>The beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span> is a continuous distribution with support on the interval <span class="math notranslate nohighlight">\([0, 1]\)</span>, i.e., the probability of events outside <span class="math notranslate nohighlight">\([0, 1]\)</span> is zero. Its probability density function is given by</p>
 <div class="math notranslate nohighlight">
 \[\frac{x^{\alpha -1} (1-x)^{\beta -1}}{\text{B}(\alpha, \beta)} \mathbb{1}_{[0, 1]}(x) \quad \text{for } x \in \mathbb{R},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}\)</span> and <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span>. Here, <span class="math notranslate nohighlight">\(\Gamma\)</span> denotes the so-called Gamma function (an extension of the factorial).</p>
@@ -554,13 +559,20 @@
 </div>
 <div class="section" id="gamma-distribution">
 <h3><span class="section-number">1.4.2.4. </span>Gamma Distribution<a class="headerlink" href="#gamma-distribution" title="Permalink to this headline">¶</a></h3>
-<p>The Gamma distribution <span class="math notranslate nohighlight">\(\text{Gamma}(\alpha, \beta)\)</span> is a continuous probability distribution with support on <span class="math notranslate nohighlight">\((0, \infty)\)</span> which contains some important distributions as special cases. Its probability density function is given by</p>
+<p>The gamma distribution <span class="math notranslate nohighlight">\(\text{Gamma}(\alpha, \beta)\)</span> is a continuous probability distribution with support on <span class="math notranslate nohighlight">\((0, \infty)\)</span> which contains some important distributions as special cases. Its probability density function is given by</p>
 <div class="math notranslate nohighlight">
 \[\frac{\beta^{\alpha}}{\Gamma(\alpha)}~x^{\alpha - 1} \exp(-\beta x) ~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span>.</p>
 </div>
+<div class="section" id="inverse-gamma-distribution">
+<h3><span class="section-number">1.4.2.5. </span>Inverse Gamma Distribution<a class="headerlink" href="#inverse-gamma-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The inverse gamma distribution <span class="math notranslate nohighlight">\(\text{Inv-Gamma}(\alpha, \beta)\)</span> is a continuous probability distribution with support on <span class="math notranslate nohighlight">\([0, \infty)\)</span> and probability density function given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{\beta^{\alpha}}{\Gamma(\alpha)}~x^{-\alpha - 1} \exp\big(- \frac{\beta}{x} \big) ~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha, \beta &gt; 0\)</span>. Let <span class="math notranslate nohighlight">\(X \sim \text{Gamma}(\alpha, \beta)\)</span>, then <span class="math notranslate nohighlight">\(\frac{1}{X} \sim \text{Inv-Gamma}(\alpha, \beta)\)</span>.</p>
+</div>
 <div class="section" id="exponential-distribution">
-<h3><span class="section-number">1.4.2.5. </span>Exponential Distribution<a class="headerlink" href="#exponential-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.4.2.6. </span>Exponential Distribution<a class="headerlink" href="#exponential-distribution" title="Permalink to this headline">¶</a></h3>
 <p>The exponential distribution <span class="math notranslate nohighlight">\(\text{Exp}(\lambda)\)</span> is the continuous analogue of the <a class="reference internal" href="#def-geom"><span class="std std-ref">geometric distribution</span></a>. Its probability density function is given by</p>
 <div class="math notranslate nohighlight">
 \[\lambda \exp(-\lambda x)~ \mathbb{1}_{(0, \infty)}(x) \quad \text{for } x \in \mathbb{R},\]</div>
@@ -568,7 +580,7 @@
 <p>For example, the exponential distribution is used to model the time between two radioactive decays, i.e., the time between two random events which occur independently and at a constant average rate.</p>
 </div>
 <div class="section" id="laplace-distribution">
-<h3><span class="section-number">1.4.2.6. </span>Laplace Distribution<a class="headerlink" href="#laplace-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.4.2.7. </span>Laplace Distribution<a class="headerlink" href="#laplace-distribution" title="Permalink to this headline">¶</a></h3>
 <p>The Laplace distribution <span class="math notranslate nohighlight">\(\text{Laplace}(\mu, b)\)</span> has the probability density function</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{2b}~\exp\Big(-\frac{|x-\mu|}{b}\Big) \quad \text{for } x \in \mathbb{R},\]</div>
@@ -577,7 +589,7 @@
 <p>Moreover, the Lapalce distribution is similar to the normal distribution, but the squared difference to <span class="math notranslate nohighlight">\(\mu\)</span> in the exponential function is replace by the absolute difference.</p>
 </div>
 <div class="section" id="cauchy-distribution">
-<h3><span class="section-number">1.4.2.7. </span>Cauchy Distribution<a class="headerlink" href="#cauchy-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.4.2.8. </span>Cauchy Distribution<a class="headerlink" href="#cauchy-distribution" title="Permalink to this headline">¶</a></h3>
 <p>The Cauchy distribution <span class="math notranslate nohighlight">\(\text{Cauchy}(x_0, \gamma)\)</span> has probability density function</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{\pi \gamma \big(1 + (\frac{x - x_0}{\gamma})^2 \big)} \quad \text{for } x \in \mathbb{R},\]</div>

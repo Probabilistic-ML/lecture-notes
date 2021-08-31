@@ -171,7 +171,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../03_bayes.html">
-   3. Bayesian Inference, MLE &amp; MAP
+   3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -191,24 +191,24 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../03_bayes/03_MLEandMAP.html">
-     3.3. MLE and MAP
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03_bayes/04_linregr.html">
+     3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../04_linregr.html">
-   4. An illustrative example for MLE and MAP: Linear Regression
+  <a class="reference internal" href="../04_opt.html">
+   4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../05_opt.html">
-   5. Optimization Methods
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../06_MLworkflow.html">
-   6. Machine Learning Workflow
+  <a class="reference internal" href="../05_MLworkflow.html">
+   5. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -220,17 +220,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/motivation.html">
-   7. Motivation of Probabilistic Models
+   6. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/kernelmethods.html">
-   8. Kernel-based Methods
+   7. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/overview.html">
-   9. Overview of Further Probabilistic Models
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -242,17 +242,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/BO.html">
-   10. Bayesian Optimization
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/uncertainty.html">
-   11. Quantification of Design Uncertainty
+   10. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/03_RL.html">
-   12. Sample Efficient Reinforcement Learning
+   11. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -544,16 +544,25 @@ X_2 \end{pmatrix}\end{split}\]</div>
 <p class="admonition-title">Theorem</p>
 <p>Let <span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, P)\)</span> be a probability space and <span class="math notranslate nohighlight">\(A, B \in \mathcal{F}\)</span> with <span class="math notranslate nohighlight">\(P(B) &gt; 0\)</span>. Then</p>
 <div class="math notranslate nohighlight">
-\[P(A~|~B) = \frac{P(B~|~A) P(A)}{P(B)}\]</div>
+\[P(A~|~B) = \frac{P(B~|~A)~ P(A)}{P(B)}\]</div>
 </div>
 <p>Note that <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> is not well-defined if <span class="math notranslate nohighlight">\(P(A) = 0\)</span>, but in this case it holds <span class="math notranslate nohighlight">\(P(A~|~B) = 0\)</span> and the righthand side can also be regarded as <span class="math notranslate nohighlight">\(0\)</span>, since <span class="math notranslate nohighlight">\(P(A) = 0\)</span> and the (ill-defined) <span class="math notranslate nohighlight">\(P(B~|~A)\)</span> should be between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p>The events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are often denoted by <span class="math notranslate nohighlight">\(H\)</span> and <span class="math notranslate nohighlight">\(E\)</span>, respectively, where <span class="math notranslate nohighlight">\(H\)</span> denotes the <strong>hypothesis</strong> and <span class="math notranslate nohighlight">\(E\)</span> denotes the <strong>evidence</strong>. Hence, Bayes’ theorem states a way to calculate the probability of some hypothesis <span class="math notranslate nohighlight">\(H\)</span> given some data (the evidence) <span class="math notranslate nohighlight">\(E\)</span>. In use of the law of total probability stated in <a class="reference internal" href="01_probabilityspaces.html#sec-condprob"><span class="std std-ref">Conditional Probability</span></a> Bayes’ theorem reads</p>
+<div class="math notranslate nohighlight">
+\[P(H~|~E) = \frac{P(E~|~H)~P(H)}{P(E)} = \frac{P(E~|~H)~P(H)}{P(E~|~H)~P(H) + P(E~|~H^c)~P(H^c)}.\]</div>
+<p>The concept is demonstrated in the following video:</p>
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/R13BD8qKeTg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br>
 <p>Bayes’ theorem can also be formulated in terms of <a class="reference internal" href="02_randomvariables.html#def-conddistr"><span class="std std-ref">conditional distributions</span></a>:</p>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two continuous random variables with joint density <span class="math notranslate nohighlight">\(f_{X, Y}\)</span>. Then, it holds</p>
 <div class="math notranslate nohighlight">
-\[f_{X~|~Y=y}(x) = \frac{f_{Y~|~X=x}(y) f_X(x)}{f_Y(y)}\]</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
+\[f_{X~|~Y=y}(x) = \frac{f_{Y~|~X=x}(y) f_X(x)}{f_Y(y)}.\]</div>
+<p>More informally, this can be expressed as</p>
+<div class="math notranslate nohighlight">
+\[p(x~|~y) = \frac{p(y~|~x) ~p(x)}{p(y)},\]</div>
+<p>where <span class="math notranslate nohighlight">\(p\)</span> is a shorthand notation for some probability density in analogy to the elementary probabilities in the case of discrete distributions.</p>
 </div>
 </div>
 

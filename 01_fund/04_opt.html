@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. Optimization Methods &#8212; Probabilistic Machine Learning</title>
+    <title>4. Optimization Methods &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -50,12 +50,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/05_opt.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/04_opt.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Machine Learning Workflow" href="06_MLworkflow.html" />
-    <link rel="prev" title="4. An illustrative example for MLE and MAP: Linear Regression" href="04_linregr.html" />
+    <link rel="next" title="5. Machine Learning Workflow" href="05_MLworkflow.html" />
+    <link rel="prev" title="3.4. Linear Regression" href="03_bayes/04_linregr.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -169,7 +169,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="03_bayes.html">
-   3. Bayesian Inference, MLE &amp; MAP
+   3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -189,24 +189,24 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="03_bayes/03_MLEandMAP.html">
-     3.3. MLE and MAP
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_bayes/04_linregr.html">
+     3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04_linregr.html">
-   4. An illustrative example for MLE and MAP: Linear Regression
-  </a>
- </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   5. Optimization Methods
+   4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06_MLworkflow.html">
-   6. Machine Learning Workflow
+  <a class="reference internal" href="05_MLworkflow.html">
+   5. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -218,17 +218,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/motivation.html">
-   7. Motivation of Probabilistic Models
+   6. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/kernelmethods.html">
-   8. Kernel-based Methods
+   7. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/overview.html">
-   9. Overview of Further Probabilistic Models
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -240,17 +240,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/BO.html">
-   10. Bayesian Optimization
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/uncertainty.html">
-   11. Quantification of Design Uncertainty
+   10. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/03_RL.html">
-   12. Sample Efficient Reinforcement Learning
+   11. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -306,7 +306,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01_fund/05_opt.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/01_fund/04_opt.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -353,7 +353,7 @@
               <div>
                 
   <div class="section" id="optimization-methods">
-<h1><span class="section-number">5. </span>Optimization Methods<a class="headerlink" href="#optimization-methods" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">4. </span>Optimization Methods<a class="headerlink" href="#optimization-methods" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -386,19 +386,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="04_linregr.html" title="previous page">
+        <a class="left-prev" href="03_bayes/04_linregr.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">4. </span>An illustrative example for MLE and MAP: Linear Regression</p>
+                <p class="prevnext-title"><span class="section-number">3.4. </span>Linear Regression</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="06_MLworkflow.html" title="next page">
+        <a class="right-next" href="05_MLworkflow.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">6. </span>Machine Learning Workflow</p>
+                <p class="prevnext-title"><span class="section-number">5. </span>Machine Learning Workflow</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

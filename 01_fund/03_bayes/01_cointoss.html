@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="3.2. Bayesian Inference" href="02_bayesianinference.html" />
-    <link rel="prev" title="3. Bayesian Inference, MLE &amp; MAP" href="../03_bayes.html" />
+    <link rel="prev" title="3. Bayesian Inference, MAP &amp; MLE" href="../03_bayes.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -171,7 +171,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../03_bayes.html">
-   3. Bayesian Inference, MLE &amp; MAP
+   3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -191,24 +191,24 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="03_MLEandMAP.html">
-     3.3. MLE and MAP
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_linregr.html">
+     3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../04_linregr.html">
-   4. An illustrative example for MLE and MAP: Linear Regression
+  <a class="reference internal" href="../04_opt.html">
+   4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../05_opt.html">
-   5. Optimization Methods
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../06_MLworkflow.html">
-   6. Machine Learning Workflow
+  <a class="reference internal" href="../05_MLworkflow.html">
+   5. Machine Learning Workflow
   </a>
  </li>
 </ul>
@@ -220,17 +220,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/motivation.html">
-   7. Motivation of Probabilistic Models
+   6. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/kernelmethods.html">
-   8. Kernel-based Methods
+   7. Kernel-based Methods
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../02_probML/overview.html">
-   9. Overview of Further Probabilistic Models
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -242,17 +242,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/BO.html">
-   10. Bayesian Optimization
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/uncertainty.html">
-   11. Quantification of Design Uncertainty
+   10. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../03_appl/03_RL.html">
-   12. Sample Efficient Reinforcement Learning
+   11. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -372,14 +372,14 @@
                 
   <div class="section" id="coin-toss">
 <h1><span class="section-number">3.1. </span>Coin Toss<a class="headerlink" href="#coin-toss" title="Permalink to this headline">¶</a></h1>
-<p>Imagine that we toss a coin multiple times and we would like to determine the probability to toss heads. Since this kind of random experiment has only two possible outcomes, the Bernoulli distribution <span class="math notranslate nohighlight">\(\text{B}(1, p)\)</span> is an appropriate model. The multiple coin tosses yield a sequence of indepdent random experiments. Each coin toss corresponds to a random variable <span class="math notranslate nohighlight">\(X_i\)</span> with value <span class="math notranslate nohighlight">\(1\)</span> for heads and value <span class="math notranslate nohighlight">\(0\)</span> for tails (<span class="math notranslate nohighlight">\(X_i\)</span> represents the <span class="math notranslate nohighlight">\(i\)</span>-th toss). Hence, we aim to determine <span class="math notranslate nohighlight">\(p\)</span>. The sum <span class="math notranslate nohighlight">\(\sum_i^n X_i\)</span> describes the number of heads after <span class="math notranslate nohighlight">\(n\)</span> trials and has a binomial distribution <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span>.</p>
+<p>Imagine that we toss a coin multiple times and we would like to determine the probability to toss heads. Since this kind of random experiment has only two possible outcomes, the Bernoulli distribution <span class="math notranslate nohighlight">\(\text{B}(1, \theta)\)</span> is an appropriate model. The multiple coin tosses yield a sequence of indepdent random experiments. Each coin toss corresponds to a random variable <span class="math notranslate nohighlight">\(X_i\)</span> with value <span class="math notranslate nohighlight">\(1\)</span> for heads and value <span class="math notranslate nohighlight">\(0\)</span> for tails (<span class="math notranslate nohighlight">\(X_i\)</span> represents the <span class="math notranslate nohighlight">\(i\)</span>-th toss). Hence, we aim to determine <span class="math notranslate nohighlight">\(\theta\)</span>. The sum <span class="math notranslate nohighlight">\(\sum_i^n X_i\)</span> describes the number of heads after <span class="math notranslate nohighlight">\(n\)</span> trials and has a binomial distribution <span class="math notranslate nohighlight">\(\text{B}(n, \theta)\)</span>.</p>
 <p>Let us assume that <strong>we doubt the fairness of the coin!</strong></p>
-<p>First, we use the frequentists approach which is strongly connected to the law of large numbers and the central limit theorem. Since we think the coin is not fair, we claim <span class="math notranslate nohighlight">\(p \ne 0.5\)</span>.</p>
+<p>First, we use the frequentists approach which is strongly connected to the law of large numbers and the central limit theorem. Since we think the coin is not fair, we claim <span class="math notranslate nohighlight">\(\theta \ne 0.5\)</span>.</p>
 <p>Typically, we assume the opposite of our claim, i.e., the so-called <strong>null hypothesis</strong></p>
 <div class="math notranslate nohighlight">
-\[H_0: p = 0.5\]</div>
+\[H_0: \theta = 0.5\]</div>
 <p>is assumed. The strategy is to find evidence that <span class="math notranslate nohighlight">\(H_0\)</span> is most likely wrong such that it is reasonable to reject the null hypothesis. In this way, we can accept our actual claim. This procedure is called <strong>hypothesis testing</strong>.</p>
-<p>For each <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>, the outcome of the average <span class="math notranslate nohighlight">\(\overline{X}_n := \frac{1}{n} \sum_i^n X_i\)</span> can be calulated (the sample mean <span class="math notranslate nohighlight">\(\overline{x}_n\)</span>). Due to the law of large numbers, we expect that this value approaches <span class="math notranslate nohighlight">\(p\)</span> for <strong>large</strong> values of <span class="math notranslate nohighlight">\(n\)</span>. In any case, our estimate for <span class="math notranslate nohighlight">\(p\)</span> will differ at least slightly from the hypothesis <span class="math notranslate nohighlight">\(p = 0.5\)</span>. From our frequentists point of view, we have to decide whether this difference is small enough to support the hypothesis. <em>Maybe we should reject it</em>? Under the assumption <span class="math notranslate nohighlight">\(p=0.5\)</span>, we can approximate the distribution of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> by a normal distribution due to the central limit theorem and calculate a bound for the probability to observe the difference of the average to <span class="math notranslate nohighlight">\(0.5\)</span>. The larger the difference the smaller the probability. This probability is called <span class="math notranslate nohighlight">\(p\)</span><strong>-value</strong> (not to be confused with <span class="math notranslate nohighlight">\(p\)</span> in the null hypothesis). If the probability is smaller than a threshold of typically <span class="math notranslate nohighlight">\(5\%\)</span> , <span class="math notranslate nohighlight">\(2\%\)</span> or <span class="math notranslate nohighlight">\(1\%\)</span> , <span class="math notranslate nohighlight">\(H_0\)</span> is rejected. The correct interpretation is that our observation is not impossible if <span class="math notranslate nohighlight">\(p=0.5\)</span>, but rather unlikely. Hence, we tend to conclude that <span class="math notranslate nohighlight">\(p \ne 0.5\)</span>. The threshold is called <strong>significance level</strong> (denoted by <span class="math notranslate nohighlight">\(\alpha\)</span>). Note that the hypothesis test has a drawback: If e.g. <span class="math notranslate nohighlight">\(\alpha = 5\%\)</span>, the nullhypothesis will be rejected by mistake in <span class="math notranslate nohighlight">\(5\%\)</span> of cases. This error is called <strong>type I error</strong>. At least, it is known how likely the <strong>type I error</strong> is and this error rate can be controlled by <span class="math notranslate nohighlight">\(\alpha\)</span>. A <strong>type II error</strong> is the mistaken acceptance of the null hypothesis. In this case, the error rate is usually hard to determine.</p>
+<p>For each <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span>, the outcome of the average <span class="math notranslate nohighlight">\(\overline{X}_n := \frac{1}{n} \sum_i^n X_i\)</span> can be calulated (the sample mean <span class="math notranslate nohighlight">\(\overline{x}_n\)</span>). Due to the law of large numbers, we expect that this value approaches <span class="math notranslate nohighlight">\(\theta\)</span> for <strong>large</strong> values of <span class="math notranslate nohighlight">\(n\)</span>. In any case, our estimate for <span class="math notranslate nohighlight">\(\theta\)</span> will differ at least slightly from the hypothesis <span class="math notranslate nohighlight">\(\theta = 0.5\)</span>. From our frequentists point of view, we have to decide whether this difference is small enough to support the hypothesis. <em>Maybe we should reject it</em>? Under the assumption <span class="math notranslate nohighlight">\(\theta=0.5\)</span>, we can approximate the distribution of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> by a normal distribution due to the central limit theorem and calculate a bound for the probability to observe the difference of the average to <span class="math notranslate nohighlight">\(0.5\)</span>. The larger the difference the smaller the probability. This probability is called <span class="math notranslate nohighlight">\(p\)</span><strong>-value</strong>. If the probability is smaller than a threshold of typically <span class="math notranslate nohighlight">\(5\%\)</span> , <span class="math notranslate nohighlight">\(2\%\)</span> or <span class="math notranslate nohighlight">\(1\%\)</span> , <span class="math notranslate nohighlight">\(H_0\)</span> is rejected. The correct interpretation is that our observation is not impossible if <span class="math notranslate nohighlight">\(\theta=0.5\)</span>, but rather unlikely. Hence, we tend to conclude that <span class="math notranslate nohighlight">\(\theta \ne 0.5\)</span>. The threshold is called <strong>significance level</strong> (denoted by <span class="math notranslate nohighlight">\(\alpha\)</span>). Note that the hypothesis test has a drawback: If e.g. <span class="math notranslate nohighlight">\(\alpha = 5\%\)</span>, the nullhypothesis will be rejected by mistake in <span class="math notranslate nohighlight">\(5\%\)</span> of cases. This error is called <strong>type I error</strong>. At least, it is known how likely the <strong>type I error</strong> is and this error rate can be controlled by <span class="math notranslate nohighlight">\(\alpha\)</span>. A <strong>type II error</strong> is the mistaken acceptance of the null hypothesis. In this case, the error rate is usually hard to determine.</p>
 <p>So, let’s do the simulation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -388,12 +388,12 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">N</span> <span class="o">=</span> <span class="mi">100000</span> <span class="c1"># total number of coin tosses</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mf">0.55</span> <span class="c1"># probability to toss heads (&quot;unknown&quot;)</span>
-<span class="n">p0</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># probability assumed in the null hypothesis</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="mf">0.55</span> <span class="c1"># probability to toss heads (&quot;unknown&quot;)</span>
+<span class="n">theta0</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># probability assumed in the null hypothesis</span>
 <span class="n">alpha_sig</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># significance level</span>
 
-<span class="c1"># generate N independent B(1, p)-distributed observations</span>
-<span class="n">samples</span> <span class="o">=</span> <span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="c1"># generate N independent B(1, theta)-distributed observations</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
 
 <span class="c1"># caluclate the sample means after n=1,...,N trials</span>
 <span class="n">sample_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,))</span> <span class="c1"># for later use</span>
@@ -404,8 +404,8 @@
 
 <span class="c1"># plot the result</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">p0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p0</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\theta=$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\theta=$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">theta0</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n (log-scaled)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="n">sample_means</span><span class="p">[</span><span class="mi">10</span><span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample mean&#39;</span><span class="p">)</span>
@@ -417,13 +417,14 @@
 <span class="n">upper_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_tests</span><span class="p">)</span>
 <span class="n">lower_bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_tests</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">n_values</span><span class="p">):</span>
-    <span class="n">sigma2</span> <span class="o">=</span> <span class="n">p0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p0</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="c1"># variance of sample mean under H0</span>
-    <span class="n">upper_bounds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha_sig</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">p0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="p">))</span> <span class="c1"># upper bound of confidence interval</span>
-    <span class="n">lower_bounds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">p0</span> <span class="o">-</span> <span class="n">upper_bounds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="c1"># lower bound of confidence interval</span>
+    <span class="n">sigma2</span> <span class="o">=</span> <span class="n">theta0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">theta0</span><span class="p">)</span><span class="o">/</span><span class="n">n</span> <span class="c1"># variance of sample mean under H0</span>
+    <span class="n">upper_bounds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha_sig</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="p">))</span> <span class="c1"># upper bound of confidence interval</span>
+    <span class="n">lower_bounds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">theta0</span> <span class="o">-</span> <span class="n">upper_bounds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="c1"># lower bound of confidence interval</span>
 
 <span class="c1"># plot the result</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">n_values</span><span class="p">,</span> <span class="n">p0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_tests</span><span class="p">),</span> <span class="n">yerr</span><span class="o">=</span><span class="p">(</span><span class="n">upper_bounds</span> <span class="o">-</span> <span class="n">p0</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">n_values</span><span class="p">,</span> <span class="n">theta0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_tests</span><span class="p">),</span> <span class="n">yerr</span><span class="o">=</span><span class="p">(</span><span class="n">upper_bounds</span> <span class="o">-</span> <span class="n">theta0</span><span class="p">),</span>
+             <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">capthick</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">n_values</span><span class="p">,</span> <span class="n">lower_bounds</span><span class="p">,</span> <span class="n">upper_bounds</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;confidence interval&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_values</span><span class="p">,</span> <span class="n">sample_means</span><span class="p">[</span><span class="n">n_values</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample mean&#39;</span><span class="p">)</span>
@@ -438,23 +439,23 @@
 </div>
 <p>If the sample mean (blue) is outside the confidence interval (green), the null hypothesis is (correctly) rejected.</p>
 <p>Now, we analyze the problem the Bayesian way:</p>
-<p>First, we include our prior beliefs on the value of <span class="math notranslate nohighlight">\(p\)</span>. For this purpose, we assign a probability distribution to <span class="math notranslate nohighlight">\(p\)</span>. Since <span class="math notranslate nohighlight">\(p\)</span> is itself a probability, the distribution should have support on <span class="math notranslate nohighlight">\([0, 1]\)</span>. A good choice is the beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span>. Suppose that we belief that our expectation is that <span class="math notranslate nohighlight">\(p\)</span> is near <span class="math notranslate nohighlight">\(0.5\)</span>, but smaller or larger values are equally likely. Then, <span class="math notranslate nohighlight">\(\alpha = \beta = 2\)</span> is an appropiate choice and the prior distribution density looks like this:</p>
+<p>First, we include our prior beliefs on the value of <span class="math notranslate nohighlight">\(\theta\)</span>. For this purpose, we assign a probability distribution to <span class="math notranslate nohighlight">\(\theta\)</span>. Since <span class="math notranslate nohighlight">\(\theta\)</span> is itself a probability, the distribution should have support on <span class="math notranslate nohighlight">\([0, 1]\)</span>. A good choice is the beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span>. Suppose that we belief that our expectation is that <span class="math notranslate nohighlight">\(\theta\)</span> is near <span class="math notranslate nohighlight">\(0.5\)</span>, but smaller or larger values are equally likely. Then, <span class="math notranslate nohighlight">\(\alpha = \beta = 2\)</span> is an appropiate choice and the prior distribution density looks like this:</p>
 <p><img alt="" src="../../_images/beta_pdf.png" /></p>
-<p>Now, we do Bayesian inference. The goal is to update the distribution of <span class="math notranslate nohighlight">\(p\)</span> in use of observations. Instead of the sample mean <span class="math notranslate nohighlight">\(\overline{x}_n\)</span>, we use the sample sum <span class="math notranslate nohighlight">\(s_n\)</span>, since <span class="math notranslate nohighlight">\(\sum_i^n X_i\)</span> is <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span>-distributed. By Bayes’ theorem, it holds</p>
+<p>Now, we do Bayesian inference. The goal is to update the distribution of <span class="math notranslate nohighlight">\(\theta\)</span> in use of observations. Instead of the sample mean <span class="math notranslate nohighlight">\(\overline{x}_n\)</span>, we use the sample sum <span class="math notranslate nohighlight">\(s_n\)</span>, since <span class="math notranslate nohighlight">\(\sum_i^n X_i\)</span> is <span class="math notranslate nohighlight">\(\text{B}(n, \theta)\)</span>-distributed. By Bayes’ theorem, it holds</p>
 <div class="math notranslate nohighlight">
-\[P(p~|~s_n) = \frac{P(s_n~|~p)~ P(p)}{P(s_n)}\]</div>
-<p>The so-called <strong>evidence</strong> <span class="math notranslate nohighlight">\(P(s_n)\)</span> is independent of <span class="math notranslate nohighlight">\(p\)</span> and a normalization term which ensures that the righthand side is again a probability distribution.</p>
-<p><span class="math notranslate nohighlight">\(P(p)\)</span> is given by the <strong>prior distribution</strong>, i.e,</p>
+\[p(\theta~|~s_n) = \frac{p(s_n~|~\theta)~ p(\theta)}{p(s_n)}\]</div>
+<p>The so-called <strong>evidence</strong> <span class="math notranslate nohighlight">\(p(s_n)\)</span> is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and a normalization term which ensures that the righthand side is again a probability distribution.</p>
+<p><span class="math notranslate nohighlight">\(p(\theta)\)</span> is given by the <strong>prior distribution</strong>, i.e,</p>
 <div class="math notranslate nohighlight">
-\[P(p) = \frac{p^{\alpha -1} (1-p)^{\beta -1}}{\text{B}(\alpha, \beta)} = 6 p (1-p) \quad \text{for } p \in [0, 1],\]</div>
+\[p(\theta) = \frac{\theta^{\alpha -1} (1-\theta)^{\beta -1}}{\text{B}(\alpha, \beta)} = 6 \theta (1-\theta) \quad \text{for } \theta \in [0, 1],\]</div>
 <p>since we use <span class="math notranslate nohighlight">\(\text{Beta}(2, 2)\)</span> as prior distribution.</p>
-<p><span class="math notranslate nohighlight">\(P(s_n~|~p)\)</span> is called <strong>likelihood</strong> and is <span class="math notranslate nohighlight">\(\text{B}(n, p)\)</span>-distributed. Therefore, it holds</p>
+<p><span class="math notranslate nohighlight">\(p(s_n~|~\theta)\)</span> is called <strong>likelihood</strong> and is <span class="math notranslate nohighlight">\(\text{B}(n, \theta)\)</span>-distributed. Therefore, it holds</p>
 <div class="math notranslate nohighlight">
-\[P(s_n~|~p) = {{n}\choose{s_n}} p^{s_n} (1-p)^{n-s_n} \quad \text{for } p \in [0, 1].\]</div>
+\[p(s_n~|~\theta) = {{n}\choose{s_n}} \theta^{s_n} (1-\theta)^{n-s_n} \quad \text{for } \theta \in [0, 1].\]</div>
 <p>Consequently, it follows</p>
 <div class="math notranslate nohighlight">
-\[P(s_n~|~p)~ P(p) = {{n}\choose{s_n}} p^{s_n} (1-p)^{n-s_n} \frac{p^{\alpha -1} (1-p)^{\beta -1}}{\text{B}(\alpha, \beta)} = C ~ p^{\alpha + s_n - 1} (1-p)^{\beta + n-s_n -1},\]</div>
-<p>where <span class="math notranslate nohighlight">\(C\)</span> is some constant (independent of <span class="math notranslate nohighlight">\(p\)</span>). This shows that the <strong>posterior distribution</strong> <span class="math notranslate nohighlight">\(P(p~|~s_n)\)</span> is again a beta distribution. More precisely, it is <span class="math notranslate nohighlight">\(\text{Beta}(\alpha + s_n, \beta + n - s_n)\)</span>-distributed. The observations yield an update of the distribution of <span class="math notranslate nohighlight">\(p\)</span>, but it is always from the family of beta distributions.</p>
+\[p(s_n~|~\theta)~ p(\theta) = {{n}\choose{s_n}} \theta^{s_n} (1-\theta)^{n-s_n} \frac{\theta^{\alpha -1} (1-\theta)^{\beta -1}}{\text{B}(\alpha, \beta)} = C ~ \theta^{\alpha + s_n - 1} (1-\theta)^{\beta + n-s_n -1},\]</div>
+<p>where <span class="math notranslate nohighlight">\(C\)</span> is some constant (independent of <span class="math notranslate nohighlight">\(\theta\)</span>). This shows that the <strong>posterior distribution</strong> <span class="math notranslate nohighlight">\(p(\theta~|~s_n)\)</span> is again a beta distribution. More precisely, it is <span class="math notranslate nohighlight">\(\text{Beta}(\alpha + s_n, \beta + n - s_n)\)</span>-distributed. The observations yield an update of the distribution of <span class="math notranslate nohighlight">\(\theta\)</span>, but it is always from the family of beta distributions. Note that <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> (the choice of the prior) get less and less important as <span class="math notranslate nohighlight">\(n\)</span> increases.</p>
 <p>The beta distribution is also called <strong>conjugate prior</strong> of the binomial distribution, since a beta distributed prior in combination with a binomial distributed likelihood yields a beta distributed posterior. This property enables sequential Bayesian inference, i.e., the posterior distribution can be used as prior distribution in the next inference step.</p>
 <p>Let’s do the simulation:</p>
 <div class="cell docutils container">
@@ -499,8 +500,8 @@
                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior confidence interval&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">n_values</span><span class="p">,</span> <span class="n">posterior_means</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior mean&#39;</span><span class="p">)</span>
 <span class="c1"># plt.scatter(n_values, posterior_modes, label=&#39;posterior mode&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">p0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p0</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\theta=$</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\theta$=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">theta0</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
 <span class="n">leg</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     
@@ -512,7 +513,7 @@
 <img alt="../../_images/01_cointoss_4_1.png" src="../../_images/01_cointoss_4_1.png" />
 </div>
 </div>
-<p>This approach yields the same conclusion: the coin is likely biased. Nevertheless, the way of thinking is different. In the first simulation, we supposed that it exist a <em>true</em> probability <span class="math notranslate nohighlight">\(p\)</span> for heads and came to the conclusion that <span class="math notranslate nohighlight">\(p=0.5\)</span> is an unlikely hypothesis and therefore, the hypothesis is rejected. In the second simulation, each value of <span class="math notranslate nohighlight">\(p\)</span> is still possible, but the posterior distributions shows that it is expected to have a value larger than <span class="math notranslate nohighlight">\(0.5\)</span>.</p>
+<p>This approach yields the same conclusion: the coin is likely biased. Nevertheless, the way of thinking is different. In the first simulation, we supposed that it exist a <em>true</em> probability <span class="math notranslate nohighlight">\(\theta\)</span> for heads and came to the conclusion that <span class="math notranslate nohighlight">\(\theta=0.5\)</span> is an unlikely hypothesis and therefore, the hypothesis is rejected. In the second simulation, we do not prove a hypothesis true or false. Each value of <span class="math notranslate nohighlight">\(\theta\)</span> is still possible, but the posterior distributions shows that it is expected to have a value larger than <span class="math notranslate nohighlight">\(0.5\)</span>. In particular, it is possible to calculate probabilities with respect to the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span>. For example, in the above plot the value of <span class="math notranslate nohighlight">\(\theta\)</span> is in the blue interval with probability <span class="math notranslate nohighlight">\(1 - \alpha\)</span>.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -549,7 +550,7 @@
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">3. </span>Bayesian Inference, MLE &amp; MAP</p>
+                <p class="prevnext-title"><span class="section-number">3. </span>Bayesian Inference, MAP &amp; MLE</p>
             </div>
         </a>
     </div>
