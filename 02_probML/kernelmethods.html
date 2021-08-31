@@ -513,8 +513,8 @@
 \[p(\mathbf{x} \mid \mathbf{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d \lvert\Sigma\rvert}} \exp{ \left( -\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^T \Sigma^{-1} (\mathbf{x} - \mathbf{\mu}) \right)}\]</div>
 <p>Here is <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> a random vector <span class="math notranslate nohighlight">\(\mathbf{\mu}\)</span> is the mean vector and <span class="math notranslate nohighlight">\(\Sigma\)</span> is the covariance.<br />
 We will show 2 realization of a multivariate normal distribution to show the results of different means and covariances.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3c32a4f0-5eaf-4427-ae4c-5def85e81405">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-3c32a4f0-5eaf-4427-ae4c-5def85e81405" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8f020d22-4bf7-460d-a26f-8adeb90f2754">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-8f020d22-4bf7-460d-a26f-8adeb90f2754" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathcal{N}\left(
 \begin{bmatrix}
 0 \\
@@ -526,8 +526,8 @@ We will show 2 realization of a multivariate normal distribution to show the res
 \end{bmatrix}\right)
 \end{align}\]</div>
 <p>The figure on the right is a bivariate distribution with the covariance between <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> set to be different than <span class="math notranslate nohighlight">\(0\)</span> so that both variables are correlated. Increasing <span class="math notranslate nohighlight">\(x_1\)</span> will increase the probability that <span class="math notranslate nohighlight">\(x_2\)</span> will also increase:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-32633aa4-9ea2-4e84-85a3-64d6741a1899">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-32633aa4-9ea2-4e84-85a3-64d6741a1899" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-794f15e5-f99b-4ab9-adda-a2a9c5cc34a6">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-794f15e5-f99b-4ab9-adda-a2a9c5cc34a6" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathcal{N}
 \left(
 \begin{bmatrix}
@@ -619,8 +619,8 @@ We will show 2 realization of a multivariate normal distribution to show the res
 </div>
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-133dd12e-f4ee-4177-a3e7-15096f0df055">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-133dd12e-f4ee-4177-a3e7-15096f0df055" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5ce34ff8-4788-4274-8dad-bd5434e38496">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-5ce34ff8-4788-4274-8dad-bd5434e38496" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
@@ -868,7 +868,7 @@ p(\mathbf{x} \mid \mathbf{y}) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y})
 </div>
 <div class="section" id="gaussian-process">
 <h2><span class="section-number">7.2. </span>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">¶</a></h2>
-<p><strong>Definition x.x</strong>: A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.</p>
+<p><strong>Definition x.x</strong>: A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution. <span id="id1">[<a class="reference internal" href="#id9">1</a>]</span></p>
 <p>A Gaussian process is completely specified by its mean function and covaiance function. We definfe mean function <span class="math notranslate nohighlight">\(m(\mathbf{x})\)</span> and the covariance function <span class="math notranslate nohighlight">\(k(\mathbf{x},\mathbf{x}')\)</span> of a real process <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> as</p>
 <!-- \newcommand{\x}{\mathbf{x}} -->
 <div class="math notranslate nohighlight">
@@ -1042,6 +1042,12 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
 </div>
 <div class="section" id="additional-kernel-based-methods">
 <h2><span class="section-number">7.3. </span>Additional Kernel-based Methods<a class="headerlink" href="#additional-kernel-based-methods" title="Permalink to this headline">¶</a></h2>
+<p id="id2"><dl class="citation">
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
+</dd>
+</dl>
+</p>
 </div>
 </div>
 
