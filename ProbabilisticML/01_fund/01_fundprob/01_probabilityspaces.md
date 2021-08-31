@@ -101,6 +101,7 @@ Therefore, $f: \mathbb{R} \rightarrow \mathbb{R}$ defined by $f(x):= \frac{1}{\s
 
 - In general, regions where the probability density functions takes large values are more likely. Thus, a standard normally distributed experiment will likely have outcomes near $0$, whereas outcomes far away from $0$ are very unlikely.
 
+(sec:condprob)=
 ## Conditional Probability
 
 The concept of conditional probability answers questions about probabilities of events $A$ if we already know that some other event $B$ happens for sure.

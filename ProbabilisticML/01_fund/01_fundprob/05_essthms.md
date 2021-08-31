@@ -209,17 +209,30 @@ From a mathematical standpoint, Bayes' theorem is a rather simple, since the sta
 :name: thm:bt
 Let $(\Omega, \mathcal{F}, P)$ be a probability space and $A, B \in \mathcal{F}$ with $P(B) > 0$. Then
 
-$$P(A~|~B) = \frac{P(B~|~A) P(A)}{P(B)}$$
+$$P(A~|~B) = \frac{P(B~|~A)~ P(A)}{P(B)}$$
 ```
 
 Note that $P(B~|~A)$ is not well-defined if $P(A) = 0$, but in this case it holds $P(A~|~B) = 0$ and the righthand side can also be regarded as $0$, since $P(A) = 0$ and the (ill-defined) $P(B~|~A)$ should be between $0$ and $1$.
+
+The events $A$ and $B$ are often denoted by $H$ and $E$, respectively, where $H$ denotes the **hypothesis** and $E$ denotes the **evidence**. Hence, Bayes' theorem states a way to calculate the probability of some hypothesis $H$ given some data (the evidence) $E$. In use of the law of total probability stated in {ref}```sec:condprob``` Bayes' theorem reads
+
+$$P(H~|~E) = \frac{P(E~|~H)~P(H)}{P(E)} = \frac{P(E~|~H)~P(H)}{P(E~|~H)~P(H) + P(E~|~H^c)~P(H^c)}.$$
+
+The concept is demonstrated in the following video:
+
+<div class="video-container">
+<iframe src="https://www.youtube.com/embed/R13BD8qKeTg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br>
 
 Bayes' theorem can also be formulated in terms of {ref}```conditional distributions<def:conddistr>```:
 
 Let $X$ and $Y$ be two continuous random variables with joint density $f_{X, Y}$. Then, it holds
 
-$$f_{X~|~Y=y}(x) = \frac{f_{Y~|~X=x}(y) f_X(x)}{f_Y(y)}$$
+$$f_{X~|~Y=y}(x) = \frac{f_{Y~|~X=x}(y) f_X(x)}{f_Y(y)}.$$
 
-```python
+More informally, this can be expressed as
 
-```
+$$p(x~|~y) = \frac{p(y~|~x) ~p(x)}{p(y)},$$
+
+where $p$ is a shorthand notation for some probability density in analogy to the elementary probabilities in the case of discrete distributions.
