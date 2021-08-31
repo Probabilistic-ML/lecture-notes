@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14. Overview of Further Probabilistic Models" href="overview.html" />
+    <link rel="next" title="9. Overview of Further Probabilistic Models" href="overview.html" />
     <link rel="prev" title="7. Motivation of Probabilistic Models" href="motivation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -230,7 +230,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="overview.html">
-   14. Overview of Further Probabilistic Models
+   9. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -242,17 +242,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/BO.html">
-   15. Bayesian Optimization
+   10. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/uncertainty.html">
-   16. Quantification of Design Uncertainty
+   11. Quantification of Design Uncertainty
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/03_RL.html">
-   17. Sample Efficient Reinforcement Learning
+   12. Sample Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -367,73 +367,35 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   8. Kernel-based Methods
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes">
-     8.1. Gaussian Processes
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#additional-kernel-based-methods">
-     8.2. Additional Kernel-based Methods
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#recap-what-do-we-need-to-understand-gaussian-process">
-   9. Recap: What do we need to understand Gaussian Process?
+   8.1. Recap: What do we need to understand Gaussian Process?
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#univariate-normal-distribution">
-   10. Univariate normal distribution
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multivariate-normal-distribution">
-   11. Multivariate normal distribution
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#marginal-distribution">
-   12. Marginal distribution
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#stochastic-process">
-     12.1. Stochastic Process
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gaussian-process">
-   13. Gaussian Process
+   8.2. Gaussian Process
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#kernels">
-     13.1. Kernels
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#why-need-a-kernel">
-       13.1.1. why need a kernel?
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-prior">
-     13.2. The Prior
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#kernels">
+   8.3. Kernels
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-prior">
+   8.4. The Prior
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-processes">
+   8.5. Gaussian Processes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-kernel-based-methods">
+   8.6. Additional Kernel-based Methods
+  </a>
  </li>
 </ul>
 
@@ -448,11 +410,6 @@
                 
   <div class="section" id="kernel-based-methods">
 <h1><span class="section-number">8. </span>Kernel-based Methods<a class="headerlink" href="#kernel-based-methods" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="gaussian-processes">
-<h2><span class="section-number">8.1. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="additional-kernel-based-methods">
-<h2><span class="section-number">8.2. </span>Additional Kernel-based Methods<a class="headerlink" href="#additional-kernel-based-methods" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
@@ -473,22 +430,17 @@
 </div>
 </div>
 </div>
-</div>
-</div>
 <div class="section" id="recap-what-do-we-need-to-understand-gaussian-process">
-<h1><span class="section-number">9. </span>Recap: What do we need to understand Gaussian Process?<a class="headerlink" href="#recap-what-do-we-need-to-understand-gaussian-process" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">8.1. </span>Recap: What do we need to understand Gaussian Process?<a class="headerlink" href="#recap-what-do-we-need-to-understand-gaussian-process" title="Permalink to this headline">¶</a></h2>
 <p>-Univariate normal distribution<br />
 -Multivariate normal distribution<br />
 -marginal distribution<br />
 -Conditional distribution<br />
 -Stochastic Process (Wiener Process)</p>
-</div>
-<div class="section" id="univariate-normal-distribution">
-<h1><span class="section-number">10. </span>Univariate normal distribution<a class="headerlink" href="#univariate-normal-distribution" title="Permalink to this headline">¶</a></h1>
-<p><span class="math notranslate nohighlight">\(
-p(x \mid \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp{ \left( -\frac{(x - \mu)^2}{2\sigma^2}\right)}
-\)</span>
-where x is a random variable, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance.</p>
+<p>Univariate normal distribution</p>
+<div class="math notranslate nohighlight">
+\[p(x \mid \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp{ \left( -\frac{(x - \mu)^2}{2\sigma^2}\right)}\]</div>
+<p>where x is a random variable, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Univariate normal distribution (1d)</span>
@@ -529,43 +481,38 @@ where x is a random variable, <span class="math notranslate nohighlight">\(\mu\)
 <div class="cell_output docutils container">
 <img alt="../_images/kernelmethods_5_0.svg" src="../_images/kernelmethods_5_0.svg" /></div>
 </div>
-</div>
-<div class="section" id="multivariate-normal-distribution">
-<h1><span class="section-number">11. </span>Multivariate normal distribution<a class="headerlink" href="#multivariate-normal-distribution" title="Permalink to this headline">¶</a></h1>
-<p><span class="math notranslate nohighlight">\(
-p(\mathbf{x} \mid \mathbf{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d \lvert\Sigma\rvert}} \exp{ \left( -\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^T \Sigma^{-1} (\mathbf{x} - \mathbf{\mu}) \right)}
-\)</span>
-Here is <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> a random vector (for example: “<span class="math notranslate nohighlight">\([x_1,x_2]^T\)</span>”), <span class="math notranslate nohighlight">\(\mathbf{\mu}\)</span> is the mean vector and <span class="math notranslate nohighlight">\(\Sigma\)</span> is the covariance.<br />
+<p>Multivariate normal distribution
+$<span class="math notranslate nohighlight">\(p(\mathbf{x} \mid \mathbf{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d \lvert\Sigma\rvert}} \exp{ \left( -\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^T \Sigma^{-1} (\mathbf{x} - \mathbf{\mu}) \right)}\)</span><span class="math notranslate nohighlight">\(
+Here is \)</span>\mathbf{x}<span class="math notranslate nohighlight">\( a random vector (for example: &quot;\)</span>[x_1,x_2]^T<span class="math notranslate nohighlight">\(&quot;), \)</span>\mathbf{\mu}<span class="math notranslate nohighlight">\( is the mean vector and \)</span>\Sigma<span class="math notranslate nohighlight">\( is the covariance.\
 We will show 2 realization of a multivariate normal distribution to show the results of different means and covariances.
-$
+\)</span>$
 \mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e7ea35fb-8a1a-4b21-8b0a-2c2b7116fc17">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-e7ea35fb-8a1a-4b21-8b0a-2c2b7116fc17" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-fa0ef19a-6e67-4585-a195-064b0a41e034">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-fa0ef19a-6e67-4585-a195-064b0a41e034" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 0
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-1552c783-e977-45c3-a81b-d5fc4a5208f9">
-<span class="eqno">(11.2)<a class="headerlink" href="#equation-1552c783-e977-45c3-a81b-d5fc4a5208f9" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-010286d3-057b-44d3-b09d-e5edbb4b3276">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-010286d3-057b-44d3-b09d-e5edbb4b3276" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0 \\
 0 &amp; 1 
 \end{bmatrix}\]</div>
-<p>$</p>
-<p>The figure on the right is a bivariate distribution with the covariance between <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> set to be different than <span class="math notranslate nohighlight">\(0\)</span> so that both variables are correlated. Increasing <span class="math notranslate nohighlight">\(x_1\)</span> will increase the probability that <span class="math notranslate nohighlight">\(x_2\)</span> will also increase:</p>
-<p>$
-\mathcal{N}
+<div class="math notranslate nohighlight">
+\[The figure on the right is a bivariate distribution with the covariance between $x_1$ and $x_2$ set to be different than $0$ so that both variables are correlated. Increasing $x_1$ will increase the probability that $x_2$ will also increase:\]</div>
+<p>\mathcal{N}
 \left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a2a3c14c-8067-4891-af24-6a20507744ee">
-<span class="eqno">(11.3)<a class="headerlink" href="#equation-a2a3c14c-8067-4891-af24-6a20507744ee" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-e2487137-e07c-45d2-b62b-dc01930a8d8f">
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-e2487137-e07c-45d2-b62b-dc01930a8d8f" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 0 \\
 1
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-efa96849-0054-40ba-917e-717e4bd9bb5b">
-<span class="eqno">(11.4)<a class="headerlink" href="#equation-efa96849-0054-40ba-917e-717e4bd9bb5b" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-f903e4a4-3ffb-436e-9f30-66af4fc9c2a2">
+<span class="eqno">(8.4)<a class="headerlink" href="#equation-f903e4a4-3ffb-436e-9f30-66af4fc9c2a2" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 1 &amp; 0.8 \\
 0.8 &amp; 1
 \end{bmatrix}\]</div>
-<p>$</p>
+<p>$$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multivariate_normal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">covariance</span><span class="p">):</span>
@@ -647,20 +594,20 @@ $
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-477d9915-0bd0-4de2-8311-8bb4c15adebd">
-<span class="eqno">(11.5)<a class="headerlink" href="#equation-477d9915-0bd0-4de2-8311-8bb4c15adebd" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-20014a77-7780-48fc-be21-2ecae2901ded">
+<span class="eqno">(8.5)<a class="headerlink" href="#equation-20014a77-7780-48fc-be21-2ecae2901ded" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
 \end{bmatrix}\]</div>
 <p>\sim
 \mathcal{N}\left(</p>
-<div class="amsmath math notranslate nohighlight" id="equation-453a5b9b-df41-48ee-b99d-00f15e143197">
-<span class="eqno">(11.6)<a class="headerlink" href="#equation-453a5b9b-df41-48ee-b99d-00f15e143197" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-f364af7e-8ae0-4401-b3ca-fc18318ed40e">
+<span class="eqno">(8.6)<a class="headerlink" href="#equation-f364af7e-8ae0-4401-b3ca-fc18318ed40e" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \mu_{\mathbf{x}} \\
 \mu_{\mathbf{y}}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-3f6cbae9-e4ca-44dd-9c13-1b0f5df1a5e6">
-<span class="eqno">(11.7)<a class="headerlink" href="#equation-3f6cbae9-e4ca-44dd-9c13-1b0f5df1a5e6" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-7db4d376-988f-41e3-8ec7-a0c0a14f7818">
+<span class="eqno">(8.7)<a class="headerlink" href="#equation-7db4d376-988f-41e3-8ec7-a0c0a14f7818" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 A  C \\
 C^T  B
 \end{bmatrix}\]</div>
@@ -668,8 +615,8 @@ C^T  B
 = \mathcal{N}(\mu, \Sigma)
 , \qquad
 \Sigma^{-1} = \Lambda =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0698c21f-2a09-49dc-9e77-2b9fcb24ad87">
-<span class="eqno">(11.8)<a class="headerlink" href="#equation-0698c21f-2a09-49dc-9e77-2b9fcb24ad87" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-984e2d3f-9e6c-410c-8ba2-4c843e65cef3">
+<span class="eqno">(8.8)<a class="headerlink" href="#equation-984e2d3f-9e6c-410c-8ba2-4c843e65cef3" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix}
 \tilde{A}  \tilde{C} \\
 \tilde{C}^T \tilde{B}
 \end{bmatrix}\]</div>
@@ -695,9 +642,7 @@ C^T  B
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="marginal-distribution">
-<h1><span class="section-number">12. </span>Marginal distribution<a class="headerlink" href="#marginal-distribution" title="Permalink to this headline">¶</a></h1>
+<p>Marginal distribution</p>
 <p>A marginal distribution is the distribution of a subset of random variables from the original distribution. It represents the probabilities or densities of the variables in the subset without reference to the other values in the original distribution.</p>
 <p>In our case of the 2D multivariate normal the marginal distributions are the univariate distributions of each component <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> separately. They are defined as:</p>
 <div class="math notranslate nohighlight">
@@ -851,8 +796,7 @@ p(\mathbf{x} \mid \mathbf{y}) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y})
 <div class="cell_output docutils container">
 <img alt="../_images/kernelmethods_15_0.svg" src="../_images/kernelmethods_15_0.svg" /></div>
 </div>
-<div class="section" id="stochastic-process">
-<h2><span class="section-number">12.1. </span>Stochastic Process<a class="headerlink" href="#stochastic-process" title="Permalink to this headline">¶</a></h2>
+<p>Stochastic Process</p>
 <p>A stochastic process (also random process) is the mathematical description of temporally ordered, random processes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -892,9 +836,8 @@ p(\mathbf{x} \mid \mathbf{y}) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y})
 <img alt="../_images/kernelmethods_17_0.svg" src="../_images/kernelmethods_17_0.svg" /></div>
 </div>
 </div>
-</div>
 <div class="section" id="gaussian-process">
-<h1><span class="section-number">13. </span>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">8.2. </span>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">¶</a></h2>
 <p><strong>Definition x.x</strong>: A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.</p>
 <p>A Gaussian process is completely specified by its mean function and covaiance function. We definfe mean function <span class="math notranslate nohighlight">\(m(\mathbf{x})\)</span> and the covariance function <span class="math notranslate nohighlight">\(k(\mathbf{x},\mathbf{x}')\)</span> of a real process <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> as</p>
 <!-- \newcommand{\x}{\mathbf{x}} -->
@@ -910,11 +853,9 @@ $<span class="math notranslate nohighlight">\(
 f(\mathbf{x}) \sim \mathcal{GP}(m(\mathbf{x}),k(\mathbf{x},\mathbf{x'}))
 \)</span><span class="math notranslate nohighlight">\(
 Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
+</div>
 <div class="section" id="kernels">
-<h2><span class="section-number">13.1. </span>Kernels<a class="headerlink" href="#kernels" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="why-need-a-kernel">
-<h3><span class="section-number">13.1.1. </span>why need a kernel?<a class="headerlink" href="#why-need-a-kernel" title="Permalink to this headline">¶</a></h3>
-<p>gute Antwort überlegen :D</p>
+<h2><span class="section-number">8.3. </span>Kernels<a class="headerlink" href="#kernels" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the exponentiated quadratic </span>
@@ -949,9 +890,8 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="the-prior">
-<h2><span class="section-number">13.2. </span>The Prior<a class="headerlink" href="#the-prior" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.4. </span>The Prior<a class="headerlink" href="#the-prior" title="Permalink to this headline">¶</a></h2>
 <p>Let’s first define a prior over functions with mean zero and a covariance matrix computed with kernel parameters l=1 and σf=1. To draw random functions from that GP we draw random samples from the corresponding multivariate normal. The following example draws three random samples</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -985,6 +925,96 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
 <div class="cell_output docutils container">
 <img alt="../_images/kernelmethods_23_0.svg" src="../_images/kernelmethods_23_0.svg" /></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gaussian process posterior</span>
+<span class="k">def</span> <span class="nf">GP</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">kernel_func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the posterior mean and covariance matrix for y2</span>
+<span class="sd">    based on the corresponding input X2, the observations (y1, X1), </span>
+<span class="sd">    and the prior kernel function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Kernel of the observations</span>
+    <span class="n">Σ11</span> <span class="o">=</span> <span class="n">kernel_func</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X1</span><span class="p">)</span>
+    <span class="c1"># Kernel of observations vs to-predict</span>
+    <span class="n">Σ12</span> <span class="o">=</span> <span class="n">kernel_func</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+    <span class="c1"># Solve</span>
+    <span class="n">solved</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Σ11</span><span class="p">,</span> <span class="n">Σ12</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="c1"># Compute posterior mean</span>
+    <span class="n">μ2</span> <span class="o">=</span> <span class="n">solved</span> <span class="o">@</span> <span class="n">y1</span>
+    <span class="c1"># Compute the posterior covariance</span>
+    <span class="n">Σ22</span> <span class="o">=</span> <span class="n">kernel_func</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
+    <span class="n">Σ2</span> <span class="o">=</span> <span class="n">Σ22</span> <span class="o">-</span> <span class="p">(</span><span class="n">solved</span> <span class="o">@</span> <span class="n">Σ12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">μ2</span><span class="p">,</span> <span class="n">Σ2</span>  <span class="c1"># mean, covariance</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the posterior mean and covariance</span>
+
+<span class="c1"># Define the true function that we want to regress on</span>
+<span class="n">f_sin</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">n1</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># Number of points to condition on (training points)</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="mi">75</span>  <span class="c1"># Number of points in posterior (test points)</span>
+<span class="n">ny</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Number of functions that will be sampled from the posterior</span>
+<span class="n">domain</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># Sample observations (X1, y1) on the function</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">domain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">f_sin</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+<span class="c1"># Predict points at uniform spacing to capture function</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">domain</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Compute posterior mean and covariance</span>
+<span class="n">μ2</span><span class="p">,</span> <span class="n">Σ2</span> <span class="o">=</span> <span class="n">GP</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">exponentiated_quadratic</span><span class="p">)</span>
+<span class="c1"># Compute the standard deviation at the test points to be plotted</span>
+<span class="n">σ2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">Σ2</span><span class="p">))</span>
+
+<span class="c1"># Draw some samples of the posterior</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">μ2</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">Σ2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ny</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the postior distribution and some samples</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+    <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="c1"># Plot the distribution of the function (mean, covariance)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">f_sin</span><span class="p">(</span><span class="n">X2</span><span class="p">),</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$sin(x)$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X2</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">μ2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">σ2</span><span class="p">,</span> <span class="n">μ2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">σ2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> 
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$2 \sigma_{2|1}$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">μ2</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$\mu_{2|1}$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$(x_1, y_1)$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribution of posterior and prior data.&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">domain</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="c1"># Plot some samples from this function</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">y2</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;5 different function realizations from posterior&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">domain</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernelmethods_26_0.svg" src="../_images/kernelmethods_26_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="gaussian-processes">
+<h2><span class="section-number">8.5. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="additional-kernel-based-methods">
+<h2><span class="section-number">8.6. </span>Additional Kernel-based Methods<a class="headerlink" href="#additional-kernel-based-methods" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -1030,7 +1060,7 @@ Usually, we take the mean function \)</span>m(\mathbf{x})$ to be zero.</p>
         <a class="right-next" href="overview.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">14. </span>Overview of Further Probabilistic Models</p>
+                <p class="prevnext-title"><span class="section-number">9. </span>Overview of Further Probabilistic Models</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
