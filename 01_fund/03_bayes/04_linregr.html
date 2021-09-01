@@ -308,9 +308,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/01_fund/03_bayes/04_linregr.md"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/01_fund/03_bayes/04_linregr.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -340,6 +340,22 @@
             class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/01_fund/03_bayes/04_linregr.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
         </div>
 
@@ -371,6 +387,11 @@
    3.4.4. Bayesian Linear Regression
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualization">
+   3.4.5. Visualization
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -394,58 +415,195 @@
 </li>
 <li><p>The data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is collected from observation with the relation</p>
 <div class="math notranslate nohighlight">
-\[y_i = a~x_i + \varepsilon_i,\]</div>
-<p>where <span class="math notranslate nohighlight">\(a \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\varepsilon_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span> are independent normally distributed random variables.</p>
+\[y_i = \beta~x_i + \varepsilon_i,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(\varepsilon_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span> are independent normally distributed random variables. For simplicity, we suppose that <span class="math notranslate nohighlight">\(\sigma^2\)</span> is known.</p>
 </li>
 </ul>
-<p><span class="math notranslate nohighlight">\(\varepsilon_i\)</span> represents some error term (e.g. measurement errors). The <strong>unknown</strong> coefficient <span class="math notranslate nohighlight">\(a\)</span> is called slope. Please note that the outputs <span class="math notranslate nohighlight">\(y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are also independent normally distributed random variables with distribution <span class="math notranslate nohighlight">\(\mathcal{N}(a~x_i, \sigma^2)\)</span>.</p>
-<p>Our goal is to use the information in <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> to estimate <span class="math notranslate nohighlight">\(a\)</span> in an appropiate way. In use of these estimates, it is possible to make predictions for new inputs <span class="math notranslate nohighlight">\(x\)</span>. Similarly, the probabilistic concepts are applied later on to more advanced models.</p>
+<p><span class="math notranslate nohighlight">\(\varepsilon_i\)</span> represents some error term (e.g. measurement errors) which is also called <strong>noise</strong>. The <strong>unknown</strong> coefficient <span class="math notranslate nohighlight">\(\beta\)</span> is called slope. Please note that the outputs <span class="math notranslate nohighlight">\(y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are also independent normally distributed random variables with distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\beta~x_i, \sigma^2)\)</span>.</p>
+<p>Our goal is to use the information in <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> to estimate <span class="math notranslate nohighlight">\(\beta\)</span> in an appropiate way. In use of these estimates, it is possible to make predictions for new inputs <span class="math notranslate nohighlight">\(x^*\)</span>. Similarly, the probabilistic concepts are applied later on to more advanced models.</p>
 <div class="section" id="ordinary-least-squares">
 <h2><span class="section-number">3.4.1. </span>Ordinary Least Squares<a class="headerlink" href="#ordinary-least-squares" title="Permalink to this headline">¶</a></h2>
-<p>The most common approach is to choose an estimate <span class="math notranslate nohighlight">\(\hat{a}\)</span> for <span class="math notranslate nohighlight">\(a\)</span> such that the <strong>sum of squared resiudals</strong> (SSR) (or residual sum of squares (RSS)) between observations and predictions is minimized, i.e.,</p>
+<p>The most common approach is to choose an estimate <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{OLS}}\)</span> for <span class="math notranslate nohighlight">\(\beta\)</span> such that the <strong>sum of squared resiudals</strong> (SSR) (or residual sum of squares (RSS)) between observations and predictions is minimized, i.e.,</p>
 <div class="math notranslate nohighlight">
-\[\hat{a} = \underset{a}{\text{argmin}}~\sum_{i=1}^n \big(y_i - a~x_i\big)^2\]</div>
+\[\hat{\beta}^{\text{OLS}} = \underset{\beta}{\text{argmin}}~\sum_{i=1}^n \big(y_i - \beta~x_i\big)^2\]</div>
 <p>The solution is given by</p>
 <div class="math notranslate nohighlight">
-\[\hat{a} = \frac{\sum_{i=1}^n x_i ~ y_i }{\sum_{i=1}^n x_i^2},\]</div>
-<p>where <span class="math notranslate nohighlight">\(\overline{x}\)</span> and <span class="math notranslate nohighlight">\(\overline{y}\)</span> are the sample means of <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> and <span class="math notranslate nohighlight">\(y_1,\dots, y_n\)</span>, respectively.</p>
-<p>In our probabilistic setting, the same result is obtained by the <strong>MLE estimate with Gaussian prior</strong>. Since the observations <span class="math notranslate nohighlight">\(y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are independent and <span class="math notranslate nohighlight">\(\mathcal{N}(a~x_i, \sigma^2)\)</span>-distributed, the joint probability density function reads</p>
+\[\hat{\beta}^{\text{OLS}} = \frac{\sum_{i=1}^n x_i ~ y_i }{\sum_{i=1}^n x_i^2} = \frac{x^T y}{x^T x},\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are vectors containing all <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, respectively.</p>
+<p>In our probabilistic setting, the same result is obtained by the <strong>MLE estimate</strong>. Since the observations <span class="math notranslate nohighlight">\(y_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are independent and <span class="math notranslate nohighlight">\(\mathcal{N}(\beta~x_i, \sigma^2)\)</span>-distributed, the joint probability density function of <span class="math notranslate nohighlight">\(y\)</span> reads</p>
 <div class="math notranslate nohighlight">
-\[p(\mathcal{D}~|~a) = \prod_{i=1}^d \frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\Big(-\frac{1}{2}~\frac{(y_i - a~x_i)^2}{\sigma^2}\Big)\]</div>
+\[p(\mathcal{D}~|~\beta) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\Big(-\frac{1}{2}~\frac{(y_i - \beta~x_i)^2}{\sigma^2}\Big)\]</div>
 <p>Thus, the MLE yields</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\hat{a} &amp;= \underset{a}{\text{argmax}} ~\prod_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\Big(-\frac{1}{2}~\frac{(y_i - a~x_i)^2}{\sigma^2}\Big) \\
-&amp;= \underset{a}{\text{argmax}}~ \prod_{i=1}^n~\exp\Big(-\frac{1}{2}~\frac{(y_i - a~x_i)^2}{\sigma^2}\Big)
+\hat{\beta}^{\text{MLE}} &amp;= \underset{\beta}{\text{argmax}} ~\prod_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\Big(-\frac{1}{2}~\frac{(y_i - \beta~x_i)^2}{\sigma^2}\Big) \\
+&amp;= \underset{\beta}{\text{argmax}}~ \prod_{i=1}^n~\exp\Big(-\frac{1}{2}~\frac{(y_i - \beta~x_i)^2}{\sigma^2}\Big)
 \end{aligned}\end{split}\]</div>
 <p>Since <span class="math notranslate nohighlight">\(\ln\)</span> is a monotonically increasing function, we can apply it to the righthand side without changing the <span class="math notranslate nohighlight">\(\text{argmax}\)</span>. Consequently, it holds</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\hat{a} &amp;= \underset{a}{\text{argmax}}~ - \frac{1}{2~\sigma^2}~\sum_{i=1}^n~(y_i - a~x_i)^2\big) \\
-        &amp;= \underset{a}{\text{argmin}}~\sum_{i=1}^n~\big(y_i - a~x_i\big)^2
+\hat{\beta}^{\text{MLE}} &amp;= \underset{\beta}{\text{argmax}}~ - \frac{1}{2~\sigma^2}~\sum_{i=1}^n~\big(y_i - \beta~x_i\big)^2 \\
+        &amp;= \underset{\beta}{\text{argmin}}~\sum_{i=1}^n~\big(y_i - \beta~x_i\big)^2
 \end{aligned}
 \end{split}\]</div>
-<p>i.e., the MLE estimate minimizes the SSR.</p>
+<p>i.e., the MLE estimate minimizes the SSR and <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{MLE}} = \hat{\beta}^{\text{OLS}}\)</span>.</p>
 </div>
 <div class="section" id="ridge-regression">
 <h2><span class="section-number">3.4.2. </span>Ridge Regression<a class="headerlink" href="#ridge-regression" title="Permalink to this headline">¶</a></h2>
-<p>Instead of minimizing the sum of squared resiudals, it is in some cases useful to introduce an additional <strong>regularization</strong> term. The use of a so-called <span class="math notranslate nohighlight">\(L^2\)</span>-regularization leads to ridge regression. In this case, the approach is to choose <span class="math notranslate nohighlight">\(\hat{a}\)</span> such that</p>
+<p>Instead of minimizing the sum of squared resiudals, it is in some cases useful to introduce an additional <strong>regularization</strong> term. The use of a so-called <span class="math notranslate nohighlight">\(L^2\)</span>-regularization leads to ridge regression. In this case, the approach is to choose <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{Ridge}}\)</span> such that</p>
 <div class="math notranslate nohighlight">
-\[\hat{a} = \underset{a}{\text{argmin}}~\Big(\sum_{i=1}^n \big(y_i - a~x_i\big)^2 + \lambda ~a^2 \Big)\]</div>
-<p>The regularization term penalizes large values of the slope <span class="math notranslate nohighlight">\(a\)</span>. This means that a steep regression line is not desired. The parameter <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span> is called <strong>complexity parameter</strong> and controls how much influence the regularization has.</p>
+\[\hat{\beta}^{\text{Ridge}} = \underset{\beta}{\text{argmin}}~\sum_{i=1}^n \big(y_i - \beta~x_i\big)^2 + \lambda ~\beta^2\]</div>
+<p>The regularization term penalizes large values of the slope <span class="math notranslate nohighlight">\(\beta\)</span>. This means that a steep regression line is not desired. The parameter <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span> is called <strong>complexity parameter</strong> and controls how much influence the regularization has.</p>
 <p>Again, the solution can be calculated explicitly and is given by</p>
 <div class="math notranslate nohighlight">
-\[\hat{a} = \frac{\sum_{i=1}^n x_i ~ y_i }{\sum_{i=1}^n x_i^2 + \lambda}\]</div>
+\[\hat{\beta}^{\text{Ridge}} = \frac{\sum_{i=1}^n x_i ~ y_i }{\sum_{i=1}^n x_i^2 + \lambda} = \frac{x^T y}{x^T x + \lambda}\]</div>
+<p>In our probabilistic setting, the same result is obtained by the <strong>MAP estimate with Gaussian prior</strong>. We assume that <span class="math notranslate nohighlight">\(\beta \sim \mathcal{N}(0, \sigma_{\beta}^2)\)</span>. This choice expresses the expectation that <span class="math notranslate nohighlight">\(\beta\)</span> should probably be close to zero. The variance <span class="math notranslate nohighlight">\(\sigma_{\beta}^2\)</span> is a hyperparameter and is the counterpart to the complexity parameter <span class="math notranslate nohighlight">\(\lambda\)</span>. The MAP estimate <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{Gauss}}\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\hat{\beta}^{\text{Gauss}} &amp;= \underset{\beta}{\text{argmax}} ~p(\mathcal{D}~|~\beta)~p(\beta) \\
+&amp;= \underset{\beta}{\text{argmax}} ~\prod_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\Big(-\frac{1}{2}~\frac{(y_i - \beta~x_i)^2}{\sigma^2}\Big)~\frac{1}{\sqrt{2\pi \sigma_{\beta}^2}} ~\exp\Big(-\frac{1}{2}~\frac{\beta^2}{\sigma_{\beta}^2}\Big)
+\end{aligned}\end{split}\]</div>
+<p>Please note that <span class="math notranslate nohighlight">\(p(\mathcal{D}~|~\beta)~p(\beta)\)</span> is (up to normalization) again a normal distribution. Similarly to the MLE case, by dropping constants and application of <span class="math notranslate nohighlight">\(\ln\)</span> the estimate can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\hat{\beta}^{\text{Gauss}} &amp;= \underset{\beta}{\text{argmax}}~ - \frac{1}{2~\sigma^2}~\sum_{i=1}^n~\big(y_i - \beta~x_i\big)^2 - \frac{1}{2~\sigma_{\beta}^2}~\beta^2 \\
+&amp;= \underset{\beta}{\text{argmin}}~ \sum_{i=1}^n~\big(y_i - \beta~x_i\big)^2 + \frac{\sigma^2}{\sigma_{\beta}^2}~\beta^2
+\end{aligned}\end{split}\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{Gauss}} = \hat{\beta}^{\text{Ridge}}\)</span> with <span class="math notranslate nohighlight">\(\lambda = \frac{\sigma^2}{\sigma_{\beta}^2}\)</span>.</p>
 </div>
 <div class="section" id="lasso">
 <h2><span class="section-number">3.4.3. </span>LASSO<a class="headerlink" href="#lasso" title="Permalink to this headline">¶</a></h2>
+<p>LASSO (least absolute shrinkage and selection operator) is a regression method that is similar to ridge regression, but usses <span class="math notranslate nohighlight">\(L^1\)</span>-regularization instead of <span class="math notranslate nohighlight">\(L^2\)</span>-regularization, i.e., the approach is to choose <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{LASSO}}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\hat{\beta}^{\text{LASSO}} = \underset{\beta}{\text{argmin}}~\sum_{i=1}^n \big(y_i - \beta~x_i\big)^2 + \lambda ~\lvert \beta \rvert\]</div>
+<p>The <span class="math notranslate nohighlight">\(L^1\)</span>-regularization term also penalizes large values of the slope <span class="math notranslate nohighlight">\(\beta\)</span>, but it is even stronger than <span class="math notranslate nohighlight">\(L^2\)</span>-regularization for <span class="math notranslate nohighlight">\(\lvert \beta \rvert &lt; 1\)</span>, since <span class="math notranslate nohighlight">\(\lvert \beta \rvert &gt; \beta^2\)</span>.</p>
+<p>Again, the solution can be calculated explicitly and is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\hat{\beta}^{\text{LASSO}} &amp;= \text{sgn}(\hat{\beta}^{\text{OLS}}) ~ \max\Big(0, \lvert \hat{\beta}^{\text{OLS}} \rvert - \frac{2 \lambda}{\sum_{i=1}^n x_i^2}\Big) \\
+&amp;= \text{sgn}(\hat{\beta}^{\text{OLS}}) ~ \max\Big(0, \lvert \hat{\beta}^{\text{OLS}} \rvert - \frac{2 \lambda}{x^T x}\Big),
+\end{aligned}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{sgn}\)</span> denotes the sign function (i.e., <span class="math notranslate nohighlight">\(\text{sgn}(x) = 1\)</span> if <span class="math notranslate nohighlight">\(x \ge 0\)</span> and <span class="math notranslate nohighlight">\(\text{sgn}(x) = -1\)</span> if <span class="math notranslate nohighlight">\(x &lt; 0\)</span>). In particular, <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{LASSO}} = 0\)</span> if the absolute value of <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{OLS}}\)</span> is too small.</p>
+<p>In our probabilistic setting, the same result is obtained by the <strong>MAP estimate with Laplace prior</strong>. We assume that <span class="math notranslate nohighlight">\(\beta \sim \text{Laplace}(0, b)\)</span>. Similarly to the Gaussian prior, this choice expresses the expectation that <span class="math notranslate nohighlight">\(\beta\)</span> should probably be close to zero, but this distribution is sharper at zero. The MAP estimate <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{Laplace}}\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\hat{\beta}^{\text{Laplace}} = \underset{\beta}{\text{argmax}} ~\Big(\prod_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} ~\exp\Big(-\frac{1}{2}~\frac{(y_i - \beta~x_i)^2}{\sigma^2}\Big)\Big)~\frac{1}{2b}~\exp\Big(-\frac{\lvert \beta \rvert}{b}\Big)\]</div>
+<p>Similarly as before, by dropping constants and application of <span class="math notranslate nohighlight">\(\ln\)</span> the estimate can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\hat{\beta}^{\text{Laplace}} &amp;= \underset{\beta}{\text{argmax}}~ - \frac{1}{2~\sigma^2}~\sum_{i=1}^n~\big(y_i - \beta~x_i\big)^2 - \frac{1}{b}~\lvert \beta \rvert \\
+&amp;= \underset{\beta}{\text{argmin}}~ \sum_{i=1}^n~\big(y_i - \beta~x_i\big)^2 + \frac{2 \sigma^2}{b}~\lvert \beta \rvert
+\end{aligned}\end{split}\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{Laplace}} = \hat{\beta}^{\text{LASSO}}\)</span> with <span class="math notranslate nohighlight">\(\lambda = \frac{2\sigma^2}{b}\)</span>.</p>
+<p>OLS, ridge regression and LASSO can also be generalized to higher dimensions, i.e., instead of scalar values for <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> <span class="math notranslate nohighlight">\(d\)</span>-dimensional vectors can be considered. In particular, in this more general setting LASSO is used to discard input variables, since the regularization yields <span class="math notranslate nohighlight">\(\beta_j = 0\)</span> if the <span class="math notranslate nohighlight">\(j\)</span>-th variables does not seem to have an impact on <span class="math notranslate nohighlight">\(y\)</span>.</p>
 </div>
 <div class="section" id="bayesian-linear-regression">
 <h2><span class="section-number">3.4.4. </span>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<p>In the ridge regression section, we have already mentioned that the use of a Gaussian prior <span class="math notranslate nohighlight">\(\mathcal{N}(0, \sigma_{\beta}^2)\)</span> for <span class="math notranslate nohighlight">\(\beta\)</span> results in a Gaussian posterior. In other words, the Gaussian distribution is its own conjugate prior.</p>
+<p>In order to obtain the posterior distribution, it remains to determine its mean and variance. In detail, it holds</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+p(\mathcal{D}~|~\beta)~p(\beta) &amp;\propto \prod_{i=1}^n \exp\Big(-\frac{1}{2}~\frac{\big(y_i - \beta~x_i\big)^2}{\sigma^2}\Big)~\exp\Big(-\frac{1}{2}~\frac{\beta^2}{\sigma_{\beta}^2}\Big) \\
+&amp;= \exp\Big(-\frac{1}{2}~\Big(\sum_{i=1}^n \frac{\big(y_i - \beta~x_i\big)^2}{\sigma^2} + \frac{\beta^2}{\sigma_{\beta}^2}\Big)\Big) \\
+&amp;= \exp\Big(-\frac{1}{2}~\frac{y^T y - 2 x^T y \beta + x^Tx \beta^2}{\sigma^2} + \frac{\beta^2}{\sigma_{\beta}^2}\Big) \\
+&amp;\propto \exp\Big(-\frac{1}{2}~\frac{x^Tx ~ \beta^2 - 2 x^T y ~ \beta}{\sigma^2} + \frac{\beta^2}{\sigma_{\beta}^2}\Big) \\
+&amp;= \exp\Big(-\frac{1}{2}~\frac{\big(x^Tx + \frac{\sigma^2}{\sigma_{\beta}^2}\big) ~ \beta^2 - 2 x^T y ~ \beta}{\sigma^2}\Big) \\
+&amp;= \exp\Big(-\frac{1}{2}~\frac{\beta^2 - 2 \beta~\Lambda^{-1} x^T y}{\sigma^2 \Lambda^{-1}}\Big) \\
+&amp;\propto \exp\Big(-\frac{1}{2}~\frac{\big(\beta - \Lambda^{-1} x^T y\big)^2}{\sigma^2 \Lambda^{-1}}\Big) 
+\end{aligned}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Lambda := x^Tx + \frac{\sigma^2}{\sigma_{\beta}^2}\)</span>. Thus, <span class="math notranslate nohighlight">\(\mathcal{N}(\tilde{\mu}, \tilde{\sigma}^2)\)</span> is the posterior distribution with mean</p>
+<div class="math notranslate nohighlight">
+\[\tilde{\mu} = \Lambda^{-1} x^T y = \frac{x^T y}{x^Tx + \frac{\sigma^2}{\sigma_{\beta}^2}}\]</div>
+<p>and variance</p>
+<div class="math notranslate nohighlight">
+\[\tilde{\sigma}^2 = \sigma^2 \Lambda^{-1} = \frac{\sigma^2}{x^Tx + \frac{\sigma^2}{\sigma_{\beta}^2}}.\]</div>
+<p>Please note that the mean <span class="math notranslate nohighlight">\(\tilde{\mu}\)</span> equals the MAP estimate <span class="math notranslate nohighlight">\(\hat{\beta}^{\text{Gauss}}\)</span> which is used in ridge regression.</p>
+<p>Bayesian linear regression has the nice property that the prediction <span class="math notranslate nohighlight">\(y^* = \beta~x^*\)</span> for a test point <span class="math notranslate nohighlight">\(x^* \in \mathbb{R}\)</span> is again normally distributed, since <span class="math notranslate nohighlight">\(\beta \sim \mathcal{N}(\tilde{\mu}, \tilde{\sigma}^2)\)</span>, i.e., <span class="math notranslate nohighlight">\(y^* \sim \mathcal{N}(x^* ~ \tilde{\mu}, (x^*)^2~\tilde{\sigma}^2)\)</span>. In particular, confidence bounds for <span class="math notranslate nohighlight">\(y^*\)</span> can be computed.</p>
+<p>In the case that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of the noise term is not known, it is also possible to perform Bayesian inference on <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> simultaneously. In this case, the inverse gamma distribution would be used as prior distribution for <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+</div>
+<div class="section" id="visualization">
+<h2><span class="section-number">3.4.5. </span>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">uniform</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">laplace</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1">#%matplotlib widget</span>
+<span class="c1"># import mplcursors</span>
+<span class="c1"># from ipywidgets import interact, interactive, fixed, interact_manual</span>
+<span class="c1"># import ipywidgets as widgets</span>
+
+<span class="c1"># generate true value of beta randomly</span>
+<span class="c1"># in use of a standard normal distribution</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">interval_length</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># lenght of the interval around 0 for x values</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># number of observations</span>
+<span class="n">sigma2</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># noise level</span>
+<span class="n">lambdaRidge</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># complexity parameter for ridge regression</span>
+<span class="n">lambdaLASSO</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># complexity parameter for LASSO</span>
+
+<span class="c1"># generate data</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">interval_length</span> <span class="o">*</span> <span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="n">interval_length</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># x values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma2</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="c1"># y values</span>
+
+<span class="c1"># calculate OLS, ridge and LASSO estimates</span>
+<span class="n">betaOLS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">betaRidge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">lambdaRidge</span><span class="p">)</span>
+<span class="n">betaLASSO</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">betaOLS</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">betaOLS</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">lambdaLASSO</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">betaOLS</span><span class="p">,</span> <span class="n">betaRidge</span><span class="p">,</span> <span class="n">betaLASSO</span><span class="p">)</span>
+
+<span class="c1"># Bayesian linear regression</span>
+<span class="c1"># choose prior variance such that posterior mean equals betaRidge</span>
+<span class="n">sigma2_beta</span> <span class="o">=</span> <span class="n">sigma2</span><span class="o">/</span><span class="n">lambdaRidge</span> <span class="c1"># prior variance</span>
+<span class="n">posterior_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma2</span><span class="o">/</span><span class="n">sigma2_beta</span><span class="p">)</span>
+<span class="n">posterior_var</span> <span class="o">=</span> <span class="n">sigma2</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma2</span><span class="o">/</span><span class="n">sigma2_beta</span><span class="p">)</span>
+
+<span class="n">xstar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">interval_length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">interval_length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">ystar_mean</span> <span class="o">=</span> <span class="n">posterior_mean</span> <span class="o">*</span> <span class="n">xstar</span>
+<span class="n">ystar_var</span> <span class="o">=</span> <span class="n">posterior_var</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">xstar</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sigma2_beta</span><span class="p">,</span> <span class="n">posterior_mean</span><span class="p">,</span> <span class="n">posterior_var</span><span class="p">)</span>
+
+<span class="n">boundary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">interval_length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">interval_length</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="n">beta</span><span class="o">*</span><span class="n">boundary</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="n">betaOLS</span><span class="o">*</span><span class="n">boundary</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;OLS&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="n">betaRidge</span><span class="o">*</span><span class="n">boundary</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ridge regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="n">betaLASSO</span><span class="o">*</span><span class="n">boundary</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;LASSO&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="n">beta</span><span class="o">*</span><span class="n">boundary</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">ystar_mean</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bayesian linear regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">ystar_mean</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ystar_var</span><span class="p">),</span> <span class="n">ystar_mean</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ystar_var</span><span class="p">),</span> 
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;confidence interval (exluding noise)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">ystar_mean</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ystar_var</span> <span class="o">+</span> <span class="n">sigma2</span><span class="p">),</span> 
+                 <span class="n">ystar_mean</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ystar_var</span> <span class="o">+</span> <span class="n">sigma2</span><span class="p">),</span> 
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;greenyellow&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.15</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;confidence interval (with noise)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.744577601519856 0.4682478148185717 0.31949187702538834 0.0
+0.1 0.31949187702538834 0.03176863470272054
+</pre></div>
+</div>
+<img alt="../../_images/04_linregr_2_1.png" src="../../_images/04_linregr_2_1.png" />
+<img alt="../../_images/04_linregr_2_2.png" src="../../_images/04_linregr_2_2.png" />
+</div>
 </div>
 </div>
 </div>
