@@ -23,7 +23,3 @@ $$\hat{\theta} = \frac{\alpha + s_n - 1}{\alpha + \beta + n -2}.$$
 Moreover, for $\alpha = \beta = 1$ the prior distribution equals a uniform distribution and hence, the MAP estimate yields the MLE value for $\hat{\theta}$. Assuming again five coin tosses with 3 heads and 2 tails, the MAP estimate would be $4/7$, whereas the MLE estimate is simply $3/5$. As seen before, in this example $\hat{\theta}$ equals also the probability for heads, since it is the parameter of a Bernoulli distribution.
 
 Please note that these methods are not Bayesian in the proper sense, since the distribution of $\theta$ is replaced by a fixed value.
-
-```python
-
-```
