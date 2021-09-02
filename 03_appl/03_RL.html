@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Appendix A" href="../04_appendix/placeholder.html" />
-    <link rel="prev" title="10. Quantification of Design Uncertainty" href="uncertainty.html" />
+    <link rel="prev" title="10. Design Uncertainty Analysis" href="uncertainty.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -247,7 +247,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="uncertainty.html">
-   10. Quantification of Design Uncertainty
+   10. Design Uncertainty Analysis
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -453,8 +453,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-67337157-0b2c-4a15-b910-2df230246ffc">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-67337157-0b2c-4a15-b910-2df230246ffc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-64f14692-c7bc-490d-ae61-0ad4a5ccae8d">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-64f14692-c7bc-490d-ae61-0ad4a5ccae8d" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | x_t, u_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -509,7 +509,7 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">10. </span>Quantification of Design Uncertainty</p>
+                <p class="prevnext-title"><span class="section-number">10. </span>Design Uncertainty Analysis</p>
             </div>
         </a>
     </div>
