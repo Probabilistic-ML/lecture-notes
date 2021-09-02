@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>11. Sample Efficient Reinforcement Learning &#8212; Probabilistic Machine Learning</title>
+    <title>11. Efficient Reinforcement Learning &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -252,7 +252,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   11. Sample Efficient Reinforcement Learning
+   11. Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -374,11 +374,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probabilistic-inference-for-learning-control-deisenroth2011">
-   11.2. Probabilistic Inference for Learning Control
-   <span class="xref cite">
-    Deisenroth2011
-   </span>
+  <a class="reference internal nav-link" href="#probabilistic-inference-for-optimal-control">
+   11.2. Probabilistic Inference for Optimal Control
   </a>
  </li>
 </ul>
@@ -392,8 +389,8 @@
         
               <div>
                 
-  <div class="section" id="sample-efficient-reinforcement-learning">
-<h1><span class="section-number">11. </span>Sample Efficient Reinforcement Learning<a class="headerlink" href="#sample-efficient-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="efficient-reinforcement-learning">
+<h1><span class="section-number">11. </span>Efficient Reinforcement Learning<a class="headerlink" href="#efficient-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
 <p>So far, supervised learning (SML) tasks were considered, where an algorithm was expected to learn the relationship <span class="math notranslate nohighlight">\(f: \mathbb{R}^{n_i} : \mathbb{R}^{n_o}\)</span> using a labeled dataset <span class="math notranslate nohighlight">\(\mathbb{D} := \{ (x_j, y_j), j\in [1,  m]\}\)</span> with <span class="math notranslate nohighlight">\(m\)</span> samples, where each sample consists of a tuple of input features <span class="math notranslate nohighlight">\( x_j \in \mathbb{R}^{n_i}\)</span>  and the corresponding labels <span class="math notranslate nohighlight">\( y_j \in \mathbb{R}^{n_o}\)</span>. Although SML is useful for many engineering tasks (e.g. design optimization, model validation and calibration, reliability analysis), it in itself does not provide a solution to problems, where some system parameters are controlled to achieve the desired system behaviour. Such problems are often investigated using the optimal control theory in engineering applications.</p>
 <p>Whether the aim is to obtain the optimal trajectory for a satellite to maximize the fuel efficiency or to obtain the optimal pressure and flow rate of a medicinal ventilator, the description of the task does not coincide with SML. In contrast, reinforcement learning (RL) seeks to directly solve such problems. As such, there are many intersections regarding the optimal control theory and RL.</p>
 <div class="section" id="problem-definition">
@@ -404,18 +401,20 @@
 <h3><span class="section-number">11.1.1. </span>Dynamic model and environment<a class="headerlink" href="#dynamic-model-and-environment" title="Permalink to this headline">¶</a></h3>
 <p>In this work, a dynamic model refers to a time dependent model of following type:</p>
 <div class="math notranslate nohighlight">
-\[ s_{t+dt} = f(s_{t}, a_{t})  \]</div>
-<p>where <span class="math notranslate nohighlight">\(s_t \in \mathbb{R}^{n_s}\)</span> are the <em>state</em> variables at time <span class="math notranslate nohighlight">\(t \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(a_t \in \mathbb{R}^{n_a}\)</span> are the <em>control</em> variables and <span class="math notranslate nohighlight">\(f: \mathbb{R}^{n_a + n_s} \rightarrow \mathbb{R}^{n_s}\)</span> is the <em>transition</em> function. Often, <span class="math notranslate nohighlight">\(f\)</span> is the first derivative of the solution of a set of differential equations with respect to time.</p>
+\[ s_{t+dt} = f(s_{t}, u_{t})  \]</div>
+<p>where <span class="math notranslate nohighlight">\(s_t \in \mathbb{R}^{n_s}\)</span> are the <em>state</em> variables at time <span class="math notranslate nohighlight">\(t \in \mathbb{R}\)</span> and <span class="math notranslate nohighlight">\(u_t \in \mathbb{R}^{n_u}\)</span> are the <em>control</em> variables and <span class="math notranslate nohighlight">\(f: \mathbb{R}^{n_a + n_s} \rightarrow \mathbb{R}^{n_s}\)</span> is the <em>transition</em> function. Often, <span class="math notranslate nohighlight">\(f\)</span> is the first derivative of the solution of a set of differential equations with respect to time.</p>
 <p>One approach to evaluate such systems is to discretize the time dimension. Besides being helpful regarding the optimization problem (see e.g. <a class="reference external" href="https://engineering.lehigh.edu/sites/engineering.lehigh.edu/files/_DEPARTMENTS/ise/pdf/tech-papers/09/09t_005.pdf">First-discretize-then-optimize</a>), it also simplifies the notation. The time discretized model can be denoted as</p>
 <div class="math notranslate nohighlight">
-\[ s_{t+1} = f(s_{t}, a_{t})  \]</div>
-<p>where <span class="math notranslate nohighlight">\(t \in \mathbb{N}\)</span> now represents index of the discretization step, i.e. the actual time can be computed as <span class="math notranslate nohighlight">\(t \cdot \Delta t\)</span> for an equidistant discretization with step size <span class="math notranslate nohighlight">\(\Delta t \in \mathbb{R}\)</span>.</p>
-<p>Thus, given an initial configuration <span class="math notranslate nohighlight">\(s_0\)</span> and the transition function <span class="math notranslate nohighlight">\(f\)</span>, the state of the system at any point <span class="math notranslate nohighlight">\(t\)</span> in time can be computed as</p>
+\[ s_{t+1} = f(s_{t}, u_{t})  \]</div>
+<p>where <span class="math notranslate nohighlight">\(t \in \mathbb{N}\)</span> now represents index of the discretization step, i.e. the actual time can be computed
+as <span class="math notranslate nohighlight">\(t \cdot \Delta t\)</span> for an equidistant discretization with step size <span class="math notranslate nohighlight">\(\Delta t \in \mathbb{R}\)</span>.</p>
+<p>Thus, given an initial configuration <span class="math notranslate nohighlight">\(s_0\)</span> and the transition function <span class="math notranslate nohighlight">\(f\)</span>, the state of the system at any point <span class="math notranslate nohighlight">\(t\)</span> in
+time can be computed as</p>
 <div class="math notranslate nohighlight">
-\[ s_t = f(\dots f(f(s_0, a_0), a_1)\dots, a_{t-1})  \]</div>
+\[ s_t = f(\dots f(f(s_0, u_0), u_1)\dots, u_{t-1})  \]</div>
 <p>and a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> of the system, i.e. its evolution in time, can be constructed from tuples of state action pairs</p>
 <div class="math notranslate nohighlight">
-\[ \mathbb{T} := \left\{(s_t, a_t); t \in [0, n_t] \right\}\]</div>
+\[ \mathbb{T} := \left\{(s_t, u_t); t \in [0, n_t] \right\}\]</div>
 <p>where <span class="math notranslate nohighlight">\(n_t \in \mathbb{N}\)</span> is the number of discretization steps.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -424,24 +423,49 @@
 </div>
 <div class="section" id="optimization">
 <h3><span class="section-number">11.1.2. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h3>
-<p>In the context of optimal control, there are various kinds of optimization problems considering the kind of dynamic model described above. Here, we will investigate closed-loop control problems \cite{AnyControlTheoryBook} without constraints. In such problems, the aim is to reach and maintain a target state <span class="math notranslate nohighlight">\(s^*\)</span>. Moreover, the expected result is not an optimal trajectory <span class="math notranslate nohighlight">\(\mathbb{T}^*\)</span> but a controller <span class="math notranslate nohighlight">\(\pi: \mathbb{R}^{n_s} \rightarrow \mathbb{R}^{n_a}\)</span>. Moreover, the actual problem has an infinite horizon, although a finite one <span class="math notranslate nohighlight">\(t_f\)</span> has to be chosen for evaluation due to practical reasons. Thus, a possible objective for this kind of problems can be given as</p>
+<p>In the context of optimal control, there are various kinds of optimization problems considering the kind of dynamic model described above.
+Here, we will investigate closed-loop control problems \cite{AnyControlTheoryBook} without constraints.
+In such problems, the aim is to reach and maintain a target state <span class="math notranslate nohighlight">\(s^*\)</span>. Moreover, the expected result is not an optimal trajectory <span class="math notranslate nohighlight">\(\mathbb{T}^*\)</span> but a controller <span class="math notranslate nohighlight">\(\pi: \mathbb{R}^{n_s} \rightarrow \mathbb{R}^{n_u}\)</span>. The actual problem has an infinite horizon, although a finite one <span class="math notranslate nohighlight">\(t_f\)</span> has to be chosen for evaluation due to practical reasons.
+Thus, a possible objective for this kind of problems can be given as</p>
 <div class="math notranslate nohighlight">
 \[ \mathrm{arg} \min_{\pi} \sum_{t=0}^{n_t}\left(s_t - s^*\right)^2 \]</div>
-<p>where expectation is computed along the time dimension. Notice that any other error metric could also be used instead of the squared error. As such, the optimal controller <span class="math notranslate nohighlight">\(\pi^*\)</span> is the one, that minimizes the chosen error metric.</p>
+<p>where expectation is computed along the time dimension. Notice that any other error metric could also be used instead of the
+squared error. As such, the optimal controller <span class="math notranslate nohighlight">\(\pi^*\)</span> is the one, that minimizes the chosen error metric.</p>
 </div>
 <div class="section" id="reinforcement-learning">
 <h3><span class="section-number">11.1.3. </span>Reinforcement learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h3>
 <p>In RL literature, the dynamic model is part of the <em>environment</em> which represents the interaction space for an <em>agent</em> <span class="math notranslate nohighlight">\(\pi\)</span>. For our purposes, <em>agent</em> has the same function as the <em>controller</em> before.
-Besides the dynamic model, environment may also define sources of noise as well as a reward function <span class="math notranslate nohighlight">\(r: \mathbb{R}^{n_s + n_a} \rightarrow \mathbb{R}\)</span> equivalent to an optimization objective. Thus, RL seeks to solve the following optimization problem</p>
+Besides the dynamic model, environment may also define sources of noise as well as a reward function <span class="math notranslate nohighlight">\(r: \mathbb{R}^{n_s + n_u} \rightarrow \mathbb{R}\)</span> equivalent to an optimization objective. Thus, RL seeks to solve the following optimization problem</p>
 <div class="math notranslate nohighlight">
-\[ \mathrm{arg}\max_{\pi} \sum_{t=0}^{n_t} r\left(s_t, a_t\right) \]</div>
+\[ \mathrm{arg}\max_{\pi} \sum_{t=0}^{n_t} r\left(s_t, u_t\right) \]</div>
 <p>As such, the optimal agent <span class="math notranslate nohighlight">\(\pi^*\)</span> is the one, that maximizes the total return. Notice that this equation is equivalent to the optimization objective given before. Typically, the dataset <span class="math notranslate nohighlight">\(\mathbb{D}\)</span> in RL consists of multiple trajectories <span class="math notranslate nohighlight">\(\mathbb{T}_i\)</span> representing different trials.</p>
-<p>Possibly the most important difference between SML and RL algorithms is the existence of the optimal actions. If these are available as examples, SML framework could be theoretically used to to learn to output them. Otherwise RL is used to obtain them by interacting with the environment and observing its response. Furthermore, existing good actions can also be used in RL (e.g. expert demonstrations \citepeg{OpenAI2018,OtherGuyWithFewShotRL}) In any case, recent research \citepeg{UpsideDownRL,RewardToRL) shows that such distinctions are not necessarily as strict as defined here.</p>
+<p>Possibly the most important difference between SML and RL algorithms is the existence of the optimal actions. If these are available as examples, SML framework could be theoretically used to to learn to output them. Otherwise RL is used to obtain them by interacting with the environment and observing its response. Furthermore, existing good actions can also be used in RL (e.g. expert demonstrations \citepeg{OpenAI2018,OtherGuyWithFewShotRL}) In any case, recent research \citepeg{UpsideDownRL,RewardToRL) shows that such distinctions are not necessarily clear in all cases.</p>
+<p>A more detailed description of reinforcement learning is beyond the scope of this book. See <a class="reference external" href="http://incompleteideas.net/book/RLbook2020.pdf">Reinforcement Learning by Sutton &amp; Barto</a> for further reference.</p>
 </div>
 </div>
-<div class="section" id="probabilistic-inference-for-learning-control-deisenroth2011">
-<h2><span class="section-number">11.2. </span>Probabilistic Inference for Learning Control <span id="id1">[<a class="reference internal" href="RL.html#id4">1</a>]</span><a class="headerlink" href="#probabilistic-inference-for-learning-control-deisenroth2011" title="Permalink to this headline">¶</a></h2>
-<p>Assume that the transition function <span class="math notranslate nohighlight">\(f\)</span> in the dynamic model is not known or too expensive to optimize. As discussed earlier, SML algorithms can be used to acquire surrogate models, that are usually faster to evaluate at the cost of some accuracy loss.</p>
+<div class="section" id="probabilistic-inference-for-optimal-control">
+<h2><span class="section-number">11.2. </span>Probabilistic Inference for Optimal Control<a class="headerlink" href="#probabilistic-inference-for-optimal-control" title="Permalink to this headline">¶</a></h2>
+<p>Assume that the transition function <span class="math notranslate nohighlight">\(f\)</span> in the dynamic model is not known or too expensive to optimize.
+As discussed earlier, SML algorithms can be used to acquire surrogate models, that are usually faster to evaluate at the cost of some accuracy loss.</p>
+<p>Let us use a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> to approximate the unknown transition function <span class="math notranslate nohighlight">\(f\)</span>. Specifically, let us train a model <span class="math notranslate nohighlight">\(\tilde{f}: \mathbb{R}^{n_s + n_a} \rightarrow \mathbb{R}^{n_s}\)</span> to use
+the current state <span class="math notranslate nohighlight">\(s_t\)</span> and action <span class="math notranslate nohighlight">\(u_t\)</span> as input and predict the state difference <span class="math notranslate nohighlight">\(\Delta^s_{t} \in \mathbb{R}^{n_s}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
+<p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
+Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-67337157-0b2c-4a15-b910-2df230246ffc">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-67337157-0b2c-4a15-b910-2df230246ffc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(s_{t + 1} | x_t, u_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
+\mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
+\Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu_{\Delta^s_{t}} \in \mathbb{R}^{n_s}\)</span> and <span class="math notranslate nohighlight">\(\Sigma^2_{\Delta^s_{t}}  \in \mathbb{R}^{n_s}\)</span> are the posterior mean and the variance of the <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> (see <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/kernelmethods.html#gaussian-process">Gaussian Process</a>).</p>
+<p>Now that we have a model of the dynamics, we could use control theory (or any other appropriate method) to find an optimal controller <span class="math notranslate nohighlight">\(\pi\)</span>.
+Moreover, we could use Bayesian optimization to account for the model uncertainty, which could accelerate the optimization.
+However, notice that the output of each step is the input to the next step.
+Even if we assume the initial state <span class="math notranslate nohighlight">\(s_0\)</span> to be known, <span class="math notranslate nohighlight">\(s_1\)</span> is an uncertain variable, which will be part of the input when predicting <span class="math notranslate nohighlight">\(s_2\)</span>.
+A better strategy would be to propagate the uncertainty for a more accurate estimate of <span class="math notranslate nohighlight">\(\Sigma_{t+1}\)</span>.</p>
+<p>Propagating the uncertainty is not a trivial task <span id="id1">[<a class="reference internal" href="RL.html#id4">1</a>]</span>. Let us elaborate using an example.</p>
 <p id="id2"><dl class="citation">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>M.P. Deisenroth and C.E. Rasmussen. Pilco: a model-based and data-efficient approach to policy search. In <em>Proceedings of the 28th International Conference on Machine Learning, ICML 2011</em>, 465–472. Omnipress, 2011.</p>
