@@ -43,6 +43,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -513,8 +515,8 @@
 \[p(\mathbf{x} \mid \mathbf{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d \lvert\Sigma\rvert}} \exp{ \left( -\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^T \Sigma^{-1} (\mathbf{x} - \mathbf{\mu}) \right)}\]</div>
 <p>Here is <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> a random vector <span class="math notranslate nohighlight">\(\mathbf{\mu}\)</span> is the mean vector and <span class="math notranslate nohighlight">\(\Sigma\)</span> is the covariance.<br />
 We will show 2 realization of a multivariate normal distribution to show the results of different means and covariances.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-35515a5c-eb26-4931-8cd4-cc368b1e321e">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-35515a5c-eb26-4931-8cd4-cc368b1e321e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-cd275188-21a7-49e9-9a3c-2ccffae92d2d">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-cd275188-21a7-49e9-9a3c-2ccffae92d2d" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathcal{N}\left(
 \begin{bmatrix}
 0 \\
@@ -526,8 +528,8 @@ We will show 2 realization of a multivariate normal distribution to show the res
 \end{bmatrix}\right)
 \end{align}\]</div>
 <p>The figure on the right is a bivariate distribution with the covariance between <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> set to be different than <span class="math notranslate nohighlight">\(0\)</span> so that both variables are correlated. Increasing <span class="math notranslate nohighlight">\(x_1\)</span> will increase the probability that <span class="math notranslate nohighlight">\(x_2\)</span> will also increase:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f89569a-b13f-47d5-a330-d5ed1b151537">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-3f89569a-b13f-47d5-a330-d5ed1b151537" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f4ef8eec-260f-449b-860c-36185f4b40dd">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-f4ef8eec-260f-449b-860c-36185f4b40dd" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathcal{N}
 \left(
 \begin{bmatrix}
@@ -619,8 +621,8 @@ We will show 2 realization of a multivariate normal distribution to show the res
 </div>
 <p>Marginal and Conditional normal distributions
 If both <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are jointly normal random vectors defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-78deecf3-812f-496d-8c0d-417c244c2e1c">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-78deecf3-812f-496d-8c0d-417c244c2e1c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ddf4934f-7b96-45af-90a7-5b7d64cdcca6">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-ddf4934f-7b96-45af-90a7-5b7d64cdcca6" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \begin{bmatrix}
 \mathbf{x} \\
 \mathbf{y} 
