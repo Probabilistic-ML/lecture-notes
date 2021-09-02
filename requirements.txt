@@ -6,4 +6,5 @@ scipy
 matplotlib
 scikit-learn
 seaborn
-
+ipympl
+ipywidgets
