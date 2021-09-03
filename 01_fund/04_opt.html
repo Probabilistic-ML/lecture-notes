@@ -459,8 +459,9 @@
 <p>by Mykel J. Kochenderfer and Tim A. Wheele <span id="id2">[<a class="reference internal" href="#id11">1</a>]</span>.</p>
 <div class="section" id="introduction-an-easy-example">
 <h2><span class="section-number">4.1. </span>Introduction: an easy example<a class="headerlink" href="#introduction-an-easy-example" title="Permalink to this headline">¶</a></h2>
-<p>We want to make a simple linear regression on given data below. For that we want to fit the parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\( \beta_1\)</span> from the linear regession
-$<span class="math notranslate nohighlight">\(y_i:=f(x_i)= \beta_0+\beta_1x_i \)</span>$</p>
+<p>We want to make a simple linear regression on given data below. For that we want to fit the parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\( \beta_1\)</span> from the linear regession</p>
+<div class="math notranslate nohighlight">
+\[y_i:=f(x_i)= \beta_0+\beta_1x_i \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -482,8 +483,9 @@ $<span class="math notranslate nohighlight">\(y_i:=f(x_i)= \beta_0+\beta_1x_i \)
 </div>
 <p>We now make initial guess for parameters <span class="math notranslate nohighlight">\(\beta_0=1\)</span> and <span class="math notranslate nohighlight">\(\beta_1 =1\)</span> and see how our model performs.</p>
 <p>For that we need some measure how “good” our fit was. We calculate the difference of each point to our line and we want no negative value so we square the difference of these.</p>
-<p>We will then get the <code class="docutils literal notranslate"><span class="pre">Residual</span> <span class="pre">Sum</span> <span class="pre">of</span> <span class="pre">Squares</span></code> (RSS):
-$<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n(y_p-y)^2\)</span>$</p>
+<p>We will then get the <code class="docutils literal notranslate"><span class="pre">Residual</span> <span class="pre">Sum</span> <span class="pre">of</span> <span class="pre">Squares</span></code> (RSS):</p>
+<div class="math notranslate nohighlight">
+\[RSS(\beta_0,\beta_1):=\sum_{i=1}^n(y_p-y)^2\]</div>
 <p>Where <span class="math notranslate nohighlight">\(y_p\)</span> is the prediction of our model and <span class="math notranslate nohighlight">\(y\)</span> is the real data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -510,7 +512,7 @@ $<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n
 </div>
 <p>We now see that our initial guess is not good at all. But we can now use the RSS to fit our function to the data. We are searching for a minimum of the RSS function. The coeficents which fits our data best are</p>
 <div class="math notranslate nohighlight">
-\[(\hat{\beta}_0\hat{\beta}_1)=\argmin_{\beta_0,\beta_1}(RSS)\]</div>
+\[(\hat{\beta}_0\hat{\beta}_1)=\underset{\beta_0,\beta_1}{\text{argmin}}(RSS)\]</div>
 <p>For this we can use the given solution in OLS section of the book. We could also use for example newton’s method to solve this for us. Luckily <code class="docutils literal notranslate"><span class="pre">scipy.opimize.minimize</span></code> has a software for us.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -565,7 +567,7 @@ $<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n
 <span class="n">Z</span> <span class="o">=</span> <span class="n">rss_values_all</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
 <span class="c1"># Plot the surface.</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;slope&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;intercept&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;RSS&#39;</span><span class="p">)</span>
@@ -720,7 +722,7 @@ $<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n
 <span class="n">Z</span> <span class="o">=</span>  <span class="n">Rosenbrock</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
 
 <span class="c1"># Plot the surface.</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
@@ -728,6 +730,7 @@ $<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n
 <span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
 <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rosenbrock function&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rosenbrock&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
 <span class="c1">#===============</span>
 <span class="c1"># Second subplot</span>
@@ -757,7 +760,7 @@ $<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n
 <span class="n">Z</span> <span class="o">=</span>  <span class="n">Rastrigin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
 
 <span class="c1"># Plot the surface.</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
@@ -765,6 +768,7 @@ $<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n
 <span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
 <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>   
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rastrigin function&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rastrigin&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
