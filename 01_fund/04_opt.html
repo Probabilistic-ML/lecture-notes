@@ -43,6 +43,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -306,9 +308,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01_fund/04_opt.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/01_fund/04_opt.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -339,11 +341,106 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/01_fund/04_opt.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-an-easy-example">
+   4.1. Introduction: an easy example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#benchmark-problems">
+   4.2. Benchmark Problems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-methods">
+   4.3. Gradient Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descend">
+     4.3.1. Gradient Descend
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adaptive-and-momentum-based-optimization">
+     4.3.2. Adaptive and Momentum based optimization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#newton-and-quasi-newton-methods">
+     4.3.3. Newton and Quasi Newton Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stochastic-methods">
+   4.4. Stochastic Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-search">
+     4.4.1. Random Search
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stochastic-gradient">
+     4.4.2. Stochastic gradient
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-entropy-method">
+     4.4.3. Cross Entropy Method
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#population-based-methods">
+   4.5. Population Based Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#differential-evolution">
+     4.5.1. Differential Evolution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   4.6. References
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -354,6 +451,357 @@
                 
   <div class="section" id="optimization-methods">
 <h1><span class="section-number">4. </span>Optimization Methods<a class="headerlink" href="#optimization-methods" title="Permalink to this headline">¶</a></h1>
+<p>In this section we will discuss optimization methods for machine learning. The optimization is the “learning” step in machine learning. There we fit the model to out data, eg. in neural network we will change weights, in linear regression we will change slope and intercept of the model by minimizing a loss function.</p>
+<p>The content is only an overview about the optimization techniques and for further reading please look at</p>
+<p><a class="reference external" href="https://printkr.hs-niederrhein.de:2173/doi/pdfdirect/10.1002/0471722138">“INTRODUCTION TO STOCHASTIC SEARCH AND OPTIMIZATION”</a></p>
+<p>by JAMES C. SPALL <span id="id1">[<a class="reference internal" href="#id12">2</a>]</span> and</p>
+<p><a class="reference external" href="https://algorithmsbook.com/optimization/files/optimization.pdf">“Algorithms for Optimization”</a></p>
+<p>by Mykel J. Kochenderfer and Tim A. Wheele <span id="id2">[<a class="reference internal" href="#id11">1</a>]</span>.</p>
+<div class="section" id="introduction-an-easy-example">
+<h2><span class="section-number">4.1. </span>Introduction: an easy example<a class="headerlink" href="#introduction-an-easy-example" title="Permalink to this headline">¶</a></h2>
+<p>We want to make a simple linear regression on given data below. For that we want to fit the parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\( \beta_1\)</span> from the linear regession
+$<span class="math notranslate nohighlight">\(y_i:=f(x_i)= \beta_0+\beta_1x_i \)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span> <span class="c1"># Data generation</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04_opt_1_0.svg" src="../_images/04_opt_1_0.svg" /></div>
+</div>
+<p>We now make initial guess for parameters <span class="math notranslate nohighlight">\(\beta_0=1\)</span> and <span class="math notranslate nohighlight">\(\beta_1 =1\)</span> and see how our model performs.</p>
+<p>For that we need some measure how “good” our fit was. We calculate the difference of each point to our line and we want no negative value so we square the difference of these.</p>
+<p>We will then get the <code class="docutils literal notranslate"><span class="pre">Residual</span> <span class="pre">Sum</span> <span class="pre">of</span> <span class="pre">Squares</span></code> (RSS):
+$<span class="math notranslate nohighlight">\(RSS(\beta_0,\beta_1):=\sum_{i=1}^n(y_p-y)^2\)</span>$</p>
+<p>Where <span class="math notranslate nohighlight">\(y_p\)</span> is the prediction of our model and <span class="math notranslate nohighlight">\(y\)</span> is the real data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">RSS</span><span class="p">(</span><span class="n">beta</span><span class="p">):</span>
+    <span class="n">y_p</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_p</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">beta0</span><span class="p">,</span><span class="n">beta1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span> <span class="c1">#define initial guess</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">y_p</span> <span class="o">=</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta1</span><span class="o">*</span><span class="n">x</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y_p</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RSS of initial guess: &quot;</span><span class="p">,</span><span class="n">RSS</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">beta0</span><span class="p">,</span><span class="n">beta1</span><span class="p">])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2554.6543498461815
+</pre></div>
+</div>
+<img alt="../_images/04_opt_3_1.svg" src="../_images/04_opt_3_1.svg" /></div>
+</div>
+<p>We now see that our initial guess is not good at all. But we can now use the RSS to fit our function to the data. We are searching for a minimum of the RSS function. The coeficents which fits our data best are</p>
+<div class="math notranslate nohighlight">
+\[(\hat{\beta}_0\hat{\beta}_1)=\argmin_{\beta_0,\beta_1}(RSS)\]</div>
+<p>For this we can use the given solution in OLS section of the book. We could also use for example newton’s method to solve this for us. Luckily <code class="docutils literal notranslate"><span class="pre">scipy.opimize.minimize</span></code> has a software for us.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iters</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">RSS</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]))])</span>
+<span class="n">iters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">callbackF</span><span class="p">(</span><span class="n">Xi</span><span class="p">):</span>
+    <span class="n">iterations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span><span class="n">RSS</span><span class="p">(</span><span class="n">Xi</span><span class="p">))</span>
+    <span class="n">iters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iterations</span><span class="p">)</span>
+
+<span class="n">opt</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">RSS</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;TNC&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callbackF</span><span class="p">)</span> <span class="c1">#optimize using scipy implementation of truncated newton&#39;s method</span>
+<span class="n">iters</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">iters</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">y_p</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y_p</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RSS of optimum: &quot;</span><span class="p">,</span><span class="n">RSS</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  113.78434147186353
+</pre></div>
+</div>
+<img alt="../_images/04_opt_5_1.svg" src="../_images/04_opt_5_1.svg" /></div>
+</div>
+<p>We now see that the “fit” of our model is much better. This method above falls under the category gradient optimization. However Newton’s method is not often used in machine learning because we need the second derivative, which categorises this algorithm in higher order schemes. But often this is not possible or it is just to resource consuming to use it. For the newton’s method we need to calculate a inverse of the hessian matrix to get better convergence than first order gradient descent methods.</p>
+<p>Now let us take a look on what happend to the RSS function in our optimization algorithm. The next plot shows the start value and the iteration of the algorithm to find a minimum with the help of the gradient.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">intercept</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">slope</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+
+<span class="c1"># Make data.</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span> <span class="c1">#slope</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">slope</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">slope</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span> <span class="c1">#intercept</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">intercept</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">intercept</span><span class="o">+</span><span class="mf">1.8</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="n">rss_values_all</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">slope_alt</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">slope</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">slope</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+    <span class="n">rss_values_x</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">intercept_alt</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">intercept</span><span class="o">-</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">intercept</span><span class="o">+</span><span class="mf">1.8</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+        <span class="n">rss_values_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RSS</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">intercept_alt</span><span class="p">,</span><span class="n">slope_alt</span><span class="p">])))</span>
+    <span class="n">rss_values_all</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rss_values_all</span><span class="p">,</span><span class="n">rss_values_x</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">rss_values_all</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Plot the surface.</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;slope&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;intercept&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;RSS&#39;</span><span class="p">)</span>
+<span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span> <span class="c1"># ToDo add order of iterations</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04_opt_8_0.svg" src="../_images/04_opt_8_0.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 864x720 with 0 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="benchmark-problems">
+<h2><span class="section-number">4.2. </span>Benchmark Problems<a class="headerlink" href="#benchmark-problems" title="Permalink to this headline">¶</a></h2>
+<p>In the next part we will look on different optimization algorithm and how they perform on various problems. Not all problems are that easy to solve that we done above. We will take a look on some benchmark problems.</p>
+<p>We will look at the Rosenbrock function in 2d</p>
+<div class="math notranslate nohighlight">
+\[f(x,y) = (a-x)^2+b(y-x^2)^2 \]</div>
+<p>with usually parameters <span class="math notranslate nohighlight">\(a = 1\)</span> and <span class="math notranslate nohighlight">\(b =100\)</span>.</p>
+<p>And we will look at the Rastrigin function in 2d</p>
+<div class="math notranslate nohighlight">
+\[f(x,y) = A*n + x^2-A \cos(2\pi x)+y^2-A \cos(2\pi y) \]</div>
+<p>with <span class="math notranslate nohighlight">\(A=10\)</span> and <span class="math notranslate nohighlight">\(n=2\)</span> as we are in 2 dimensions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set up a figure twice as wide as it is tall</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+
+<span class="c1">#===============</span>
+<span class="c1">#  First subplot</span>
+<span class="c1">#===============</span>
+<span class="c1"># set up the axes for the first plot</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">Rosenbrock</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="mf">100.0</span><span class="o">*</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mf">2.0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mf">2.0</span>
+    <span class="k">return</span> <span class="n">Z</span>
+<span class="n">Z</span> <span class="o">=</span>  <span class="n">Rosenbrock</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
+
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">nipy_spectral</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rosenbrock function&quot;</span><span class="p">)</span>
+<span class="c1">#===============</span>
+<span class="c1"># Second subplot</span>
+<span class="c1">#===============</span>
+<span class="c1"># set up the axes for the second plot</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot rastrigin</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">5.12</span><span class="p">,</span> <span class="mf">5.12</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">5.12</span><span class="p">,</span> <span class="mf">5.12</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">Rastrigin</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">20</span>
+    <span class="k">return</span> <span class="n">Z</span>
+
+<span class="n">Z</span> <span class="o">=</span> <span class="n">Rastrigin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span> 
+<span class="n">surf2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">nipy_spectral</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span><span class="n">antialiased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rastrigin function&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/04_opt_10_0.svg" src="../_images/04_opt_10_0.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The problem at these functions is, that we will find a local minima very fast but to find the global minima is difficult.These problems are called non-convex optimization problem.</p>
+</div>
+<div class="section" id="gradient-methods">
+<h2><span class="section-number">4.3. </span>Gradient Methods<a class="headerlink" href="#gradient-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gradient-descend">
+<h3><span class="section-number">4.3.1. </span>Gradient Descend<a class="headerlink" href="#gradient-descend" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="adaptive-and-momentum-based-optimization">
+<h3><span class="section-number">4.3.2. </span>Adaptive and Momentum based optimization<a class="headerlink" href="#adaptive-and-momentum-based-optimization" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="newton-and-quasi-newton-methods">
+<h3><span class="section-number">4.3.3. </span>Newton and Quasi Newton Methods<a class="headerlink" href="#newton-and-quasi-newton-methods" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="stochastic-methods">
+<h2><span class="section-number">4.4. </span>Stochastic Methods<a class="headerlink" href="#stochastic-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="random-search">
+<h3><span class="section-number">4.4.1. </span>Random Search<a class="headerlink" href="#random-search" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="stochastic-gradient">
+<h3><span class="section-number">4.4.2. </span>Stochastic gradient<a class="headerlink" href="#stochastic-gradient" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="cross-entropy-method">
+<h3><span class="section-number">4.4.3. </span>Cross Entropy Method<a class="headerlink" href="#cross-entropy-method" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="population-based-methods">
+<h2><span class="section-number">4.5. </span>Population Based Methods<a class="headerlink" href="#population-based-methods" title="Permalink to this headline">¶</a></h2>
+<p>Unlike in the previous chapter where a single point moved incrementally to the minimum, in population algorithms we have a lot of of points as start points all over the design space which are called individuals.</p>
+<div class="section" id="differential-evolution">
+<h3><span class="section-number">4.5.1. </span>Differential Evolution<a class="headerlink" href="#differential-evolution" title="Permalink to this headline">¶</a></h3>
+<p>Differential evolution attempts to improve each individual in the population by recombining other individuals in the population according to a simple formula. It is parameterized by a crossover probability <span class="math notranslate nohighlight">\(p\)</span> and a differential weight <span class="math notranslate nohighlight">\(w\)</span>. <span class="math notranslate nohighlight">\(w\)</span> is usually between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For each individual <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<p>\begin{enumerate}
+\item Choose three random distinct individuals <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(c\)</span>.
+\item Construct an interim design <span class="math notranslate nohighlight">\(z = a + w · (b − c)\)</span>
+\item …
+\item …
+\item ..
+\end{enumerate}</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="c1">#===============</span>
+<span class="c1">#  First subplot</span>
+<span class="c1">#===============</span>
+<span class="c1"># set up the axes for the first plot</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="n">iters</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">start_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start_vector</span><span class="p">,</span><span class="n">Rosenbrock</span><span class="p">(</span><span class="n">start_vector</span><span class="p">))</span>
+<span class="n">iters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">callbackRo</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">convergence</span><span class="p">):</span>
+    <span class="n">iterations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span><span class="n">Rosenbrock</span><span class="p">(</span><span class="n">Xi</span><span class="p">))</span>
+    <span class="n">iters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iterations</span><span class="p">)</span>
+
+
+<span class="c1">#opt = scipy.optimize.minimize(Rosenbrock, x0=start_vector, args=(), method=&#39;CG&#39;, callback=callbackRo) #optimize using scipy implementation of truncated newton&#39;s method</span>
+
+<span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">differential_evolution</span><span class="p">(</span><span class="n">Rosenbrock</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callbackRo</span><span class="p">)</span>
+
+<span class="n">iters</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">iters</span><span class="p">)</span>
+<span class="c1">#fig, ax = plt.subplots(subplot_kw={&quot;projection&quot;: &quot;3d&quot;})</span>
+<span class="c1">#fig2 =plt.figure(&quot;111&quot;,figsize=(12,10))</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="n">Z</span> <span class="o">=</span>  <span class="n">Rosenbrock</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
+
+<span class="c1"># Plot the surface.</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
+<span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span> <span class="c1"># ToDo add order of iterations</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rosenbrock function&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+<span class="c1">#===============</span>
+<span class="c1"># Second subplot</span>
+<span class="c1">#===============</span>
+<span class="c1"># set up the axes for the second plot</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+<span class="n">iters</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">start_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start_vector</span><span class="p">,</span><span class="n">Rastrigin</span><span class="p">(</span><span class="n">start_vector</span><span class="p">))</span>
+<span class="n">iters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">callbackRa</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">convergence</span><span class="p">):</span>
+    <span class="n">iterations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span><span class="n">Rastrigin</span><span class="p">(</span><span class="n">Xi</span><span class="p">))</span>
+    <span class="n">iters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iterations</span><span class="p">)</span>
+
+<span class="c1"># opt = scipy.optimize.minimize(Rastrigin, x0=start_vector, args=(), method=&#39;CG&#39;, callback=callbackR) #optimize using scipy implementation of truncated newton&#39;s method</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">differential_evolution</span><span class="p">(</span><span class="n">Rastrigin</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callbackRa</span><span class="p">)</span>
+
+<span class="n">iters</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">iters</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="n">Z</span> <span class="o">=</span>  <span class="n">Rastrigin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
+
+<span class="c1"># Plot the surface.</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
+<span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span> <span class="c1"># ToDo add order of iterations</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>   
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rastrigin function&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: 1.9721522630525295e-31
+ message: &#39;Optimization terminated successfully.&#39;
+    nfev: 4113
+     nit: 136
+ success: True
+       x: array([1., 1.])
+     fun: 0.0
+ message: &#39;Optimization terminated successfully.&#39;
+    nfev: 1773
+     nit: 58
+ success: True
+       x: array([2.75688272e-09, 1.61125824e-09])
+</pre></div>
+</div>
+<img alt="../_images/04_opt_14_1.svg" src="../_images/04_opt_14_1.svg" /></div>
+</div>
+<p>Particle Swarm Optimization</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2><span class="section-number">4.6. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p id="id3"><dl class="citation">
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Mykel J. Kochenderfer and Tim A. Wheeler. <em>Algorithms for Optimization</em>. The MIT Press, 2019. ISBN 0262039427.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dd><p>James C. Spall. <em>Introduction to Stochastic Search and Optimization</em>. John Wiley &amp;amp; Sons, Inc., USA, 1 edition, 2003. ISBN 0471330523.</p>
+</dd>
+</dl>
+</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
