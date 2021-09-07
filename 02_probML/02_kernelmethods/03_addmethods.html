@@ -5,44 +5,44 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. Bayesian vs. Frequentists View &#8212; Probabilistic Machine Learning</title>
+    <title>7.3. Additional Kernel-based Methods &#8212; Probabilistic Machine Learning</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/videocont.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/videocont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -51,13 +51,13 @@
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/01_fund/02_stat.html" />
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. Bayesian Inference, MAP &amp; MLE" href="03_bayes.html" />
-    <link rel="prev" title="1.5. Essential Theorems" href="01_fundprob/05_essthms.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_kernelmethods/03_addmethods.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8. Overview of Further Probabilistic Models" href="../03_overview.html" />
+    <link rel="prev" title="7.2. Gaussian Process" href="02_GP.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -74,22 +74,22 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+    <a class="navbar-brand text-wrap" href="../../index.html">
       
-      <img src="../_static/logo.png" class="logo" alt="logo">
+      <img src="../../_static/logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../welcome.html">
+  <a class="reference internal" href="../../welcome.html">
    Welcome
   </a>
  </li>
@@ -101,22 +101,22 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/preface.html">
+  <a class="reference internal" href="../../00_preface/preface.html">
    Preface
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/about.html">
+  <a class="reference internal" href="../../00_preface/about.html">
    About the Authors
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/python.html">
+  <a class="reference internal" href="../../00_preface/python.html">
    Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/notation.html">
+  <a class="reference internal" href="../../00_preface/notation.html">
    Notation
   </a>
  </li>
@@ -126,9 +126,9 @@
   Fundamentals
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="01_fundprob.html">
+  <a class="reference internal" href="../../01_fund/01_fundprob.html">
    1. Fundamentals of Probability Theory
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -138,39 +138,39 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="01_fundprob/01_probabilityspaces.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/01_probabilityspaces.html">
      1.1. Probability Spaces
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="01_fundprob/02_randomvariables.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/02_randomvariables.html">
      1.2. Random Variables
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="01_fundprob/03_independence.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/03_independence.html">
      1.3. Independence
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="01_fundprob/04_impprobdistr.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html">
      1.4. Important Probability Distributions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="01_fundprob/05_essthms.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html">
      1.5. Essential Theorems
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/02_stat.html">
    2. Bayesian vs. Frequentists View
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="03_bayes.html">
+  <a class="reference internal" href="../../01_fund/03_bayes.html">
    3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -180,34 +180,34 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="03_bayes/01_cointoss.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/01_cointoss.html">
      3.1. Coin Toss
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="03_bayes/02_bayesianinference.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/02_bayesianinference.html">
      3.2. Bayesian Inference
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="03_bayes/03_MLEandMAP.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/03_MLEandMAP.html">
      3.3. MAP and MLE
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="03_bayes/04_linregr.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html">
      3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="04_opt.html">
+  <a class="reference internal" href="../../01_fund/04_opt.html">
    4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05_MLworkflow.html">
+  <a class="reference internal" href="../../01_fund/05_MLworkflow.html">
    5. Machine Learning Workflow
   </a>
  </li>
@@ -217,41 +217,41 @@
   Probabilistic Machine Learning
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../02_probML/01_motivation.html">
+  <a class="reference internal" href="../01_motivation.html">
    6. Motivation of Probabilistic Models
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02_probML/02_kernelmethods.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../02_kernelmethods.html">
    7. Kernel-based Methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/01_recap.html">
+    <a class="reference internal" href="01_recap.html">
      7.1. Recap: What do we need to understand Gaussian Process?
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/02_GP.html">
+    <a class="reference internal" href="02_GP.html">
      7.2. Gaussian Process
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/03_addmethods.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      7.3. Additional Kernel-based Methods
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../02_probML/03_overview.html">
+  <a class="reference internal" href="../03_overview.html">
    8. Overview of Further Probabilistic Models
   </a>
  </li>
@@ -263,17 +263,17 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../03_appl/BO.html">
+  <a class="reference internal" href="../../03_appl/BO.html">
    9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../03_appl/uncertainty.html">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
    10. Design Uncertainty Analysis
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../03_appl/03_RL.html">
+  <a class="reference internal" href="../../03_appl/03_RL.html">
    11. Efficient Reinforcement Learning
   </a>
  </li>
@@ -285,7 +285,7 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../04_appendix/placeholder.html">
+  <a class="reference internal" href="../../04_appendix/placeholder.html">
    Appendix A
   </a>
  </li>
@@ -330,9 +330,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01_fund/02_stat.md"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_kernelmethods/03_addmethods.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -363,6 +363,22 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_kernelmethods/03_addmethods.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -376,30 +392,8 @@
         
               <div>
                 
-  <div class="section" id="bayesian-vs-frequentists-view">
-<h1><span class="section-number">2. </span>Bayesian vs. Frequentists View<a class="headerlink" href="#bayesian-vs-frequentists-view" title="Permalink to this headline">¶</a></h1>
-<p>In probability theory and statistics two different approaches are popular: the <em>Bayesian</em> and the <em>frequentist</em> interpretation of probability. The difference results basically from the philosophical question: <em>What is probability</em>? This topic is nicely explained in the following video:</p>
-<div class="video-container">
-<iframe src="https://www.youtube.com/embed/GEFxFVESQXc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-<br>
-<p>These two points of view can be summarized as follows:</p>
-<p>Bayesian perspective:</p>
-<ul class="simple">
-<li><p>Probability is a <strong>reasonable expectation depending on the state of knowledge</strong></p></li>
-<li><p>Expresses a degree of belief</p></li>
-<li><p>Makes updates of the probability sequentially in use of prior belief and additional data/evidence</p></li>
-</ul>
-<p>Frequentists perspective:</p>
-<ul class="simple">
-<li><p>Probability <strong>exists independently from an observer</strong></p></li>
-<li><p>Probability of an event is the limit of its relative frequency in infinitely many independent random experiments</p></li>
-<li><p>In each experiment the event either occurs or not (similarly, a hypothesis is either true or not)</p></li>
-<li><p>By assumption, a repeat of the experiments would in the limit result in the same probability</p></li>
-</ul>
-<p>Hence, in frequentism probability is an <em>objective absolute quantity</em> which can be estimated by observations. In contrast, probability is subjective in the Bayesian approach and expresses a <em>quantification of belief</em> which is concluded from observations.</p>
-<p>Both approaches are very useful and have their advantages as well as disadvantages. Clearly, frequentism reflects more the principles of natural sciences like reproducibility and objectivity. Moreover, it is mostly used in basic courses on statistics. Nevertheless, Bayesian probability reflects the way humans assign probabilities to events: based on prior knowledge and additional evidence.</p>
-<p>In the following section, we illustrate the difference in use of the coin toss example.</p>
+  <div class="section" id="additional-kernel-based-methods">
+<h1><span class="section-number">7.3. </span>Additional Kernel-based Methods<a class="headerlink" href="#additional-kernel-based-methods" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -415,7 +409,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./01_fund"
+            path: "./02_probML/02_kernelmethods"
         },
         predefinedOutput: true
     }
@@ -432,19 +426,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="01_fundprob/05_essthms.html" title="previous page">
+        <a class="left-prev" href="02_GP.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">1.5. </span>Essential Theorems</p>
+                <p class="prevnext-title"><span class="section-number">7.2. </span>Gaussian Process</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="03_bayes.html" title="next page">
+        <a class="right-next" href="../03_overview.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">3. </span>Bayesian Inference, MAP &amp; MLE</p>
+                <p class="prevnext-title"><span class="section-number">8. </span>Overview of Further Probabilistic Models</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
@@ -472,7 +466,7 @@
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
   </body>

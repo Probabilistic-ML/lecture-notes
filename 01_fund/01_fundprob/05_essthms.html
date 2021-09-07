@@ -221,17 +221,39 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../../02_probML/motivation.html">
+  <a class="reference internal" href="../../02_probML/01_motivation.html">
    6. Motivation of Probabilistic Models
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../02_probML/kernelmethods.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../02_probML/02_kernelmethods.html">
    7. Kernel-based Methods
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../02_probML/02_kernelmethods/01_recap.html">
+     7.1. Recap: What do we need to understand Gaussian Process?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../02_probML/02_kernelmethods/02_GP.html">
+     7.2. Gaussian Process
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../02_probML/02_kernelmethods/03_addmethods.html">
+     7.3. Additional Kernel-based Methods
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../02_probML/overview.html">
+  <a class="reference internal" href="../../02_probML/03_overview.html">
    8. Overview of Further Probabilistic Models
   </a>
  </li>
@@ -521,7 +543,7 @@ X_2 \end{pmatrix}\end{split}\]</div>
 </div>
 <div class="section" id="central-limit-theorem">
 <h2><span class="section-number">1.5.3. </span>Central Limit Theorem<a class="headerlink" href="#central-limit-theorem" title="Permalink to this headline">¶</a></h2>
-<p>The central limit theorem makes the normal distribution particularly important, since it can be considered as the limit of the average of “nice” i.i.d. random variables. Similarly to the law of large numbers, the theorem exists in several versions. In this section, we state the Lindeberg-L{‘e}vy central limit theorem:</p>
+<p>The central limit theorem makes the normal distribution particularly important, since it can be considered as the limit of the average of “nice” i.i.d. random variables. Similarly to the law of large numbers, the theorem exists in several versions. In this section, we state the Lindeberg-Lévy central limit theorem:</p>
 <div class="important admonition" id="thm-clt">
 <p class="admonition-title">Theorem</p>
 <p>Let <span class="math notranslate nohighlight">\(X_1, X_2, \dots\)</span> be a sequence of independent identical distributed random variables with expectation <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(0 &lt; \sigma^2 &lt; \infty\)</span>. Set</p>
@@ -565,6 +587,9 @@ X_2 \end{pmatrix}\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[p(x~|~y) = \frac{p(y~|~x) ~p(x)}{p(y)},\]</div>
 <p>where <span class="math notranslate nohighlight">\(p\)</span> is a shorthand notation for some probability density in analogy to the elementary probabilities in the case of discrete distributions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </div>
 

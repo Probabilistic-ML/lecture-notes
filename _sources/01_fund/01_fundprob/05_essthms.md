@@ -174,7 +174,7 @@ i.e., the average converges almost surely to the expectation.
 
 ## Central Limit Theorem
 
-The central limit theorem makes the normal distribution particularly important, since it can be considered as the limit of the average of "nice" i.i.d. random variables. Similarly to the law of large numbers, the theorem exists in several versions. In this section, we state the Lindeberg-L{\'e}vy central limit theorem: 
+The central limit theorem makes the normal distribution particularly important, since it can be considered as the limit of the average of "nice" i.i.d. random variables. Similarly to the law of large numbers, the theorem exists in several versions. In this section, we state the Lindeberg-L&eacute;vy central limit theorem: 
 
 ```{admonition} Theorem
 :class: important
@@ -236,3 +236,7 @@ More informally, this can be expressed as
 $$p(x~|~y) = \frac{p(y~|~x) ~p(x)}{p(y)},$$
 
 where $p$ is a shorthand notation for some probability density in analogy to the elementary probabilities in the case of discrete distributions.
+
+```python
+
+```
