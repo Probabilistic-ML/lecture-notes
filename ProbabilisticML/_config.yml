@@ -27,7 +27,9 @@ repository:
 
 launch_buttons:
   colab_url: "https://colab.research.google.com"
-  binderhub_url             : ""
+  binderhub_url             : "" 
+  # "https://mybinder.org"
+  # thebe                     : true
 
 sphinx:
   extra_extensions:
@@ -53,7 +55,7 @@ sphinx:
 execute:
   timeout: -1
 
-#jupyter_execute_notebooks: force
+jupyter_execute_notebooks: "off"
 
 parse:
   myst_enable_extensions:
