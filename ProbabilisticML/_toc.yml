@@ -4,10 +4,10 @@ parts:
 - caption: Preface
   numbered: false
   chapters:
-  - file: 00_preface/preface
-  - file: 00_preface/about
-  - file: 00_preface/python
-  - file: 00_preface/notation
+  - file: 00_preface/01_preface
+  - file: 00_preface/02_about
+  - file: 00_preface/03_python
+  - file: 00_preface/04_notation
 - caption: Fundamentals
   numbered: true
   chapters:
