@@ -103,22 +103,22 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/preface.html">
+  <a class="reference internal" href="../00_preface/01_preface.html">
    Preface
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/about.html">
+  <a class="reference internal" href="../00_preface/02_about.html">
    About the Authors
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/python.html">
+  <a class="reference internal" href="../00_preface/03_python.html">
    Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/notation.html">
+  <a class="reference internal" href="../00_preface/04_notation.html">
    Notation
   </a>
  </li>
@@ -242,7 +242,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02_kernelmethods/02_GP.html">
-     7.2. Gaussian Process
+     7.2. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
@@ -420,9 +420,9 @@
 </ul>
 </li>
 </ul>
-<p>In the simple linear regression, it was assumed that the noise term (the  aleatoric uncertainty) is normally distributed with zero mean and <strong>known</strong> variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. A more general setting could also include <span class="math notranslate nohighlight">\(\sigma^2\)</span> as a unknown parameter. In this case, the aim is to perform Bayesian inference on <span class="math notranslate nohighlight">\(\beta\)</span> (with Gaussian prior) and <span class="math notranslate nohighlight">\(\sigma^2\)</span> (with inverse gamma distributed prior) simultaneously. Consequently, the resulting Bayesian model contains both types of uncertainty. Additional to the mean prediciton, the posterior predictive distribution contains information on the epistemic uncertainty and estimates the aleaetoric uncertainty as well. Please note that frequentist inference can at least estimate aleatoric uncertainty, e.g., by the variance of samples around the prediction.</p>
-<p>A drawback of the use of probabilistic models is the <strong>increased computational effort</strong>. In the simple example, we needed first to apply some more mathematics and in addition to the mean of the posterior distribution it is necessary to calculate the variance. This is still an acceptable effort, but one should keep in mind that the posterior (predictive) distribution can not be computed analytically in most applications. Therefore, approximations such as MCMC and variational inference are used which include expensive computations for high dimensional and complex problems. For this reason, these types of models have just become more and more popular in recent years due to the rapid progress in computational power.</p>
-<p>These properties are highly relevant in more complex problems. After the discussion of more advanced models in the following sections, we will review some important applications.</p>
+<p>In the simple linear regression, it was assumed that the noise term (the  aleatoric uncertainty) is normally distributed with zero mean and <strong>known</strong> variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. A more general setting could also include <span class="math notranslate nohighlight">\(\sigma^2\)</span> as a unknown parameter. In this case, the aim is to perform Bayesian inference on <span class="math notranslate nohighlight">\(\beta\)</span> (with Gaussian prior) and <span class="math notranslate nohighlight">\(\sigma^2\)</span> (with inverse gamma distributed prior) simultaneously. Consequently, the resulting Bayesian model contains both types of uncertainty. Additional to the mean prediciton, the posterior predictive distribution contains information on the epistemic uncertainty and estimates the aleaetoric uncertainty as well. The frequentist approach to linear regression can also make some statements about uncertainty in terms of confidence and prediction intervals, but we have already seen in the <a class="reference internal" href="../01_fund/03_bayes/01_cointoss.html#sec-cointoss"><span class="std std-ref">coin toss example</span></a> that the interpretation is more difficult and less intuitive. Please note that the interpretation of uncertainty in frequentists statistics and  Bayesian inference is much discussed. Hence, the present explanations reflect only a specific, but hopefully reasonable, point of view.</p>
+<p>A drawback of the use of probabilistic models is the <strong>increased computational effort</strong>. In the simple example, we needed first to apply some more mathematics and in addition to the mean of the posterior distribution it is necessary to calculate the variance. This is an acceptable effort, but one should keep in mind that the posterior (predictive) distribution can not be computed analytically in most applications. Therefore, approximations such as MCMC and variational inference are used which include expensive computations for high dimensional and complex problems. For this reason, these types of models have just become more and more popular in recent years due to the rapid progress in computational power.</p>
+<p>Overall, a <strong>major advantage of Bayesian models is the quantification of uncertainty</strong> and in particular, of the epistemic uncertainty. This property is highly relevant in more complex problems. After the discussion of more advanced models in the following sections, we will review some important applications.</p>
 </div>
 
     <script type="text/x-thebe-config">

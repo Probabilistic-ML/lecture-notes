@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Preface &#8212; Probabilistic Machine Learning</title>
+    <title>Python &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -52,12 +52,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/00_preface/preface.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/00_preface/03_python.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="About the Authors" href="about.html" />
-    <link rel="prev" title="Welcome" href="../welcome.html" />
+    <link rel="next" title="Notation" href="04_notation.html" />
+    <link rel="prev" title="About the Authors" href="02_about.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -100,23 +100,23 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_preface.html">
    Preface
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="about.html">
+  <a class="reference internal" href="02_about.html">
    About the Authors
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="python.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="notation.html">
+  <a class="reference internal" href="04_notation.html">
    Notation
   </a>
  </li>
@@ -240,7 +240,7 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../02_probML/02_kernelmethods/02_GP.html">
-     7.2. Gaussian Process
+     7.2. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
@@ -330,7 +330,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/00_preface/preface.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/00_preface/03_python.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -376,8 +376,21 @@
         
               <div>
                 
-  <div class="section" id="preface">
-<h1>Preface<a class="headerlink" href="#preface" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="python">
+<h1>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<p>In this class, we will use Python in order to do simulations, illustrations, implementation and test of models etc. We do not require any programming backround in Python, but at least some experience in any programming language would be helpful.</p>
+<p>The most important Python libraries for our purposes will be:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/">numpy</a> (numerical computing library; mostly to do matrix and vector calculations)</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/">scikit-learn</a> (machine learning library)</p></li>
+<li><p><a class="reference external" href="https://www.scipy.org/">scipy</a> (scientific computing library; contains many useful tools such as optimization and integration algorithms, special functions etc.)</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/">matplotlib</a> (plotting library)</p></li>
+<li><p><a class="reference external" href="https://www.tensorflow.org/">tensorflow</a> (fast machine learning library with focus on deep learning)</p></li>
+<li><p><a class="reference external" href="https://gpflow.readthedocs.io/">gpflow</a> (machine learning library which uses tensorflow for Gaussian processes)</p></li>
+</ul>
+<p><strong>Feel free to discuss any problems with us</strong> regarding Python and the content of the lecture. During the exercise classes, you will have time to practice your programming skills and to understand the theoretical backround.</p>
+<p>On the official Python webpage, you can find some <a class="reference external" href="https://www.python.org/about/gettingstarted/">beginners guide</a>. Moreover, scikit-learn is a very beginner friendly machine learning library which also offers <a class="reference external" href="https://scikit-learn.org/stable/getting_started.html">useful tutorials</a>.</p>
+<p>To keep things simple, we decided to use <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a> for coding which are very easy to use and easy to read. Moreover, we will use the cloud service <a class="reference external" href="https://colab.research.google.com/">Google Colab</a> to share and to execute these notebooks. In this way, <strong>you do not necessarily need to have a Python installation</strong> on your computer. Only a webbrowser is required.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -410,19 +423,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../welcome.html" title="previous page">
+        <a class="left-prev" href="02_about.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Welcome</p>
+                <p class="prevnext-title">About the Authors</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="about.html" title="next page">
+        <a class="right-next" href="04_notation.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">About the Authors</p>
+                <p class="prevnext-title">Notation</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
