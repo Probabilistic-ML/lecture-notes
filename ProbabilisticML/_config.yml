@@ -64,3 +64,4 @@ parse:
     - dollarmath
     - linkify
     - substitution
+    - html_image
