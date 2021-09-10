@@ -236,18 +236,13 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../02_probML/02_kernelmethods/01_recap.html">
-     7.1. Recap: What do we need to understand Gaussian Process?
+    <a class="reference internal" href="../../02_probML/02_kernelmethods/01_GP.html">
+     7.1. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../02_probML/02_kernelmethods/02_GP.html">
-     7.2. Gaussian Processes for Machine Learning
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../02_probML/02_kernelmethods/03_addmethods.html">
-     7.3. Additional Kernel-based Methods
+    <a class="reference internal" href="../../02_probML/02_kernelmethods/02_addmethods.html">
+     7.2. Additional Kernel-based Methods
     </a>
    </li>
   </ul>
@@ -461,7 +456,8 @@
 <img alt="../../_images/01_cointoss_2_1.png" src="../../_images/01_cointoss_2_1.png" />
 </div>
 </div>
-<p>The confidence interval (green) illustrates the area around <span class="math notranslate nohighlight">\(\theta=0.5\)</span> such that the outcome of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> is inside the interval with probability <span class="math notranslate nohighlight">\(1- \alpha\)</span> <strong>supposed that</strong> <span class="math notranslate nohighlight">\(0.5\)</span> <strong>is the true value</strong>. If the sample mean (blue) is outside the confidence interval, the null hypothesis is rejected. Be careful! The interpretation that the true value of <span class="math notranslate nohighlight">\(\theta\)</span> is inside the confidence inerval with probability <span class="math notranslate nohighlight">\(1- \alpha\)</span> is <strong>wrong</strong>. In the frequentist setting the <strong>true value is either in the interval or it is not</strong>. This is not a question of probabilities. We can only be confident (up to some uncertainty given by <span class="math notranslate nohighlight">\(\alpha\)</span>) that the interval contains the outcome of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> under the assumption <span class="math notranslate nohighlight">\(\theta=0.5\)</span>. This can be verified by simulating repeatedly a fixed number of tosses of a fair coin. In the long run, the sample mean should be inside the confidence interval in <span class="math notranslate nohighlight">\(1- \alpha\)</span> percent of the cases. This fact is nicely illustrated by an <a class="reference external" href="https://rpsychologist.com/d3/ci/">interactive visualization</a> by Kristoffer Magnusson.</p>
+<p>The confidence interval (green) illustrates the area around <span class="math notranslate nohighlight">\(\theta=0.5\)</span> such that the outcome of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> is inside the interval with probability <span class="math notranslate nohighlight">\(1- \alpha\)</span> <strong>supposed that</strong> <span class="math notranslate nohighlight">\(0.5\)</span> <strong>is the true value</strong>. If the sample mean (blue) is outside the confidence interval, the null hypothesis is rejected. Be careful! The interpretation that the true value of <span class="math notranslate nohighlight">\(\theta\)</span> is inside the confidence inerval with probability <span class="math notranslate nohighlight">\(1- \alpha\)</span> is <strong>wrong</strong>. In the frequentist setting the <strong>true value is either in the interval or it is not</strong>. This is not a question of probabilities. We can only be confident (up to some uncertainty given by <span class="math notranslate nohighlight">\(\alpha\)</span>) that the interval contains the outcome of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> under the assumption <span class="math notranslate nohighlight">\(\theta=0.5\)</span>. This can be verified by simulating repeatedly a fixed number of tosses of a fair coin. In the long run, the sample mean should be inside the confidence interval in <span class="math notranslate nohighlight">\(1- \alpha\)</span> percent of the cases. This fact is nicely illustrated by an interactive visualization by Kristoffer Magnusson (please click on the image to follow the link):</p>
+<p><a href="https://rpsychologist.com/d3/ci/"> <center><img alt="../../_images/CI.jpg" src="../../_images/CI.jpg" /></center></a></p>
 <p>Now, we analyze the problem the Bayesian way:</p>
 <p>First, we include our prior beliefs on the value of <span class="math notranslate nohighlight">\(\theta\)</span>. For this purpose, we assign a probability distribution to <span class="math notranslate nohighlight">\(\theta\)</span>. Since <span class="math notranslate nohighlight">\(\theta\)</span> is itself a probability, the distribution should have support on <span class="math notranslate nohighlight">\([0, 1]\)</span>. A good choice is the beta distribution <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span>. Suppose that we belief that our expectation is that <span class="math notranslate nohighlight">\(\theta\)</span> is near <span class="math notranslate nohighlight">\(0.5\)</span>, but smaller or larger values are equally likely. Then, <span class="math notranslate nohighlight">\(\alpha = \beta = 2\)</span> is an appropiate choice and the prior distribution density looks like this:</p>
 <p><img alt="" src="../../_images/beta_pdf.png" /></p>
