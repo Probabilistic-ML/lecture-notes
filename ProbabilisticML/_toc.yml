@@ -33,9 +33,8 @@ parts:
   - file: 02_probML/01_motivation
   - file: 02_probML/02_kernelmethods
     sections:
-    - file: 02_probML/02_kernelmethods/01_recap
-    - file: 02_probML/02_kernelmethods/02_GP
-    - file: 02_probML/02_kernelmethods/03_addmethods
+    - file: 02_probML/02_kernelmethods/01_GP
+    - file: 02_probML/02_kernelmethods/02_addmethods
   - file: 02_probML/03_overview
 - caption: Applications
   numbered: true
