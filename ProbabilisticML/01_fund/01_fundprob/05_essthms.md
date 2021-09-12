@@ -236,3 +236,7 @@ More informally, this can be expressed as
 $$p(x~|~y) = \frac{p(y~|~x) ~p(x)}{p(y)},$$
 
 where $p$ is a shorthand notation for some probability density in analogy to the elementary probabilities in the case of discrete distributions.
+
+```python
+
+```
