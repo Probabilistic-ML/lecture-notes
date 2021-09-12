@@ -60,16 +60,16 @@ def animate(i):
 anim = FuncAnimation(fig, animate, init_func=init,
                      frames=50, interval=400, blit=True)
 
-anim.save('bm.gif', writer=FFMpegFileWriter(fps=2))
+anim.save('bm.gif', writer=FFMpegFileWriter(fps=2)) #, dpi=200)
 
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-[0;32m/tmp/ipykernel_1663/2753844861.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_1688/2851976515.py[0m in [0;36m<module>[0;34m[0m
 [1;32m     42[0m                      frames=50, interval=400, blit=True)
 [1;32m     43[0m [0;34m[0m[0m
-[0;32m---> 44[0;31m [0manim[0m[0;34m.[0m[0msave[0m[0;34m([0m[0;34m'bm.gif'[0m[0;34m,[0m [0mwriter[0m[0;34m=[0m[0mFFMpegFileWriter[0m[0;34m([0m[0mfps[0m[0;34m=[0m[0;36m2[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 44[0;31m [0manim[0m[0;34m.[0m[0msave[0m[0;34m([0m[0;34m'bm.gif'[0m[0;34m,[0m [0mwriter[0m[0;34m=[0m[0mFFMpegFileWriter[0m[0;34m([0m[0mfps[0m[0;34m=[0m[0;36m2[0m[0;34m)[0m[0;34m)[0m [0;31m#, dpi=200)[0m[0;34m[0m[0;34m[0m[0m
 [0m
 [0;32m/opt/hostedtoolcache/Python/3.7.11/x64/lib/python3.7/site-packages/matplotlib/animation.py[0m in [0;36msave[0;34m(self, filename, writer, fps, dpi, codec, bitrate, extra_args, metadata, extra_anim, savefig_kwargs, progress_callback)[0m
 [1;32m   1175[0m                         [0mprogress_callback[0m[0;34m([0m[0mframe_number[0m[0;34m,[0m [0mtotal_frames[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
