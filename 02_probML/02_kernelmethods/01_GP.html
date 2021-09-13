@@ -448,6 +448,21 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#impact-of-hyperparameters">
+   7.1.4. Impact of Hyperparameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selection-of-hyperparameters">
+   7.1.5. Selection of Hyperparameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-process-classification">
+   7.1.6. Gaussian Process Classification
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -501,7 +516,7 @@ We state the following brief definition:</p>
 k(x_2, x_1) &amp; k(x_2, x_2) &amp; \dots &amp; k(x_2, x_n) \\ 
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
 k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{split}\]</div>
-<p>Thus, a Gaussian process is specified by choosing a mean function <span class="math notranslate nohighlight">\(m\)</span> and a kernel <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>Thus, a Gaussian process is specified by choosing a mean function <span class="math notranslate nohighlight">\(m\)</span> and a kernel <span class="math notranslate nohighlight">\(k\)</span>. If <span class="math notranslate nohighlight">\(m\)</span> is zero, the corresponding Gaussian process is called <strong>centered</strong>.</p>
 <p>The kernel <span class="math notranslate nohighlight">\(k\)</span> generates the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and the covariance of a multivariate normal distiribution possesses certain properties such as symmetry and positive definiteness. Consequently, a general function of two variables will not be a valid covariance function of a Gaussian process. Clearly, a covariance function is necessarily <strong>symmetric</strong>, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime}) = k(x^{\prime}, x)\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathcal{I}\)</span>. <strong>Positive definiteness</strong> of covariance function can also be defined, but requires some additional mathematical background (refer to (4.2) in <span id="id2">[<a class="reference internal" href="#id12">1</a>]</span>).</p>
 <p>A kernel <span class="math notranslate nohighlight">\(k\)</span> is called <strong>stationary</strong> if it depends only on the difference of two inputs, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> depends only on <span class="math notranslate nohighlight">\(x - x^{\prime}\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Furthermore, it is even <strong>isotropic</strong> if it depends only on the distance <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span>.</p>
 <p>The choice of <span class="math notranslate nohighlight">\(k\)</span> determines the properties of the sample paths of the Gaussian process. For example, the paths can be very rough as for Brownian motion or they can be very smooth as for the squared exponential or RBF kernel:</p>
@@ -512,9 +527,9 @@ k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{sp
 <p>In the machine learning context, Gaussian processes are used for <strong>Gaussian process regression</strong> or <strong>kriging</strong>. We have some data set <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> of training observations</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \mathbb{R} \quad \text{for } i=1,\dots,n \}\]</div>
-<p>similarly to the example in <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html#sec-linregr"><span class="std std-ref">Linear Regression</span></a>, but now the <strong>functional relation</strong> between inputs <span class="math notranslate nohighlight">\(x_i\)</span> and outputs <span class="math notranslate nohighlight">\(y_i\)</span> is not necessarily linear. Typically, the <strong>mean function is chosen to be zero</strong>, since otherwise <span class="math notranslate nohighlight">\(m\)</span> would already approximate the dependence of the output <span class="math notranslate nohighlight">\(y\)</span> of the input <span class="math notranslate nohighlight">\(x\)</span>. Learning this relation is however purpose of the regression model. In the following, we always make this assumption and refer to this property as a <strong>centered</strong> Gaussian process.</p>
-<p>Instead of all possible sample paths of the Gaussian process only those paths are considered which match the training data:</p>
+<p>similarly to the example in <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html#sec-linregr"><span class="std std-ref">Linear Regression</span></a>, but now the <strong>functional relation</strong> between inputs <span class="math notranslate nohighlight">\(x_i\)</span> and outputs <span class="math notranslate nohighlight">\(y_i\)</span> is not necessarily linear. Instead of all possible sample paths of the Gaussian process only those paths are considered which match the training data:</p>
 <a class="reference internal image-reference" href="../../_images/gaussianregr.gif"><img alt="Cond Gaussian process" src="../../_images/gaussianregr.gif" style="width: 800px;" /></a>
+<p>Typically, the <strong>mean function is chosen to be zero</strong>. Otherwise <span class="math notranslate nohighlight">\(m\)</span> would already approximate the dependence of the output <span class="math notranslate nohighlight">\(y\)</span> of the input <span class="math notranslate nohighlight">\(x\)</span>. Learning this relation is purpose of the regression model. However, if we still like to use a non-zero mean <span class="math notranslate nohighlight">\(m\)</span>, this can also be done by substracting <span class="math notranslate nohighlight">\(m(x_i)\)</span> from y_i and fit a centered model on the residuals. Thus, we always make the assumption <span class="math notranslate nohighlight">\(m=0\)</span>, i.e., we only consider centered Gaussian processes.</p>
 <p>For a test point <span class="math notranslate nohighlight">\(x^*\)</span> the <strong>distribution of</strong> <span class="math notranslate nohighlight">\(f(x^*)\)</span> <strong>given the data</strong> <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html#lem-condnormaldistr"><span class="std std-ref">conditional distribution</span></a> which can be computed explicitly, since we are dealing with normal distributions. The prediction of the model at <span class="math notranslate nohighlight">\(x^*\)</span> is given by the mean of the conditional distribution and the uncertainty is quantified by the variance which corresponds to the variability of the string in the preceding animation. As seen before, this uncertainty can also be expressed in terms of credible intervals:</p>
 <img alt="Cond Gaussian process" src="../../_images/gaussianregr.png" />
 <p>The following interactive plot shows how the distribution of one component of a two dimensional normally distributed random vector behaves if the other component is fixed. The main observation is that the fixed value has no impact on the other component if the correlation is zero. In this case, the two components are independent. Moreover, the impact increases as the absolute value of the correlation increases. This means for Gaussian process regression that the impact of training points <span class="math notranslate nohighlight">\(x\)</span> on the prediction for test points <span class="math notranslate nohighlight">\(x^*\)</span> depends on the variance <span class="math notranslate nohighlight">\(k(x, x^*)\)</span>. Please open the notebook in Google Colab to use the visualization.</p>
@@ -1823,13 +1838,22 @@ if (IPython.notebook.kernel !== null) {
 </table>
 <p>Of course, a constant <span class="math notranslate nohighlight">\(a\)</span> can be used for scaling and the three approaches can be combined arbitrarily.</p>
 <p>For additional techniques for creating new covariance functions please refer to section 4.2.4 in <span id="id4">[<a class="reference internal" href="#id12">1</a>]</span>.</p>
+</div>
+</div>
+<div class="section" id="impact-of-hyperparameters">
+<h2><span class="section-number">7.1.4. </span>Impact of Hyperparameters<a class="headerlink" href="#impact-of-hyperparameters" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="selection-of-hyperparameters">
+<h2><span class="section-number">7.1.5. </span>Selection of Hyperparameters<a class="headerlink" href="#selection-of-hyperparameters" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="gaussian-process-classification">
+<h2><span class="section-number">7.1.6. </span>Gaussian Process Classification<a class="headerlink" href="#gaussian-process-classification" title="Permalink to this headline">¶</a></h2>
 <p id="id5"><dl class="citation">
 <dt class="label" id="id12"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id4">4</a>)</span></dt>
 <dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
 </dd>
 </dl>
 </p>
-</div>
 </div>
 </div>
 
