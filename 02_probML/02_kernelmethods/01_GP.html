@@ -417,8 +417,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#absolute-exponential-kernel">
-     7.1.3.4. Absolute Exponential Kernel
+    <a class="reference internal nav-link" href="#exponential-kernel">
+     7.1.3.4. Exponential Kernel
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -477,7 +477,7 @@ We state the following brief definition:</p>
 <p>The concept can be generalized to general index sets and in particular, to <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In the preceding animation time-dependent random functions are genarted, i.e., for each input <span class="math notranslate nohighlight">\(t\)</span> is mapped to a random variable <span class="math notranslate nohighlight">\(f(t)\)</span> (<span class="math notranslate nohighlight">\(X_t\)</span> with the earlier notation). For our machine learning applications we are interested in general inputs <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span> and outputs <span class="math notranslate nohighlight">\(f(x) \in \mathbb{R}\)</span>. In other words, a time-index is to restrictive and therefore, we generalize the idea to general index sets. Moreover, in view of the nice properties of normal distributions an additional property is supposed:</p>
 <div class="tip admonition" id="def-gp">
 <p class="admonition-title">Definition</p>
-<p>A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.<span id="id1">[<a class="reference internal" href="#id10">1</a>]</span></p>
+<p>A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.<span id="id1">[<a class="reference internal" href="#id11">1</a>]</span></p>
 </div>
 <p>Henceforth, a Gaussian process is denoted by <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span>. We assume that the random variables <span class="math notranslate nohighlight">\(f(x)\)</span>, <span class="math notranslate nohighlight">\(x \in \mathcal{I}\)</span>, take values in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Moreover, <span class="math notranslate nohighlight">\(\mathcal{I} = \mathbb{R}^d\)</span> for some <span class="math notranslate nohighlight">\(d \in \mathbb{N}\)</span> unless stated otherwise. In this case, <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span> is also called a <strong>random field</strong>. The additional Gaussian condition means that for an arbitrary number of elements <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>, the <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>-valued random vector</p>
 <div class="math notranslate nohighlight">
@@ -502,8 +502,8 @@ k(x_2, x_1) &amp; k(x_2, x_2) &amp; \dots &amp; k(x_2, x_n) \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
 k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{split}\]</div>
 <p>Thus, a Gaussian process is specified by choosing a mean function <span class="math notranslate nohighlight">\(m\)</span> and a kernel <span class="math notranslate nohighlight">\(k\)</span>.</p>
-<p>The kernel <span class="math notranslate nohighlight">\(k\)</span> generates the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and the covariance of a multivariate normal distiribution possesses certain properties such as symmetry and positive definiteness. Consequently, a general function of two variables will not be a valid covariance function of a Gaussian process. Clearly, a covariance function is necessarily <strong>symmetric</strong>, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime}) = k(x^{\prime}, x)\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathcal{I}\)</span>. <strong>Positive definiteness</strong> of covariance function can also be defined, but requires some additional mathematical background (refer to (4.2) in <span id="id2">[<a class="reference internal" href="#id10">1</a>]</span>).</p>
-<p>A kernel <span class="math notranslate nohighlight">\(k\)</span> is called <strong>stationary</strong> if it depends only on the difference of two inputs, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> depends only on <span class="math notranslate nohighlight">\(x - x^{prime}\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Furthermore, it is even <strong>isotropic</strong> if it depends only on the distance <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span>.</p>
+<p>The kernel <span class="math notranslate nohighlight">\(k\)</span> generates the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and the covariance of a multivariate normal distiribution possesses certain properties such as symmetry and positive definiteness. Consequently, a general function of two variables will not be a valid covariance function of a Gaussian process. Clearly, a covariance function is necessarily <strong>symmetric</strong>, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime}) = k(x^{\prime}, x)\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathcal{I}\)</span>. <strong>Positive definiteness</strong> of covariance function can also be defined, but requires some additional mathematical background (refer to (4.2) in <span id="id2">[<a class="reference internal" href="#id11">1</a>]</span>).</p>
+<p>A kernel <span class="math notranslate nohighlight">\(k\)</span> is called <strong>stationary</strong> if it depends only on the difference of two inputs, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> depends only on <span class="math notranslate nohighlight">\(x - x^{\prime}\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Furthermore, it is even <strong>isotropic</strong> if it depends only on the distance <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span>.</p>
 <p>The choice of <span class="math notranslate nohighlight">\(k\)</span> determines the properties of the sample paths of the Gaussian process. For example, the paths can be very rough as for Brownian motion or they can be very smooth as for the squared exponential or RBF kernel:</p>
 <a class="reference internal image-reference" href="../../_images/smooth.gif"><img alt="Gaussian process" src="../../_images/smooth.gif" style="width: 800px;" /></a>
 </div>
@@ -672,10 +672,10 @@ k(x_n, x^*_1) &amp; k(x_n, x^*_2) &amp; \dots &amp; k(x_n, x^*_m) \end{pmatrix}\
 <div class="math notranslate nohighlight">
 \[\Sigma^* = K(X^*, X^*) - K(X^*, X) K(X, X)^{-1} K(X, X^*)\]</div>
 </div>
-<p>The term <span class="math notranslate nohighlight">\(\alpha := K(X, X)^{-1} Y\)</span> is a vector of size <span class="math notranslate nohighlight">\(n\)</span> which is independent of <span class="math notranslate nohighlight">\(x^*\)</span>. Moreover, for a single test point <span class="math notranslate nohighlight">\(x^*\)</span> the covariance matrix K(x^*, X)$ reduces to a row vector. Hence, it holds</p>
+<p>The term <span class="math notranslate nohighlight">\(\alpha := K(X, X)^{-1} Y\)</span> is a vector of size <span class="math notranslate nohighlight">\(n\)</span> which is independent of <span class="math notranslate nohighlight">\(x^*\)</span>. Moreover, for a single test point <span class="math notranslate nohighlight">\(x^*\)</span> the covariance matrix <span class="math notranslate nohighlight">\(K(x^*, X)\)</span> reduces to a row vector. Hence, it holds</p>
 <div class="math notranslate nohighlight">
-\[\mu^* = K(x^*, X) \alpha = \sum_{i=1}^n \alpha_i k(x^*, x_i).\]</div>
-<p>In other words, the <strong>mean prediction is a linear combination of the functions</strong> <span class="math notranslate nohighlight">\(k(\cdot, x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>. The weights <span class="math notranslate nohighlight">\(\alpha_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are constructed such that the training data is fitted exactly (see plot above). This is <strong>only possible if the inverse matrix</strong> <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span> <strong>exists</strong>. This might not always the case. Think of the linear regression example including noise in the data. In this case, it is not possible to find a linear function which fits the data exactly. Furthermore, we possibly do not like to obtain a perfect fit, since we suppose that our training data contains noise. In order to solve this issue, a <strong>noise term</strong> <span class="math notranslate nohighlight">\(\sigma_n^2 &gt; 0\)</span> is added to covariance related to the training data, i.e., <span class="math notranslate nohighlight">\(K(X, X)\)</span> is replaced by <span class="math notranslate nohighlight">\(K(X, X) + \sigma_n^2 I_n\)</span>, where <span class="math notranslate nohighlight">\(I_n\)</span> denotes the identity matrix. In this way, the variance of <span class="math notranslate nohighlight">\(f(x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, is increased by <span class="math notranslate nohighlight">\(\sigma_n^2\)</span>. Hence, it holds</p>
+\[\mu^* = K(x^*, X) \alpha = \sum_{i=1}^n \alpha_i~ k(x^*, x_i).\]</div>
+<p>In other words, the <strong>mean prediction is a linear combination of the functions</strong> <span class="math notranslate nohighlight">\(k(\cdot, x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>. The weights <span class="math notranslate nohighlight">\(\alpha_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are constructed such that the training data is fitted exactly (see plot above). This is <strong>only possible if the inverse matrix</strong> <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span> <strong>exists</strong>. This might not always the case. Think of the linear regression example including noise in the data. In this case, it is not possible to find a linear function which fits the data exactly. Furthermore, we possibly do not like to obtain a perfect fit, since we suppose that our training data contains noise. In order to solve this issue, a <strong>noise term</strong> <span class="math notranslate nohighlight">\(\sigma_n^2 &gt; 0\)</span> is added to the covariance related to the training data, i.e., <span class="math notranslate nohighlight">\(K(X, X)\)</span> is replaced by <span class="math notranslate nohighlight">\(K(X, X) + \sigma_n^2 I_n\)</span>, where <span class="math notranslate nohighlight">\(I_n\)</span> denotes the identity matrix. In this way, the variance of <span class="math notranslate nohighlight">\(f(x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, is increased by <span class="math notranslate nohighlight">\(\sigma_n^2\)</span>. Adding noise is additionally useful to <strong>avoid numerical problems</strong>, since it has a regularizing effect. Indeed, the inverse matrix <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span> might exist mathematically. However, if the matrix is “almost singular”, it is often not possible to compute <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span>. It holds</p>
 <div class="important admonition" id="lem-gpregrnoise">
 <p class="admonition-title">Lemma</p>
 <p>Gaussian process regression with noise <span class="math notranslate nohighlight">\(\sigma_n^2\)</span> predicts the distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> by a multivariate normally distributed with mean</p>
@@ -1727,40 +1727,82 @@ if (IPython.notebook.kernel !== null) {
 </div>
 <div class="section" id="linear-kernel">
 <h3><span class="section-number">7.1.3.1. </span>Linear Kernel<a class="headerlink" href="#linear-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The linear kernel reads</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \sigma_0^2 + \langle x, x^{\prime} \rangle \quad \text{for } x, x^{\prime} \in \mathbb{R}^d,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_0^2 \ge 0\)</span> and <span class="math notranslate nohighlight">\(\langle x, x^{\prime} \rangle\)</span> denotes the scalar product of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x^{\prime}\)</span>. In the subsequent animation, we used <span class="math notranslate nohighlight">\(\sigma_0^2 = 0\)</span>.</p>
 <a class="reference internal image-reference" href="../../_images/linear.gif"><img alt="Linear kernel" src="../../_images/linear.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="polynomial-kernel">
 <h3><span class="section-number">7.1.3.2. </span>Polynomial Kernel<a class="headerlink" href="#polynomial-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The polynomial kernel is constructed by exponentiation of the linear kernel, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \big(\sigma_0^2 + \langle x, x^{\prime} \rangle\big)^p \quad \text{for } x, x^{\prime} \in \mathbb{R}^d,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_0^2 \ge 0\)</span> and <span class="math notranslate nohighlight">\(p \in \mathbb{N}\)</span>. In the subsequent animation, we used <span class="math notranslate nohighlight">\(\sigma_0^2 = 1\)</span> and <span class="math notranslate nohighlight">\(p=3\)</span>.</p>
 <a class="reference internal image-reference" href="../../_images/polynomial.gif"><img alt="Polynomial kernel" src="../../_images/polynomial.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="squared-exponential-kernel">
 <h3><span class="section-number">7.1.3.3. </span>Squared Exponential Kernel<a class="headerlink" href="#squared-exponential-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The squared exponential kernel is possibly the most important kernel in kernel-based machine learning. It is also called radial basis function (RBF) kernel. It is defined by</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp \big(-\frac{r^2}{2~l^2} \big)\]</div>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. <span class="math notranslate nohighlight">\(l\)</span> is called <strong>length scale</strong> and is assumed to be positive. In particular, the squared exponential kernel is isotropic. In the subsequent animation, we used <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
 <a class="reference internal image-reference" href="../../_images/rbf.gif"><img alt="RBF kernel" src="../../_images/rbf.gif" style="width: 800px;" /></a>
 </div>
-<div class="section" id="absolute-exponential-kernel">
-<h3><span class="section-number">7.1.3.4. </span>Absolute Exponential Kernel<a class="headerlink" href="#absolute-exponential-kernel" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="exponential-kernel">
+<h3><span class="section-number">7.1.3.4. </span>Exponential Kernel<a class="headerlink" href="#exponential-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The (absolute) exponential kernel is another isotropic kernel and is defined by</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp \big(-\frac{r}{l} \big)\]</div>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(l\)</span> is the length scale. In the subsequent animation, we used <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
 <a class="reference internal image-reference" href="../../_images/exp.gif"><img alt="Exp kernel" src="../../_images/exp.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="matern-kernel">
 <h3><span class="section-number">7.1.3.5. </span>Matérn Kernel<a class="headerlink" href="#matern-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The Matérn kernel denotes a class of isotropic kernels which is parametrized by a parameter <span class="math notranslate nohighlight">\(\nu &gt; 0\)</span>. The kernel is given by</p>
+<div class="math notranslate nohighlight">
+\[k_{\nu}(x, x^{\prime}) = \frac{2^{1 - \nu}}{\Gamma(\nu)}~\Big(\frac{\sqrt{2\nu}~ r}{l}\Big)^{\nu} ~K_{\nu} \Big(\frac{\sqrt{2\nu}~r}{l}\Big),\]</div>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(l &gt;0\)</span> is the length scale, <span class="math notranslate nohighlight">\(\Gamma\)</span> is the gamma function and <span class="math notranslate nohighlight">\(K_{\nu}\)</span> is a modified Bessel function.</p>
+<p>For <span class="math notranslate nohighlight">\(\nu = 0.5\)</span> the Matérn kernel becomes the exponential kernel and for <span class="math notranslate nohighlight">\(\nu \rightarrow \infty\)</span> the Matérn kernel approaches the squared exponential kernel. Thus, <span class="math notranslate nohighlight">\(\nu\)</span> determines the roughness of the samples paths and the samples paths get smoother as <span class="math notranslate nohighlight">\(\nu\)</span> increases.</p>
+<p>The most interesting other cases for machine learning are <span class="math notranslate nohighlight">\(\nu = 1.5\)</span> and <span class="math notranslate nohighlight">\(\nu = 2.5\)</span>. It holds</p>
+<div class="math notranslate nohighlight">
+\[k_{\nu = 1.5}x, x^{\prime}) = \Big( 1 + \frac{\sqrt{3}~r}{l} \Big)~\exp\Big(\frac{\sqrt{3}~r}{l}\Big)\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[k_{\nu = 2.5}x, x^{\prime}) = \Big( 1 + \frac{\sqrt{5}~r}{l} + \frac{5~r^2}{3~l^2} \Big)~\exp\Big(\frac{\sqrt{5}~r}{l}\Big).\]</div>
+<p>For both cases, sample paths are animated below with <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\nu = 1.5\)</span>:</p>
 <a class="reference internal image-reference" href="../../_images/matern15.gif"><img alt="Matern 1.5 kernel" src="../../_images/matern15.gif" style="width: 800px;" /></a>
+<p><span class="math notranslate nohighlight">\(\nu = 2.5\)</span>:</p>
 <a class="reference internal image-reference" href="../../_images/matern25.gif"><img alt="Matern 2.5 kernel" src="../../_images/matern25.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="rational-quadratic-kernel">
 <h3><span class="section-number">7.1.3.6. </span>Rational Quadratic Kernel<a class="headerlink" href="#rational-quadratic-kernel" title="Permalink to this headline">¶</a></h3>
-<a class="reference internal image-reference" href="../../_images/rq.gif"><img alt="Matern 2.5 kernel" src="../../_images/rq.gif" style="width: 800px;" /></a>
+<p>The rational quadratic kernel denotes a family of isotropic kernels with parameter <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> defined by</p>
+<div class="math notranslate nohighlight">
+\[k_{\alpha}(x, x^{\prime}) = \Big( 1 + \frac{r^2}{2\alpha~l^2} \Big)^{-\alpha}\]</div>
+<p>with <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(l &gt; 0\)</span>. This kernel can be seen as mixture of squared exponential kernels with different length scales (see (4.20) in <span id="id3">[<a class="reference internal" href="#id11">1</a>]</span>). In the subsequent animation, we used <span class="math notranslate nohighlight">\(\alpha = l = 1\)</span>.</p>
+<a class="reference internal image-reference" href="../../_images/rq.gif"><img alt="rq kernel" src="../../_images/rq.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="periodic-kernel">
 <h3><span class="section-number">7.1.3.7. </span>Periodic Kernel<a class="headerlink" href="#periodic-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The periodic kernel is also called Exp-Sine-Squared kernel. It is given by</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp\Big( - \frac{2~\sin^2\big(\pi \frac{r}{p}\big)}{l^2}\Big)\]</div>
+<p>with <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. <span class="math notranslate nohighlight">\(l\)</span> is the length scale and <span class="math notranslate nohighlight">\(p\)</span> the <strong>periodicity</strong>. To illustrate the sample paths we used <span class="math notranslate nohighlight">\(l=p=1\)</span>.</p>
 <a class="reference internal image-reference" href="../../_images/periodic.gif"><img alt="Matern 2.5 kernel" src="../../_images/periodic.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="brownian-motion-kernel">
 <h3><span class="section-number">7.1.3.8. </span>Brownian Motion Kernel<a class="headerlink" href="#brownian-motion-kernel" title="Permalink to this headline">¶</a></h3>
+<p>Since we illustrated the sample paths of Brownian motion as an example for a stochastic process, we state its covariance function. Nevertheless, this kernel is not of interest for our machine learning applications. It holds</p>
+<div class="math notranslate nohighlight">
+\[k(s, t) = \text{min}(s, t)\]</div>
+<p>for <span class="math notranslate nohighlight">\(s, t \in \mathbb{R}_{\ge 0}\)</span>.</p>
 </div>
 <div class="section" id="combination-of-kernels">
 <h3><span class="section-number">7.1.3.9. </span>Combination of Kernels<a class="headerlink" href="#combination-of-kernels" title="Permalink to this headline">¶</a></h3>
-<p id="id3"><dl class="citation">
-<dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<p id="id4"><dl class="citation">
+<dt class="label" id="id11"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>)</span></dt>
 <dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
 </dd>
 </dl>
