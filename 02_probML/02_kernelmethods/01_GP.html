@@ -1781,10 +1781,10 @@ if (IPython.notebook.kernel !== null) {
 <p>For <span class="math notranslate nohighlight">\(\nu = 0.5\)</span> the Matérn kernel becomes the exponential kernel and for <span class="math notranslate nohighlight">\(\nu \rightarrow \infty\)</span> the Matérn kernel approaches the squared exponential kernel. Thus, <span class="math notranslate nohighlight">\(\nu\)</span> determines the roughness of the samples paths and the samples paths get smoother as <span class="math notranslate nohighlight">\(\nu\)</span> increases.</p>
 <p>The most interesting other cases for machine learning are <span class="math notranslate nohighlight">\(\nu = 1.5\)</span> and <span class="math notranslate nohighlight">\(\nu = 2.5\)</span>. It holds</p>
 <div class="math notranslate nohighlight">
-\[k_{\nu = 1.5}x, x^{\prime}) = \Big( 1 + \frac{\sqrt{3}~r}{l} \Big)~\exp\Big(\frac{\sqrt{3}~r}{l}\Big)\]</div>
+\[k_{\nu = 1.5}(x, x^{\prime}) = \Big( 1 + \frac{\sqrt{3}~r}{l} \Big)~\exp\Big(\frac{\sqrt{3}~r}{l}\Big)\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
-\[k_{\nu = 2.5}x, x^{\prime}) = \Big( 1 + \frac{\sqrt{5}~r}{l} + \frac{5~r^2}{3~l^2} \Big)~\exp\Big(\frac{\sqrt{5}~r}{l}\Big).\]</div>
+\[k_{\nu = 2.5}(x, x^{\prime}) = \Big( 1 + \frac{\sqrt{5}~r}{l} + \frac{5~r^2}{3~l^2} \Big)~\exp\Big(\frac{\sqrt{5}~r}{l}\Big).\]</div>
 <p>For both cases, sample paths are animated below with <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(\nu = 1.5\)</span>:</p>
 <a class="reference internal image-reference" href="../../_images/matern15.gif"><img alt="Matern 1.5 kernel" src="../../_images/matern15.gif" style="width: 800px;" /></a>
