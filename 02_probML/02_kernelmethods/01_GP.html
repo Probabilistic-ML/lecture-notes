@@ -477,7 +477,7 @@ We state the following brief definition:</p>
 <p>The concept can be generalized to general index sets and in particular, to <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In the preceding animation time-dependent random functions are genarted, i.e., for each input <span class="math notranslate nohighlight">\(t\)</span> is mapped to a random variable <span class="math notranslate nohighlight">\(f(t)\)</span> (<span class="math notranslate nohighlight">\(X_t\)</span> with the earlier notation). For our machine learning applications we are interested in general inputs <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span> and outputs <span class="math notranslate nohighlight">\(f(x) \in \mathbb{R}\)</span>. In other words, a time-index is to restrictive and therefore, we generalize the idea to general index sets. Moreover, in view of the nice properties of normal distributions an additional property is supposed:</p>
 <div class="tip admonition" id="def-gp">
 <p class="admonition-title">Definition</p>
-<p>A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.<span id="id1">[<a class="reference internal" href="#id11">1</a>]</span></p>
+<p>A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.<span id="id1">[<a class="reference internal" href="#id12">1</a>]</span></p>
 </div>
 <p>Henceforth, a Gaussian process is denoted by <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span>. We assume that the random variables <span class="math notranslate nohighlight">\(f(x)\)</span>, <span class="math notranslate nohighlight">\(x \in \mathcal{I}\)</span>, take values in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Moreover, <span class="math notranslate nohighlight">\(\mathcal{I} = \mathbb{R}^d\)</span> for some <span class="math notranslate nohighlight">\(d \in \mathbb{N}\)</span> unless stated otherwise. In this case, <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span> is also called a <strong>random field</strong>. The additional Gaussian condition means that for an arbitrary number of elements <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>, the <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>-valued random vector</p>
 <div class="math notranslate nohighlight">
@@ -502,7 +502,7 @@ k(x_2, x_1) &amp; k(x_2, x_2) &amp; \dots &amp; k(x_2, x_n) \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
 k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{split}\]</div>
 <p>Thus, a Gaussian process is specified by choosing a mean function <span class="math notranslate nohighlight">\(m\)</span> and a kernel <span class="math notranslate nohighlight">\(k\)</span>.</p>
-<p>The kernel <span class="math notranslate nohighlight">\(k\)</span> generates the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and the covariance of a multivariate normal distiribution possesses certain properties such as symmetry and positive definiteness. Consequently, a general function of two variables will not be a valid covariance function of a Gaussian process. Clearly, a covariance function is necessarily <strong>symmetric</strong>, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime}) = k(x^{\prime}, x)\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathcal{I}\)</span>. <strong>Positive definiteness</strong> of covariance function can also be defined, but requires some additional mathematical background (refer to (4.2) in <span id="id2">[<a class="reference internal" href="#id11">1</a>]</span>).</p>
+<p>The kernel <span class="math notranslate nohighlight">\(k\)</span> generates the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and the covariance of a multivariate normal distiribution possesses certain properties such as symmetry and positive definiteness. Consequently, a general function of two variables will not be a valid covariance function of a Gaussian process. Clearly, a covariance function is necessarily <strong>symmetric</strong>, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime}) = k(x^{\prime}, x)\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathcal{I}\)</span>. <strong>Positive definiteness</strong> of covariance function can also be defined, but requires some additional mathematical background (refer to (4.2) in <span id="id2">[<a class="reference internal" href="#id12">1</a>]</span>).</p>
 <p>A kernel <span class="math notranslate nohighlight">\(k\)</span> is called <strong>stationary</strong> if it depends only on the difference of two inputs, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> depends only on <span class="math notranslate nohighlight">\(x - x^{\prime}\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Furthermore, it is even <strong>isotropic</strong> if it depends only on the distance <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span>.</p>
 <p>The choice of <span class="math notranslate nohighlight">\(k\)</span> determines the properties of the sample paths of the Gaussian process. For example, the paths can be very rough as for Brownian motion or they can be very smooth as for the squared exponential or RBF kernel:</p>
 <a class="reference internal image-reference" href="../../_images/smooth.gif"><img alt="Gaussian process" src="../../_images/smooth.gif" style="width: 800px;" /></a>
@@ -512,7 +512,7 @@ k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{sp
 <p>In the machine learning context, Gaussian processes are used for <strong>Gaussian process regression</strong> or <strong>kriging</strong>. We have some data set <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> of training observations</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \mathbb{R} \quad \text{for } i=1,\dots,n \}\]</div>
-<p>similarly to the example in <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html#sec-linregr"><span class="std std-ref">Linear Regression</span></a>, but now the <strong>functional relation</strong> between inputs <span class="math notranslate nohighlight">\(x_i\)</span> and outputs <span class="math notranslate nohighlight">\(y_i\)</span> is not necessarily linear. Typically, the <strong>mean function is chosen to be zero</strong>, since otherwise <span class="math notranslate nohighlight">\(m\)</span> would already approximate the dependence of the output <span class="math notranslate nohighlight">\(y\)</span> of the input <span class="math notranslate nohighlight">\(x\)</span>. Learning this relation is however purpose of the regression model. In the following, we always make this assumption.</p>
+<p>similarly to the example in <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html#sec-linregr"><span class="std std-ref">Linear Regression</span></a>, but now the <strong>functional relation</strong> between inputs <span class="math notranslate nohighlight">\(x_i\)</span> and outputs <span class="math notranslate nohighlight">\(y_i\)</span> is not necessarily linear. Typically, the <strong>mean function is chosen to be zero</strong>, since otherwise <span class="math notranslate nohighlight">\(m\)</span> would already approximate the dependence of the output <span class="math notranslate nohighlight">\(y\)</span> of the input <span class="math notranslate nohighlight">\(x\)</span>. Learning this relation is however purpose of the regression model. In the following, we always make this assumption and refer to this property as a <strong>centered</strong> Gaussian process.</p>
 <p>Instead of all possible sample paths of the Gaussian process only those paths are considered which match the training data:</p>
 <a class="reference internal image-reference" href="../../_images/gaussianregr.gif"><img alt="Cond Gaussian process" src="../../_images/gaussianregr.gif" style="width: 800px;" /></a>
 <p>For a test point <span class="math notranslate nohighlight">\(x^*\)</span> the <strong>distribution of</strong> <span class="math notranslate nohighlight">\(f(x^*)\)</span> <strong>given the data</strong> <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html#lem-condnormaldistr"><span class="std std-ref">conditional distribution</span></a> which can be computed explicitly, since we are dealing with normal distributions. The prediction of the model at <span class="math notranslate nohighlight">\(x^*\)</span> is given by the mean of the conditional distribution and the uncertainty is quantified by the variance which corresponds to the variability of the string in the preceding animation. As seen before, this uncertainty can also be expressed in terms of credible intervals:</p>
@@ -689,7 +689,7 @@ k(x_n, x^*_1) &amp; k(x_n, x^*_2) &amp; \dots &amp; k(x_n, x^*_m) \end{pmatrix}\
 <div class="section" id="examples-of-kernels">
 <h2><span class="section-number">7.1.3. </span>Examples of Kernels<a class="headerlink" href="#examples-of-kernels" title="Permalink to this headline">¶</a></h2>
 <p>As mentioned before, the choice of the kernel determines the properties of the Gaussian process and consequently also of the regression model. In the present section, we define the most common covariance functions and visualize the corresponding sample paths.</p>
-<div class="cell tag_hide-cell docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> notebook
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1781,7 +1781,7 @@ if (IPython.notebook.kernel !== null) {
 <p>The rational quadratic kernel denotes a family of isotropic kernels with parameter <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> defined by</p>
 <div class="math notranslate nohighlight">
 \[k_{\alpha}(x, x^{\prime}) = \Big( 1 + \frac{r^2}{2\alpha~l^2} \Big)^{-\alpha}\]</div>
-<p>with <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(l &gt; 0\)</span>. This kernel can be seen as mixture of squared exponential kernels with different length scales (see (4.20) in <span id="id3">[<a class="reference internal" href="#id11">1</a>]</span>). In the subsequent animation, we used <span class="math notranslate nohighlight">\(\alpha = l = 1\)</span>.</p>
+<p>with <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(l &gt; 0\)</span>. This kernel can be seen as mixture of squared exponential kernels with different length scales (see (4.20) in <span id="id3">[<a class="reference internal" href="#id12">1</a>]</span>). In the subsequent animation, we used <span class="math notranslate nohighlight">\(\alpha = l = 1\)</span>.</p>
 <a class="reference internal image-reference" href="../../_images/rq.gif"><img alt="rq kernel" src="../../_images/rq.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="periodic-kernel">
@@ -1801,8 +1801,30 @@ if (IPython.notebook.kernel !== null) {
 </div>
 <div class="section" id="combination-of-kernels">
 <h3><span class="section-number">7.1.3.9. </span>Combination of Kernels<a class="headerlink" href="#combination-of-kernels" title="Permalink to this headline">¶</a></h3>
-<p id="id4"><dl class="citation">
-<dt class="label" id="id11"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>)</span></dt>
+<p>It is possible to obtain new covariance functions from known kernels by recombination.</p>
+<p>Let <span class="math notranslate nohighlight">\((f_1(x))_{x \in \mathbb{R}^d}\)</span> and <span class="math notranslate nohighlight">\((f_2(x))_{x \in \mathbb{R}^d}\)</span> be two independent centered Gaussian processes with kernels <span class="math notranslate nohighlight">\(k_1\)</span> and <span class="math notranslate nohighlight">\(k_2\)</span>, respectively. Moreover, let <span class="math notranslate nohighlight">\(a : \mathbb{R}^d \rightarrow \mathbb{R}_{&gt; 0}\)</span>. Then, sums and products can be used to generate new kernels <span class="math notranslate nohighlight">\(k\)</span> and Gaussian processes <span class="math notranslate nohighlight">\(f\)</span> from old ones:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>$<span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span>$</p></th>
+<th class="head"><p>$<span class="math notranslate nohighlight">\(f\)</span>$</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$<span class="math notranslate nohighlight">\(k_1(x, x^{\prime})+k_2(x, x^{\prime})\)</span>$</p></td>
+<td><p>$<span class="math notranslate nohighlight">\(f_1 + f_2\)</span>$</p></td>
+</tr>
+<tr class="row-odd"><td><p>$<span class="math notranslate nohighlight">\(k_1(x, x^{\prime}) k_2(x, x^{\prime})\)</span>$</p></td>
+<td><p>$<span class="math notranslate nohighlight">\(f_1 f_2\)</span>$</p></td>
+</tr>
+<tr class="row-even"><td><p>$<span class="math notranslate nohighlight">\(a(x) k_1(x, x^{\prime}) a(x^{\prime})\)</span>$</p></td>
+<td><p>$<span class="math notranslate nohighlight">\(a f_1\)</span>$</p></td>
+</tr>
+</tbody>
+</table>
+<p>Of course, a constant <span class="math notranslate nohighlight">\(a\)</span> can be used for scaling and the three approaches can be combined arbitrarily.</p>
+<p>For additional techniques for creating new covariance functions please refer to section 4.2.4 in <span id="id4">[<a class="reference internal" href="#id12">1</a>]</span>.</p>
+<p id="id5"><dl class="citation">
+<dt class="label" id="id12"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id4">4</a>)</span></dt>
 <dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
 </dd>
 </dl>
