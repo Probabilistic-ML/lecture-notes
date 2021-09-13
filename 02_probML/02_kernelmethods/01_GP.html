@@ -474,12 +474,12 @@ We state the following brief definition:</p>
 <p><a href="http://physics.bu.edu/~duffy/HTML5/brownian_motion.html"> <center><img alt="../../_images/bm.png" src="../../_images/bm.png" /></center></a></p>
 <p>Please note that the 2d simulation shows the current position of some particle as well as its previous path. In one dimension, we can easily simulate sample paths of Brownian motion starting at <span class="math notranslate nohighlight">\(X_0 =0\)</span> and plot the result as position against time:</p>
 <a class="reference internal image-reference" href="../../_images/bm.gif"><img alt="Brownian motion" src="../../_images/bm.gif" style="width: 800px;" /></a>
-<p>The concept can be generalized to general index sets and in particular, to <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In the preceding animation time-dependent random functions are genarted, i.e., for each input <span class="math notranslate nohighlight">\(t\)</span> is mapped to a random variable <span class="math notranslate nohighlight">\(f(t)\)</span> (<span class="math notranslate nohighlight">\(X_t\)</span> with the earlier notation). For our machine learning applications we are interested in general inputs <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span> and outputs <span class="math notranslate nohighlight">\(f(x) \in \mathbb{R}^d\)</span>. In other words, a time-index is to restrictive and therefore, we generalize the idea to general index sets. Moreover, in view of the nice properties of normal distributions an additional property is supposed:</p>
+<p>The concept can be generalized to general index sets and in particular, to <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In the preceding animation time-dependent random functions are genarted, i.e., for each input <span class="math notranslate nohighlight">\(t\)</span> is mapped to a random variable <span class="math notranslate nohighlight">\(f(t)\)</span> (<span class="math notranslate nohighlight">\(X_t\)</span> with the earlier notation). For our machine learning applications we are interested in general inputs <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span> and outputs <span class="math notranslate nohighlight">\(f(x) \in \mathbb{R}\)</span>. In other words, a time-index is to restrictive and therefore, we generalize the idea to general index sets. Moreover, in view of the nice properties of normal distributions an additional property is supposed:</p>
 <div class="tip admonition" id="def-gp">
 <p class="admonition-title">Definition</p>
-<p>A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.<span id="id1">[<a class="reference internal" href="#id9">1</a>]</span></p>
+<p>A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.<span id="id1">[<a class="reference internal" href="#id10">1</a>]</span></p>
 </div>
-<p>Henceforth, a Gaussian process is denoted by <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span>. We assume that the random variables <span class="math notranslate nohighlight">\(f(x)\)</span>, <span class="math notranslate nohighlight">\(x \in \mathcal{I}\)</span>, take values in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> and moreover, <span class="math notranslate nohighlight">\(\mathcal{I} = \mathbb{R}^d\)</span> for some <span class="math notranslate nohighlight">\(d \in \mathbb{N}\)</span> unless stated otherwise. The additional Gaussian condition means that for an arbitrary number of elements <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>, the <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>-valued random vector</p>
+<p>Henceforth, a Gaussian process is denoted by <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span>. We assume that the random variables <span class="math notranslate nohighlight">\(f(x)\)</span>, <span class="math notranslate nohighlight">\(x \in \mathcal{I}\)</span>, take values in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Moreover, <span class="math notranslate nohighlight">\(\mathcal{I} = \mathbb{R}^d\)</span> for some <span class="math notranslate nohighlight">\(d \in \mathbb{N}\)</span> unless stated otherwise. In this case, <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span> is also called a <strong>random field</strong>. The additional Gaussian condition means that for an arbitrary number of elements <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>, the <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>-valued random vector</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{pmatrix} f(x_1) \\ f(x_2) \\ \vdots \\ f(x_n) \end{pmatrix}\end{split}\]</div>
 <p>is mulivariate normally distributed. By construction the Gaussian process yields random functions from <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Moreover, Brownian motion is a specific Gaussian process.</p>
@@ -501,7 +501,10 @@ We state the following brief definition:</p>
 k(x_2, x_1) &amp; k(x_2, x_2) &amp; \dots &amp; k(x_2, x_n) \\ 
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
 k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{split}\]</div>
-<p>Thus, a Gaussian process is specified by choosing a mean function <span class="math notranslate nohighlight">\(m\)</span> and a kernel <span class="math notranslate nohighlight">\(k\)</span>. This choice determines the properties of the sample paths of the Gaussian process. For example, the paths can be very rough as for Brownian motion or they can be very smooth as for the squared exponential or RBF kernel:</p>
+<p>Thus, a Gaussian process is specified by choosing a mean function <span class="math notranslate nohighlight">\(m\)</span> and a kernel <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>The kernel <span class="math notranslate nohighlight">\(k\)</span> generates the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and the covariance of a multivariate normal distiribution possesses certain properties such as symmetry and positive definiteness. Consequently, a general function of two variables will not be a valid covariance function of a Gaussian process. Clearly, a covariance function is necessarily <strong>symmetric</strong>, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime}) = k(x^{\prime}, x)\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathcal{I}\)</span>. <strong>Positive definiteness</strong> of covariance function can also be defined, but requires some additional mathematical background (refer to (4.2) in <span id="id2">[<a class="reference internal" href="#id10">1</a>]</span>).</p>
+<p>A kernel <span class="math notranslate nohighlight">\(k\)</span> is called <strong>stationary</strong> if it depends only on the difference of two inputs, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> depends only on <span class="math notranslate nohighlight">\(x - x^{prime}\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Furthermore, it is even <strong>isotropic</strong> if it depends only on the distance <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span>.</p>
+<p>The choice of <span class="math notranslate nohighlight">\(k\)</span> determines the properties of the sample paths of the Gaussian process. For example, the paths can be very rough as for Brownian motion or they can be very smooth as for the squared exponential or RBF kernel:</p>
 <a class="reference internal image-reference" href="../../_images/smooth.gif"><img alt="Gaussian process" src="../../_images/smooth.gif" style="width: 800px;" /></a>
 </div>
 <div class="section" id="gaussian-process-regression">
@@ -517,7 +520,11 @@ k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{sp
 <p>The following interactive plot shows how the distribution of one component of a two dimensional normally distributed random vector behaves if the other component is fixed. The main observation is that the fixed value has no impact on the other component if the correlation is zero. In this case, the two components are independent. Moreover, the impact increases as the absolute value of the correlation increases. This means for Gaussian process regression that the impact of training points <span class="math notranslate nohighlight">\(x\)</span> on the prediction for test points <span class="math notranslate nohighlight">\(x^*\)</span> depends on the variance <span class="math notranslate nohighlight">\(k(x, x^*)\)</span>. Please open the notebook in Google Colab to use the visualization.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">clear_output</span>
+<span class="o">!</span>pip install ipympl
+<span class="n">clear_output</span><span class="p">()</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_formats = [&#39;svg&#39;]
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -541,8 +548,12 @@ k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{sp
     <span class="n">pdf</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">mean</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">covariance</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">pdf</span>
 
-<span class="nd">@interact</span><span class="p">(</span><span class="n">x_condition</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">y_condition</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">correlation</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">plot_conddistr</span><span class="p">(</span><span class="n">x_condition</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">y_condition</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+<span class="nd">@interact</span><span class="p">(</span><span class="n">x_condition</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> 
+          <span class="n">y_condition</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> 
+          <span class="n">correlation</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">plot_conddistr</span><span class="p">(</span><span class="n">x_condition</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> 
+                   <span class="n">y_condition</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> 
+                   <span class="n">correlation</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
     <span class="n">d</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># dimensions</span>
     <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]])</span>
     <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span>
@@ -559,12 +570,12 @@ k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{sp
     <span class="n">B</span> <span class="o">=</span> <span class="n">cov</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
     <span class="n">C</span> <span class="o">=</span> <span class="n">cov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># = C transpose in this case</span>
     <span class="c1"># Calculate x|y</span>
-    <span class="n">mean_xgiveny</span> <span class="o">=</span> <span class="n">mean_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_condition</span> <span class="o">-</span> <span class="n">mean_y</span><span class="p">))</span>
-    <span class="n">cov_xgiveny</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="n">C</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="n">C</span>
+    <span class="n">mean_xgiveny</span> <span class="o">=</span> <span class="n">mean_x</span> <span class="o">+</span> <span class="n">C</span> <span class="o">/</span><span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_condition</span> <span class="o">-</span> <span class="n">mean_y</span><span class="p">)</span>
+    <span class="n">cov_xgiveny</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="n">C</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span><span class="n">B</span>
 
     <span class="c1"># Calculate y|x</span>
-    <span class="n">mean_ygivenx</span> <span class="o">=</span> <span class="n">mean_y</span> <span class="o">+</span> <span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">A</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_condition</span> <span class="o">-</span> <span class="n">mean_x</span><span class="p">))</span>
-    <span class="n">cov_ygivenx</span> <span class="o">=</span> <span class="n">B</span> <span class="o">-</span> <span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">A</span><span class="p">)</span> <span class="o">*</span> <span class="n">C</span><span class="p">)</span>
+    <span class="n">mean_ygivenx</span> <span class="o">=</span> <span class="n">mean_y</span> <span class="o">+</span> <span class="n">C</span> <span class="o">/</span><span class="n">A</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_condition</span> <span class="o">-</span> <span class="n">mean_x</span><span class="p">)</span>
+    <span class="n">cov_ygivenx</span> <span class="o">=</span> <span class="n">B</span> <span class="o">-</span> <span class="n">C</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span><span class="n">A</span>
     <span class="c1"># Plot the conditional distributions</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
     <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span>
@@ -616,14 +627,13 @@ k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{sp
     <span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;20%&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
     <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
     <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;density: $p(x, y)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "916f8612944a42ac912215952c9f8ce9", "version_major": 2, "version_minor": 0}
-</script></div>
+{"model_id": "ea81bc382940430cac4b1b3a81ae6c14", "version_major": 2, "version_minor": 0}
+</script><img alt="../../_images/01_GP_9_1.svg" src="../../_images/01_GP_9_1.svg" /></div>
 </div>
 <p>The general equations for Gaussian process regression are derived as follows. Let</p>
 <div class="math notranslate nohighlight">
@@ -655,7 +665,7 @@ k(x_n, x^*_1) &amp; k(x_n, x^*_2) &amp; \dots &amp; k(x_n, x^*_m) \end{pmatrix}\
 <p>Finally, we can apply <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html#lem-condnormaldistr"><span class="std std-ref">conditional distribution formula</span></a> to deduce the following:</p>
 <div class="important admonition" id="lem-gpregr">
 <p class="admonition-title">Lemma</p>
-<p>The conditional distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> given <span class="math notranslate nohighlight">\(f(X) = Y\)</span> is multivariate normally distributed with mean</p>
+<p>Gaussian process regression predicts the distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> by a multivariate normally distributed with mean</p>
 <div class="math notranslate nohighlight">
 \[\mu^* = K(X^*, X) K(X, X)^{-1} Y\]</div>
 <p>and covariance</p>
@@ -665,7 +675,16 @@ k(x_n, x^*_1) &amp; k(x_n, x^*_2) &amp; \dots &amp; k(x_n, x^*_m) \end{pmatrix}\
 <p>The term <span class="math notranslate nohighlight">\(\alpha := K(X, X)^{-1} Y\)</span> is a vector of size <span class="math notranslate nohighlight">\(n\)</span> which is independent of <span class="math notranslate nohighlight">\(x^*\)</span>. Moreover, for a single test point <span class="math notranslate nohighlight">\(x^*\)</span> the covariance matrix K(x^*, X)$ reduces to a row vector. Hence, it holds</p>
 <div class="math notranslate nohighlight">
 \[\mu^* = K(x^*, X) \alpha = \sum_{i=1}^n \alpha_i k(x^*, x_i).\]</div>
-<p>In other words, the <strong>mean prediction is a linear combination of the functions</strong> <span class="math notranslate nohighlight">\(k(\cdot, x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>.</p>
+<p>In other words, the <strong>mean prediction is a linear combination of the functions</strong> <span class="math notranslate nohighlight">\(k(\cdot, x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>. The weights <span class="math notranslate nohighlight">\(\alpha_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are constructed such that the training data is fitted exactly (see plot above). This is <strong>only possible if the inverse matrix</strong> <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span> <strong>exists</strong>. This might not always the case. Think of the linear regression example including noise in the data. In this case, it is not possible to find a linear function which fits the data exactly. Furthermore, we possibly do not like to obtain a perfect fit, since we suppose that our training data contains noise. In order to solve this issue, a <strong>noise term</strong> <span class="math notranslate nohighlight">\(\sigma_n^2 &gt; 0\)</span> is added to covariance related to the training data, i.e., <span class="math notranslate nohighlight">\(K(X, X)\)</span> is replaced by <span class="math notranslate nohighlight">\(K(X, X) + \sigma_n^2 I_n\)</span>, where <span class="math notranslate nohighlight">\(I_n\)</span> denotes the identity matrix. In this way, the variance of <span class="math notranslate nohighlight">\(f(x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, is increased by <span class="math notranslate nohighlight">\(\sigma_n^2\)</span>. Hence, it holds</p>
+<div class="important admonition" id="lem-gpregrnoise">
+<p class="admonition-title">Lemma</p>
+<p>Gaussian process regression with noise <span class="math notranslate nohighlight">\(\sigma_n^2\)</span> predicts the distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> by a multivariate normally distributed with mean</p>
+<div class="math notranslate nohighlight">
+\[\mu^* = K(X^*, X) \big(K(X, X) + \sigma_n^2 I_n\big)^{-1} Y\]</div>
+<p>and covariance</p>
+<div class="math notranslate nohighlight">
+\[\Sigma^* = K(X^*, X^*) - K(X^*, X) \big(K(X, X) + \sigma_n^2 I_n\big)^{-1} K(X, X^*)\]</div>
+</div>
 </div>
 <div class="section" id="examples-of-kernels">
 <h2><span class="section-number">7.1.3. </span>Examples of Kernels<a class="headerlink" href="#examples-of-kernels" title="Permalink to this headline">¶</a></h2>
@@ -1740,8 +1759,8 @@ if (IPython.notebook.kernel !== null) {
 </div>
 <div class="section" id="combination-of-kernels">
 <h3><span class="section-number">7.1.3.9. </span>Combination of Kernels<a class="headerlink" href="#combination-of-kernels" title="Permalink to this headline">¶</a></h3>
-<p id="id2"><dl class="citation">
-<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<p id="id3"><dl class="citation">
+<dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
 <dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
 </dd>
 </dl>
