@@ -400,57 +400,16 @@
   <a class="reference internal nav-link" href="#gradient-methods">
    4.3. Gradient Methods
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gradient-descend">
-     4.3.1. Gradient Descend
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#adaptive-and-momentum-based-optimization">
-     4.3.2. Adaptive and Momentum based optimization
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#newton-and-quasi-newton-methods">
-     4.3.3. Newton and Quasi Newton Methods
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#stochastic-methods">
    4.4. Stochastic Methods
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-search">
-     4.4.1. Random Search
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#stochastic-gradient">
-     4.4.2. Stochastic gradient
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cross-entropy-method">
-     4.4.3. Cross Entropy Method
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#population-based-methods">
    4.5. Population Based Methods
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#differential-evolution">
-     4.5.1. Differential Evolution
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
@@ -473,9 +432,9 @@
 <p>In this section we will discuss optimization methods for machine learning. The optimization is the “learning” step in machine learning. There we fit the model to out data, eg. in neural network we will change weights, in linear regression we will change slope and intercept of the model by minimizing a loss function.</p>
 <p>The content is only an overview about the optimization techniques and for further reading please look at</p>
 <p><a class="reference external" href="https://printkr.hs-niederrhein.de:2173/doi/pdfdirect/10.1002/0471722138">“INTRODUCTION TO STOCHASTIC SEARCH AND OPTIMIZATION”</a></p>
-<p>by JAMES C. SPALL <span id="id1">[<a class="reference internal" href="#id12">2</a>]</span> and</p>
+<p>by JAMES C. SPALL <span id="id1">[<a class="reference internal" href="#id13">2</a>]</span> and</p>
 <p><a class="reference external" href="https://algorithmsbook.com/optimization/files/optimization.pdf">“Algorithms for Optimization”</a></p>
-<p>by Mykel J. Kochenderfer and Tim A. Wheele <span id="id2">[<a class="reference internal" href="#id11">1</a>]</span>.</p>
+<p>by Mykel J. Kochenderfer and Tim A. Wheele <span id="id2">[<a class="reference internal" href="#id12">1</a>]</span>.</p>
 <div class="section" id="introduction-an-easy-example">
 <h2><span class="section-number">4.1. </span>Introduction: an easy example<a class="headerlink" href="#introduction-an-easy-example" title="Permalink to this headline">¶</a></h2>
 <p>We want to make a simple linear regression on given data below. For that we want to fit the parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\( \beta_1\)</span> from the linear regession</p>
@@ -498,7 +457,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04_opt_1_0.svg" src="../_images/04_opt_1_0.svg" /></div>
+<img alt="../_images/04_opt_1_0.png" src="../_images/04_opt_1_0.png" />
+</div>
 </div>
 <p>We now make initial guess for parameters <span class="math notranslate nohighlight">\(\beta_0=1\)</span> and <span class="math notranslate nohighlight">\(\beta_1 =1\)</span> and see how our model performs.</p>
 <p>For that we need some measure how “good” our fit was. We calculate the difference of each point to our line and we want no negative value so we square the difference of these.</p>
@@ -524,10 +484,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2554.6543498461815
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2466.02896115869
 </pre></div>
 </div>
-<img alt="../_images/04_opt_3_1.svg" src="../_images/04_opt_3_1.svg" /></div>
+<img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
+</div>
 </div>
 <p>We now see that our initial guess is not good at all. But we can now use the RSS to fit our function to the data. We are searching for a minimum of the RSS function. The coeficents which fits our data best are</p>
 <div class="math notranslate nohighlight">
@@ -555,12 +516,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  113.78434147186353
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  114.28133989976529
 </pre></div>
 </div>
-<img alt="../_images/04_opt_5_1.svg" src="../_images/04_opt_5_1.svg" /></div>
+<img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
 </div>
-<p>We now see that the “fit” of our model is much better. This method above falls under the category gradient optimization. However Newton’s method is not often used in machine learning because we need the second derivative, which categorises this algorithm in higher order schemes. But often this is not possible or it is just to resource consuming to use it. For the newton’s method we need to calculate a inverse of the hessian matrix to get better convergence than first order gradient descent methods.</p>
+</div>
+<p>We now see that the “fit” of our model is much better. This method above falls under the category gradient optimization. However Newton’s method is not often used in machine learning because we need the second derivative, because we are searching the zeros of the first derivative. But often this is not possible or it is just to resource consuming to use it. For the newton’s method we need to calculate a inverse of the hessian matrix to get better convergence than first order gradient descent methods.</p>
 <p>Now let us take a look on what happend to the RSS function in our optimization algorithm. The next plot shows the start value and the iteration of the algorithm to find a minimum with the help of the gradient.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -586,11 +548,11 @@
 <span class="n">Z</span> <span class="o">=</span> <span class="n">rss_values_all</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
 <span class="c1"># Plot the surface.</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;slope&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;intercept&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;RSS&#39;</span><span class="p">)</span>
-<span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span> <span class="c1"># ToDo add order of iterations</span>
+<span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># ToDo add order of iterations</span>
 <span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
 <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -598,7 +560,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04_opt_8_0.svg" src="../_images/04_opt_8_0.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 864x720 with 0 Axes&gt;
+<img alt="../_images/04_opt_8_0.png" src="../_images/04_opt_8_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 864x720 with 0 Axes&gt;
 </pre></div>
 </div>
 </div>
@@ -636,7 +599,7 @@
     <span class="k">return</span> <span class="n">Z</span>
 <span class="n">Z</span> <span class="o">=</span>  <span class="n">Rosenbrock</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
 
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">nipy_spectral</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rosenbrock function&quot;</span><span class="p">)</span>
 <span class="c1">#===============</span>
 <span class="c1"># Second subplot</span>
@@ -656,14 +619,15 @@
 <span class="n">Z</span> <span class="o">=</span> <span class="n">Rastrigin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span> 
-<span class="n">surf2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">nipy_spectral</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span><span class="n">antialiased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   
+<span class="n">surf2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span><span class="n">antialiased</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rastrigin function&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04_opt_10_0.svg" src="../_images/04_opt_10_0.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/04_opt_10_0.png" src="../_images/04_opt_10_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
 </div>
@@ -672,41 +636,21 @@
 </div>
 <div class="section" id="gradient-methods">
 <h2><span class="section-number">4.3. </span>Gradient Methods<a class="headerlink" href="#gradient-methods" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="gradient-descend">
-<h3><span class="section-number">4.3.1. </span>Gradient Descend<a class="headerlink" href="#gradient-descend" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="adaptive-and-momentum-based-optimization">
-<h3><span class="section-number">4.3.2. </span>Adaptive and Momentum based optimization<a class="headerlink" href="#adaptive-and-momentum-based-optimization" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="newton-and-quasi-newton-methods">
-<h3><span class="section-number">4.3.3. </span>Newton and Quasi Newton Methods<a class="headerlink" href="#newton-and-quasi-newton-methods" title="Permalink to this headline">¶</a></h3>
-</div>
+<p>As in our easy example newtons methods is in this category. This requires that the functon is twice differentiable. This is often not the case or to calculate the second derivative is just to time consuming. The gradient descent methods is the easiest method in this case. For this method we the first derivative which is the gradient <span class="math notranslate nohighlight">\(\nabla f\)</span>. Per definition the gradient shows in the direction of the speepest direction. We want find a mininum so will take the negative gradient. Usually in gradient descent method the gradient is normalized. So the direction of steepest descent is</p>
+<div class="math notranslate nohighlight">
+\[g(x) := -\frac{\nabla f(x)}{|\nabla f(x)|} \]</div>
+<p>Now want to move along the steepest direction with a given step size <span class="math notranslate nohighlight">\(\alpha\)</span>. The step size is often called learning rate in machine learning. We could also find an optimal <span class="math notranslate nohighlight">\(\alpha\)</span> to find the minimum along these line (linesearch). The problem here is, that we do not want to overshoot our mininum and we do not want to take too small step size that our search have a lot of iterations.</p>
+<p>Our algorithm looks as follows:</p>
+<div class="math notranslate nohighlight">
+\[  x^{(n+1)}:=x^{(n)} + g(x)^{(n)}  \alpha^{(n)} \]</div>
+<p>where <span class="math notranslate nohighlight">\(x^{(n+1)}\)</span> is the next iteration value and <span class="math notranslate nohighlight">\(x^{(n)}\)</span> is the current value and <span class="math notranslate nohighlight">\(n\)</span> denotes the number of iterations.</p>
 </div>
 <div class="section" id="stochastic-methods">
 <h2><span class="section-number">4.4. </span>Stochastic Methods<a class="headerlink" href="#stochastic-methods" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="random-search">
-<h3><span class="section-number">4.4.1. </span>Random Search<a class="headerlink" href="#random-search" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="stochastic-gradient">
-<h3><span class="section-number">4.4.2. </span>Stochastic gradient<a class="headerlink" href="#stochastic-gradient" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="cross-entropy-method">
-<h3><span class="section-number">4.4.3. </span>Cross Entropy Method<a class="headerlink" href="#cross-entropy-method" title="Permalink to this headline">¶</a></h3>
-</div>
 </div>
 <div class="section" id="population-based-methods">
 <h2><span class="section-number">4.5. </span>Population Based Methods<a class="headerlink" href="#population-based-methods" title="Permalink to this headline">¶</a></h2>
-<p>Unlike in the previous chapter where a single point moved incrementally to the minimum, in population algorithms we have a lot of of points as start points all over the design space which are called individuals.</p>
-<div class="section" id="differential-evolution">
-<h3><span class="section-number">4.5.1. </span>Differential Evolution<a class="headerlink" href="#differential-evolution" title="Permalink to this headline">¶</a></h3>
-<p>Differential evolution attempts to improve each individual in the population by recombining other individuals in the population according to a simple formula. It is parameterized by a crossover probability <span class="math notranslate nohighlight">\(p\)</span> and a differential weight <span class="math notranslate nohighlight">\(w\)</span>. <span class="math notranslate nohighlight">\(w\)</span> is usually between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For each individual <span class="math notranslate nohighlight">\(x\)</span>:</p>
-<p>\begin{enumerate}
-\item Choose three random distinct individuals <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(c\)</span>.
-\item Construct an interim design <span class="math notranslate nohighlight">\(z = a + w · (b − c)\)</span>
-\item …
-\item …
-\item ..
-\end{enumerate}</p>
+<p>Unlike in the previous chapter where a single point moved incrementally to the minimum, in population algorithms we have a lot of points as start points all over the design space which are called individuals. We start with the first genaration of individuals. The best performers of these individuals will make a new generation. This will iterate as long as the minimium is not found. As an example we will show differential evolution. Differential evolution attempts to improve each individual in the population by recombining other individuals in the population according to a simple formula. It is parameterized by a crossover probability <span class="math notranslate nohighlight">\(p\)</span> and a differential weight <span class="math notranslate nohighlight">\(w\)</span>. <span class="math notranslate nohighlight">\(w\)</span> is usually between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For each individual <span class="math notranslate nohighlight">\(x\)</span>. For More Details look in <span id="id3">[<a class="reference internal" href="#id13">2</a>]</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
@@ -741,7 +685,7 @@
 <span class="n">Z</span> <span class="o">=</span>  <span class="n">Rosenbrock</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
 
 <span class="c1"># Plot the surface.</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span> <span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
@@ -779,7 +723,7 @@
 <span class="n">Z</span> <span class="o">=</span>  <span class="n">Rastrigin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
 
 <span class="c1"># Plot the surface.</span>
-<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
@@ -794,32 +738,34 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: 1.9721522630525295e-31
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
+     fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 4113
-     nit: 136
+    nfev: 4053
+     nit: 134
  success: True
        x: array([1., 1.])
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1773
-     nit: 58
+    nfev: 1893
+     nit: 62
  success: True
-       x: array([2.75688272e-09, 1.61125824e-09])
+       x: array([7.34889039e-10, 2.41152992e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_14_1.svg" src="../_images/04_opt_14_1.svg" /></div>
+<img alt="../_images/04_opt_15_1.png" src="../_images/04_opt_15_1.png" />
+</div>
 </div>
 <p>Particle Swarm Optimization</p>
 </div>
-</div>
 <div class="section" id="references">
 <h2><span class="section-number">4.6. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p id="id3"><dl class="citation">
-<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<p id="id4"><dl class="citation">
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>Mykel J. Kochenderfer and Tim A. Wheeler. <em>Algorithms for Optimization</em>. The MIT Press, 2019. ISBN 0262039427.</p>
 </dd>
-<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dt class="label" id="id13"><span class="brackets">2</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
 <dd><p>James C. Spall. <em>Introduction to Stochastic Search and Optimization</em>. John Wiley &amp;amp; Sons, Inc., USA, 1 edition, 2003. ISBN 0471330523.</p>
 </dd>
 </dl>
