@@ -5,9 +5,8 @@ parts:
   numbered: false
   chapters:
   - file: 00_preface/01_preface
-  - file: 00_preface/02_about
-  - file: 00_preface/03_python
-  - file: 00_preface/04_notation
+  - file: 00_preface/02_python
+  - file: 00_preface/03_notation
 - caption: Fundamentals
   numbered: true
   chapters:
@@ -42,7 +41,7 @@ parts:
   - file: 03_appl/BO
   - file: 03_appl/uncertainty
   - file: 03_appl/03_RL.md
-- caption: Appendix
-  numbered: false
-  chapters:
-  - file: 04_appendix/placeholder.md
+#- caption: Appendix
+#  numbered: false
+#  chapters:
+#  - file: 04_appendix/placeholder.md
