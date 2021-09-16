@@ -58,7 +58,6 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Appendix A" href="../04_appendix/placeholder.html" />
     <link rel="prev" title="10. Design Uncertainty Analysis" href="uncertainty.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -108,17 +107,12 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/02_about.html">
-   About the Authors
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/03_python.html">
+  <a class="reference internal" href="../00_preface/02_python.html">
    Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/04_notation.html">
+  <a class="reference internal" href="../00_preface/03_notation.html">
    Notation
   </a>
  </li>
@@ -272,18 +266,6 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    11. Efficient Reinforcement Learning
-  </a>
- </li>
-</ul>
-<p class="caption">
- <span class="caption-text">
-  Appendix
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../04_appendix/placeholder.html">
-   Appendix A
   </a>
  </li>
 </ul>
@@ -472,8 +454,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-13a239c0-925f-4d3b-a71a-e0920d5eea2d">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-13a239c0-925f-4d3b-a71a-e0920d5eea2d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7da24af3-73e0-4dc5-9fbf-9d79c253b414">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-7da24af3-73e0-4dc5-9fbf-9d79c253b414" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -532,15 +514,6 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
             </div>
         </a>
     </div>
-     <div id="next">
-        <a class="right-next" href="../04_appendix/placeholder.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Appendix A</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
 
 </div>
         

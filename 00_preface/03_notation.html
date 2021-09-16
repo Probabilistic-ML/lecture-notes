@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About the Authors &#8212; Probabilistic Machine Learning</title>
+    <title>Notation &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -45,6 +45,8 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -52,12 +54,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/00_preface/02_about.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/00_preface/03_notation.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Python" href="03_python.html" />
-    <link rel="prev" title="Preface" href="01_preface.html" />
+    <link rel="next" title="1. Fundamentals of Probability Theory" href="../01_fund/01_fundprob.html" />
+    <link rel="prev" title="Python" href="02_python.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -105,18 +107,13 @@
    Preface
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   About the Authors
-  </a>
- </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03_python.html">
+  <a class="reference internal" href="02_python.html">
    Python
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04_notation.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Notation
   </a>
  </li>
@@ -273,18 +270,6 @@
   </a>
  </li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  Appendix
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../04_appendix/placeholder.html">
-   Appendix A
-  </a>
- </li>
-</ul>
 
     </div>
 </nav> <!-- To handle the deprecated key -->
@@ -325,7 +310,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/00_preface/02_about.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/00_preface/03_notation.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -371,8 +356,53 @@
         
               <div>
                 
-  <div class="section" id="about-the-authors">
-<h1>About the Authors<a class="headerlink" href="#about-the-authors" title="Permalink to this headline">¶</a></h1>
+  <!-- #region -->
+<div class="section" id="notation">
+<h1>Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h1>
+<p>In the following, we state the most important notations used in the present lecture notes. This collection is certainly not complete. Please draw our attention to expression which should be included into this section.</p>
+<p>A set is a collection of elements. In order to combine sets to a new set, we introduce some usual notations and operations.</p>
+<p>Let <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> be two sets which are subsets of a universal set <span class="math notranslate nohighlight">\(U\)</span> (i.e., <span class="math notranslate nohighlight">\(U\)</span> contains <strong>all</strong> elements of interest). Denote the empty set (i.e., the set with no elements) by <span class="math notranslate nohighlight">\(\emptyset\)</span>.</p>
+<ul class="simple">
+<li><p>subset:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \subset B ~ \Leftrightarrow ~\text{each element of $A$ is an element of $B$}\]</div>
+<ul class="simple">
+<li><p>union:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \cup B := \{x~|~x \in A \text{ or } x \in B \}\]</div>
+<ul class="simple">
+<li><p>intersection:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \cap B := \{x~|~x \in A \text{ and } x \in B \}\]</div>
+<ul class="simple">
+<li><p>disjoint union:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A ~\dot\cup~ B = A \cup B \quad \text{with $A \cap B = \emptyset$ (i.e., $A$ and $B$ have no common elements).}\]</div>
+<ul class="simple">
+<li><p>difference:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A \backslash B := \{x~|~x \in A \text{ and } x \notin B \}\]</div>
+<ul class="simple">
+<li><p>complement:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[A^c := U \backslash A\]</div>
+<ul class="simple">
+<li><p>partition: a partition of <span class="math notranslate nohighlight">\(U\)</span> is a collection of subset <span class="math notranslate nohighlight">\(A_1, A_2, \dots\)</span> such that <span class="math notranslate nohighlight">\(A_i \cap A_j = \emptyset\)</span> for each <span class="math notranslate nohighlight">\(i, j \in \mathbb{N}\)</span> (disjointness) and <span class="math notranslate nohighlight">\(U = \cup_{i=1}^{\infty} A_i\)</span>. In accordance with the disjoint union of two sets, we write</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[U = ~\dot\cup_{i=1}^{\infty}~A_i\]</div>
+<p><span class="math notranslate nohighlight">\(\mathbb{1}_A\)</span> denotes the indicator function which returns <span class="math notranslate nohighlight">\(1\)</span> if an input is an element of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(0\)</span> otherwise:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{1}_A(x) = \begin{cases} 1 \text{ if } x \in A \\
+                                  0 \text{ if } x \notin A
+                    \end{cases}\end{split}\]</div>
+<!-- #endregion -->
 </div>
 
     <script type="text/x-thebe-config">
@@ -405,19 +435,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="01_preface.html" title="previous page">
+        <a class="left-prev" href="02_python.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Preface</p>
+                <p class="prevnext-title">Python</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="03_python.html" title="next page">
+        <a class="right-next" href="../01_fund/01_fundprob.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Python</p>
+                <p class="prevnext-title"><span class="section-number">1. </span>Fundamentals of Probability Theory</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
