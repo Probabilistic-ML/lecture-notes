@@ -1,6 +1,7 @@
 jupyter-book
 ghp-import
 tensorflow>=2.4
+autograd
 numpy
 scipy
 matplotlib
