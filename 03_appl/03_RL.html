@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -76,6 +76,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/logo.png" class="logo" alt="logo">
       
@@ -454,8 +458,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4a7f4348-c3c3-467d-923e-e789b480fc20">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-4a7f4348-c3c3-467d-923e-e789b480fc20" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7b749f9a-9a8a-4404-9648-abd269a82bdb">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-7b749f9a-9a8a-4404-9648-abd269a82bdb" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -519,7 +523,7 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

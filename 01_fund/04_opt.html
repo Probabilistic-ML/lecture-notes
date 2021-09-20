@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -77,6 +77,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../_static/logo.png" class="logo" alt="logo">
       
@@ -468,7 +472,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2258.3458036314555
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  3046.016120370171
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -500,7 +504,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  97.67005444137708
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  105.23064872043223
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -809,14 +813,12 @@ To handle the first problem we can adress some features:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[0.99574487 0.98869214]
+[1.01986681 1.0516718 ]
+Rastrigin
+[0.99403965 2.90801739]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
-[0.01992591 1.0916894 ]
-</pre></div>
-</div>
-<img alt="../_images/04_opt_19_2.png" src="../_images/04_opt_19_2.png" />
+<img alt="../_images/04_opt_19_1.png" src="../_images/04_opt_19_1.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -914,22 +916,20 @@ To handle the first problem we can adress some features:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 4323
-     nit: 143
+    nfev: 3903
+     nit: 129
  success: True
        x: array([1., 1.])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1713
-     nit: 56
+    nfev: 1863
+     nit: 61
  success: True
-       x: array([-1.46992574e-09, -1.62066138e-09])
+       x: array([ 7.37359507e-10, -2.18313212e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_22_2.png" src="../_images/04_opt_22_2.png" />
+<img alt="../_images/04_opt_22_1.png" src="../_images/04_opt_22_1.png" />
 </div>
 </div>
 </div>
@@ -999,7 +999,7 @@ To handle the first problem we can adress some features:</p>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
