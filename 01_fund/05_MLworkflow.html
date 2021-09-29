@@ -409,6 +409,18 @@
   <a class="reference internal nav-link" href="#model-selection">
    5.2. Model selection
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#statistical-and-information-based-model-selection">
+     5.2.1. Statistical and information based model selection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sampling-resampling-based-model-selection">
+     5.2.2. Sampling / Resampling based model selection
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
@@ -829,7 +841,7 @@ X' = \frac{X - \mu}{\sigma}
 <li><p>Ensemble different resampled datasets: Train <span class="math notranslate nohighlight">\(n\)</span> different models which have all the minority class samples and allways different majority class.</p></li>
 <li><p>Adjust your ML method instead of the data: You can adjust the cost function in your algorithm that the minority class has more impact.</p></li>
 </ul>
-<p>Preprocessing Cheat Sheet</p>
+<p><strong>Preprocessing Cheat Sheet</strong></p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:left head"><p>Issues</p></th>
@@ -862,16 +874,22 @@ X' = \frac{X - \mu}{\sigma}
 <div class="section" id="model-selection">
 <h2><span class="section-number">5.2. </span>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">¶</a></h2>
 <p>Now we will dive into the Machine Learning part. We will look deeper into model selection techniques. We are looking for a model that has enough explanatory power to explain the variance in the data without over- or under-fitting, yet is parsimonious. We already showed regularisation in form of LASSO and Ridge Regression to overcome overfittung in previous chapter and will continue on statistical and information based model selection.</p>
-<p><strong>Statistical model selection</strong>
-Occam’s razor says optimal models are as parsimonious as possible. For this we need a formal method to select the optimal model that provides the best trade-off between variance and bias. We can answer this with hypothesis testing.</p>
+<div class="section" id="statistical-and-information-based-model-selection">
+<h3><span class="section-number">5.2.1. </span>Statistical and information based model selection<a class="headerlink" href="#statistical-and-information-based-model-selection" title="Permalink to this headline">¶</a></h3>
+<p>Occam’s razor says optimal models are as parsimonious as possible. For this we need a formal method to select the optimal model that provides the best trade-off between variance and bias. We can answer this with hypothesis testing.</p>
 <p><strong>Likelihood ratio test</strong> can be used for nested models <span class="math notranslate nohighlight">\(M_0 \subset M_1\)</span>. For this we can use Wilk’s Theorem with the Chi-squared distribution. For example in polynomial regression where the model with higher polynomial degree includes the model with lower degrees is a nested model. We can make a t-statistic and like a t-test we can calculate a p-value to drop our hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> in favor of an alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> or believe in <span class="math notranslate nohighlight">\(H_0\)</span> when the p-values is under a given threshold.</p>
-<p><strong>Akaike’s Inromation Criteria (AIC)</strong> can be used for models with <span class="math notranslate nohighlight">\(k\)</span> parameters <span class="math notranslate nohighlight">\(\Theta\)</span> and a likelihood function  <span class="math notranslate nohighlight">\(\log(\mathcal{L}(\Theta|x))\)</span> and is defined as</p>
+<p><strong>Akaike’s Information Criteria (AIC)</strong> can be used for models with <span class="math notranslate nohighlight">\(k\)</span> parameters <span class="math notranslate nohighlight">\(\Theta\)</span> and a likelihood function  <span class="math notranslate nohighlight">\(\log(\mathcal{L}(\Theta|x))\)</span> and is defined as</p>
 <div class="math notranslate nohighlight">
 \[
 AIC:= 2k - 2\log(\mathcal{L}(\Theta|x))
 \]</div>
 <p>This score of a model can be seen as an estimate of expected information loss if we replace the true data by the prediction of our model. By minimizing this we finding the optimal model.</p>
-<p><strong>k-fold cross validation</strong></p>
+</div>
+<div class="section" id="sampling-resampling-based-model-selection">
+<h3><span class="section-number">5.2.2. </span>Sampling / Resampling based model selection<a class="headerlink" href="#sampling-resampling-based-model-selection" title="Permalink to this headline">¶</a></h3>
+<p><strong>Cross Validation</strong>
+k-fold / LOOCV</p>
+</div>
 </div>
 <div class="section" id="references">
 <h2><span class="section-number">5.3. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
