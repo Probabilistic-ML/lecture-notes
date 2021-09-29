@@ -472,7 +472,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  1963.210581780864
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2221.1649608873786
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -504,7 +504,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  112.05149659290392
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  94.94905842901524
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -813,12 +813,14 @@ To handle the first problem we can adress some features:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.00175144 1.01566302]
-Rastrigin
-[ 0.08459817 -0.03467003]
+[1.10061383 1.21754211]
 </pre></div>
 </div>
-<img alt="../_images/04_opt_19_1.png" src="../_images/04_opt_19_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+[0.02597316 2.00290453]
+</pre></div>
+</div>
+<img alt="../_images/04_opt_19_2.png" src="../_images/04_opt_19_2.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -916,8 +918,8 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 4083
-     nit: 135
+    nfev: 4113
+     nit: 136
  success: True
        x: array([1., 1.])
 Rastrigin
@@ -926,7 +928,7 @@ Rastrigin
     nfev: 1773
      nit: 58
  success: True
-       x: array([-1.77648385e-09, -1.18502741e-09])
+       x: array([ 1.32913236e-09, -1.52652213e-09])
 </pre></div>
 </div>
 <img alt="../_images/04_opt_22_1.png" src="../_images/04_opt_22_1.png" />

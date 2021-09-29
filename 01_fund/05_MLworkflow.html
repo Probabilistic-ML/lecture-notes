@@ -398,6 +398,11 @@
      5.1.4. Scaling
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imbalenced-data">
+     5.1.5. Imbalenced Data
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -772,7 +777,7 @@ X' = \frac{X - X_{min}}{X_{max}-X_{min}}
 \[
 X' = \frac{X - \mu}{\sigma}
 \]</div>
-<p>scaling with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standart deviation <span class="math notranslate nohighlight">\(\sigma\)</span> , use this when the data is drawn from gaussian distribution.</p>
+<p>scaling with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standart deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, use this when the data is drawn from gaussian distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span>
@@ -813,6 +818,9 @@ X' = \frac{X - \mu}{\sigma}
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="imbalenced-data">
+<h3><span class="section-number">5.1.5. </span>Imbalenced Data<a class="headerlink" href="#imbalenced-data" title="Permalink to this headline">¶</a></h3>
 <p>The last part of preprocessing is to check for imbalanced data. For example you have a event which only occurs in 1% of your data. This means if you would now split you train and test data it could happend that none of the 1% is in the training data or vise versa. Even if all of the 1% is in the training data, this is only a fraction of all events and could lead to the result that the algorithm did not pay enough attention to this rare event.</p>
 <p>To overcome this negative results we can use one of the following:</p>
 <ul class="simple">
@@ -821,27 +829,49 @@ X' = \frac{X - \mu}{\sigma}
 <li><p>Ensemble different resampled datasets: Train <span class="math notranslate nohighlight">\(n\)</span> different models which have all the minority class samples and allways different majority class.</p></li>
 <li><p>Adjust your ML method instead of the data: You can adjust the cost function in your algorithm that the minority class has more impact.</p></li>
 </ul>
-<p>Preprocessing Cheat Sheet
-| Look at data / Visualize the data    | use of dataframes and tables / visualize with plots   |
-| Handling NaNs | drop every row with a NaN / Imputing techniques |
-| Outliers detection   | statistical tools / unsupervised Learning algorithms / remove bad data by hand  |
-| Feature selection   | keep one feature and drop high correlated features / supervised techniques:Filter(pearson Coefficent, Chi squared, Anova), Wrapper(genetic algorithms/RFE)|
-| Scaling   | scale the data for better compareability(for you and your algorithm) / Normalization / Standardization|
-| Imbalanced data   | use small batches (ensamble different resampled datasets) / over - under-sampling /adjust your ML technique|</p>
+<p>Preprocessing Cheat Sheet</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Issues</p></th>
+<th class="text-align:right head"><p>what to do</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Look at data / Visualize the data</p></td>
+<td class="text-align:right"><p>use of dataframes and tables / visualize with plots</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Handling NaNs</p></td>
+<td class="text-align:right"><p>drop every row with a NaN / Imputing techniques</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Outliers detection</p></td>
+<td class="text-align:right"><p>statistical tools / unsupervised Learning algorithms / remove bad data by hand</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Feature selection</p></td>
+<td class="text-align:right"><p>keep one feature and drop high correlated features / supervised techniques:Filter(pearson Coefficent, Chi squared, Anova), Wrapper(genetic algorithms/RFE)</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Scaling</p></td>
+<td class="text-align:right"><p>scale the data for better compareability(for you and your algorithm) / Normalization / Standardization</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Imbalanced data</p></td>
+<td class="text-align:right"><p>use small batches (ensamble different resampled datasets) / over - under-sampling /adjust your ML technique</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="model-selection">
 <h2><span class="section-number">5.2. </span>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">¶</a></h2>
 <p>Now we will dive into the Machine Learning part. We will look deeper into model selection techniques. We are looking for a model that has enough explanatory power to explain the variance in the data without over- or under-fitting, yet is parsimonious. We already showed regularisation in form of LASSO and Ridge Regression to overcome overfittung in previous chapter and will continue on statistical and information based model selection.</p>
-<p>Statistical model selection
+<p><strong>Statistical model selection</strong>
 Occam’s razor says optimal models are as parsimonious as possible. For this we need a formal method to select the optimal model that provides the best trade-off between variance and bias. We can answer this with hypothesis testing.</p>
-<ul class="simple">
-<li><p>for nested models <span class="math notranslate nohighlight">\(M_0 \subset M_1\)</span> we can use likelihood ratio test. For this we can use Wilk’s Theorem with the Chi-squared distribution. For example in polynomial regression where the model with higher polynomial degree includes the model with lower degrees is a nested model. We can make a t-statistic and like a t-test we can calculate a p-value to drop our hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> in favor of an alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> or believe in <span class="math notranslate nohighlight">\(H_0\)</span> when the p-values is under a given threshold.</p></li>
-<li><p>Akaike’s Inromation Criteria (AIC)</p></li>
-<li><p>gp sobol- indices</p></li>
-</ul>
-<p>-k-fold cross validation</p>
-<p>test statistic r-quadrat</p>
+<p><strong>Likelihood ratio test</strong> can be used for nested models <span class="math notranslate nohighlight">\(M_0 \subset M_1\)</span>. For this we can use Wilk’s Theorem with the Chi-squared distribution. For example in polynomial regression where the model with higher polynomial degree includes the model with lower degrees is a nested model. We can make a t-statistic and like a t-test we can calculate a p-value to drop our hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> in favor of an alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> or believe in <span class="math notranslate nohighlight">\(H_0\)</span> when the p-values is under a given threshold.</p>
+<p><strong>Akaike’s Inromation Criteria (AIC)</strong> can be used for models with <span class="math notranslate nohighlight">\(k\)</span> parameters <span class="math notranslate nohighlight">\(\Theta\)</span> and a likelihood function  <span class="math notranslate nohighlight">\(\log(\mathcal{L}(\Theta|x))\)</span> and is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+AIC:= 2k - 2\log(\mathcal{L}(\Theta|x))
+\]</div>
+<p>This score of a model can be seen as an estimate of expected information loss if we replace the true data by the prediction of our model. By minimizing this we finding the optimal model.</p>
+<p><strong>k-fold cross validation</strong></p>
 </div>
 <div class="section" id="references">
 <h2><span class="section-number">5.3. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
