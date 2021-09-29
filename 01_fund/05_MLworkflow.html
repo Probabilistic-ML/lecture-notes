@@ -45,6 +45,8 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -312,9 +314,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01_fund/05_MLworkflow.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/01_fund/05_MLworkflow.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -345,11 +347,72 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/01_fund/05_MLworkflow.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-preprocessing">
+   5.1. Data Preprocessing
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#handling-missing-values">
+     5.1.1. Handling missing values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outlier-detection">
+     5.1.2. Outlier detection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-selection">
+     5.1.3. Feature selection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scaling">
+     5.1.4. Scaling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-selection">
+   5.2. Model selection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   5.3. References
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -360,6 +423,438 @@
                 
   <div class="section" id="machine-learning-workflow">
 <h1><span class="section-number">5. </span>Machine Learning Workflow<a class="headerlink" href="#machine-learning-workflow" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter you will get an overview about the workflow for machine learning. In general we are looking from raw data or structurized data in form of tables to our machine learning model.</p>
+<p>You will find a lot of information of this topic in varoius blogs and posts. However here are some sources</p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1811.03402.pdf">“A Survey on Data Collection for Machine Learning”</a></p>
+<p>by Roh, Yuji and Heo, Geon and Whang, Steven <span id="id1">[<a class="reference internal" href="#id13">2</a>]</span> and</p>
+<p><a class="reference external" href="https://www.researchgate.net/profile/P-Pintelas/publication/228084519_Data_Preprocessing_for_Supervised_Learning/links/0c960517fefa258d0d000000/Data-Preprocessing-for-Supervised-Learning.pdf">“Data Preprocessing for Supervised Learning”</a></p>
+<p>by Kotsiantis, Sotiris and Kanellopoulos, Dimitris and Pintelas, P. <span id="id2">[<a class="reference internal" href="#id14">1</a>]</span>.</p>
+<p>For finding dataset where you can test you knowledge you can look at</p>
+<p><a class="reference external" href="https://archive.ics.uci.edu/ml/index.php">https://archive.ics.uci.edu/ml/index.php</a> or on <a class="reference external" href="https://www.kaggle.com/">https://www.kaggle.com/</a>.</p>
+<div class="section" id="data-preprocessing">
+<h2><span class="section-number">5.1. </span>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>Before we can start to use the data for our machine learning models, we need to look at the data and preprocess this. In best case we have data in tables with just one category of data types (numerical, categorical, ..ordinal) and with no missing values. But this is very rare and we have to look on the raw data/tables to see what we will be faced.
+We will create a dataset here to show a non perfect example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="s2">&quot;AAA&quot;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s2">&quot;BBB&quot;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+        <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="mi">72</span><span class="p">],</span>
+        <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">35</span><span class="p">]}</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: [1, nan, &#39;AAA&#39;, 4, &#39;BBB&#39;, 5, 6],
+ &#39;weight&#39;: [80, 7, 45, 70, 50, nan, 72],
+ &#39;age&#39;: [50, 52, 12, 24, 18, 11, 35]}
+</pre></div>
+</div>
+</div>
+</div>
+<p>The first thing to do is to look at the data in form of a table. The package <code class="docutils literal notranslate"><span class="pre">pandas</span></code> provides a framework for this. We will use this to look at tables and generate first plots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>weight</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>80.0</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>7.0</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AAA</td>
+      <td>45.0</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>70.0</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BBB</td>
+      <td>50.0</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>NaN</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>72.0</td>
+      <td>35</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../_images/05_MLworkflow_4_1.png" src="../_images/05_MLworkflow_4_1.png" />
+</div>
+</div>
+<div class="section" id="handling-missing-values">
+<h3><span class="section-number">5.1.1. </span>Handling missing values<a class="headerlink" href="#handling-missing-values" title="Permalink to this headline">¶</a></h3>
+<p>Now we can see the data. We have different kind of values and type of data. We have 3 columns with different data types inside. We have missing values “NaN: Not a Number” and we have strings “AAA” inside the first column. We can drop all rows where a NaN is present. We could also fill NaNs with the mean of the whole column. For column 2 “Age” we can do this. But what is about column 1 “name”? Do the column name will give some information?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_dropped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">df_dropped</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>weight</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>80.0</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AAA</td>
+      <td>45.0</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>70.0</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BBB</td>
+      <td>50.0</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>72.0</td>
+      <td>35</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>To drop all rows with missing information is often not a good idea. We would lose to much data. In this case we lost two from our 8 datapoints, which is huge. We also lost information because the “name” column had a missing value. For now we will drop the “name” column because it will not give any insights despite some kind of an index. But we will instead use the buildin index from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> dataframe. Instead of dropping all rows with missing value, we just can give value to the missing ones. This is called imputing and we can use <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> bibliothek for this. We can fill missing values with mean, median, most-frequent or constant values. There are also technique which will use correlated features to get a better imputing value, for example stochastic regression imputation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="n">imputer</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">missing_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="n">imputer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">]])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imputer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;weight&#39;</span><span class="p">]])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>weight</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>80.0</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>7.0</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AAA</td>
+      <td>45.0</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>70.0</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BBB</td>
+      <td>50.0</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>54.0</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>72.0</td>
+      <td>35</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="outlier-detection">
+<h3><span class="section-number">5.1.2. </span>Outlier detection<a class="headerlink" href="#outlier-detection" title="Permalink to this headline">¶</a></h3>
+<p>The next step is to check the valid values for meaningfulness. This is also known as outlier detection. We can either do this by hand in small datasets or use statistics method or even use unsupervised learning techniques to achieve this. As a statistical method we can use standard deviation cutoff method, where we say every value outside 3 times standard deviation is an outlier.</p>
+<p>We can use unsupervised machine learning techniques for example one cluster methods like Support Vektor Machine (which we will handle later in this lecture). For our toy datast we will start to look for outliers by hand. We quickly see that a weight of “7” does not seem very reasonable for a “52” year old person. However we will try a statistical method, a standard deviation cutoff. There we will see that the “7” is within 3 times a standart deviation and even worse in the 2 times interval. For this tool it is necesarry to have a dataset which is more “normal” and drawn from Gaussian distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_mean</span><span class="p">,</span> <span class="n">data_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">data_mean</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">data_std</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>weight   -19.095828
+age      -18.777950
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another technique which require less normal sampled dataset is a interquantile range method. We define the middle 50% of the data as the inter quantile range. We will say that all data is outside which is 1.5 times the inter quantile range above the 75% and lower the 25% quantile. Here we will see that our by hand identified outlier is outside the lower threshold.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q25</span><span class="p">,</span> <span class="n">q75</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">]],</span> <span class="mi">25</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">]],</span> <span class="mi">75</span><span class="p">)</span>
+<span class="n">iqr</span> <span class="o">=</span> <span class="n">q75</span> <span class="o">-</span> <span class="n">q25</span>
+
+<span class="n">cut_off</span> <span class="o">=</span> <span class="n">iqr</span> <span class="o">*</span> <span class="mf">1.5</span>
+<span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">q25</span> <span class="o">-</span> <span class="n">cut_off</span><span class="p">,</span> <span class="n">q75</span> <span class="o">+</span> <span class="n">cut_off</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lower bound: &quot;</span><span class="p">,</span><span class="n">lower</span><span class="p">,</span> <span class="s2">&quot;upper bound: &quot;</span><span class="p">,</span><span class="n">upper</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lower bound:  12.25 upper bound:  106.25
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another mentioned technique is the one class SVM. This is not easy to handle beacuase we have to set a “kernel”, a <span class="math notranslate nohighlight">\(\gamma\)</span> and <span class="math notranslate nohighlight">\(\nu\)</span> which are the hyperparameters of the SVM. The plot underneath shows the result where we can see that one datapoint (blue) is far a away from the others(yellow). But to find these parameters is often exhausting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">]]</span>
+<span class="c1">#x_scaled = StandardScaler().fit_transform(X)</span>
+<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">OneClassSVM</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">7</span><span class="p">]),</span><span class="n">c</span><span class="o">=</span><span class="n">out</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x23bee8eb5c8&gt;
+</pre></div>
+</div>
+<img alt="../_images/05_MLworkflow_14_1.png" src="../_images/05_MLworkflow_14_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="feature-selection">
+<h3><span class="section-number">5.1.3. </span>Feature selection<a class="headerlink" href="#feature-selection" title="Permalink to this headline">¶</a></h3>
+<p>The next step is to reduce input variable to the most usefull ones or at least which we believe which are the most useful ones. We want to drop as much irrelevant and redundant data as possible. This section will give an overview about feature selection. We will focus on two methods, Filter based and wrapper based methods.</p>
+<p>Wrapper Methods:
+In general wrapper methods create many models with different subsets of input features. Then select those features which performs best according to a performance metric. As example we can refer to <code class="docutils literal notranslate"><span class="pre">recursive</span> <span class="pre">feature</span> <span class="pre">elimination</span></code> (RFE): “<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html</a>”</p>
+<p>Filter Methods:
+In filter selection methods we use statistical techniques to evaluate the correlation between each input variable and a target variable. Methods to note for numerical input/output are <code class="docutils literal notranslate"><span class="pre">Pearson’s</span> <span class="pre">correlation</span> <span class="pre">coefficient</span></code> for linear relationship, <code class="docutils literal notranslate"><span class="pre">Spearman’s</span> <span class="pre">rank</span> <span class="pre">coefficient</span></code> for nonlinear relationship and for categorical input/output are <code class="docutils literal notranslate"><span class="pre">Chi-Squared</span> <span class="pre">test</span></code> and <code class="docutils literal notranslate"><span class="pre">Mutual</span> <span class="pre">Information</span> <span class="pre">score</span></code>.</p>
+<p>Methods to note:
+Decision Trees have an buildin feature selection during the training.</p>
+<p>Feature selection reduces the number of feature whereas dimensionality reduction create a projection of the data in a less dimensional subspace. For this topic we recommend to look on: Autoenconder Methods, Principal Component Analysis (PCA) or Manifold Learning.</p>
+</div>
+<div class="section" id="scaling">
+<h3><span class="section-number">5.1.4. </span>Scaling<a class="headerlink" href="#scaling" title="Permalink to this headline">¶</a></h3>
+<p>The effects of scaling is to better compare results for the user and the machine learning technique. In distance-based algorithms it is necessary to scale the features. So the distances can be compared. Moreover scaled data can help to perform better in the optimization process. We only have one learning rate for all features. With different features with highly different ranges we could need a small step size to not overshoot in one axis but just taking mini steps in the other axis.</p>
+<p>Standardization:</p>
+<div class="math notranslate nohighlight">
+\[
+X' = \frac{X - X_{min}}{X_{max}-X_{min}}
+\]</div>
+<p>This is also know as Min/Max Scaling.</p>
+<p>Normalization:</p>
+<div class="math notranslate nohighlight">
+\[
+X' = \frac{X - \mu}{\sigma}
+\]</div>
+<p>scaling with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standart deviation <span class="math notranslate nohighlight">\(\sigma\)</span> , use this when the data is drawn from gaussian distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span>
+<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">#Normalization</span>
+<span class="n">x_scaled</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.15259149,  1.33155134],
+       [-2.08353078,  1.4575089 ],
+       [-0.39897398, -1.06164229],
+       [ 0.70928707, -0.30589693],
+       [-0.17732177, -0.68376961],
+       [ 0.        , -1.12462107],
+       [ 0.79794796,  0.38686965]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span>
+<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">#Standardization aka MinMax Scaler</span>
+<span class="n">x_scaled</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.        , 0.95121951],
+       [0.        , 1.        ],
+       [0.52054795, 0.02439024],
+       [0.8630137 , 0.31707317],
+       [0.5890411 , 0.17073171],
+       [0.64383562, 0.        ],
+       [0.89041096, 0.58536585]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>The last part of preprocessing is to check for imbalanced data. For example you have a event which only occurs in 1% of your data. This means if you would now split you train and test data it could happend that none of the 1% is in the training data or vise versa. Even if all of the 1% is in the training data, this is only a fraction of all events and could lead to the result that the algorithm did not pay enough attention to this rare event.</p>
+<p>To overcome this negative results we can use one of the following:</p>
+<ul class="simple">
+<li><p>Under sampling: randomly eiminate the majority class datapoints. Then use dataset where all important events are balenced.</p></li>
+<li><p>Over sampling: increase the minority class by randomly copying the rare events.</p></li>
+<li><p>Ensemble different resampled datasets: Train <span class="math notranslate nohighlight">\(n\)</span> different models which have all the minority class samples and allways different majority class.</p></li>
+<li><p>Adjust your ML method instead of the data: You can adjust the cost function in your algorithm that the minority class has more impact.</p></li>
+</ul>
+<p>Preprocessing Cheat Sheet
+| Look at data / Visualize the data    | use of dataframes and tables / visualize with plots   |
+| Handling NaNs | drop every row with a NaN / Imputing techniques |
+| Outliers detection   | statistical tools / unsupervised Learning algorithms / remove bad data by hand  |
+| Feature selection   | keep one feature and drop high correlated features / supervised techniques:Filter(pearson Coefficent, Chi squared, Anova), Wrapper(genetic algorithms/RFE)|
+| Scaling   | scale the data for better compareability(for you and your algorithm) / Normalization / Standardization|
+| Imbalanced data   | use small batches (ensamble different resampled datasets) / over - under-sampling /adjust your ML technique|</p>
+</div>
+</div>
+<div class="section" id="model-selection">
+<h2><span class="section-number">5.2. </span>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">¶</a></h2>
+<p>Now we will dive into the Machine Learning part. We will look deeper into model selection techniques. We are looking for a model that has enough explanatory power to explain the variance in the data without over- or under-fitting, yet is parsimonious. We already showed regularisation in form of LASSO and Ridge Regression to overcome overfittung in previous chapter and will continue on statistical and information based model selection.</p>
+<p>Statistical model selection
+Occam’s razor says optimal models are as parsimonious as possible. For this we need a formal method to select the optimal model that provides the best trade-off between variance and bias. We can answer this with hypothesis testing.</p>
+<ul class="simple">
+<li><p>for nested models <span class="math notranslate nohighlight">\(M_0 \subset M_1\)</span> we can use likelihood ratio test. For this we can use Wilk’s Theorem with the Chi-squared distribution. For example in polynomial regression where the model with higher polynomial degree includes the model with lower degrees is a nested model. We can make a t-statistic and like a t-test we can calculate a p-value to drop our hypothesis <span class="math notranslate nohighlight">\(H_0\)</span> in favor of an alternative hypothesis <span class="math notranslate nohighlight">\(H_1\)</span> or believe in <span class="math notranslate nohighlight">\(H_0\)</span> when the p-values is under a given threshold.</p></li>
+<li><p>Akaike’s Inromation Criteria (AIC)</p></li>
+<li><p>gp sobol- indices</p></li>
+</ul>
+<p>-k-fold cross validation</p>
+<p>test statistic r-quadrat</p>
+</div>
+<div class="section" id="references">
+<h2><span class="section-number">5.3. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p id="id3"><dl class="citation">
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Sotiris Kotsiantis, Dimitris Kanellopoulos, and P. Pintelas. Data preprocessing for supervised learning. <em>International Journal of Computer Science</em>, 1:111–117, 01 2006.</p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dd><p>Yuji Roh, Geon Heo, and Steven Whang. A survey on data collection for machine learning: a big data - ai integration perspective. <em>IEEE Transactions on Knowledge and Data Engineering</em>, PP:1–1, 10 2019. <a class="reference external" href="https://doi.org/10.1109/TKDE.2019.2946162">doi:10.1109/TKDE.2019.2946162</a>.</p>
+</dd>
+</dl>
+</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
