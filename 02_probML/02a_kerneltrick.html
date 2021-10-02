@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Kernel Trick: Implicit embeddings from inner products &#8212; Probabilistic Machine Learning</title>
+    <title>8. The Kernel Trick: Implicit embeddings from inner products &#8212; Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -58,6 +58,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8.1. Gaussian Processes for Machine Learning" href="02_kernelmethods/01_GP.html" />
+    <link rel="prev" title="7. Kernel-based Methods" href="02_kernelmethods.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -216,17 +218,22 @@
   Probabilistic Machine Learning
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="01_motivation.html">
    6. Motivation of Probabilistic Models
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="02_kernelmethods.html">
    7. Kernel-based Methods
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   8. The Kernel Trick: Implicit embeddings from inner products
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
@@ -234,19 +241,19 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="02_kernelmethods/01_GP.html">
-     7.1. Gaussian Processes for Machine Learning
+     8.1. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02_kernelmethods/02_addmethods.html">
-     7.2. Additional Kernel-based Methods
+     8.2. Additional Kernel-based Methods
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="03_overview.html">
-   8. Overview of Further Probabilistic Models
+   9. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -258,17 +265,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/BO.html">
-   9. Bayesian Optimization
+   10. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/uncertainty.html">
-   10. Design Uncertainty Analysis
+   11. Design Uncertainty Analysis
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/03_RL.html">
-   11. Efficient Reinforcement Learning
+   12. Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -375,7 +382,7 @@
               <div>
                 
   <div class="section" id="the-kernel-trick-implicit-embeddings-from-inner-products">
-<h1>The Kernel Trick: Implicit embeddings from inner products<a class="headerlink" href="#the-kernel-trick-implicit-embeddings-from-inner-products" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">8. </span>The Kernel Trick: Implicit embeddings from inner products<a class="headerlink" href="#the-kernel-trick-implicit-embeddings-from-inner-products" title="Permalink to this headline">¶</a></h1>
 <p>We will talk about kernels in detail later. However, it is important to have an understanding of what kernel trick actually means and why it is useful for machine learning applications. As previously discussed, linear problems can be solved quite efficiently but most real world data sets (at least the ones that require higher effort) have non-linear dependencies. Thus, one idea would be to find an <strong>embedding</strong>, which linearizes the data. In this context, an embedding is a transformation of the original space (and the data in it) to a latent one. Thus, instead of using a linear model in the original space <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{1, d}\)</span> with the weights <span class="math notranslate nohighlight">\(\beta_x \in \mathbb{R}^{d}\)</span> such as</p>
 <div class="math notranslate nohighlight">
 \[ y = x \beta_x \]</div>
@@ -456,6 +463,8 @@
 </div>
 </div>
 <p>Thanks to the new dimension, a linear horizontal plane is now sufficient to separate the two classes. In practice, finding a good mapping may be difficult. Nonetheless, the premise of the kernel based methods is finding such a mapping without a need to explicitly defining it.</p>
+<div class="toctree-wrapper compound">
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -487,6 +496,24 @@
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="02_kernelmethods.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">7. </span>Kernel-based Methods</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="02_kernelmethods/01_GP.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">8.1. </span>Gaussian Processes for Machine Learning</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
