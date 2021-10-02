@@ -45,6 +45,8 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -56,7 +58,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7.1. Gaussian Processes for Machine Learning" href="02_kernelmethods/01_GP.html" />
+    <link rel="next" title="7.2. Gaussian Processes for Machine Learning" href="02_kernelmethods/01_GP.html" />
     <link rel="prev" title="6. Motivation of Probabilistic Models" href="01_motivation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -234,12 +236,12 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="02_kernelmethods/01_GP.html">
-     7.1. Gaussian Processes for Machine Learning
+     7.2. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02_kernelmethods/02_addmethods.html">
-     7.2. Additional Kernel-based Methods
+     7.3. Additional Kernel-based Methods
     </a>
    </li>
   </ul>
@@ -366,6 +368,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-kernel-trick-implicit-embeddings-for-non-linear-data">
+   7.1. The Kernel Trick: Implicit embeddings for non-linear data
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -377,8 +392,88 @@
   <div class="section" id="kernel-based-methods">
 <h1><span class="section-number">7. </span>Kernel-based Methods<a class="headerlink" href="#kernel-based-methods" title="Permalink to this headline">¶</a></h1>
 <p>Kerned-based methods denote a class of machine learning algorithms which use a so-called <strong>kernel</strong> or <strong>kernel function</strong> to enable the use of a high-dimensional feature space. The purpose is to generate a more flexible machine learning model. This approach is particularly useful to generalize linear learning methods to non-linear settings. In this case, this approach is also referred to as <strong>kernel trick</strong>.</p>
-<p>The most common kernel-based methods are support-vector machines (SVM), Gaussian processes (GP), kernel principal component analysis (kernel PCA) and kernel ridge regression.</p>
-<p>In this chapter, we focus on Gaussian processes which are most usefull for our applications and fit into our probabilistic framework. Nevertheless, the second part of the chapter is dedicated to further kernel-based methods.</p>
+<p>The most common kernel-based methods are support-vector machines (SVM), Gaussian processes (GP), kernel principal component analysis (kernel PCA) and kernel ridge regression. In this chapter, we focus on Gaussian processes which are most usefull for our applications and fit into our probabilistic framework. Nevertheless, the second part of the chapter is dedicated to further kernel-based methods. But first, let us undertand the intuition behind the kernel trick.</p>
+<div class="section" id="the-kernel-trick-implicit-embeddings-for-non-linear-data">
+<h2><span class="section-number">7.1. </span>The Kernel Trick: Implicit embeddings for non-linear data<a class="headerlink" href="#the-kernel-trick-implicit-embeddings-for-non-linear-data" title="Permalink to this headline">¶</a></h2>
+<p>We will talk about kernels in detail later. However, it is important to have an understanding of what kernel trick actually means and why it is useful for machine learning applications. As previously discussed, linear problems can be solved quite efficiently but most real world data sets (at least the ones that require higher effort) have non-linear dependencies. Thus, one idea would be to find an <strong>embedding</strong>, which linearizes the data. In this context, an embedding is a transformation of the original space (and the data in it) to a latent one. Thus, instead of using a linear model in the original space <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{1, d}\)</span> with the weights <span class="math notranslate nohighlight">\(w_x \in \mathbb{R}^{d}\)</span>
+$<span class="math notranslate nohighlight">\(y = x w_x \)</span><span class="math notranslate nohighlight">\(
+a linear model in the transformed space can be used
+\)</span><span class="math notranslate nohighlight">\(y = \phi(x) w_\phi \)</span><span class="math notranslate nohighlight">\(
+where \)</span>\phi(\cdot): \mathbb{R}^{1, d} \rightarrow \mathbb{R}^{1, N}<span class="math notranslate nohighlight">\( is the transformation function and \)</span>w_\phi \in \mathbb{R}^{N}<span class="math notranslate nohighlight">\( . Note that \)</span>N<span class="math notranslate nohighlight">\( is chosen as the embedding dimension for a consistent notation but it could be any positive natural number. The constant (or bias) term is omitted for a more concise notation. Such a model is able to represent non-linear dependencies despite having a linear solution, depending on the non-linearity of \)</span>\phi(\cdot)<span class="math notranslate nohighlight">\(. However, finding a good mapping \)</span>\phi(\cdot)$, which linearizes the problem is not trivial. This is where, the kernel trick helps.</p>
+<p>Let us formally define a kernel, an inner product of the transformation functions:</p>
+<div class="tip admonition" id="def-kernel">
+<p class="admonition-title">Definition</p>
+<p>Let <span class="math notranslate nohighlight">\(x_1, x_2 \in \mathbb{R}^d\)</span> be two points representing observations in the input space and <span class="math notranslate nohighlight">\(\phi: \mathbb{R}^d \rightarrow \mathbb{R}^N\)</span> be a map. The map <span class="math notranslate nohighlight">\(k: \mathbb{R}^{2d} \rightarrow \mathbb{R}\)</span> is called the <strong>kernel function</strong> of the map <span class="math notranslate nohighlight">\(\phi\)</span>, if the following holds</p>
+<div class="math notranslate nohighlight">
+\[ k(x_1, x_2) = \langle \phi(x_1), \phi(x_2) \rangle\]</div>
+<p>where <span class="math notranslate nohighlight">\(\langle \cdot, \cdot \rangle\)</span> denotes the inner product.</p>
+</div>
+<p>We have now defined what a kernel is but it is still not obvious, why or if this is helpful at all. The solution for the linear model was given <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/01_fund/03_bayes/04_linregr.html">previously in the first Chapter.</a></p>
+<div class="math notranslate nohighlight">
+\[ w_x = \frac{X^T Y}{X^T X} \]</div>
+<p>where <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{N, d}\)</span> is the matrix of input samples and <span class="math notranslate nohighlight">\(yY\in \mathbb{R}^{N}\)</span> the vector of corresponding outputs. Thus, the prediction function can be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[y = x \frac{X^T Y}{X^T X} \]</div>
+<p>Similarly, we can denote the solution of <span class="math notranslate nohighlight">\(w_\phi\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[ w_\phi = \frac{\phi(X)^T Y}{\phi(X)^T \phi(X)} \]</div>
+<p>Using the definition of the kernel function, it can be seen that</p>
+<div class="math notranslate nohighlight">
+\[ w_\phi = \frac{\phi(X)^T Y}{K}  = \phi(X)^T K^{-1} Y = \]</div>
+<p>where <span class="math notranslate nohighlight">\(K \in \mathbb{R}^{N, N}\)</span> is the so called <strong>kernel matrix</strong> defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} K = \begin{bmatrix} \phi(x_1)^T\phi(x_1) &amp; \phi(x_1)^T\phi(x_2) &amp; \dots &amp; \phi(x_1)^T\phi(x_N) \\ \phi(x_2)^T\phi(x_1) &amp; \phi(x_2)^T\phi(x_2) &amp; \dots &amp; \phi(x_2)^T\phi(x_N) \\ \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ \phi(x_N)^T\phi(x_1) &amp; \phi(x_N)^T\phi(x_2) &amp; \dots &amp; \phi(x_N)^T\phi(x_N) \end{bmatrix}\end{split}\]</div>
+<p>We will cover kernels and the kernel matrix more in depth <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_kernelmethods/01_GP.html">later</a> but for now, it is important to note that <span class="math notranslate nohighlight">\(K\)</span> is a positive semi-definite matrix (see <a class="reference external" href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">Mercer’s Theorem</a> for details). Rewriting the prediction equation as before yields with some reordering
+$<span class="math notranslate nohighlight">\(y = \phi(x) \phi(X)^T K^{-1} Y = k(X, x) K^{-1} Y\)</span>$</p>
+<p>Thus, using a kernel function allows using an implicit definition of <span class="math notranslate nohighlight">\(\phi\)</span>, which is useful as finding an appropriate <span class="math notranslate nohighlight">\(\phi\)</span> is often more difficult than finding an appropriate kernel, hence the name kernel trick. But what about our initial motivation of linearising the problem for an easier solution? This requires a more in depth analysis, which is beyond the scope of this work but the intuition is simple, mapping the low dimensional data to a high dimensional space. Let us consider a binary classification problem to visualize the idea.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_circles</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Create some artificial data</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># create classes</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">not_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">not_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">not_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x_1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;x_2&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_kernelmethods_3_0.png" src="../_images/02_kernelmethods_3_0.png" />
+</div>
+</div>
+<p>It can be seen that the decision boundary between the two classes could be represented as a circle but not as a line, which would be easier to estimate. In order to use a linear decision boundary, we can map the data to a higher dimensional space as follows</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="n">x_3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># The new dimension that we add to make the problem easier to solve</span>
+<span class="c1"># Although this works well in this example, it can be seen that finding an appropriate mapping is not trivial</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">x_3</span><span class="p">[</span><span class="n">y</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">not_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">not_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">x_3</span><span class="p">[</span><span class="n">not_y</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Class 2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x_1&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;x_2&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;x_3&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mf">20.</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02_kernelmethods_5_0.png" src="../_images/02_kernelmethods_5_0.png" />
+</div>
+</div>
+<p>Thanks to the new dimension, a linear horizontal plane is now sufficient to separate the two classes. In practice, finding a good mapping may be difficult. Nonetheless, the premise of the kernel based methods is finding such a mapping without a need to explicitly defining it.</p>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -425,7 +520,7 @@
         <a class="right-next" href="02_kernelmethods/01_GP.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">7.1. </span>Gaussian Processes for Machine Learning</p>
+                <p class="prevnext-title"><span class="section-number">7.2. </span>Gaussian Processes for Machine Learning</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

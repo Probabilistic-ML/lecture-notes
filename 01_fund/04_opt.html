@@ -236,12 +236,12 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../02_probML/02_kernelmethods/01_GP.html">
-     7.1. Gaussian Processes for Machine Learning
+     7.2. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../02_probML/02_kernelmethods/02_addmethods.html">
-     7.2. Additional Kernel-based Methods
+     7.3. Additional Kernel-based Methods
     </a>
    </li>
   </ul>
@@ -472,7 +472,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2902.282166949191
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  3229.4902931272513
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -504,7 +504,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  117.43385085135138
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  97.87512727260739
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -813,12 +813,14 @@ To handle the first problem we can adress some features:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.13457663 1.28849438]
-Rastrigin
-[0.98283078 1.91071593]
+[1.10500238 1.23677642]
 </pre></div>
 </div>
-<img alt="../_images/04_opt_19_1.png" src="../_images/04_opt_19_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+[0.98719209 2.04553721]
+</pre></div>
+</div>
+<img alt="../_images/04_opt_19_2.png" src="../_images/04_opt_19_2.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -920,18 +922,16 @@ Rastrigin
      nit: 127
  success: True
        x: array([1., 1.])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 2013
-     nit: 66
+    nfev: 1803
+     nit: 59
  success: True
-       x: array([-3.67770525e-09, -3.31102368e-10])
+       x: array([-4.31656488e-10,  2.66197991e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_22_2.png" src="../_images/04_opt_22_2.png" />
+<img alt="../_images/04_opt_22_1.png" src="../_images/04_opt_22_1.png" />
 </div>
 </div>
 </div>
