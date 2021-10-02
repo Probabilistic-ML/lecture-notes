@@ -458,8 +458,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-87b76951-3296-4060-b2d6-6d87cc0f425f">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-87b76951-3296-4060-b2d6-6d87cc0f425f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-89617c83-0a27-4708-be0a-f26d086f271e">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-89617c83-0a27-4708-be0a-f26d086f271e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
