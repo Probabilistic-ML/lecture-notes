@@ -389,14 +389,13 @@
 <p>a linear model in the transformed space can be used</p>
 <div class="math notranslate nohighlight">
 \[ y = \phi(x) \beta_\phi \]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi(\cdot): \mathbb{R}^{1, d} \rightarrow \mathbb{R}^{1, N}\)</span> is the transformation function and <span class="math notranslate nohighlight">\(\beta_\phi \in \mathbb{R}^{N}\)</span> . Note that <span class="math notranslate nohighlight">\(N\)</span> is chosen as the embedding dimension for a consistent notation but it could be any positive natural number. The constant (or bias) term is omitted for a more concise notation. Such a model is able to represent non-linear dependencies despite having a linear solution, depending on the non-linearity of <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span>. However, finding a good mapping <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span>, which linearizes the problem is not trivial. This is where, the kernel trick helps.</p>
+<p>where <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span> is the transformation function and <span class="math notranslate nohighlight">\(\beta_\phi \in \mathbb{R}^{n}\)</span>. Note that <span class="math notranslate nohighlight">\(n\)</span> is the embedding dimension . The constant (or bias) term is omitted for a more concise notation. Such a model is able to represent non-linear dependencies despite having a linear solution, depending on the non-linearity of <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span>. However, finding a good mapping <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span>, which linearizes the problem is not trivial. This is where, the kernel trick helps.</p>
 <p>Let us formally define a kernel, an inner product of the transformation functions:</p>
 <div class="tip admonition" id="def-kernel">
 <p class="admonition-title">Definition</p>
-<p>Let <span class="math notranslate nohighlight">\(x_1, x_2 \in \mathbb{R}^d\)</span> be two points representing observations in the input space and <span class="math notranslate nohighlight">\(\phi: \mathbb{R}^d \rightarrow \mathbb{R}^N\)</span> be a map. The map <span class="math notranslate nohighlight">\(k: \mathbb{R}^{2d} \rightarrow \mathbb{R}\)</span> is called the <strong>kernel function</strong> of the map <span class="math notranslate nohighlight">\(\phi\)</span>, if the following holds</p>
+<p>Let <span class="math notranslate nohighlight">\(x_1, x_2 \in \mathbb{R}^{1, d}\)</span> be two points representing observations in the input space and <span class="math notranslate nohighlight">\(\phi: \mathbb{R}^{1, d} \rightarrow \mathbb{R}^n\)</span> be a map. The map <span class="math notranslate nohighlight">\(k: \mathbb{R}^{2, d} \rightarrow \mathbb{R}\)</span> is called the <strong>kernel function</strong>, if the following holds</p>
 <div class="math notranslate nohighlight">
-\[ k(x_1, x_2) = \langle \phi(x_1), \phi(x_2) \rangle\]</div>
-<p>where <span class="math notranslate nohighlight">\(\langle \cdot, \cdot \rangle\)</span> denotes the inner product.</p>
+\[ k(x_1, x_2) = \phi(x_1)^T \phi(x_2) \]</div>
 </div>
 <p>We have now defined what a kernel is but it is still not obvious, why or if this is helpful at all. The solution for the linear model was given <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/01_fund/03_bayes/04_linregr.html">previously in the first Chapter.</a></p>
 <div class="math notranslate nohighlight">
