@@ -5,44 +5,44 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8. The Kernel Trick: Implicit embeddings from inner products &#8212; Probabilistic Machine Learning</title>
+    <title>7.1. The Kernel Trick: Implicit embeddings from inner products &#8212; Probabilistic Machine Learning</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/additional.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/additional.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -53,13 +53,13 @@
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02a_kerneltrick.html" />
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8.1. Gaussian Processes for Machine Learning" href="02_kernelmethods/01_GP.html" />
-    <link rel="prev" title="7. Kernel-based Methods" href="02_kernelmethods.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_kernelmethods/00_kerneltrick.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.2. Gaussian Processes for Machine Learning" href="01_GP.html" />
+    <link rel="prev" title="7. Kernel-based Methods" href="../02_kernelmethods.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -76,26 +76,26 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+    <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
       
       
-      <img src="../_static/logo.png" class="logo" alt="logo">
+      <img src="../../_static/logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../welcome.html">
+  <a class="reference internal" href="../../welcome.html">
    Welcome
   </a>
  </li>
@@ -107,17 +107,17 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/01_preface.html">
+  <a class="reference internal" href="../../00_preface/01_preface.html">
    Preface
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/02_python.html">
+  <a class="reference internal" href="../../00_preface/02_python.html">
    Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../00_preface/03_notation.html">
+  <a class="reference internal" href="../../00_preface/03_notation.html">
    Notation
   </a>
  </li>
@@ -129,7 +129,7 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../01_fund/01_fundprob.html">
+  <a class="reference internal" href="../../01_fund/01_fundprob.html">
    1. Fundamentals of Probability Theory
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -139,39 +139,39 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/01_probabilityspaces.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/01_probabilityspaces.html">
      1.1. Probability Spaces
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/02_randomvariables.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/02_randomvariables.html">
      1.2. Random Variables
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/03_independence.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/03_independence.html">
      1.3. Independence
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/04_impprobdistr.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html">
      1.4. Important Probability Distributions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/01_fundprob/05_essthms.html">
+    <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html">
      1.5. Essential Theorems
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/02_stat.html">
+  <a class="reference internal" href="../../01_fund/02_stat.html">
    2. Bayesian vs. Frequentists View
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../01_fund/03_bayes.html">
+  <a class="reference internal" href="../../01_fund/03_bayes.html">
    3. Bayesian Inference, MAP &amp; MLE
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -181,34 +181,34 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/03_bayes/01_cointoss.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/01_cointoss.html">
      3.1. Coin Toss
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/03_bayes/02_bayesianinference.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/02_bayesianinference.html">
      3.2. Bayesian Inference
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/03_bayes/03_MLEandMAP.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/03_MLEandMAP.html">
      3.3. MAP and MLE
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../01_fund/03_bayes/04_linregr.html">
+    <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html">
      3.4. Linear Regression
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/04_opt.html">
+  <a class="reference internal" href="../../01_fund/04_opt.html">
    4. Optimization Methods
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../01_fund/05_MLworkflow.html">
+  <a class="reference internal" href="../../01_fund/05_MLworkflow.html">
    5. Machine Learning Workflow
   </a>
  </li>
@@ -220,40 +220,40 @@
 </p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="01_motivation.html">
+  <a class="reference internal" href="../01_motivation.html">
    6. Motivation of Probabilistic Models
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02_kernelmethods.html">
-   7. Kernel-based Methods
-  </a>
- </li>
  <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
-   8. The Kernel Trick: Implicit embeddings from inner products
+  <a class="reference internal" href="../02_kernelmethods.html">
+   7. Kernel-based Methods
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="02_kernelmethods/01_GP.html">
-     8.1. Gaussian Processes for Machine Learning
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.1. The Kernel Trick: Implicit embeddings from inner products
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="02_kernelmethods/02_addmethods.html">
-     8.2. Additional Kernel-based Methods
+    <a class="reference internal" href="01_GP.html">
+     7.2. Gaussian Processes for Machine Learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_addmethods.html">
+     7.3. Additional Kernel-based Methods
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03_overview.html">
-   9. Overview of Further Probabilistic Models
+  <a class="reference internal" href="../03_overview.html">
+   8. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -264,18 +264,18 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../03_appl/BO.html">
-   10. Bayesian Optimization
+  <a class="reference internal" href="../../03_appl/BO.html">
+   9. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../03_appl/uncertainty.html">
-   11. Design Uncertainty Analysis
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   10. Design Uncertainty Analysis
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../03_appl/03_RL.html">
-   12. Efficient Reinforcement Learning
+  <a class="reference internal" href="../../03_appl/03_RL.html">
+   11. Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -319,7 +319,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/02_probML/02a_kerneltrick.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_kernelmethods/00_kerneltrick.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -359,9 +359,9 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02a_kerneltrick.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_kernelmethods/00_kerneltrick.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
+                    src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
         
@@ -382,7 +382,7 @@
               <div>
                 
   <div class="section" id="the-kernel-trick-implicit-embeddings-from-inner-products">
-<h1><span class="section-number">8. </span>The Kernel Trick: Implicit embeddings from inner products<a class="headerlink" href="#the-kernel-trick-implicit-embeddings-from-inner-products" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.1. </span>The Kernel Trick: Implicit embeddings from inner products<a class="headerlink" href="#the-kernel-trick-implicit-embeddings-from-inner-products" title="Permalink to this headline">¶</a></h1>
 <p>We will talk about kernels in detail later. However, it is important to have an understanding of what kernel trick actually means and why it is useful for machine learning applications. As previously discussed, linear problems can be solved quite efficiently but most real world data sets (at least the ones that require higher effort) have non-linear dependencies. Thus, one idea would be to find an <strong>embedding</strong>, which linearizes the data. In this context, an embedding is a transformation of the original space (and the data in it) to a latent one. Thus, instead of using a linear model in the original space <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{1, d}\)</span> with the weights <span class="math notranslate nohighlight">\(\beta_x \in \mathbb{R}^{d}\)</span> such as</p>
 <div class="math notranslate nohighlight">
 \[ y = x \beta_x \]</div>
@@ -416,7 +416,7 @@
 <p>We will cover kernels and the kernel matrix more in depth <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_kernelmethods/01_GP.html">later</a> but for now, it is important to note that <span class="math notranslate nohighlight">\(K\)</span> is a positive semi-definite matrix (see <a class="reference external" href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">Mercer’s Theorem</a> for details). Rewriting the prediction equation as before yields with some reordering and abuse of notation</p>
 <div class="math notranslate nohighlight">
 \[y = \phi(x) \phi(X)^T K^{-1} Y = k(x, X)^T K^{-1} Y\]</div>
-<p>where <span class="math notranslate nohighlight">\(k(x, N) \in \mathbb{N}\)</span> denotes the vector of kernel function values between the training data <span class="math notranslate nohighlight">\(X\)</span> and the prediction point <span class="math notranslate nohighlight">\(x\)</span>. Thus, using a kernel function allows using an implicit definition of <span class="math notranslate nohighlight">\(\phi\)</span>, which is useful as finding an appropriate <span class="math notranslate nohighlight">\(\phi\)</span> is often more difficult than finding an appropriate kernel. But what about our initial motivation of linearising the problem for an easier solution? This requires a more in depth analysis, which is beyond the scope of this work but the intuition is simple, mapping the low dimensional data to a high dimensional space. Let us consider a binary classification problem to visualize the idea.</p>
+<p>where <span class="math notranslate nohighlight">\(k(x, N) \in \mathbb{R}^N\)</span> denotes the vector of kernel function values between the training data <span class="math notranslate nohighlight">\(X\)</span> and the prediction point <span class="math notranslate nohighlight">\(x\)</span>. Thus, using a kernel function allows using an implicit definition of <span class="math notranslate nohighlight">\(\phi\)</span>, which is useful as finding an appropriate <span class="math notranslate nohighlight">\(\phi\)</span> is often more difficult than finding an appropriate kernel. But what about our initial motivation of linearising the problem for an easier solution? This requires a more in depth analysis, which is beyond the scope of this work but the intuition is simple, mapping the low dimensional data to a high dimensional space. Let us consider a binary classification problem to visualize the idea.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -439,7 +439,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02a_kerneltrick_1_0.png" src="../_images/02a_kerneltrick_1_0.png" />
+<img alt="../../_images/00_kerneltrick_1_0.png" src="../../_images/00_kerneltrick_1_0.png" />
 </div>
 </div>
 <p>It can be seen that the decision boundary between the two classes could be represented as a circle but not as a line, which would be easier to estimate. In order to use a linear decision boundary, we can map the data to a higher dimensional space as follows</p>
@@ -459,12 +459,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02a_kerneltrick_3_0.png" src="../_images/02a_kerneltrick_3_0.png" />
+<img alt="../../_images/00_kerneltrick_3_0.png" src="../../_images/00_kerneltrick_3_0.png" />
 </div>
 </div>
 <p>Thanks to the new dimension, a linear horizontal plane is now sufficient to separate the two classes. In practice, finding a good mapping may be difficult. Nonetheless, the premise of the kernel based methods is finding such a mapping without a need to explicitly defining it.</p>
-<div class="toctree-wrapper compound">
-</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -480,7 +478,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./02_probML"
+            path: "./02_probML/02_kernelmethods"
         },
         predefinedOutput: true
     }
@@ -497,7 +495,7 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="02_kernelmethods.html" title="previous page">
+        <a class="left-prev" href="../02_kernelmethods.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
@@ -506,10 +504,10 @@
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="02_kernelmethods/01_GP.html" title="next page">
+        <a class="right-next" href="01_GP.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">8.1. </span>Gaussian Processes for Machine Learning</p>
+                <p class="prevnext-title"><span class="section-number">7.2. </span>Gaussian Processes for Machine Learning</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
@@ -537,7 +535,7 @@
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
   
   </body>
