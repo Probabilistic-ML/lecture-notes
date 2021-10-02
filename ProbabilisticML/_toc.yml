@@ -31,6 +31,7 @@ parts:
   chapters:
   - file: 02_probML/01_motivation
   - file: 02_probML/02_kernelmethods
+  - file: 02_probML/02a_kerneltrick
     sections:
     - file: 02_probML/02_kernelmethods/01_GP
     - file: 02_probML/02_kernelmethods/02_addmethods
