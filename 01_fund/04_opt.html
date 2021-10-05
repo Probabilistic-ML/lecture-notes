@@ -235,17 +235,17 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/00_kerneltrick.html">
+    <a class="reference internal" href="../02_probML/02_kernelmethods/01_kerneltrick.html">
      7.1. The Kernel Trick: Implicit embeddings from inner products
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/01_GP.html">
+    <a class="reference internal" href="../02_probML/02_kernelmethods/02_GP.html">
      7.2. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/02_addmethods.html">
+    <a class="reference internal" href="../02_probML/02_kernelmethods/03_addmethods.html">
      7.3. Additional Kernel-based Methods
     </a>
    </li>
@@ -477,7 +477,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2878.768650428216
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2588.1072297198534
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -509,7 +509,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  103.59472786979326
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  113.83357212313581
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -818,14 +818,12 @@ To handle the first problem we can adress some features:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.62457002 2.6436573 ]
+[1.0641904 1.1262187]
+Rastrigin
+[1.97776794 1.97136145]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
-[0.99789028 1.06780316]
-</pre></div>
-</div>
-<img alt="../_images/04_opt_19_2.png" src="../_images/04_opt_19_2.png" />
+<img alt="../_images/04_opt_19_1.png" src="../_images/04_opt_19_1.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -923,22 +921,20 @@ To handle the first problem we can adress some features:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3693
-     nit: 122
+    nfev: 3813
+     nit: 126
  success: True
        x: array([1., 1.])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1713
-     nit: 56
+    nfev: 1653
+     nit: 54
  success: True
-       x: array([ 8.44472048e-10, -2.08231954e-09])
+       x: array([-3.66858921e-09, -5.98904037e-10])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_22_2.png" src="../_images/04_opt_22_2.png" />
+<img alt="../_images/04_opt_22_1.png" src="../_images/04_opt_22_1.png" />
 </div>
 </div>
 </div>
