@@ -509,12 +509,12 @@
 <p>The geometric distribution <span class="math notranslate nohighlight">\(\text{Geom}(p)\)</span> describes the number of independent Bernoulli trials needed to get a success. Hence, it takes values in <span class="math notranslate nohighlight">\(\{1, 2, \dots\}\)</span> and</p>
 <div class="math notranslate nohighlight">
 \[P(X=k) = (1-p)^{k-1} p \quad \text{for } k=1,2,\dots,\]</div>
-<p>since <span class="math notranslate nohighlight">\(X=k\)</span> means no success in the first <span class="math notranslate nohighlight">\(k-1\)</span> Bernoulli trials (with probability <span class="math notranslate nohighlight">\(1-p\)</span> each) and finally a success in the <span class="math notranslate nohighlight">\(k\)</span>-th trial (with probability <span class="math notranslate nohighlight">\(p\)</span>). Note that <span class="math notranslate nohighlight">\(P(X=k) \rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span> as long as <span class="math notranslate nohighlight">\(p \ne 0\)</span>. For example, the probability to observe heads the first time after exactply <span class="math notranslate nohighlight">\(10\)</span> trials by tossing a fair coin is</p>
+<p>since <span class="math notranslate nohighlight">\(X=k\)</span> means no success in the first <span class="math notranslate nohighlight">\(k-1\)</span> Bernoulli trials (with probability <span class="math notranslate nohighlight">\(1-p\)</span> each) and finally a success in the <span class="math notranslate nohighlight">\(k\)</span>-th trial (with probability <span class="math notranslate nohighlight">\(p\)</span>). Note that <span class="math notranslate nohighlight">\(P(X=k) \rightarrow 0\)</span> as <span class="math notranslate nohighlight">\(k \rightarrow \infty\)</span> as long as <span class="math notranslate nohighlight">\(p \ne 0\)</span>. For example, the probability to observe heads the first time after exactly <span class="math notranslate nohighlight">\(10\)</span> trials by tossing a fair coin is</p>
 <div class="math notranslate nohighlight">
 \[P(X=10) = (1-0.5)^9 ~0.5 = 0.5^{10} \approx 0.01\%.\]</div>
 <p>Furthermore, in use of the third Kolmogorov axiom, it holds</p>
 <div class="math notranslate nohighlight">
-\[P(X &gt;= 10) = \sum_{k=10}^{\infty} (1-0.5)^{k-1} ~0.5 = \frac{0.5^{10}}{1 - 0.5} = 0.5^9 \approx 0.02\%.\]</div>
+\[P(X \ge 10) = \sum_{k=10}^{\infty} (1-0.5)^{k-1} ~0.5 = \frac{0.5^{10}}{1 - 0.5} = 0.5^9 \approx 0.02\%.\]</div>
 <p>In other words, the probability to observe only tails in the first <span class="math notranslate nohighlight">\(9\)</span> tosses is approximately <span class="math notranslate nohighlight">\(0.02\%\)</span> in correspondance with the calculation in use of the binomial distribution.</p>
 </div>
 <div class="section" id="poisson-distribution">

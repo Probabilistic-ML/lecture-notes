@@ -392,6 +392,13 @@
   <a class="reference internal nav-link" href="#gradient-methods">
    4.3. Gradient Methods
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#momentum">
+     4.3.1. Momentum
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#stochastic-methods">
@@ -477,7 +484,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  3089.94229455278
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2554.923146337669
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -509,7 +516,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  120.30824320419087
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  107.09425315449305
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -625,7 +632,8 @@
 </div>
 </div>
 </div>
-<p>The problem at these functions is, that we will find a local minima very fast but to find the global minima is difficult.These problems are called non-convex optimization problem.</p>
+<p>The problem at these functions is, that we will find a local minima very fast but to find the global minima is difficult.These problems are called non-convex optimization problem.
+Rosenbrock functoins minimum is at <span class="math notranslate nohighlight">\([1,1]\)</span> and Rastrigin functions minimum is at <span class="math notranslate nohighlight">\([0,0]\)</span></p>
 </div>
 <div class="section" id="gradient-methods">
 <h2><span class="section-number">4.3. </span>Gradient Methods<a class="headerlink" href="#gradient-methods" title="Permalink to this headline">¶</a></h2>
@@ -733,6 +741,110 @@ To handle the first problem we can adress some features:</p>
 <li><p>we could apply a momentum to our algorithm, that we accumulate speed in previous steps. We can imagine this as a ball ralling down a hill and become faster.</p></li>
 </ol>
 <p>To handle the second problem we need some kind of mixed method.</p>
+<div class="section" id="momentum">
+<h3><span class="section-number">4.3.1. </span>Momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">¶</a></h3>
+<p>to avoid the long traverse time in nearly flat surfaces like the rosenbrock function in the valley, we can accumulate speed through momentum.</p>
+<p>The momentum update equations are:
+$$
+v^{(n+1)} = \beta v^{(n)} +\alpha g(x)^{(n)}  \</p>
+<p>x^{(n+1)} = x^{(n)} + v^{(n+1)}
+$$</p>
+<p>where <span class="math notranslate nohighlight">\(\beta\)</span> is the momentum decay factor and <span class="math notranslate nohighlight">\(v\)</span> is the momentum. For <span class="math notranslate nohighlight">\(\beta=0\)</span> we get the normal gradiant descent method. This methods increases the speed in narrow flat valley but will also tend to overshoot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span> <span class="n">grad</span>    
+<span class="n">grad_rose</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">Rosenbrock</span><span class="p">)</span>       <span class="c1"># Obtain its gradient function</span>
+
+<span class="k">def</span> <span class="nf">mom_gradient_descent</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">grad_fun</span><span class="p">,</span> <span class="n">start_value</span><span class="p">,</span> <span class="n">max_iters</span><span class="p">,</span> <span class="n">step_size</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="n">x_old</span> <span class="o">=</span> <span class="n">start_value</span>
+    <span class="n">momentum_old</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="c1">#beta = 0.9</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">step_size</span>
+    <span class="n">hist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start_value</span><span class="p">,</span> <span class="n">fun</span><span class="p">(</span><span class="n">start_value</span><span class="p">))</span> <span class="c1">#start x,y</span>
+    <span class="n">hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> 
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iters</span><span class="p">):</span>
+        <span class="n">norm_grad</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">grad_fun</span><span class="p">(</span><span class="n">x_old</span><span class="p">)</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">grad_fun</span><span class="p">(</span><span class="n">x_old</span><span class="p">)))</span> <span class="c1">#normalize gradient</span>
+        <span class="c1">#norm_grad = -(grad_fun(x_old+beta*momentum_old)/abs(grad_fun(x_old+beta*momentum_old))) #NesterovMomentum: look at gradient from future position</span>
+        <span class="n">momentum_new</span>  <span class="o">=</span> <span class="n">beta</span><span class="o">*</span><span class="n">momentum_old</span><span class="o">+</span><span class="n">alpha</span><span class="o">*</span><span class="n">norm_grad</span> <span class="c1">#momentum calculation</span>
+        <span class="n">x_new</span> <span class="o">=</span> <span class="n">x_old</span><span class="o">+</span><span class="n">momentum_new</span> <span class="c1">#gradient descent step</span>
+        <span class="n">hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span><span class="n">fun</span><span class="p">(</span><span class="n">x_new</span><span class="p">)))</span><span class="c1">#appending history</span>
+        <span class="n">x_old</span> <span class="o">=</span> <span class="n">x_new</span>
+        <span class="n">momentum_old</span> <span class="o">=</span> <span class="n">momentum_new</span>
+    <span class="n">hist</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x_new</span><span class="p">,</span> <span class="n">hist</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_end</span> <span class="p">,</span><span class="n">hist</span> <span class="o">=</span> <span class="n">mom_gradient_descent</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">Rosenbrock</span><span class="p">,</span> <span class="n">grad_fun</span><span class="o">=</span><span class="n">grad_rose</span><span class="p">,</span><span class="n">start_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">]),</span><span class="n">max_iters</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span><span class="n">step_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="mf">0.90</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="n">Z</span> <span class="o">=</span>  <span class="n">Rosenbrock</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
+
+<span class="n">iters</span><span class="o">=</span><span class="n">hist</span>
+
+<span class="c1"># Plot the surface.</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span> <span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
+<span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span> 
+<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rosenbrock function&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rosenbrock&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_end</span><span class="p">)</span>
+
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">grad_rast</span> <span class="o">=</span>  <span class="n">grad</span><span class="p">(</span><span class="n">Rastrigin</span><span class="p">)</span> 
+<span class="n">x_end</span> <span class="p">,</span><span class="n">hist</span> <span class="o">=</span> <span class="n">mom_gradient_descent</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">Rastrigin</span><span class="p">,</span> <span class="n">grad_fun</span><span class="o">=</span><span class="n">grad_rast</span><span class="p">,</span><span class="n">start_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.9</span><span class="p">,</span><span class="o">-</span><span class="mf">0.9</span><span class="p">]),</span><span class="n">max_iters</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">step_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">iters</span><span class="o">=</span> <span class="n">hist</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="n">Z</span> <span class="o">=</span>  <span class="n">Rastrigin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]))</span>
+
+<span class="c1"># Plot the surface.</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;f(x,y)&#39;</span><span class="p">)</span>
+<span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span> <span class="c1"># ToDo add order of iterations</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>   
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rastrigin function&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rastrigin&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_end</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
+[1.0980919 0.9019081]
+Rastrigin
+[-2. -1.]
+</pre></div>
+</div>
+<img alt="../_images/04_opt_19_1.png" src="../_images/04_opt_19_1.png" />
+</div>
+</div>
+<p>Here you can the the oscilation in the left plot. We are a lot faster than before but we tending to overshoot the valley floor. An improvement is <code class="docutils literal notranslate"><span class="pre">Nesterov</span> <span class="pre">Momentum</span></code>, where we use a gradient at a projected future position. Important upgrades from this would be adaptive learning rate which is already implemented in so called <code class="docutils literal notranslate"><span class="pre">AdaGrad</span></code>. One of the most popular algorithms is the <code class="docutils literal notranslate"><span class="pre">adaptive</span> <span class="pre">moment</span> <span class="pre">estimation</span> <span class="pre">method(ADAM)</span></code>. <code class="docutils literal notranslate"><span class="pre">ADAM</span></code> includes the exponentially decaying gradient from moment and an exponentially decaying squared gradient like <code class="docutils literal notranslate"><span class="pre">RMSProp</span></code>(which is an improvment of <code class="docutils literal notranslate"><span class="pre">AdaGrad</span></code>)</p>
+</div>
 </div>
 <div class="section" id="stochastic-methods">
 <h2><span class="section-number">4.4. </span>Stochastic Methods<a class="headerlink" href="#stochastic-methods" title="Permalink to this headline">¶</a></h2>
@@ -818,14 +930,12 @@ To handle the first problem we can adress some features:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.56562631 2.44120833]
+[1.06071236 1.11334736]
+Rastrigin
+[1.07300904 1.92394663]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
-[-1.04837721  0.99928513]
-</pre></div>
-</div>
-<img alt="../_images/04_opt_19_2.png" src="../_images/04_opt_19_2.png" />
+<img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -923,22 +1033,20 @@ To handle the first problem we can adress some features:</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3903
-     nit: 129
+    nfev: 3783
+     nit: 125
  success: True
        x: array([1., 1.])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1653
-     nit: 54
+    nfev: 1743
+     nit: 57
  success: True
-       x: array([5.73361358e-10, 1.44574297e-09])
+       x: array([-4.85032903e-10, -3.31473970e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_22_2.png" src="../_images/04_opt_22_2.png" />
+<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
 </div>
 </div>
 </div>
