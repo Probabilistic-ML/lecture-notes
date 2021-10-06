@@ -64,7 +64,7 @@ Due to the definition of the pdf of a multivariate normal distribtion and the pr
 Let $X = (X_1, X_2) \sim \mathcal{N}(\mu, \Sigma)$ be a random vector such that $X_1$ and $X_2$ are uncorrelated (i.e., $\Sigma$ is a diagonal matrix). Then, $X_1$ and $X_2$ are independent random variables. 
 ```
 
-In {ref}```sec:indep``` we mentioned that uncorrelated random variables are not necessarily independent, but the preceding lemma shows that this is different for normally distributed random variables provided that **the joint distribution is also Gaussian**. If $X_1$ and $X_2$ are normally distributed, but $X$ is not, the statement does not hold true!
+In {ref}```sec:indep``` we mentioned that uncorrelated random variables are not necessarily independent, but the preceding lemma shows that this is different for normally distributed random variables provided that **the joint distribution is also Gaussian**. If $X_1$ and $X_2$ are normally distributed, but $X$ is not, the statement [does not hold true](https://en.wikipedia.org/wiki/Normally_distributed_and_uncorrelated_does_not_imply_independent)!
 
 In view of the subsequent applications to Gaussian process regression, the following result will be very useful:
 
