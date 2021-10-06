@@ -392,13 +392,6 @@
   <a class="reference internal nav-link" href="#gradient-methods">
    4.3. Gradient Methods
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#momentum">
-     4.3.1. Momentum
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#stochastic-methods">
@@ -484,7 +477,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2554.923146337669
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2783.5920744738055
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -516,7 +509,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  107.09425315449305
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  106.10702885439764
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -741,14 +734,14 @@ To handle the first problem we can adress some features:</p>
 <li><p>we could apply a momentum to our algorithm, that we accumulate speed in previous steps. We can imagine this as a ball ralling down a hill and become faster.</p></li>
 </ol>
 <p>To handle the second problem we need some kind of mixed method.</p>
-<div class="section" id="momentum">
-<h3><span class="section-number">4.3.1. </span>Momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">¶</a></h3>
-<p>to avoid the long traverse time in nearly flat surfaces like the rosenbrock function in the valley, we can accumulate speed through momentum.</p>
-<p>The momentum update equations are:
-$$
-v^{(n+1)} = \beta v^{(n)} +\alpha g(x)^{(n)}  \</p>
-<p>x^{(n+1)} = x^{(n)} + v^{(n+1)}
-$$</p>
+<p><strong>Momentum</strong>
+to avoid the long traverse time in nearly flat surfaces like the rosenbrock function in the valley, we can accumulate speed through momentum.</p>
+<p>The momentum update equations are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+v^{(n+1)} = \beta v^{(n)} +\alpha g(x)^{(n)}  \\
+x^{(n+1)} = x^{(n)} + v^{(n+1)}
+\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\beta\)</span> is the momentum decay factor and <span class="math notranslate nohighlight">\(v\)</span> is the momentum. For <span class="math notranslate nohighlight">\(\beta=0\)</span> we get the normal gradiant descent method. This methods increases the speed in narrow flat valley but will also tend to overshoot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -843,8 +836,7 @@ Rastrigin
 <img alt="../_images/04_opt_19_1.png" src="../_images/04_opt_19_1.png" />
 </div>
 </div>
-<p>Here you can the the oscilation in the left plot. We are a lot faster than before but we tending to overshoot the valley floor. An improvement is <code class="docutils literal notranslate"><span class="pre">Nesterov</span> <span class="pre">Momentum</span></code>, where we use a gradient at a projected future position. Important upgrades from this would be adaptive learning rate which is already implemented in so called <code class="docutils literal notranslate"><span class="pre">AdaGrad</span></code>. One of the most popular algorithms is the <code class="docutils literal notranslate"><span class="pre">adaptive</span> <span class="pre">moment</span> <span class="pre">estimation</span> <span class="pre">method(ADAM)</span></code>. <code class="docutils literal notranslate"><span class="pre">ADAM</span></code> includes the exponentially decaying gradient from moment and an exponentially decaying squared gradient like <code class="docutils literal notranslate"><span class="pre">RMSProp</span></code>(which is an improvment of <code class="docutils literal notranslate"><span class="pre">AdaGrad</span></code>)</p>
-</div>
+<p>Here you can the the oscilation in the left plot. We are a lot faster than before but we tending to overshoot the valley floor. An improvement is Nesterov Momentum, where we use a gradient at a projected future position. Important upgrades from this would be adaptive learning rate which is already implemented in so called <code class="docutils literal notranslate"><span class="pre">AdaGrad</span></code>. One of the most popular algorithms is the adaptive moment estimation method(<code class="docutils literal notranslate"><span class="pre">ADAM</span></code>). <code class="docutils literal notranslate"><span class="pre">ADAM</span></code> includes the exponentially decaying gradient from moment and an exponentially decaying squared gradient like <code class="docutils literal notranslate"><span class="pre">RMSProp</span></code>(which is an improvment of <code class="docutils literal notranslate"><span class="pre">AdaGrad</span></code>). The</p>
 </div>
 <div class="section" id="stochastic-methods">
 <h2><span class="section-number">4.4. </span>Stochastic Methods<a class="headerlink" href="#stochastic-methods" title="Permalink to this headline">¶</a></h2>
@@ -930,12 +922,14 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.06071236 1.11334736]
-Rastrigin
-[1.07300904 1.92394663]
+[1.63666983 2.68335256]
 </pre></div>
 </div>
-<img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+[0.98703773 0.98707053]
+</pre></div>
+</div>
+<img alt="../_images/04_opt_23_2.png" src="../_images/04_opt_23_2.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -1033,20 +1027,22 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3783
-     nit: 125
+    nfev: 4023
+     nit: 133
  success: True
        x: array([1., 1.])
-Rastrigin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
     nfev: 1743
      nit: 57
  success: True
-       x: array([-4.85032903e-10, -3.31473970e-09])
+       x: array([-3.24953042e-09, -1.26544764e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
+<img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />
 </div>
 </div>
 </div>
