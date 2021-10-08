@@ -889,11 +889,16 @@ X' = \frac{X - \mu}{\sigma}
 AIC:= 2k - 2\log(\mathcal{L}(\Theta|x))
 \]</div>
 <p>This score of a model can be seen as an estimate of expected information loss if we replace the true data by the prediction of our model. By minimizing this we finding the optimal model.</p>
+<p>Other techniques to notes are Bayesian Information Criterion (BIC) and Minimum Description Length (MDL).</p>
 </div>
 <div class="section" id="sampling-resampling-based-model-selection">
 <h3><span class="section-number">5.2.2. </span>Sampling / Resampling based model selection<a class="headerlink" href="#sampling-resampling-based-model-selection" title="Permalink to this headline">¶</a></h3>
-<p><strong>Cross Validation</strong>
-k-fold / LOOCV</p>
+<p><strong>Cross Validation</strong></p>
+<p>In cross validation techniques we will partition the dataset <span class="math notranslate nohighlight">\(D\)</span> in training and hold-out/test sets. More precise in <strong>k-fold cross validation</strong> we will split the data into <span class="math notranslate nohighlight">\(k\)</span> equally sized folds <span class="math notranslate nohighlight">\(D_i\)</span>. Then we train <span class="math notranslate nohighlight">\(k\)</span> models with <span class="math notranslate nohighlight">\(k-1\)</span> training sets and <span class="math notranslate nohighlight">\(1\)</span> test set. But in each model we will change the test set, that we will get different results. With a given metric for example Root Mean Square Error (RMSE), we can compute an average model accuracy.</p>
+<p><a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)"> <center><img alt="https://upload.wikimedia.org/wikipedia/commons/c/c7/LOOCV.gif" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/LOOCV.gif" /></center></a></p>
+<p>We can now look at the average accuracy of our models which we trained a took these with the minimum. This cross-validation technique allows us to address our model selection problem by means of a comparison of the (cross-validated) accuracy (i.e. the prediction performance) of our models. A major benefit of cross-validation approach is that it is a simple numerical approach that generally works for arbitrary machine learning techniques, as long as 1. we can derive a prediction from a model that we can validate in our test set, and 2. we have enough data to  apply a cross-validation. A similiar technique is <strong>leave one out cross validation (LOOCV)</strong> where we have the issue that we have not a big dataset and rather have for example 20 datapoints. There we would make a cross validation with <span class="math notranslate nohighlight">\(k=20\)</span> folds and just leave one sample out.</p>
+<p><strong>Bootstrapping</strong></p>
+<p>In the other case that we have a huge datasets, where model training or even plotting can take some time we want to take not all of the samples. For this we can refer to bootstrap algorithms. In these we draw <span class="math notranslate nohighlight">\(n\)</span> samples with put back from the whole dataset. Afterwards we calculate the statistics <span class="math notranslate nohighlight">\(T\)</span> for the drawn samples.</p>
 </div>
 </div>
 <div class="section" id="references">
