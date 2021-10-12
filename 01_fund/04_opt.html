@@ -221,12 +221,12 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/01_motivation.html">
-   6. Motivation of Probabilistic Models
+   7. Motivation of Probabilistic Models
   </a>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../02_probML/02_kernelmethods.html">
-   7. Kernel-based Methods
+   8. Kernel-based Methods
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -236,24 +236,24 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../02_probML/02_kernelmethods/01_kerneltrick.html">
-     7.1. The Kernel Trick: Implicit embeddings from inner products
+     8.1. The Kernel Trick: Implicit embeddings from inner products
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../02_probML/02_kernelmethods/02_GP.html">
-     7.2. Gaussian Processes for Machine Learning
+     8.2. Gaussian Processes for Machine Learning
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../02_probML/02_kernelmethods/03_addmethods.html">
-     7.3. Additional Kernel-based Methods
+     8.3. Additional Kernel-based Methods
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../02_probML/03_overview.html">
-   8. Overview of Further Probabilistic Models
+   9. Overview of Further Probabilistic Models
   </a>
  </li>
 </ul>
@@ -265,17 +265,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/BO.html">
-   9. Bayesian Optimization
+   10. Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/uncertainty.html">
-   10. Design Uncertainty Analysis
+   11. Design Uncertainty Analysis
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../03_appl/03_RL.html">
-   11. Efficient Reinforcement Learning
+   12. Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -477,7 +477,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2928.990305522333
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2658.4428372876414
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -509,7 +509,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  144.50471843776216
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  117.72596466094208
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -922,14 +922,12 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.4961201  2.22679637]
+[1.59879199 2.56341381]
+Rastrigin
+[-1.94636528  0.9442442 ]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
-[-0.97361765  0.93827199]
-</pre></div>
-</div>
-<img alt="../_images/04_opt_23_2.png" src="../_images/04_opt_23_2.png" />
+<img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -1027,22 +1025,20 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3993
-     nit: 132
+    nfev: 4023
+     nit: 133
  success: True
        x: array([1., 1.])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1953
-     nit: 64
+    nfev: 1743
+     nit: 57
  success: True
-       x: array([-8.41572145e-10,  3.52632468e-09])
+       x: array([ 2.45629650e-09, -1.36957246e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />
+<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
 </div>
 </div>
 </div>
