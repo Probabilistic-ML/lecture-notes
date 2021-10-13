@@ -218,7 +218,25 @@ The events $A$ and $B$ are often denoted by $H$ and $E$, respectively, where $H$
 
 $$P(H~|~E) = \frac{P(E~|~H)~P(H)}{P(E)} = \frac{P(E~|~H)~P(H)}{P(E~|~H)~P(H) + P(E~|~H^c)~P(H^c)}.$$
 
-The concept is demonstrated in the following video:
+$P(H)$ is called the **prior probability** of the hypothesis, $P(E)$ the **marginal probability**, $P(E~|~H)$ the **likelihood** of the evidence given the hypothesis and $P(H~|~E)$ the **posterior probability** of the hypothesis given the evidence.
+
+A well-known example for the application of Bayes' theorem is a antigen test for a SARS-CoV-2 coronavirus infection.
+In this setting, the hypothesis $H$ is that some tested person is indeed **infected** and the evidence is given by a **positive** antigen test. $H^c$ is complementary event of $H$, i.e., the person is **not infected**. In order to apply Bayes' theorem, we use the following information:
+
+- the **sensitivity** $P(\text{positive}~|~\text{infected})$ of the test is $96.5%$ 
+- the **specificity** $P(\text{negative}~|~\text{not infected})$ of the test is $99.7%$ 
+- the prior probability $P(\text{infected})$ of an infection is 0.1% which corresponds to 100 infected persons per 100000 inhabitants
+
+Bayes' theorem yields
+
+$$\begin{align}
+P(\text{infected}~|~\text{positive}) &= \frac{P(\text{positive}~|~\text{infected}) ~ P(\text{infected})}{P(\text{positive}~|~\text{infected}) ~ P(\text{infected}) + P(\text{positive}~|~\text{not infected}) ~ P(\text{not infected})} \\
+&= \frac{P(\text{positive}~|~\text{infected}) ~ P(\text{infected})}{P(\text{positive}~|~\text{infected}) ~ P(\text{infected}) + (1- P(\text{negative}~|~\text{not infected}) ~ (1 - P(\text{infected}))} \\
+&= \frac{0.965 \cdot 0.001}{0.965 \cdot 0.001 + (1 - 0.997) \cdot (1 - 0.001)} \\
+&\approx 0.2436
+\end{align}$$
+
+The concept is also demonstrated in the following video:
 
 <div class="video-container">
 <iframe src="https://www.youtube.com/embed/R13BD8qKeTg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -236,3 +254,7 @@ More informally, this can be expressed as
 $$p(x~|~y) = \frac{p(y~|~x) ~p(x)}{p(y)},$$
 
 where $p$ is a shorthand notation for some probability density in analogy to the elementary probabilities in the case of discrete distributions.
+
+```python
+
+```

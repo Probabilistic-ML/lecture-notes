@@ -561,7 +561,23 @@ X_2 \end{pmatrix}\end{split}\]</div>
 <p>The events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are often denoted by <span class="math notranslate nohighlight">\(H\)</span> and <span class="math notranslate nohighlight">\(E\)</span>, respectively, where <span class="math notranslate nohighlight">\(H\)</span> denotes the <strong>hypothesis</strong> and <span class="math notranslate nohighlight">\(E\)</span> denotes the <strong>evidence</strong>. Hence, Bayes’ theorem states a way to calculate the probability of some hypothesis <span class="math notranslate nohighlight">\(H\)</span> given some data (the evidence) <span class="math notranslate nohighlight">\(E\)</span>. In use of the law of total probability stated in <a class="reference internal" href="01_probabilityspaces.html#sec-condprob"><span class="std std-ref">Conditional Probability</span></a> Bayes’ theorem reads</p>
 <div class="math notranslate nohighlight">
 \[P(H~|~E) = \frac{P(E~|~H)~P(H)}{P(E)} = \frac{P(E~|~H)~P(H)}{P(E~|~H)~P(H) + P(E~|~H^c)~P(H^c)}.\]</div>
-<p>The concept is demonstrated in the following video:</p>
+<p><span class="math notranslate nohighlight">\(P(H)\)</span> is called the <strong>prior probability</strong> of the hypothesis, <span class="math notranslate nohighlight">\(P(E)\)</span> the <strong>marginal probability</strong>, <span class="math notranslate nohighlight">\(P(E~|~H)\)</span> the <strong>likelihood</strong> of the evidence given the hypothesis and <span class="math notranslate nohighlight">\(P(H~|~E)\)</span> the <strong>posterior probability</strong> of the hypothesis given the evidence.</p>
+<p>A well-known example for the application of Bayes’ theorem is a antigen test for a SARS-CoV-2 coronavirus infection.
+In this setting, the hypothesis <span class="math notranslate nohighlight">\(H\)</span> is that some tested person is indeed <strong>infected</strong> and the evidence is given by a <strong>positive</strong> antigen test. <span class="math notranslate nohighlight">\(H^c\)</span> is complementary event of <span class="math notranslate nohighlight">\(H\)</span>, i.e., the person is <strong>not infected</strong>. In order to apply Bayes’ theorem, we use the following information:</p>
+<ul class="simple">
+<li><p>the <strong>sensitivity</strong> <span class="math notranslate nohighlight">\(P(\text{positive}~|~\text{infected})\)</span> of the test is <span class="math notranslate nohighlight">\(96.5%\)</span></p></li>
+<li><p>the <strong>specificity</strong> <span class="math notranslate nohighlight">\(P(\text{negative}~|~\text{not infected})\)</span> of the test is <span class="math notranslate nohighlight">\(99.7%\)</span></p></li>
+<li><p>the prior probability <span class="math notranslate nohighlight">\(P(\text{infected})\)</span> of an infection is 0.1% which corresponds to 100 infected persons per 100000 inhabitants</p></li>
+</ul>
+<p>Bayes’ theorem yields</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+P(\text{infected}~|~\text{positive}) &amp;= \frac{P(\text{positive}~|~\text{infected}) ~ P(\text{infected})}{P(\text{positive}~|~\text{infected}) ~ P(\text{infected}) + P(\text{positive}~|~\text{not infected}) ~ P(\text{not infected})} \\
+&amp;= \frac{P(\text{positive}~|~\text{infected}) ~ P(\text{infected})}{P(\text{positive}~|~\text{infected}) ~ P(\text{infected}) + (1- P(\text{negative}~|~\text{not infected}) ~ (1 - P(\text{infected}))} \\
+&amp;= \frac{0.965 \cdot 0.001}{0.965 \cdot 0.001 + (1 - 0.997) \cdot (1 - 0.001)} \\
+&amp;\approx 0.2436
+\end{align}\end{split}\]</div>
+<p>The concept is also demonstrated in the following video:</p>
 <div class="video-container">
 <iframe src="https://www.youtube.com/embed/R13BD8qKeTg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
@@ -574,6 +590,9 @@ X_2 \end{pmatrix}\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[p(x~|~y) = \frac{p(y~|~x) ~p(x)}{p(y)},\]</div>
 <p>where <span class="math notranslate nohighlight">\(p\)</span> is a shorthand notation for some probability density in analogy to the elementary probabilities in the case of discrete distributions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </div>
 </div>
 
