@@ -802,20 +802,23 @@ X' = \frac{X - \mu}{\sigma}
 <p>scaling with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standart deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, use this when the data is drawn from gaussian distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span>
-<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">#Normalization</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span>
+<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">#Normalization</span>
 <span class="n">x_scaled</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.15259149,  1.33155134],
-       [-2.08353078,  1.4575089 ],
-       [-0.39897398, -1.06164229],
-       [ 0.70928707, -0.30589693],
-       [-0.17732177, -0.68376961],
-       [ 0.        , -1.12462107],
-       [ 0.79794796,  0.38686965]])
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">b23aedd3e7ef</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">x_scaled</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">#Normalization</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">x_scaled</span>
+
+<span class="ne">NameError</span>: name &#39;df&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -823,7 +826,7 @@ X' = \frac{X - \mu}{\sigma}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span>
-<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">#Standardization aka MinMax Scaler</span>
+<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">#Standardization aka MinMax Scaler</span>
 <span class="n">x_scaled</span>
 </pre></div>
 </div>
