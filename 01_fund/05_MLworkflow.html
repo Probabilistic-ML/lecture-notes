@@ -728,7 +728,7 @@ We will create a dataset here to show a non perfect example.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>weight   -19.095828
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>weight   -13.673586
 age      -18.777950
 dtype: float64
 </pre></div>
@@ -761,13 +761,13 @@ dtype: float64
 <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;weight&quot;</span><span class="p">]]</span>
 <span class="c1">#x_scaled = StandardScaler().fit_transform(X)</span>
 <span class="n">x_scaled</span> <span class="o">=</span> <span class="n">X</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">OneClassSVM</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">OneClassSVM</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">7</span><span class="p">]),</span><span class="n">c</span><span class="o">=</span><span class="n">out</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x23bee8eb5c8&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x2633bdf6248&gt;
 </pre></div>
 </div>
 <img alt="../_images/05_MLworkflow_14_1.png" src="../_images/05_MLworkflow_14_1.png" />
