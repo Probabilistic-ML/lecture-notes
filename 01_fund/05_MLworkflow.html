@@ -887,22 +887,31 @@ X' = \frac{X - \mu}{\sigma}
 <div class="section" id="model-selection">
 <h1><span class="section-number">6. </span>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">¶</a></h1>
 <p>Now we will dive into the Machine Learning part. We will look deeper into model selection techniques. We are looking for a model that has enough explanatory power to explain the variance in the data without over- or under-fitting, yet is parsimonious. We already showed regularization in form of LASSO and Ridge Regression to overcome overfitting in previous chapter and will continue on statistical and information based model selection. Before this we will take a look on different metrics for classification, regression and clustering and will make clear some various definitions.</p>
-<p>|               |    True            |</p>
-<table class="colwidths-auto table">
+<table class="table" id="id15">
+<caption><span class="caption-number">Table 6.1 </span><span class="caption-text">Accuracy, Precision, and Recall</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Predicted</p></th>
-<th class="head"><p>Pos</p></th>
-<th class="text-align:right head"><p>Neg</p></th>
+<tr class="row-odd"><th class="head"><p>True</p></th>
+<th class="head"></th>
+<th class="head"></th>
+</tr>
+<tr class="row-even"><th class="head"></th>
+<th class="head"><p>Positive</p></th>
+<th class="head"><p>Negative</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Pos</p></td>
-<td><p>True Positive</p></td>
-<td class="text-align:right"><p>False Positive</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p>Neg</p></td>
+<tr class="row-odd"><td></td>
+<td><p>True Negative</p></td>
 <td><p>False Negative</p></td>
-<td class="text-align:right"><p>True Negative</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>False Positive</p></td>
+<td><p>True Negative</p></td>
 </tr>
 </tbody>
 </table>
@@ -925,7 +934,7 @@ AIC:= 2k - 2\log(\mathcal{L}(\Theta|x))
 <p><a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)"> <center><img alt="https://upload.wikimedia.org/wikipedia/commons/c/c7/LOOCV.gif" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/LOOCV.gif" /></center></a></p>
 <p>We can now look at the average accuracy of our models which we trained a took these with the minimum. This cross-validation technique allows us to address our model selection problem by means of a comparison of the (cross-validated) accuracy (i.e. the prediction performance) of our models. A major benefit of cross-validation approach is that it is a simple numerical approach that generally works for arbitrary machine learning techniques, as long as 1. we can derive a prediction from a model that we can validate in our test set, and 2. we have enough data to  apply a cross-validation. A similar technique is <strong>leave one out cross validation (LOOCV)</strong> where we have the issue that we have not a big dataset and rather have for example 20 data points. There we would make a cross validation with <span class="math notranslate nohighlight">\(k=20\)</span> folds and just leave one sample out.</p>
 <p><strong>Bootstrapping</strong></p>
-<p>In the other case that we have a huge datasets, where model training or even plotting can take some time we want to take not all of the samples. For this we can refer to bootstrap algorithms. In these we draw <span class="math notranslate nohighlight">\(n\)</span> samples with replacement from the whole dataset - in contrast to cross validation holdout which is without replacement. We now train a model for each of these bootstrap sets and compute a metric (accuracy, RSME). We now compute the overall metric as the mean of each individual bootstrap metric. But bootstrapping is even more, we assume that we take samples from a normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> with unkown mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. We can estimate the mean and the variance by the data. Out of this assumption we can calculate a standart error and a 95% interval for the metric(accuracy). We now have a feeling for a values of the accuracy and can estimate if our model is good. If we are unsure about the samples if it follows a normal distribution we could use percentile method.</p>
+<p>In the other case that we have a huge datasets, where model training or even plotting can take some time we want to take not all of the samples. For this we can refer to bootstrap algorithms. In these we draw <span class="math notranslate nohighlight">\(n\)</span> samples with replacement from the whole dataset - in contrast to cross validation holdout which is without replacement. We now train a model for each of these bootstrap sets and compute a metric (accuracy, RSME). We now compute the overall metric as the mean of each individual bootstrap metric. But bootstrapping is even more, we assume that we take samples from a normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> with unkown mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. We can estimate the mean and the variance by the data. Out of this assumption we can calculate a standard error and a 95% interval for the metric(accuracy). We now have a feeling for a values of the accuracy and can estimate if our model is good. If we are unsure about the samples if it follows a normal distribution we could use percentile method.</p>
 </div>
 <div class="section" id="references">
 <h2><span class="section-number">6.3. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
