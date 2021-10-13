@@ -22,7 +22,7 @@ In order to perform Bayesian inference, the following steps are necessary:
     
     $$p(\mathcal{D}) = \int p(\mathcal{D}~|~\theta)~p(\theta)~d\theta$$
   
-  In the coin toss example, it turned out that the posterior distribution is again a beta distribution.
+  In the coin toss example, it turned out that the posterior distribution is again a beta distribution. Thus, the prior was chosen such that its combination with the likelihood in Bayes' theorem yields a posterior which is from the same family of probability distributions. As mentioned before, this kind of prior is called **conjugate prior**. A table of conjugate priors for many likelihoods can be found on [Wikipedia](https://en.wikipedia.org/wiki/Conjugate_prior#Table_of_conjugate_distributions). 
   
 The prior as well as the positrior distribution can be used to make probabilistic predicitions about the distribution of new data points. The **prior predictive distribution** is given by
 
