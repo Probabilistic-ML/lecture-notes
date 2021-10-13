@@ -223,9 +223,9 @@ $P(H)$ is called the **prior probability** of the hypothesis, $P(E)$ the **margi
 A well-known example for the application of Bayes' theorem is a antigen test for a SARS-CoV-2 coronavirus infection.
 In this setting, the hypothesis $H$ is that some tested person is indeed **infected** and the evidence is given by a **positive** antigen test. $H^c$ is complementary event of $H$, i.e., the person is **not infected**. In order to apply Bayes' theorem, we use the following information:
 
-- the **sensitivity** $P(\text{positive}~|~\text{infected})$ of the test is $96.5%$ 
-- the **specificity** $P(\text{negative}~|~\text{not infected})$ of the test is $99.7%$ 
-- the prior probability $P(\text{infected})$ of an infection is 0.1% which corresponds to 100 infected persons per 100000 inhabitants
+- the **sensitivity** $P(\text{positive}~|~\text{infected})$ of the test is $96.5\%$ 
+- the **specificity** $P(\text{negative}~|~\text{not infected})$ of the test is $99.7\%$ 
+- the prior probability $P(\text{infected})$ of an infection is $0.1\%$ which corresponds to 100 infected persons per 100000 inhabitants
 
 Bayes' theorem yields
 
