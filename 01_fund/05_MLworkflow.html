@@ -464,7 +464,8 @@
 We will create a dataset here to show a non perfect example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="s2">&quot;AAA&quot;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s2">&quot;BBB&quot;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="s2">&quot;AAA&quot;</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s2">&quot;BBB&quot;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
         <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="mi">72</span><span class="p">],</span>
         <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">35</span><span class="p">]}</span>
 <span class="n">data</span>
@@ -483,7 +484,6 @@ We will create a dataset here to show a non perfect example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -936,10 +936,10 @@ REC = \frac{2TP}{2TP+FP+FN}
 <p><strong>Regression</strong></p>
 <p>Already in optimizatin explained is the residual sum of squares (RSS) which can be related to mean sqaured error (MSE). The MSE and the root mean squared error is defined as</p>
 <div class="math notranslate nohighlight">
-\[
-MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2 \newline
+\[\begin{split}
+MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2 \\
 RSME = \sqrt{MSE}
-\]</div>
+\end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(y\)</span> is the real value and <span class="math notranslate nohighlight">\(\hat y\)</span> is the prediction from our model.</p>
 <p>Another popular metric is the R-squared or adjusted R-squared</p>
 <div class="math notranslate nohighlight">
@@ -948,8 +948,8 @@ R^2 = 1-\frac{SS_{regression}}{SS_{total}} = 1-\frac{\sum_i(y_i-\hat y_i)}{\sum_
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\bar y_i\)</span> is the mean of the data. To interpret these value we will look at a picture from wikipedia.
 <a href="https://de.wikipedia.org/wiki/Bestimmtheitsma%C3%9F"> <center><img alt="https://upload.wikimedia.org/wikipedia/commons/4/4a/R2values.svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/R2values.svg" /></center></a></p>
-<p><strong>Clustering</strong>
-For clustering techniques we will refer to silhoutte score, (adjusted) rand index and mutual information score.</p>
+<p><strong>Clustering</strong></p>
+<p>For clustering techniques we will refer to silhoutte score, (adjusted) rand index and mutual information score.</p>
 </div>
 <div class="section" id="statistical-and-information-based-model-selection">
 <h3><span class="section-number">5.2.2. </span>Statistical and information based model selection<a class="headerlink" href="#statistical-and-information-based-model-selection" title="Permalink to this headline">¶</a></h3>
