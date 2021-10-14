@@ -4,6 +4,7 @@ In this class, we will use Python in order to do simulations, illustrations, imp
 
 The most important Python libraries for our purposes will be:
 - [numpy](https://numpy.org/) (numerical computing library; mostly to do matrix and vector calculations)
+- [pandas](https://pandas.pydata.org/) (library for data analysis and manipulation, particularly useful for real world data) 
 - [scikit-learn](https://scikit-learn.org/stable/) (machine learning library)
 - [scipy](https://www.scipy.org/) (scientific computing library; contains many useful tools such as optimization and integration algorithms, special functions etc.)
 - [matplotlib](https://matplotlib.org/) (plotting library)
