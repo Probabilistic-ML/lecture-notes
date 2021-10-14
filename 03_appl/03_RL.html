@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>11. Efficient Reinforcement Learning &#8212; Probabilistic Machine Learning</title>
+    <title>11. Efficient Reinforcement Learning &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -84,7 +84,7 @@
       <img src="../_static/logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Probabilistic Machine Learning</h1>
+      <h1 class="site-logo" id="site-title">Introduction to Probabilistic Machine Learning</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -463,8 +463,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-40e4c134-acc6-40bf-9202-e69b89855089">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-40e4c134-acc6-40bf-9202-e69b89855089" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a17940a0-736e-45d0-82c7-f06df293a364">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-a17940a0-736e-45d0-82c7-f06df293a364" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -532,7 +532,7 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
     <div class="container">
       <p>
         
-          By C. Bogoclu, N. Friedlich & R. Vosshall (Equal Contribution)<br/>
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
         
           <div class="extra_footer">
             Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
