@@ -32,7 +32,7 @@ and the **posterior predictive distribution** by
 
 $$p(x~|~\mathcal{D}) = \int p(x~|~\theta)~p(\theta~|~\mathcal{D})~d\theta$$
 
-For example, in the coin toss example we can calulate the probability for heads in the next experiment. The use of the prior predictive distribution means that we only include our prior beliefs on $\theta$ which was given by the $\text{Beta}(2, 2)$ distribution. Recall that the likelihood is $\text{B}(1, \theta)$-distributed and therefore, $p(H~|~\theta) = \theta$, where $H$ denotes the event "heads". Thus, it follows
+For example, in the coin toss example we can calulate the probability for heads in the next experiment. The use of the prior predictive distribution means that we only include our prior beliefs on $\theta$ which was given by the $\text{Beta}(2, 2)$ distribution. Recall that the likelihood is $\text{B}(1, \theta)$-distributed and therefore, $p(H~|~\theta) = \theta$, where $H$ denotes the elementary event "heads". Thus, it follows
 
 $$p(H) = \int \theta~p(\theta)~d\theta = \mathbb{E}(\theta)$$
 

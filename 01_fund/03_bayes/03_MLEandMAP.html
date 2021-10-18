@@ -365,7 +365,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="map-and-mle">
+  <!-- #region -->
+<div class="tex2jax_ignore mathjax_ignore section" id="map-and-mle">
 <h1><span class="section-number">3.3. </span>MAP and MLE<a class="headerlink" href="#map-and-mle" title="Permalink to this headline">¶</a></h1>
 <p>In <a class="reference internal" href="02_bayesianinference.html#sec-bayesianinference"><span class="std std-ref">Bayesian Inference</span></a>, we have seen that the main task is to compute the posterior distribution by</p>
 <div class="math notranslate nohighlight">
@@ -378,11 +379,40 @@
 \[\hat{\theta} = \underset{\theta}{\text{argmax}} ~ p(\mathcal{D}~|~\theta)\]</div>
 <p>As the name suggests, MLE coincides with maximization of the likelihood <span class="math notranslate nohighlight">\(p(\mathcal{D}~|~\theta)\)</span>.</p>
 <p>The MAP estimate <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> also enables to make predicitions for new data points in use of <span class="math notranslate nohighlight">\(p(x ~|~\hat{\theta})\)</span>.</p>
-<p>In the coin toss example with <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span> prior distribution, we have seen that <span class="math notranslate nohighlight">\(p(\theta~|~\mathcal{D})\)</span> is <span class="math notranslate nohighlight">\(\text{B}(\alpha + s_n, \beta + n - s_n)\)</span>-distributed. Therefore, the MAP estimate is given by</p>
+<p>Please note that these methods are not Bayesian in the proper sense, since the distribution of <span class="math notranslate nohighlight">\(\theta\)</span> is replaced by a fixed value.</p>
+<p>In the coin toss example with <span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span> prior distribution, we have seen that <span class="math notranslate nohighlight">\(p(\theta~|~\mathcal{D})\)</span> is <span class="math notranslate nohighlight">\(\text{B}(\alpha + s_n, \beta + n - s_n)\)</span>-distributed. Therefore, the MAP estimate is given by the mode of this beta distribution which equals</p>
 <div class="math notranslate nohighlight">
 \[\hat{\theta} = \frac{\alpha + s_n - 1}{\alpha + \beta + n -2}.\]</div>
-<p>Moreover, for <span class="math notranslate nohighlight">\(\alpha = \beta = 1\)</span> the prior distribution equals a uniform distribution and hence, the MAP estimate yields the MLE value for <span class="math notranslate nohighlight">\(\hat{\theta}\)</span>. Assuming again five coin tosses with 3 heads and 2 tails, the MAP estimate would be <span class="math notranslate nohighlight">\(4/7\)</span>, whereas the MLE estimate is simply <span class="math notranslate nohighlight">\(3/5\)</span>. As seen before, in this example <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> equals also the probability for heads, since it is the parameter of a Bernoulli distribution.</p>
-<p>Please note that these methods are not Bayesian in the proper sense, since the distribution of <span class="math notranslate nohighlight">\(\theta\)</span> is replaced by a fixed value.</p>
+<p>Moreover, for <span class="math notranslate nohighlight">\(\alpha = \beta = 1\)</span> the prior distribution equals a uniform distribution and hence, the MAP estimate yields the MLE value for <span class="math notranslate nohighlight">\(\hat{\theta}\)</span>. As seen before, in this example <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> equals also the probability for heads, since it is the parameter of a Bernoulli distribution. In <a class="reference internal" href="02_bayesianinference.html#sec-bayesianinference"><span class="std std-ref">Bayesian Inference</span></a>, we have seen that the full Bayesian inference and <strong>use of the posterior predictive distribution yields that the probability for heads equals the expectation of the beta distribution which differs from its mode</strong>. Indeed, it holds</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} P(H~|~\mathcal{D}) =
+    \begin{cases}
+      \frac{\alpha + s_n}{\alpha + \beta + n}, &amp; \text{in use of full Bayesian inference} \\
+      \frac{\alpha + s_n - 1}{\alpha + \beta + n -2}, &amp; \text{in use of the MAP estimate}
+    \end{cases}
+\end{split}\]</div>
+<p>Assuming again the five coin tosses with 3 heads and 2 tails, the following values for <span class="math notranslate nohighlight">\(P(H~|~\mathcal{D})\)</span> result from the different approaches and priors:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>uniform prior</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(B(2, 2)\)</span> prior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bayesian inference (mean)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{4}{7} \approx 0.57\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{5}{9} \approx 0.56\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MAP (mode)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{3}{5} = 0.6\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{4}{7} \approx 0.57\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>The differences are illustrated in the following plot:</p>
+<p><img alt="" src="../../_images/MAPandMLE.png" /></p>
+<!-- #endregion -->
 </div>
 
     <script type="text/x-thebe-config">
