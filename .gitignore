@@ -3,3 +3,4 @@
 venv/
 **/_*/
 !ProbabilisticML/_static/
+ProbabilisticML/02_probML/02_kernelmethods/GPanimation.ipynb
