@@ -681,7 +681,7 @@ k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{sp
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "bdee048fd7484995aad56f578419bd47"}
+{"version_major": 2, "version_minor": 0, "model_id": "6e06f43d8250489db16a57cc2cd8494d"}
 </script></div>
 </div>
 <p>The general equations for Gaussian process regression without noise are derived as follows:</p>
@@ -722,6 +722,12 @@ k(x_n, x^*_1) &amp; k(x_n, x^*_2) &amp; \dots &amp; k(x_n, x^*_m) \end{pmatrix}\
 <div class="math notranslate nohighlight">
 \[\text{cov}(f(X^*)) = K(X^*, X^*) - K(X^*, X) K(X, X)^{-1} K(X, X^*)\]</div>
 </div>
+<p>By definition of the conditional probability distribution, the following density has the stated distribution</p>
+<div class="math notranslate nohighlight" id="equation-level1">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-level1" title="Permalink to this equation">¶</a></span>\[
+p(y^*~|~X^*, X, y) = \frac{p(y, y^*~|~X^*, X)}{p(y~|~X^*, X)} = \frac{p(y, y^*~|~X^*, X)}{p(y~|~X)},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(p(y^*~|~X^*, X, y)\)</span> denotes the likelihood that <span class="math notranslate nohighlight">\(f(X^*)\)</span> attains the value <span class="math notranslate nohighlight">\(y^*\)</span> given <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. The marginal likelihood <span class="math notranslate nohighlight">\(p(y~|~X)\)</span>, i.e., the likelihood of <span class="math notranslate nohighlight">\(f(X) = y\)</span> will be of particular importance in <a class="reference internal" href="#sec-selectofhyperp"><span class="std std-ref">Selection of Hyperparameters</span></a>.</p>
 <p>The term <span class="math notranslate nohighlight">\(\alpha := K(X, X)^{-1} y\)</span> is a vector of size <span class="math notranslate nohighlight">\(n\)</span> which is independent of <span class="math notranslate nohighlight">\(x^*\)</span>. Moreover, for a single test point <span class="math notranslate nohighlight">\(x^*\)</span> the covariance matrix <span class="math notranslate nohighlight">\(K(x^*, X)\)</span> reduces to a row vector. Hence, it holds</p>
 <div class="math notranslate nohighlight">
 \[\mathbb{E}(f(x^*)) = K(x^*, X) \alpha = \sum_{i=1}^n \alpha_i~ k(x^*, x_i).\]</div>
@@ -735,13 +741,13 @@ k(x_n, x^*_1) &amp; k(x_n, x^*_2) &amp; \dots &amp; k(x_n, x^*_m) \end{pmatrix}\
 <div class="math notranslate nohighlight">
 \[\text{Cov}(f(X^*)) = K(X^*, X^*) - K(X^*, X) \big(K(X, X) + \sigma_{\text{noise}}^2 I_n\big)^{-1} K(X, X^*)\]</div>
 </div>
-<p>It is also possible to incorporate the <a class="reference internal" href="#lem-gpregrnoise"><span class="std std-ref">result with noise</span></a> into the <a class="reference internal" href="#lem-gpregr"><span class="std std-ref">case without noise</span></a> by replacing the kernel <span class="math notranslate nohighlight">\(k\)</span> by <span class="math notranslate nohighlight">\(k + \sigma_{\text{noise}}^2 \delta\)</span>, where</p>
+<p>It is also possible to incorporate the <a class="reference internal" href="#lem-gpregrnoise"><span class="std std-ref">result with noise</span></a> informally into the <a class="reference internal" href="#lem-gpregr"><span class="std std-ref">case without noise</span></a> by replacing the kernel <span class="math notranslate nohighlight">\(k\)</span> by <span class="math notranslate nohighlight">\(k + \sigma_{\text{noise}}^2 \delta\)</span> <strong>only for samples from <span class="math notranslate nohighlight">\(X\)</span></strong>, where</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} \delta(x, x') = \begin{cases} 1, &amp; \text{if } x = x^{\prime} \\
                                  0, &amp; \text{if } x \ne x^{\prime}
                    \end{cases}
 \end{split}\]</div>
-<p>In this way, the noise <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span> is added to the diagonal of <span class="math notranslate nohighlight">\(K(X, X)\)</span> and the notation is maintained. However, this approach does not work if a test point <span class="math notranslate nohighlight">\(X^*\)</span> is also in <span class="math notranslate nohighlight">\(X\)</span>, since the noise should not appear in <span class="math notranslate nohighlight">\(K(X^*, X)\)</span>.</p>
+<p>In this way, the noise <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span> is added to the diagonal of <span class="math notranslate nohighlight">\(K(X, X)\)</span> and the notation is maintained. However, this modification must not be used for test points <span class="math notranslate nohighlight">\(X^*\)</span>, since the noise should not appear in <span class="math notranslate nohighlight">\(K(X^*, X)\)</span> or <span class="math notranslate nohighlight">\(K(X^*, X^*)\)</span>.</p>
 </div>
 <div class="section" id="examples-of-kernels">
 <h2><span class="section-number">7.2.3. </span>Examples of Kernels<a class="headerlink" href="#examples-of-kernels" title="Permalink to this headline">¶</a></h2>
@@ -1780,7 +1786,7 @@ if (IPython.notebook.kernel !== null) {
         mpl.mpl_figure_comm
     );
 }
-</script><div class="output text_html"><div id='5b9511f3-19df-44df-b121-eaf325b87da0'></div></div></div>
+</script><div class="output text_html"><div id='98d4ff6e-1f70-48ad-a4d7-e27eb39351a2'></div></div></div>
 </div>
 <div class="section" id="linear-kernel">
 <h3><span class="section-number">7.2.3.1. </span>Linear Kernel<a class="headerlink" href="#linear-kernel" title="Permalink to this headline">¶</a></h3>
@@ -1903,14 +1909,14 @@ if (IPython.notebook.kernel !== null) {
 <p>For additional techniques for creating new covariance functions please refer to section 4.2.4 in <span id="id4">[<a class="reference internal" href="#id13">1</a>]</span>.</p>
 </div>
 <div class="section" id="impact-of-hyperparameters">
-<h2><span class="section-number">7.2.5. </span>Impact of Hyperparameters<a class="headerlink" href="#impact-of-hyperparameters" title="Permalink to this headline">¶</a></h2>
-<p>Most kernels depend on so-called hyperparameters. For example, the length scale <span class="math notranslate nohighlight">\(l\)</span> which appears in many of the previously stated examples as well as the scaling parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> mentioned in <a class="reference internal" href="#sec-combofkernels"><span class="std std-ref">Combination of Kernels</span></a> are hyperparameters. In addition to the genereal choice of the kernel, the exact values of these parameters determine the properties of the underlying Gaussian process. In general, we denote the collection of all hyperparameters of some kernel <span class="math notranslate nohighlight">\(k\)</span> by <span class="math notranslate nohighlight">\(\theta\)</span>. Please note that <span class="math notranslate nohighlight">\(\theta\)</span> is possibly vector valued, if <span class="math notranslate nohighlight">\(k\)</span> possesses more than one hyperparameter.</p>
+<span id="sec-impactofhyperp"></span><h2><span class="section-number">7.2.5. </span>Impact of Hyperparameters<a class="headerlink" href="#impact-of-hyperparameters" title="Permalink to this headline">¶</a></h2>
+<p>Most kernels depend on so-called hyperparameters. For example, the length scale <span class="math notranslate nohighlight">\(l\)</span> which appears in many of the previously stated examples, the noise variance <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span> as well as the scaling parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> mentioned in <a class="reference internal" href="#sec-combofkernels"><span class="std std-ref">Combination of Kernels</span></a> are hyperparameters. In addition to the genereal choice of the kernel, the exact values of these parameters determine the properties of the underlying Gaussian process. In general, we denote the collection of all hyperparameters of some kernel <span class="math notranslate nohighlight">\(k\)</span> by <span class="math notranslate nohighlight">\(\theta\)</span>. Please note that <span class="math notranslate nohighlight">\(\theta\)</span> is possibly vector valued, if <span class="math notranslate nohighlight">\(k\)</span> possesses more than one hyperparameter.</p>
 <p>For example, the scaled squared exponential kernel with positive hyperparameters <span class="math notranslate nohighlight">\(l\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[k(x, x^{\prime}) = \sigma^2~\exp \big(-\frac{r^2}{2~l^2} \big)\]</div>
-<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Thus, this kernel yields <span class="math notranslate nohighlight">\(\theta = (l, \sigma^2)\)</span>. A larger length scale implies a higher correlation between <span class="math notranslate nohighlight">\(f(x)\)</span> and <span class="math notranslate nohighlight">\(f(x^{\prime})\)</span>. Similarly, higher value of <span class="math notranslate nohighlight">\(\sigma^2\)</span> implies a smaller correlation.</p>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Moreover, noise is variance <span class="math notranslate nohighlight">\(\sigma_{\ţext{noise}}^2\)</span> is added. Thus, this kernel yields <span class="math notranslate nohighlight">\(\theta = (l, \sigma^2, \sigma_{\ţext{noise}}^2)\)</span>. A larger length scale implies a higher correlation between <span class="math notranslate nohighlight">\(f(x)\)</span> and <span class="math notranslate nohighlight">\(f(x^{\prime})\)</span>. Similarly, higher value of <span class="math notranslate nohighlight">\(\sigma^2\)</span> implies a smaller correlation.</p>
 <p>Given a test point <span class="math notranslate nohighlight">\(x^*\)</span>, the <a class="reference internal" href="#lem-gpregr"><span class="std std-ref">mean prediction and variance</span></a> in Gaussian process regression depend on <span class="math notranslate nohighlight">\(K(X, X)\)</span> as well as <span class="math notranslate nohighlight">\(K(x^*, X)\)</span> which in turn depend on <span class="math notranslate nohighlight">\(\theta\)</span>. Consequently, the hyperparmeters impact the model predictions.</p>
-<p>For the case of the scaled squared exponential kernel, the impact is shown in the following visualization:</p>
+<p>For the case of the scaled squared exponential kernel with optional noise, the impact is shown in the following visualization:</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gaussian process posterior</span>
@@ -1921,7 +1927,7 @@ if (IPython.notebook.kernel !== null) {
 <span class="sd">    and the prior kernel function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Kernel of the observations</span>
-    <span class="n">Σ11</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X1</span><span class="p">)</span>
+    <span class="n">Σ11</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
     <span class="c1"># Kernel of observations vs to-predict</span>
     <span class="n">Σ12</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">)</span>
     <span class="c1"># Solve</span>
@@ -1935,7 +1941,7 @@ if (IPython.notebook.kernel !== null) {
 
 <span class="k">def</span> <span class="nf">_plot</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">):</span>
     <span class="n">fig</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;true function&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean prediction&#39;</span><span class="p">)</span>
@@ -1963,41 +1969,127 @@ if (IPython.notebook.kernel !== null) {
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;darkgrid&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span>
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">ConstantKernel</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">WhiteKernel</span>
 
 <span class="c1"># sample training data</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.01</span><span class="p">,</span> <span class="mf">3.51</span><span class="p">,</span> <span class="mf">4.51</span><span class="p">,</span> <span class="mf">7.01</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">9.01</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">nb_steps</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">nb_steps</span> <span class="o">=</span> <span class="mi">500</span>
 <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="n">nb_steps</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">)</span>
 
 <span class="nd">@interact</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> 
-          <span class="n">sigma2</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">anim_hyper</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">):</span>
-    <span class="n">kernel</span> <span class="o">=</span> <span class="n">ConstantKernel</span><span class="p">(</span><span class="n">constant_value</span><span class="o">=</span><span class="n">sigma2</span><span class="p">)</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="n">l</span><span class="p">)</span> 
+          <span class="n">sigma2</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+          <span class="n">noise_level</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">anim_hyper</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">noise_level</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">ConstantKernel</span><span class="p">(</span><span class="n">constant_value</span><span class="o">=</span><span class="n">sigma2</span><span class="p">)</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="n">noise_level</span><span class="o">=</span><span class="n">noise_level</span><span class="p">)</span>
     <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">cond_distr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">kernel</span><span class="p">)</span> 
     <span class="n">_plot</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "660f686d00344e9983caeacdff1dc793"}
+</script></div>
+</div>
+</div>
+<div class="section" id="selection-of-hyperparameters">
+<span id="sec-selectofhyperp"></span><h2><span class="section-number">7.2.6. </span>Selection of Hyperparameters<a class="headerlink" href="#selection-of-hyperparameters" title="Permalink to this headline">¶</a></h2>
+<p>In <span class="xref std std-ref">&lt;sec:impactofhyperp&gt;</span>, we have seen that the choice of the hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span> impacts the behavior of the Gaussian process regression model. Therefore, the question arises how the hyperparameters should be selected appropriately. In this context, the term “model fitting” is also used. Nevertheless, this approach is fundamentally different from fitting e.g. in case of linear/polynomial regression models or neural networks. These models try to minimize some loss function which calculates the error between the actual labels of the training data and the model predictions. In contrast, the Gaussian process regression model (without noise) has no such prediction error, since it is conditioned to fit the training samples. The selection of hyperparameters determines only how the regression model passes the training samples (refer to the previous animation).</p>
+<p>In <a class="reference internal" href="#equation-level1">(7.1)</a> we have seen how the distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> is computed given <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. This procedure is also called level 1 inference. By incorporating the dependence of the distribution on <span class="math notranslate nohighlight">\(\theta\)</span> the equation has the form</p>
+<div class="math notranslate nohighlight" id="equation-level1b">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-level1b" title="Permalink to this equation">¶</a></span>\[
+p(y^*~|~X^*, X, y, \theta) = \frac{p(y, y^*~|~X^*, X, \theta)}{p(y~|~X, \theta)},
+\]</div>
+<p>From the Bayesian point of view, a natural approach would be to choose a prior distribution on the hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span> and to compute the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span> in use of Bayesian inference:</p>
+<div class="math notranslate nohighlight" id="equation-level2">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-level2" title="Permalink to this equation">¶</a></span>\[p(\theta~|~X, y) = \frac{p(y~|~X, \theta)~p(\theta~|~X)}{p(y~|~X)} = \frac{p(y~|~X, \theta)~p(\theta)}{\int p(y~|~X, \theta)~p(\theta) ~d\theta}\]</div>
+<p>Please note that the marginal likelihood <span class="math notranslate nohighlight">\(p(y~|~X, \theta)\)</span> from <a class="reference internal" href="#equation-level1b">(7.2)</a> plays the role of the likelihood in the level 2 inference in <a class="reference internal" href="#equation-level2">(7.3)</a>.</p>
+<p>Then, the posterior predictive distribution reads</p>
+<div class="math notranslate nohighlight">
+\[p(y^*~|~X^*, X, y) = \int p(y^*~|~X^*, X, y, \theta) ~ p(\theta~|~X, y)~d\theta.\]</div>
+<p>In particular, the expected values of <span class="math notranslate nohighlight">\(y*\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\mathbb{E}(y^*) &amp;= \int y^* \int p(y^*~|~X^*, X, y, \theta) ~ p(\theta~|~X, y)~d\theta ~dy^* \\
+&amp;= \int \int y^* p(y^*~|~X^*, X, y, \theta) ~dy^*~ p(\theta~|~X, y)~d\theta \\
+&amp;= \int K_{\theta}(X^*, X) K_{\theta}(X, X)^{-1} y ~ p(\theta~|~X, y)~d\theta,
+\end{align}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(K_{\theta}\)</span> illustrates the dependence of the kernel <span class="math notranslate nohighlight">\(k\)</span> and hence, of <span class="math notranslate nohighlight">\(K\)</span> on <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<p>However, the marginal likelihood <span class="math notranslate nohighlight">\(p(y~|~X) = \int p(y~|~X, \theta)~p(\theta) ~d\theta\)</span> usually requires approximations, since it can not be computed analytically. This can for example be done in use of <a class="reference external" href="https://gpflow.readthedocs.io/en/master/notebooks/advanced/mcmc.html">MCMC methods</a>.</p>
+<p>In most cases, the <strong>MLE or sometimes a MAP estimate for <span class="math notranslate nohighlight">\(\theta\)</span> is used</strong> to obtain a predictive Gaussian process model. More precisely, a prior distribution for <span class="math notranslate nohighlight">\(\theta\)</span> is chosen and the estimate is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+  \hat{\theta} &amp;= \text{argmax}_{\theta} p(y~|~X, \theta)~p(\theta) \\
+               &amp;= \text{argmax}_{\theta} \ln \big(p(y~|~X, \theta)\big) + \ln \big(p(\theta)\big) \\
+               &amp;= \text{argmax}_{\theta} \ln \big(p(y~|~X, \theta)\big) + \ln \big(p(\theta)\big) \\
+               &amp;= \text{argmax}_{\theta} \mathcal{L}(\theta~|~X, y) + \ln \big(p(\theta)\big),
+  \end{align}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mathcal{L}(\theta~|~X, y) &amp;= \ln \Big( \frac{1}{\sqrt{(2\pi)^d |K_{\theta}(X, X)|}} ~\exp\Big(-\frac{1}{2}~y^T K_{\theta}(X, X)^{-1}y\Big)\Big)\\
+&amp;= - \frac{d}{2} \ln \big(2 \pi \big) - \ln \big(|K_{\theta}(X, X)| \big) - \frac{1}{2} y^T K_{\theta}(X, X)^{-1}y
+\end{align}\end{split}\]</div>
+<p>denotes the so-called <strong>log marginal likelihood</strong>. MLE implies that <span class="math notranslate nohighlight">\(p(\theta)\)</span> is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and therefore, the MLE estimate is given by</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \text{argmax}_{\theta} \mathcal{L}(\theta~|~X, y)\]</div>
+<p>The term <span class="math notranslate nohighlight">\(- \frac{1}{2} y^T K_{\theta}(X, X)^{-1}y\)</span> is called <strong>data-fit</strong> and <span class="math notranslate nohighlight">\(\ln \big(|K_{\theta}(X, X)| \big)\)</span> is the <strong>complexity penalty</strong>. The counterplay of these two terms provides an automatic trade-off which tends to the <strong>least complex model which is able to explain the given data</strong>. This principle is also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Occam%27s_razor">Occam’s razor</a>.</p>
+<p>MLE implies that <span class="math notranslate nohighlight">\(p(\theta)\)</span> is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and therefore, the MLE estimate is given by</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \text{argmax}_{\theta} \mathcal{L}(\theta~|~X, y)\]</div>
+<p>The log marginal likelihood for the example illustrated in <a class="reference internal" href="#sec-impactofhyperp"><span class="std std-ref">Impact of Hyperparameters</span></a> in dependence of the length scale <span class="math notranslate nohighlight">\(l\)</span> is given as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">log_marginal_likelihood</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">ConstantKernel</span><span class="p">(</span><span class="n">constant_value</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="n">noise_level</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">datafit</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">complexity</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">K</span><span class="p">))</span>
+    <span class="n">lml</span> <span class="o">=</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">datafit</span> <span class="o">+</span> <span class="n">complexity</span>
+    <span class="k">return</span> <span class="n">datafit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">complexity</span><span class="p">,</span> <span class="n">lml</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        
+<span class="n">length_scales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mf">3.05</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">datafits</span><span class="p">,</span> <span class="n">complexities</span><span class="p">,</span> <span class="n">lmls</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">length_scales</span><span class="p">:</span>
+    <span class="n">datafit</span><span class="p">,</span> <span class="n">complexity</span><span class="p">,</span> <span class="n">lml</span> <span class="o">=</span> <span class="n">log_marginal_likelihood</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">datafits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datafit</span><span class="p">)</span>
+    <span class="n">complexities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">complexity</span><span class="p">)</span>
+    <span class="n">lmls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lml</span><span class="p">)</span>
+                          
+<span class="n">fig</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_cales</span><span class="p">,</span> <span class="n">datafits</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_cales</span><span class="p">,</span> <span class="n">complexities</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;minus complexity penalty&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_cales</span><span class="p">,</span> <span class="n">lmls</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log marginal likelihood&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">length_scales</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">lmls</span><span class="p">)],</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lmls</span><span class="p">),</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> 
+           <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MLE estimate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                          
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1912</span><span class="o">/</span><span class="mf">3071159995.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">nb_steps</span> <span class="o">=</span> <span class="mi">200</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="n">nb_steps</span>
-<span class="ne">---&gt; </span><span class="mi">21</span> <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_time</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> 
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="nd">@interact</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> 
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1780</span><span class="o">/</span><span class="mf">2581928285.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> 
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">fig</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="ne">---&gt; </span><span class="mi">18</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_cales</span><span class="p">,</span> <span class="n">datafits</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data fit&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_cales</span><span class="p">,</span> <span class="n">complexities</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;minus complexity penalty&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_cales</span><span class="p">,</span> <span class="n">lmls</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log marginal likelihood&#39;</span><span class="p">)</span>
 
-<span class="ne">NameError</span>: name &#39;total_time&#39; is not defined
+<span class="ne">NameError</span>: name &#39;length_cales&#39; is not defined
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1008x720 with 0 Axes&gt;
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="selection-of-hyperparameters">
-<h2><span class="section-number">7.2.6. </span>Selection of Hyperparameters<a class="headerlink" href="#selection-of-hyperparameters" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="extension-to-multiple-outputs">
 <h2><span class="section-number">7.2.7. </span>Extension to Multiple Outputs<a class="headerlink" href="#extension-to-multiple-outputs" title="Permalink to this headline">¶</a></h2>
@@ -2017,7 +2109,7 @@ if (IPython.notebook.kernel !== null) {
 <p>it is sufficient to focus on <span class="math notranslate nohighlight">\(p(y^*=1~|~X, y, x^*)\)</span>. In other words, we are looking for a model which returns for a given input <span class="math notranslate nohighlight">\(x^*\)</span> the probability that the corresponding label is <span class="math notranslate nohighlight">\(1\)</span>. For example, <span class="math notranslate nohighlight">\(x^*\)</span> could be an image which shows either a cat or a dog. The model has to quantify the probability for dog and the complementary probability yields the probability for cat. Certainly, we desire values close to 0 or 1, since values near 0.5 imply that the model has difficulties to classify the input.</p>
 <p>It holds <span class="math notranslate nohighlight">\(\sigma(z) \in [0,1]\)</span>, where</p>
 <div class="math notranslate nohighlight" id="equation-deflogfct">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-deflogfct" title="Permalink to this equation">¶</a></span>\[\sigma(z) := \frac{1}{1 + \exp(-z)} \quad \text{for } z \in \mathbb{R}\]</div>
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-deflogfct" title="Permalink to this equation">¶</a></span>\[\sigma(z) := \frac{1}{1 + \exp(-z)} \quad \text{for } z \in \mathbb{R}\]</div>
 <p>is the <strong>logistic response function</strong>.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2036,47 +2128,47 @@ if (IPython.notebook.kernel !== null) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/02_GP_35_0.png" src="../../_images/02_GP_35_0.png" />
+<img alt="../../_images/02_GP_37_0.png" src="../../_images/02_GP_37_0.png" />
 </div>
 </div>
 <p>Hence, the value of <span class="math notranslate nohighlight">\(\sigma(z)\)</span> can be interpreted as a probability. It is also possible to use other response functions such as the Gaussian cdf, but we will restrict to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 <p>Our aim is to construct the <strong>distribution of a latent variable</strong> <span class="math notranslate nohighlight">\(f^*\)</span> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> and a test point <span class="math notranslate nohighlight">\(x^*\)</span> (denote the pdf by <span class="math notranslate nohighlight">\(p(f^*~|~X, y, x^*)\)</span>) such that the class probability can be computed by the expectation of <span class="math notranslate nohighlight">\(p(y^*=1~|~f^*) := \sigma(f^*)\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-classprob">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-classprob" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-classprob" title="Permalink to this equation">¶</a></span>\[\begin{split}
 p(y^*=1~|~X, y, x^*) &amp;= \int_{\mathbb{R}} ~ p(y^*=1~|~f^*)~p(f^*~|~X, y, x^*)~df^* \\
 &amp;= \int_{\mathbb{R}} ~ \sigma(f^*)~p(f^*~|~X, y, x^*)~df^*.
 \end{split}\]</div>
 <p>Please note that <span class="math notranslate nohighlight">\(p(y^*=-1~|~f^*) = 1 - p(y^*=1~|~f^*) = 1 - \sigma(f^*) = \sigma(-f^*)\)</span> due to the properties of the logistic response function. Thus, the notation <span class="math notranslate nohighlight">\(p(y^*~|~f^*) = \sigma(y^* f^*)\)</span> is also used. Moreover, we like to mention that <span class="math notranslate nohighlight">\(f^* &lt; 0\)</span> suggests that <span class="math notranslate nohighlight">\(y^* = -1\)</span> is more likely and vice versa <span class="math notranslate nohighlight">\(f^* &gt; 0\)</span> implies that <span class="math notranslate nohighlight">\(y^* = 1\)</span> is more likely.</p>
-<p><em>How can we construct <span class="math notranslate nohighlight">\(p(f^*~|~X, y, x^*)\)</span> in</em> <a class="reference internal" href="#equation-classprob">(7.2)</a> <em>by means of Gaussian process regression</em>?</p>
+<p><em>How can we construct <span class="math notranslate nohighlight">\(p(f^*~|~X, y, x^*)\)</span> in</em> <a class="reference internal" href="#equation-classprob">(7.5)</a> <em>by means of Gaussian process regression</em>?</p>
 <p>The answer to this question is rather complicated and technical. For the interested reader, we give the details in the subsequent part:</p>
 <div class="dropdown admonition">
 <p class="admonition-title">Explanation.</p>
 <p>We follow the explanation in sections 3.3 and 3.4 of <span id="id5">[<a class="reference internal" href="#id13">1</a>]</span>.</p>
 <p>In Gaussian process regression we constructed a similar distribution <span class="math notranslate nohighlight">\(p(f^*~|~X, f, x^*)\)</span> representing the <a class="reference internal" href="#lem-gpregr"><span class="std std-ref">posterior over functions</span></a> in terms of conditional distributions. Hence, the approach</p>
 <div class="math notranslate nohighlight" id="equation-latentdistr">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-latentdistr" title="Permalink to this equation">¶</a></span>\[p(f^*|~X, y, x^*) = \int_{\mathbb{R}^n} ~ p(f^*~|~X, f, x^*)~p(f~|~X, y)~df\]</div>
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-latentdistr" title="Permalink to this equation">¶</a></span>\[p(f^*|~X, y, x^*) = \int_{\mathbb{R}^n} ~ p(f^*~|~X, f, x^*)~p(f~|~X, y)~df\]</div>
 <p>is useful and natural, since it reduces the problem to determine the <strong>distribution of the latent labels</strong> <span class="math notranslate nohighlight">\(f\)</span> given the observations <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. Note that we denote the continuous labels by <span class="math notranslate nohighlight">\(f\)</span> instead of <span class="math notranslate nohighlight">\(y\)</span>, since <span class="math notranslate nohighlight">\(y\)</span> is used for the discrete class labels.</p>
 <p>At this point, it is already evident that <strong>Gaussian process classification is more challenging than regression</strong>. It is required to determine the pdf <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> of an unobserved variable <span class="math notranslate nohighlight">\(f\)</span> and afterwards two integrals have to be calculated which involve the posterior distribution function of a Gaussian process regression model.</p>
-<p><em>How can we compute <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> in</em> <a class="reference internal" href="#equation-latentdistr">(7.3)</a>?</p>
+<p><em>How can we compute <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> in</em> <a class="reference internal" href="#equation-latentdistr">(7.6)</a>?</p>
 <p>Bayes’ theorem yields</p>
 <div class="math notranslate nohighlight" id="equation-bayeslatentlabels">
-<span class="eqno">(7.4)<a class="headerlink" href="#equation-bayeslatentlabels" title="Permalink to this equation">¶</a></span>\[p(f ~|~X, y) = \frac{p(y~|~X, f) ~ p(f~|~X)}{p(y~|~X)} = \frac{p(y~|~f) ~ p(f~|~X)}{p(y~|~X)},\]</div>
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-bayeslatentlabels" title="Permalink to this equation">¶</a></span>\[p(f ~|~X, y) = \frac{p(y~|~X, f) ~ p(f~|~X)}{p(y~|~X)} = \frac{p(y~|~f) ~ p(f~|~X)}{p(y~|~X)},\]</div>
 <p>since <span class="math notranslate nohighlight">\(y\)</span> depends by assumption only on the latent variable <span class="math notranslate nohighlight">\(f\)</span>. In principle, we have all ingredients to create our classification model. Indeed, it holds</p>
 <div class="math notranslate nohighlight" id="equation-factclassprob">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-factclassprob" title="Permalink to this equation">¶</a></span>\[p(y~|~f) = \prod_{i=1}^n p(y_i~|~f_i) = \prod_{i=1}^n \sigma(y_i f_i) = \prod_{i=1}^n  \frac{1}{1 + \exp(-y_i f_i)}\]</div>
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-factclassprob" title="Permalink to this equation">¶</a></span>\[p(y~|~f) = \prod_{i=1}^n p(y_i~|~f_i) = \prod_{i=1}^n \sigma(y_i f_i) = \prod_{i=1}^n  \frac{1}{1 + \exp(-y_i f_i)}\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[p(y~|~X) = \int_{\mathbb{R^n}} p(y~|~f, X) ~p(f~|~X)~ df = \int_{\mathbb{R^n}} p(y~|~f) ~p(f~|~X)~df,\]</div>
-<p>where <span class="math notranslate nohighlight">\(p(f~|~X)\)</span> is the marginal likelihood of the Gaussian process. Please note that we assume that the labels <span class="math notranslate nohighlight">\(y\)</span> are independent conditional on <span class="math notranslate nohighlight">\(f\)</span> in order to factorize in <a class="reference internal" href="#equation-factclassprob">(7.5)</a>. However, the non-Gaussian likelihood <span class="math notranslate nohighlight">\(p(y~|~f)\)</span> makes it analytically intracable to compute the integral in <a class="reference internal" href="#equation-latentdistr">(7.3)</a>.</p>
+<p>where <span class="math notranslate nohighlight">\(p(f~|~X)\)</span> is the marginal likelihood of the Gaussian process. Please note that we assume that the labels <span class="math notranslate nohighlight">\(y\)</span> are independent conditional on <span class="math notranslate nohighlight">\(f\)</span> in order to factorize in <a class="reference internal" href="#equation-factclassprob">(7.8)</a>. However, the non-Gaussian likelihood <span class="math notranslate nohighlight">\(p(y~|~f)\)</span> makes it analytically intracable to compute the integral in <a class="reference internal" href="#equation-latentdistr">(7.6)</a>.</p>
 <p>Markov chain Monte Carlo (MCMC) methods are useful to compute the integrals. Another approach is the <strong>Laplace approximation</strong> of <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> by a Gaussian distribution function <span class="math notranslate nohighlight">\(q(f~|~X, y)\)</span>. The idea is to replace the unknown distribution by a suitable Gaussian distribution which is easier to handle. If we assume that <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> would be indeed the pdf of a normal distribution, then mean and covariance would be given by</p>
 <div class="math notranslate nohighlight" id="equation-laplacemean">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-laplacemean" title="Permalink to this equation">¶</a></span>\[\hat{f} := \underset{f}{\text{argmax}} ~ p(f~|~X, y)\]</div>
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-laplacemean" title="Permalink to this equation">¶</a></span>\[\hat{f} := \underset{f}{\text{argmax}} ~ p(f~|~X, y)\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight" id="equation-laplacecov">
-<span class="eqno">(7.7)<a class="headerlink" href="#equation-laplacecov" title="Permalink to this equation">¶</a></span>\[\Sigma_{\hat{f}} := \Big(- \nabla^2 \ln \big(p(f~|~X, y)\big)|_{f=\hat{f}}\Big)^{-1},\]</div>
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-laplacecov" title="Permalink to this equation">¶</a></span>\[\Sigma_{\hat{f}} := \Big(- \nabla^2 \ln \big(p(f~|~X, y)\big)|_{f=\hat{f}}\Big)^{-1},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\nabla\)</span> and <span class="math notranslate nohighlight">\(\nabla^2\)</span> denote the first and second derivative, respectively. Thus, the Laplace approximation requires to find the maximum of a function depending on <span class="math notranslate nohighlight">\(f\)</span>. For this purpose, we compute the roots of the gradient. The quality of the Laplace approximation depends of course on the shape of the <em>real</em> distribution function. For simplification of the calculation, we make to following changes:</p>
 <ul class="simple">
-<li><p>instead of <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> consider <span class="math notranslate nohighlight">\(p(y~|~f) ~ p(f~|~X)\)</span> in view of <a class="reference internal" href="#equation-bayeslatentlabels">(7.4)</a>,</p></li>
+<li><p>instead of <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> consider <span class="math notranslate nohighlight">\(p(y~|~f) ~ p(f~|~X)\)</span> in view of <a class="reference internal" href="#equation-bayeslatentlabels">(7.7)</a>,</p></li>
 <li><p>apply <span class="math notranslate nohighlight">\(\ln\)</span> to <span class="math notranslate nohighlight">\(p(y~|~f) ~ p(f~|~X)\)</span></p></li>
 </ul>
 <p>Thus, first <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> is scaled by a constant and afterwards the strictly increasing function <span class="math notranslate nohighlight">\(\ln\)</span> is applied. A logarithmic transformation is useful, since it turns products into sums (which are easier to differentiate) and simplifies exponential terms. These modifications have no influence on the <span class="math notranslate nohighlight">\(\text{argmax}\)</span>.</p>
@@ -2096,8 +2188,8 @@ p(y^*=1~|~X, y, x^*) &amp;= \int_{\mathbb{R}} ~ p(y^*=1~|~f^*)~p(f^*~|~X, y, x^*
 \[\ln \big(p(y~|~f)\big) = \ln \big(\prod_{i=1}^n \sigma(y_i f_i)\big) = \sum_{i=1}^n \ln \big(\sigma(y_i f_i)\big)\]</div>
 <p><span class="math notranslate nohighlight">\(\hat{f}\)</span> fulfills <span class="math notranslate nohighlight">\(\nabla \Psi(\hat{f}) = 0\)</span> and hence, it holds</p>
 <div class="math notranslate nohighlight" id="equation-eqfhat">
-<span class="eqno">(7.8)<a class="headerlink" href="#equation-eqfhat" title="Permalink to this equation">¶</a></span>\[ \hat{f} = K(X, X) \nabla \ln \big(p(y~|~\hat{f})\big)\]</div>
-<p>Unfortunately, <span class="math notranslate nohighlight">\(\hat{f}\)</span> also appears in the right-hand side of <a class="reference internal" href="#equation-eqfhat">(7.8)</a> and the equation can not be solved analytically. Therefore, another approximation is necessary. Roots of <span class="math notranslate nohighlight">\(\nabla \Psi\)</span> can be computed by <strong>Newton’s method</strong> in use of <span class="math notranslate nohighlight">\(\nabla^2 \Psi\)</span>:</p>
+<span class="eqno">(7.11)<a class="headerlink" href="#equation-eqfhat" title="Permalink to this equation">¶</a></span>\[ \hat{f} = K(X, X) \nabla \ln \big(p(y~|~\hat{f})\big)\]</div>
+<p>Unfortunately, <span class="math notranslate nohighlight">\(\hat{f}\)</span> also appears in the right-hand side of <a class="reference internal" href="#equation-eqfhat">(7.11)</a> and the equation can not be solved analytically. Therefore, another approximation is necessary. Roots of <span class="math notranslate nohighlight">\(\nabla \Psi\)</span> can be computed by <strong>Newton’s method</strong> in use of <span class="math notranslate nohighlight">\(\nabla^2 \Psi\)</span>:</p>
 <ul>
 <li><p>start with some initial value <span class="math notranslate nohighlight">\(f_0\)</span></p></li>
 <li><p>for <span class="math notranslate nohighlight">\(i=0, 1, \dots\)</span> compute iteratively</p>
@@ -2110,7 +2202,7 @@ p(y^*=1~|~X, y, x^*) &amp;= \int_{\mathbb{R}} ~ p(y^*=1~|~f^*)~p(f^*~|~X, y, x^*
 <p>Thus, <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> is replaced by the density <span class="math notranslate nohighlight">\(q(f~|~X, y)\)</span> of a <span class="math notranslate nohighlight">\(\mathcal{N}(\hat{f}, \Sigma_{\hat{f}})\)</span>-distributed random variable with</p>
 <div class="math notranslate nohighlight">
 \[\Sigma_{\hat{f}} = \big(W(\hat{f}) + K(X, X)^{-1}\big)^{-1}\]</div>
-<p>Consequently, the approximation of <a class="reference internal" href="#equation-latentdistr">(7.3)</a> yields</p>
+<p>Consequently, the approximation of <a class="reference internal" href="#equation-latentdistr">(7.6)</a> yields</p>
 <div class="math notranslate nohighlight">
 \[p(f^*~|~X, y, x^*) \approx q(f^*~|~X, y, x^*) := \int_{\mathbb{R}^n} ~ p(f^*~|~X, f, x^*)~q(f~|~X, y)~df\]</div>
 <p>The integrand is the product of two probability distribution functions of normal distributions. Hence, <span class="math notranslate nohighlight">\(q(f^*~|~X, y, x^*)\)</span> is the density of a univariate normal distribution with mean</p>
@@ -2198,7 +2290,7 @@ p(y^*=1~|~X, y, x^*) &amp;= \int_{\mathbb{R}} ~ p(y^*=1~|~f^*)~p(f^*~|~X, y, x^*
 </li>
 <li><p>Maximize <span class="math notranslate nohighlight">\(\ln \big(p(y~|~X)\big)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span> (which means looping steps 2.-4.)</p></li>
 </ol>
-<p>Then, the class probability for a test point <span class="math notranslate nohighlight">\(x^*\)</span> in <a class="reference internal" href="#equation-classprob">(7.2)</a> is given by the one dimensional integral</p>
+<p>Then, the class probability for a test point <span class="math notranslate nohighlight">\(x^*\)</span> in <a class="reference internal" href="#equation-classprob">(7.5)</a> is given by the one dimensional integral</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}p(y^*=1~|~X, y, x^*) &amp;= \int_{\mathbb{R}} ~ \sigma(f^*)~p(f^*~|~X, y, x^*)~df^* \\
 &amp;\approx \int_{\mathbb{R}} ~ \sigma(f^*)~q(f^*~|~X, y, x^*)~df^*,\end{split}\]</div>

@@ -17,45 +17,42 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from IPython.display import display, clear_output
-!pip install ipympl
-clear_output()
-
-%matplotlib inline
-from ipywidgets import interact, interact_manual, FloatSlider
-import numpy as np
-import scipy
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, FFMpegFileWriter
-import seaborn as sns
-sns.set_style('darkgrid')
-from sklearn.gaussian_process.kernels import RBF
-from sklearn.gaussian_process.kernels import ConstantKernel
-
-# sample training data
-X = np.array([1.01, 3.51, 4.51, 7.01, 7.91, 9.01]).reshape(-1, 1)
-Y = np.sin(X)
-nb_steps = 200
-delta_t = 10 / nb_steps
-t = np.arange(0, total_time, delta_t)
-
-@interact(l=FloatSlider(value=1., min=1e-5, max=3, step=0.1, continuous_update=False), 
-          sigma2=FloatSlider(value=1., min=1e-5, max=10, step=0.1, continuous_update=False))
-def anim_hyper(l, sigma2):
-    kernel = ConstantKernel(constant_value=sigma2) * RBF(length_scale=l) 
-    mean, cov = cond_distr(X, Y, t.reshape(-1, 1), kernel) 
-    _plot(mean, cov)
+def log_marginal_likelihood(l):
+    kernel = ConstantKernel(constant_value=1.) * RBF(length_scale=l) + WhiteKernel(noise_level=0.)
+    K = kernel(X, X)
+    datafit = - np.matmul(Y.reshape(1, -1), np.linalg.solve(K, Y.reshape(-1, 1)))/2
+    complexity = - np.log(np.linalg.det(K))
+    lml = - X.shape[0]/2 * np.log(2*np.pi) + datafit + complexity
+    return datafit[0], complexity, lml[0]
+                        
+length_scales = np.linspace(1e-5, 3.05, num=100)
+datafits, complexities, lmls = [], [], []
+for l in length_scales:
+    datafit, complexity, lml = log_marginal_likelihood(l)
+    datafits.append(datafit)
+    complexities.append(complexity)
+    lmls.append(lml)
+                          
+fig= plt.figure(figsize=(14, 10))
+plt.plot(length_cales, datafits, label='data fit')
+plt.plot(length_cales, complexities, label='minus complexity penalty')
+plt.plot(length_cales, lmls, label='log marginal likelihood')
+plt.vlines(length_scales[np.argmax(lmls)], plt.ylim()[0], np.max(lmls), colors='green', alpha=0.75, 
+           linestyles='dashed', label='MLE estimate')
+plt.legend()
+plt.show()
+                          
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_1912/3071159995.py[0m in [0;36m<module>[0;34m[0m
-[1;32m     19[0m [0mnb_steps[0m [0;34m=[0m [0;36m200[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     20[0m [0mdelta_t[0m [0;34m=[0m [0;36m10[0m [0;34m/[0m [0mnb_steps[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 21[0;31m [0mt[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0marange[0m[0;34m([0m[0;36m0[0m[0;34m,[0m [0mtotal_time[0m[0;34m,[0m [0mdelta_t[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     22[0m [0;34m[0m[0m
-[1;32m     23[0m @interact(l=FloatSlider(value=1., min=1e-5, max=3, step=0.1, continuous_update=False), 
+[0;32m/tmp/ipykernel_1780/2581928285.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     16[0m [0;34m[0m[0m
+[1;32m     17[0m [0mfig[0m[0;34m=[0m [0mplt[0m[0;34m.[0m[0mfigure[0m[0;34m([0m[0mfigsize[0m[0;34m=[0m[0;34m([0m[0;36m14[0m[0;34m,[0m [0;36m10[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 18[0;31m [0mplt[0m[0;34m.[0m[0mplot[0m[0;34m([0m[0mlength_cales[0m[0;34m,[0m [0mdatafits[0m[0;34m,[0m [0mlabel[0m[0;34m=[0m[0;34m'data fit'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     19[0m [0mplt[0m[0;34m.[0m[0mplot[0m[0;34m([0m[0mlength_cales[0m[0;34m,[0m [0mcomplexities[0m[0;34m,[0m [0mlabel[0m[0;34m=[0m[0;34m'minus complexity penalty'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     20[0m [0mplt[0m[0;34m.[0m[0mplot[0m[0;34m([0m[0mlength_cales[0m[0;34m,[0m [0mlmls[0m[0;34m,[0m [0mlabel[0m[0;34m=[0m[0;34m'log marginal likelihood'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'total_time' is not defined
-NameError: name 'total_time' is not defined
+[0;31mNameError[0m: name 'length_cales' is not defined
+NameError: name 'length_cales' is not defined
 
