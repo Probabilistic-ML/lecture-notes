@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7.3. Additional Kernel-based Methods &#8212; Introduction to Probabilistic Machine Learning</title>
+    <title>7.7. Extension to Multiple Outputs &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -45,6 +45,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -52,12 +54,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_kernelmethods/03_addmethods.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/07_multiout.html" />
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="8. Overview of Further Probabilistic Models" href="../03_overview.html" />
-    <link rel="prev" title="7.2. Gaussian Processes for Machine Learning" href="02_GP.html" />
+    <link rel="next" title="7.8. Gaussian Process Classification" href="08_GPclassification.html" />
+    <link rel="prev" title="7.6. Selection of Hyperparameters" href="06_hyperparamselect.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -223,8 +225,8 @@
   </a>
  </li>
  <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../02_kernelmethods.html">
-   7. Kernel-based Methods
+  <a class="reference internal" href="../02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -239,12 +241,42 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02_GP.html">
-     7.2. Gaussian Processes for Machine Learning
+     7.2. Gaussian Processes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     7.3. Additional Kernel-based Methods
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_advanced.html">
+     7.9. Advanced Methods
     </a>
    </li>
   </ul>
@@ -317,9 +349,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/02_probML/02_kernelmethods/03_addmethods.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_GPforML/07_multiout.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -350,22 +382,6 @@
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_kernelmethods/03_addmethods.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
@@ -379,8 +395,38 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="additional-kernel-based-methods">
-<h1><span class="section-number">7.3. </span>Additional Kernel-based Methods<a class="headerlink" href="#additional-kernel-based-methods" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="extension-to-multiple-outputs">
+<span id="sec-multiout"></span><h1><span class="section-number">7.7. </span>Extension to Multiple Outputs<a class="headerlink" href="#extension-to-multiple-outputs" title="Permalink to this headline">¶</a></h1>
+<p>In <a class="reference internal" href="03_GPregression.html#sec-gpr"><span class="std std-ref">Gaussian Process Regression</span></a>, we considered the single output case and the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> of observations was of the form</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \mathbb{R} \quad \text{for } i=1,\dots,n \}\]</div>
+<p>In the present section, we consider the multi-output case, i.e., <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \mathbb{R}^k \quad \text{for } i=1,\dots,n \}\]</div>
+<p>with some <span class="math notranslate nohighlight">\(k \ge 2\)</span> and the functional relation between inputs <span class="math notranslate nohighlight">\(x_i\)</span> and outputs <span class="math notranslate nohighlight">\(y_i\)</span> reads</p>
+<div class="math notranslate nohighlight">
+\[y_i = f(x_i) + \varepsilon_i,\]</div>
+<p>where <span class="math notranslate nohighlight">\(f: \mathbb{R}^d \rightarrow \mathbb{R}^k\)</span> which is identified with (a sample path of) a suitable Gaussian process <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(\varepsilon_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are <span class="math notranslate nohighlight">\(\mathbb{R}^k\)</span>-valued centered independent multivariate Gaussian random variables.</p>
+<p>In order to construct a Gaussian process regression model, some simple strategies exist:</p>
+<ul class="simple">
+<li><p>Under the assumption that the components of the output are independent, a single output model as stated in <a class="reference internal" href="03_GPregression.html#sec-gpr"><span class="std std-ref">Gaussian Process Regression</span></a> can be fitted</p>
+<ul>
+<li><p>separately for each component or</p></li>
+<li><p>jointly by maximizing the sum of log marginal likelihoods (shared hyperparameters)</p></li>
+</ul>
+</li>
+<li><p>Otherwise, i.e., if the compontents of the output are correlated, a possibility is to assume that there exists some function <span class="math notranslate nohighlight">\(g: \mathbb{R}^d \rightarrow \mathbb{R}^m\)</span> and a matrix <span class="math notranslate nohighlight">\(W \in \mathbb{R}^{k \times m}\)</span> such that</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[f(x) = Wg(x)\]</div>
+<p>and the compontents of <span class="math notranslate nohighlight">\(g\)</span> are independent. This means that <span class="math notranslate nohighlight">\(f\)</span> is at least the linear transformation of independent compontents. Then, a Gaussian process regression model can be fitted for <span class="math notranslate nohighlight">\(g\)</span> and the transformation <span class="math notranslate nohighlight">\(W\)</span> can be applied additionally. A popular method to construct <span class="math notranslate nohighlight">\(W\)</span> is the use of <a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">principal component analysis</a> of the labels <span class="math notranslate nohighlight">\(y\)</span> (also called singular value decomposition (SVD) or proper orthogonal decomposition (POD)). The idea can also be generalized to non-linear transformation such as <a class="reference external" href="https://en.wikipedia.org/wiki/Autoencoder">autoencoders</a>.</p>
+<p>References to further approaches can be found in Section 9.1 of <span id="id1">[<a class="reference internal" href="08_GPclassification.html#id10">1</a>]</span>.</p>
+<p id="id2"><dl class="citation">
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
+</dd>
+</dl>
+</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -396,7 +442,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./02_probML/02_kernelmethods"
+            path: "./02_probML/02_GPforML"
         },
         predefinedOutput: true
     }
@@ -413,19 +459,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="02_GP.html" title="previous page">
+        <a class="left-prev" href="06_hyperparamselect.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">7.2. </span>Gaussian Processes for Machine Learning</p>
+                <p class="prevnext-title"><span class="section-number">7.6. </span>Selection of Hyperparameters</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="../03_overview.html" title="next page">
+        <a class="right-next" href="08_GPclassification.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">8. </span>Overview of Further Probabilistic Models</p>
+                <p class="prevnext-title"><span class="section-number">7.8. </span>Gaussian Process Classification</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

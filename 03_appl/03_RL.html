@@ -224,8 +224,8 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02_probML/02_kernelmethods.html">
-   7. Kernel-based Methods
+  <a class="reference internal" href="../02_probML/02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -234,18 +234,48 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/01_kerneltrick.html">
+    <a class="reference internal" href="../02_probML/02_GPforML/01_kerneltrick.html">
      7.1. The Kernel Trick: Implicit embeddings from inner products
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/02_GP.html">
-     7.2. Gaussian Processes for Machine Learning
+    <a class="reference internal" href="../02_probML/02_GPforML/02_GP.html">
+     7.2. Gaussian Processes
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/03_addmethods.html">
-     7.3. Additional Kernel-based Methods
+    <a class="reference internal" href="../02_probML/02_GPforML/03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/09_advanced.html">
+     7.9. Advanced Methods
     </a>
    </li>
   </ul>
@@ -463,8 +493,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d51363d4-23ab-47b2-a94b-9d6fa1d1515e">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-d51363d4-23ab-47b2-a94b-9d6fa1d1515e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-cbaf8024-2638-4fe5-92cf-a5f465509bbe">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-cbaf8024-2638-4fe5-92cf-a5f465509bbe" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\

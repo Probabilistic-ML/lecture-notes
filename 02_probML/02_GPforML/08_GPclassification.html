@@ -1,0 +1,748 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7.8. Gaussian Process Classification &#8212; Introduction to Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/additional.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/08_GPclassification.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.9. Advanced Methods" href="09_advanced.html" />
+    <link rel="prev" title="7.7. Extension to Multiple Outputs" href="07_multiout.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/01_preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/02_python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/03_notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/03_bayes.html">
+   3. Bayesian Inference, MAP &amp; MLE
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/03_MLEandMAP.html">
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/04_opt.html">
+   4. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_motivation.html">
+   6. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_kerneltrick.html">
+     7.1. The Kernel Trick: Implicit embeddings from inner products
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_GP.html">
+     7.2. Gaussian Processes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_advanced.html">
+     7.9. Advanced Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_overview.html">
+   8. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   9. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   10. Design Uncertainty Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/03_RL.html">
+   11. Efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_GPforML/08_GPclassification.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_GPforML/08_GPclassification.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#binary-classification">
+   7.8.1. Binary Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-class-classification">
+   7.8.2. Multi-class Classification
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="gaussian-process-classification">
+<h1><span class="section-number">7.8. </span>Gaussian Process Classification<a class="headerlink" href="#gaussian-process-classification" title="Permalink to this headline">¶</a></h1>
+<p>Gaussian process are not only used for regression, but also for classification problems. Gaussian process classification uses a latent regression model to predict class probabilities. In a first step, we discuss binary classification and afterwards the setting is generalized to multiclass classification.</p>
+<div class="section" id="binary-classification">
+<span id="sec-binaryclass"></span><h2><span class="section-number">7.8.1. </span>Binary Classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">¶</a></h2>
+<p>In binary classification the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is of the form</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \{-1, 1\} \quad \text{for } i=1,\dots,n \},\]</div>
+<p>i.e., the (discrete) label has either value <span class="math notranslate nohighlight">\(-1\)</span> or <span class="math notranslate nohighlight">\(1\)</span> representing the two possible classes. The sample matrix <span class="math notranslate nohighlight">\(X\)</span> and the lables <span class="math notranslate nohighlight">\(y\)</span> are constructed as before.</p>
+<p>For a test point <span class="math notranslate nohighlight">\(x^*\)</span>, the aim is to predict the <strong>class probabilities</strong> of the output <span class="math notranslate nohighlight">\(y^*\)</span>, i.e., the probabilities <span class="math notranslate nohighlight">\(p(y^*=1~|~X, y, x^*)\)</span> and <span class="math notranslate nohighlight">\(p(y^*=-1~|~X, y, x^*)\)</span>. In this way, we obtain one discrete probability distribution on <span class="math notranslate nohighlight">\(\{-1, 1\}\)</span> for each <span class="math notranslate nohighlight">\(x^*\)</span>. Since</p>
+<div class="math notranslate nohighlight">
+\[p(y^*=-1~|~X, y, x^*) = 1 - p(y^*=1~|~X, y, x^*),\]</div>
+<p>it is sufficient to focus on <span class="math notranslate nohighlight">\(p(y^*=1~|~X, y, x^*)\)</span>. In other words, we are looking for a model which returns for a given input <span class="math notranslate nohighlight">\(x^*\)</span> the probability that the corresponding label is <span class="math notranslate nohighlight">\(1\)</span>. For example, <span class="math notranslate nohighlight">\(x^*\)</span> could be an image which shows either a cat or a dog. The model has to quantify the probability for dog and the complementary probability yields the probability for cat. Certainly, we desire values close to 0 or 1, since values near 0.5 imply that the model has difficulties to classify the input.</p>
+<p>It holds <span class="math notranslate nohighlight">\(\sigma(z) \in [0,1]\)</span>, where</p>
+<div class="math notranslate nohighlight" id="equation-deflogfct">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-deflogfct" title="Permalink to this equation">¶</a></span>\[\sigma(z) := \frac{1}{1 + \exp(-z)} \quad \text{for } z \in \mathbb{R}\]</div>
+<p>is the <strong>logistic response function</strong>.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">expit</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">expit</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;logistic sigmoid&#39;</span><span class="p">)</span>
+<span class="n">leg</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/08_GPclassification_1_0.png" src="../../_images/08_GPclassification_1_0.png" />
+</div>
+</div>
+<p>Hence, the value of <span class="math notranslate nohighlight">\(\sigma(z)\)</span> can be interpreted as a probability. It is also possible to use other response functions such as the Gaussian cdf, but we will restrict to <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
+<p>Our aim is to construct the <strong>distribution of a latent variable</strong> <span class="math notranslate nohighlight">\(f^*\)</span> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> and a test point <span class="math notranslate nohighlight">\(x^*\)</span> (denote the pdf by <span class="math notranslate nohighlight">\(p(f^*~|~X, y, x^*)\)</span>) such that the class probability can be computed by the expectation of <span class="math notranslate nohighlight">\(p(y^*=1~|~f^*) := \sigma(f^*)\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-classprob">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-classprob" title="Permalink to this equation">¶</a></span>\[\begin{split}
+p(y^*=1~|~X, y, x^*) &amp;= \int_{\mathbb{R}} ~ p(y^*=1~|~f^*)~p(f^*~|~X, y, x^*)~df^* \\
+&amp;= \int_{\mathbb{R}} ~ \sigma(f^*)~p(f^*~|~X, y, x^*)~df^*.
+\end{split}\]</div>
+<p>Please note that <span class="math notranslate nohighlight">\(p(y^*=-1~|~f^*) = 1 - p(y^*=1~|~f^*) = 1 - \sigma(f^*) = \sigma(-f^*)\)</span> due to the properties of the logistic response function. Thus, the notation <span class="math notranslate nohighlight">\(p(y^*~|~f^*) = \sigma(y^* f^*)\)</span> is also used. Moreover, we like to mention that <span class="math notranslate nohighlight">\(f^* &lt; 0\)</span> suggests that <span class="math notranslate nohighlight">\(y^* = -1\)</span> is more likely and vice versa <span class="math notranslate nohighlight">\(f^* &gt; 0\)</span> implies that <span class="math notranslate nohighlight">\(y^* = 1\)</span> is more likely.</p>
+<p><em>How can we construct <span class="math notranslate nohighlight">\(p(f^*~|~X, y, x^*)\)</span> in</em> <a class="reference internal" href="#equation-classprob">(7.5)</a> <em>by means of Gaussian process regression</em>?</p>
+<p>The answer to this question is rather complicated and technical. For the interested reader, we give the details in the subsequent part:</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Explanation.</p>
+<p>We follow the explanation in sections 3.3 and 3.4 of <span id="id1">[<a class="reference internal" href="#id10">1</a>]</span>.</p>
+<p>In Gaussian process regression we constructed a similar distribution <span class="math notranslate nohighlight">\(p(f^*~|~X, f, x^*)\)</span> representing the <a class="reference internal" href="03_GPregression.html#lem-gpregr"><span class="std std-ref">posterior over functions</span></a> in terms of conditional distributions. Hence, the approach</p>
+<div class="math notranslate nohighlight" id="equation-latentdistr">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-latentdistr" title="Permalink to this equation">¶</a></span>\[p(f^*|~X, y, x^*) = \int_{\mathbb{R}^n} ~ p(f^*~|~X, f, x^*)~p(f~|~X, y)~df\]</div>
+<p>is useful and natural, since it reduces the problem to determine the <strong>distribution of the latent labels</strong> <span class="math notranslate nohighlight">\(f\)</span> given the observations <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. Note that we denote the continuous labels by <span class="math notranslate nohighlight">\(f\)</span> instead of <span class="math notranslate nohighlight">\(y\)</span>, since <span class="math notranslate nohighlight">\(y\)</span> is used for the discrete class labels.</p>
+<p>At this point, it is already evident that <strong>Gaussian process classification is more challenging than regression</strong>. It is required to determine the pdf <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> of an unobserved variable <span class="math notranslate nohighlight">\(f\)</span> and afterwards two integrals have to be calculated which involve the posterior distribution function of a Gaussian process regression model.</p>
+<p><em>How can we compute <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> in</em> <a class="reference internal" href="#equation-latentdistr">(7.6)</a>?</p>
+<p>Bayes’ theorem yields</p>
+<div class="math notranslate nohighlight" id="equation-bayeslatentlabels">
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-bayeslatentlabels" title="Permalink to this equation">¶</a></span>\[p(f ~|~X, y) = \frac{p(y~|~X, f) ~ p(f~|~X)}{p(y~|~X)} = \frac{p(y~|~f) ~ p(f~|~X)}{p(y~|~X)},\]</div>
+<p>since <span class="math notranslate nohighlight">\(y\)</span> depends by assumption only on the latent variable <span class="math notranslate nohighlight">\(f\)</span>. In principle, we have all ingredients to create our classification model. Indeed, it holds</p>
+<div class="math notranslate nohighlight" id="equation-factclassprob">
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-factclassprob" title="Permalink to this equation">¶</a></span>\[p(y~|~f) = \prod_{i=1}^n p(y_i~|~f_i) = \prod_{i=1}^n \sigma(y_i f_i) = \prod_{i=1}^n  \frac{1}{1 + \exp(-y_i f_i)}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[p(y~|~X) = \int_{\mathbb{R^n}} p(y~|~f, X) ~p(f~|~X)~ df = \int_{\mathbb{R^n}} p(y~|~f) ~p(f~|~X)~df,\]</div>
+<p>where <span class="math notranslate nohighlight">\(p(f~|~X)\)</span> is the marginal likelihood of the Gaussian process. Please note that we assume that the labels <span class="math notranslate nohighlight">\(y\)</span> are independent conditional on <span class="math notranslate nohighlight">\(f\)</span> in order to factorize in <a class="reference internal" href="#equation-factclassprob">(7.8)</a>. However, the non-Gaussian likelihood <span class="math notranslate nohighlight">\(p(y~|~f)\)</span> makes it analytically intracable to compute the integral in <a class="reference internal" href="#equation-latentdistr">(7.6)</a>.</p>
+<p>Markov chain Monte Carlo (MCMC) methods are useful to compute the integrals. Another approach is the <strong>Laplace approximation</strong> of <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> by a Gaussian distribution function <span class="math notranslate nohighlight">\(q(f~|~X, y)\)</span>. The idea is to replace the unknown distribution by a suitable Gaussian distribution which is easier to handle. If we assume that <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> would be indeed the pdf of a normal distribution, then mean and covariance would be given by</p>
+<div class="math notranslate nohighlight" id="equation-laplacemean">
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-laplacemean" title="Permalink to this equation">¶</a></span>\[\hat{f} := \underset{f}{\text{argmax}} ~ p(f~|~X, y)\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight" id="equation-laplacecov">
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-laplacecov" title="Permalink to this equation">¶</a></span>\[\Sigma_{\hat{f}} := \Big(- \nabla^2 \ln \big(p(f~|~X, y)\big)|_{f=\hat{f}}\Big)^{-1},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\nabla\)</span> and <span class="math notranslate nohighlight">\(\nabla^2\)</span> denote the first and second derivative, respectively. Thus, the Laplace approximation requires to find the maximum of a function depending on <span class="math notranslate nohighlight">\(f\)</span>. For this purpose, we compute the roots of the gradient. The quality of the Laplace approximation depends of course on the shape of the <em>real</em> distribution function. For simplification of the calculation, we make to following changes:</p>
+<ul class="simple">
+<li><p>instead of <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> consider <span class="math notranslate nohighlight">\(p(y~|~f) ~ p(f~|~X)\)</span> in view of <a class="reference internal" href="#equation-bayeslatentlabels">(7.7)</a>,</p></li>
+<li><p>apply <span class="math notranslate nohighlight">\(\ln\)</span> to <span class="math notranslate nohighlight">\(p(y~|~f) ~ p(f~|~X)\)</span></p></li>
+</ul>
+<p>Thus, first <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> is scaled by a constant and afterwards the strictly increasing function <span class="math notranslate nohighlight">\(\ln\)</span> is applied. A logarithmic transformation is useful, since it turns products into sums (which are easier to differentiate) and simplifies exponential terms. These modifications have no influence on the <span class="math notranslate nohighlight">\(\text{argmax}\)</span>.</p>
+<p>Set <span class="math notranslate nohighlight">\(\Psi(f) := \ln \big(p(y~|~f) ~ p(f~|~X)\big)\)</span>. It holds</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \Psi(f) &amp;= \ln \big(p(y~|~f)\big) + \ln \big(p(f~|~X)\big) \\
+           &amp;= \ln \big(p(y~|~f)\big) - \frac{1}{2} f^T K(X, X)^{-1} f - \frac{1}{2} \ln \big(|K(X, X)|\big) - \frac{n}{2} \ln  \big(2 \pi\big)\end{split}\]</div>
+<p>Thus, the gradient is given by</p>
+<div class="math notranslate nohighlight">
+\[ \nabla \Psi(f) = \nabla \ln \big(p(y~|~f)\big) - K(X, X)^{-1} f \]</div>
+<p>and the Hessian by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \nabla^2 \Psi(f) &amp;= \nabla^2 \ln \big(p(y~|~f)\big) - K(X, X)^{-1} \\
+                    &amp;= -  W(f) - K(X, X)^{-1},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(W(f) := - \nabla^2 \ln \big(p(y~|~f)\big)\)</span> is a diagonal matrix, since</p>
+<div class="math notranslate nohighlight">
+\[\ln \big(p(y~|~f)\big) = \ln \big(\prod_{i=1}^n \sigma(y_i f_i)\big) = \sum_{i=1}^n \ln \big(\sigma(y_i f_i)\big)\]</div>
+<p><span class="math notranslate nohighlight">\(\hat{f}\)</span> fulfills <span class="math notranslate nohighlight">\(\nabla \Psi(\hat{f}) = 0\)</span> and hence, it holds</p>
+<div class="math notranslate nohighlight" id="equation-eqfhat">
+<span class="eqno">(7.11)<a class="headerlink" href="#equation-eqfhat" title="Permalink to this equation">¶</a></span>\[ \hat{f} = K(X, X) \nabla \ln \big(p(y~|~\hat{f})\big)\]</div>
+<p>Unfortunately, <span class="math notranslate nohighlight">\(\hat{f}\)</span> also appears in the right-hand side of <a class="reference internal" href="#equation-eqfhat">(7.11)</a> and the equation can not be solved analytically. Therefore, another approximation is necessary. Roots of <span class="math notranslate nohighlight">\(\nabla \Psi\)</span> can be computed by <strong>Newton’s method</strong> in use of <span class="math notranslate nohighlight">\(\nabla^2 \Psi\)</span>:</p>
+<ul>
+<li><p>start with some initial value <span class="math notranslate nohighlight">\(f_0\)</span></p></li>
+<li><p>for <span class="math notranslate nohighlight">\(i=0, 1, \dots\)</span> compute iteratively</p>
+<div class="math notranslate nohighlight">
+\[ f_{i+1} = f_i - \big(\nabla^2 \Psi(f_i)\big)^{-1} \nabla \Psi(f_i)\]</div>
+<p>until some stopping criterion is met</p>
+</li>
+<li><p>denote the result as <span class="math notranslate nohighlight">\(\hat{f}\)</span></p></li>
+</ul>
+<p>Thus, <span class="math notranslate nohighlight">\(p(f~|~X, y)\)</span> is replaced by the density <span class="math notranslate nohighlight">\(q(f~|~X, y)\)</span> of a <span class="math notranslate nohighlight">\(\mathcal{N}(\hat{f}, \Sigma_{\hat{f}})\)</span>-distributed random variable with</p>
+<div class="math notranslate nohighlight">
+\[\Sigma_{\hat{f}} = \big(W(\hat{f}) + K(X, X)^{-1}\big)^{-1}\]</div>
+<p>Consequently, the approximation of <a class="reference internal" href="#equation-latentdistr">(7.6)</a> yields</p>
+<div class="math notranslate nohighlight">
+\[p(f^*~|~X, y, x^*) \approx q(f^*~|~X, y, x^*) := \int_{\mathbb{R}^n} ~ p(f^*~|~X, f, x^*)~q(f~|~X, y)~df\]</div>
+<p>The integrand is the product of two probability distribution functions of normal distributions. Hence, <span class="math notranslate nohighlight">\(q(f^*~|~X, y, x^*)\)</span> is the density of a univariate normal distribution with mean</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(f^*~|~X, y, x^*) = k(x^*, X) K(X, X)^{-1} \hat{f}\]</div>
+<p>and variance</p>
+<div class="math notranslate nohighlight">
+\[\text{var}(f^*~|~X, y, x^*) = k(x^*, x^*) - K(x^*, X)\big(W(\hat{f})^{-1} + K(X,X)\big)^{-1} K(X, x^*)\]</div>
+<p>This result looks very familiar. Indeed, the mean and variance equal exactly the mean prediction and variance in Gaussian process regression with data given by <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(\hat{f}\)</span> as well as additional noise specified by <span class="math notranslate nohighlight">\(W(\hat{f})^{-1}\)</span>.</p>
+<p>For the sake of completeness, the derivation is presented in the following section:</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Don’t do it!</p>
+<p>For simplification of the notation, we write <span class="math notranslate nohighlight">\(K := K(X, X)\)</span> and <span class="math notranslate nohighlight">\(W := W(\hat{f})\)</span>. It holds</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbb{E}(f^*~|~X, y, x^*) &amp;= \int_{\mathbb{R}} f^*~p(f^*~|~X, y, x^*)~df^* \\
+&amp;\approx \int_{\mathbb{R}} f^*~\int_{\mathbb{R}^n} ~ p(f^*~|~X, f, x^*)~q(f~|~X, y)~df~df^* \\
+&amp;= \int_{\mathbb{R}^n} \int_{\mathbb{R}} f^*~ p(f^*~|~X, f, x^*)~df^* ~q(f~|~X, y) ~ df \\
+&amp;= \int_{\mathbb{R}^n} K(x^*, X) K^{-1} f ~q(f~|~X, y) ~ df \\
+&amp;= K(x^*, X) K^{-1} \int_{\mathbb{R}^n} f ~q(f~|~X, y) ~ df \\
+&amp;= k(x^*, X) K^{-1} \hat{f}\end{split}\]</div>
+<p>and variance</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{var}(f^*~|~X, y, x^*) &amp;= \int_{\mathbb{R}} \big(f^* - \mathbb{E}(f^*~|~X, y, x^*)\big)^2~p(f^*~|~X, y, x^*)~df^* \\
+&amp;\approx \int_{\mathbb{R}} \big(f^* - \mathbb{E}(f^*~|~X, y, x^*)\big)^2~\int_{\mathbb{R}^n} ~ p(f^*~|~X, f, x^*)~q(f~|~X, y)~df~df^* \\ 
+&amp;= \int_{\mathbb{R}^n} \int_{\mathbb{R}} \big(f^* - \mathbb{E}(f^*~|~X, y, x^*) \big)^2 ~ p(f^*|~X, f, x^*) ~ df^* ~ q(f~|~X, y)~df \\
+&amp;= \int_{\mathbb{R}^n} \int_{\mathbb{R}} \big(f^* - \mathbb{E}(f^*|~X, f, x^*) + \mathbb{E}(f^*~|~X, f, x^*) - \mathbb{E}(f^*~|~X, y, x^*)\big)^2 ~ p(f^*|~X, f, x^*) ~ df^* ~ q(f~|~X, y)~df \\
+&amp;= \int_{\mathbb{R}^n} \int_{\mathbb{R}} \big(f^* - \mathbb{E}(f^*|~X, f, x^*)\big)^2 + \big(\mathbb{E}(f^*~|~X, f, x^*) - \mathbb{E}(f^*~|~X, y, x^*)\big)^2 ~ p(f^*|~X, f, x^*) ~ df^* ~ q(f~|~X, y)~df,\end{split}\]</div>
+<p>since</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;\int_{\mathbb{R}^n} \int_{\mathbb{R}} \big(f^* - \mathbb{E}(f^*~|~X, f, x^*)\big)\big(\mathbb{E}(f^*~|~X, f, x^*) - \mathbb{E}(f^*~|~X, y, x^*)\big) ~ p(f^*|~X, f, x^*) ~ df^* ~ q(f~|~X, y)~df \\
+&amp;= \int_{\mathbb{R}^n} \underbrace{\int_{\mathbb{R}} \big(f^* - \mathbb{E}(f^*~|~X, f, x^*)\big) ~ p(f^*~|~X, f, x^*) ~ df^*}_{=0} ~ \big(\mathbb{E}(f^*~|~X, f, x^*) - \mathbb{E}(f^*~|~X, y, x^*)\big) ~ q(f|~X, y)~df \\
+&amp;= 0\end{split}\]</div>
+<p>The first summand in the integral yields the variance of the posterior Gaussian process distribution at <span class="math notranslate nohighlight">\(x^*\)</span>. Recall that <span class="math notranslate nohighlight">\(\mathbb{E}(f^*~|~X, f, x^*) = K(x^*, X)K^{-1}f\)</span>. Therefore, it follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \text{var}(f^*~|~X, y, x^*) &amp;= k(x^*, x^*) - K(x^*, X)K^{-1}K(X, x^*) + \int_{\mathbb{R}^n} \int_{\mathbb{R}} \big(K(x^*, X)K^{-1}(f - \hat{f}\big)^2 ~ p(f^*|~X, f, x^*) ~ df^* ~ q(f~|~X, y)~df \\
+&amp;= k(x^*, x^*) - K(x^*, X)K^{-1}K(X, x^*) + \int_{\mathbb{R}^n} \big(K(x^*, X)K^{-1}(f - \hat{f}\big)^2 ~ q(f~|~X, y)~df \\
+&amp;= k(x^*, x^*) - K(x^*, X)K^{-1}K(X, x^*) + K(x^*, X) K^{-1} \big(W + K^{-1}\big)^{-1} K^{-1} K(X, x^*) \\
+&amp;= k(x^*, x^*) - K(x^*, X) \big(K^{-1} - K^{-1} \big(W + K^{-1}\big)^{-1} K^{-1}\big) K(X, x^*) \\
+&amp;= k(x^*, x^*) - K(x^*, X)\big(W^{-1} + K\big)^{-1} K(X, x^*)\end{split}\]</div>
+<p>The last equation holds, since <span class="math notranslate nohighlight">\(K^{-1} + K^{-1} \big(W + K^{-1}\big)^{-1} K^{-1} = \big(W^{-1} + K \big)^{-1}\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}&amp;\big(K^{-1} - K^{-1} \big(W + K^{-1}\big)\big(W^{-1} + K \big) \\
+&amp;= K^{-1} \big(I_n - (W + K^{-1})^{-1} K^{-1}\big)\big(K + W^{-1}\big) \\
+&amp;= K^{-1} \big(W + K^{-1})^{-1} \big) \big(W + K^{-1} - K^{-1}\big)\big(K + W^{-1}\big) \\
+&amp;= K^{-1} \big(W + K^{-1})^{-1} \big) W \big(K + W^{-1}\big) \\
+&amp;= (W K + I_n)^{-1}  (W K + I_n) \\
+&amp;= I_n
+\end{split}\]</div>
+</div>
+<p>In order to compute the marginal likelihood <span class="math notranslate nohighlight">\(p(y~|~X)\)</span> the second order approximation</p>
+<div class="math notranslate nohighlight">
+\[\Psi(f) \approx \Psi(\hat{f}) - \frac{1}{2} (f - \hat{f})^T {\Sigma_{\hat{f}}}^{-1} (f - \hat{f})\]</div>
+<p>is used. To emphasize the dependence on the hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span>, we use the notation <span class="math notranslate nohighlight">\(p(y~|~X, \theta)\)</span> instead of <span class="math notranslate nohighlight">\(p(y~|~X)\)</span> and so forth. <strong>Note that <span class="math notranslate nohighlight">\(\hat{f}\)</span> and <span class="math notranslate nohighlight">\(\Sigma_{\hat{f}}\)</span> also depend on <span class="math notranslate nohighlight">\(\theta\)</span></strong>. It holds</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} p(y~|~X, \theta) = \int_{\mathbb{R}^n} p(y~|~f) ~p(f~|~X, \theta) df &amp;= \int_{\mathbb{R}^n} \exp(\Psi(f))~df \\
+&amp;\approx \exp(\Psi(\hat{f})) \int_{\mathbb{R}^n} \exp(-\frac{1}{2} (f - \hat{f})^T {\Sigma_{\hat{f}}}^{-1} (f - \hat{f}))~df \\
+&amp;= \exp(\Psi(\hat{f})) \sqrt{(2\pi)^n |\Sigma_{\hat{f}}|}\end{split}\]</div>
+<p>Thefore, the log marginal likelihood reads</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\ln \big(p(y~|~X, \theta)\big) &amp;\approx \Psi(\hat{f}) + \frac{n}{2} \ln \big(2\pi\big) + \frac{1}{2} \ln\big(|\Sigma_{\hat{f}}|\big) \\
+&amp;= \ln \big(p(y~|~\hat{f})\big) + \ln \big(p(\hat{f}~|~X, \theta)\big) + \frac{n}{2} \ln \big(2\pi\big) + \frac{1}{2} \ln\big(|\Sigma_{\hat{f}}|\big) \\
+&amp;= \ln \big(p(y~|~\hat{f})\big) - \frac{1}{2} \hat{f}^T K_{\theta}(X,X)^{-1} \hat{f} - \frac{1}{2} \ln \big(|K_{\theta}(X,X)|\big) + \frac{1}{2} \ln\big(|\Sigma_{\hat{f}}|\big) \\
+&amp;= \ln \big(p(y~|~\hat{f})\big) - \frac{1}{2} \hat{f}^T K_{\theta}(X,X)^{-1} \hat{f} - \frac{1}{2} \ln \big(|B(X, \hat{f}, \theta)|\big),\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(K_{\theta}\)</span> illustrates the dependence of <span class="math notranslate nohighlight">\(K\)</span> on <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(B(X, \hat{f}) := K_{\theta}(X, X) {\Sigma_{\hat{f}}}^{-1}\)</span>. It holds</p>
+<div class="math notranslate nohighlight">
+\[B(X, \hat{f}) = K_{\theta}(X, X) \big(W(\hat{f}) + K_{\theta}(X, X)^{-1}\big) = I_n + K_{\theta}(X, X) W(\hat{f})\]</div>
+<p>and thus, it follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}|B(X, \hat{f})| = |I_n + K_{\theta}(X, X) W(\hat{f})| &amp;= |W(\hat{f})^{-\frac{1}{2}} + K_{\theta}(X, X) W(\hat{f})^{\frac{1}{2}}||W(\hat{f})^{\frac{1}{2}}| \\
+&amp;= |W(\hat{f})^{\frac{1}{2}}||W(\hat{f})^{-\frac{1}{2}} + K_{\theta}(X, X) W(\hat{f})^{\frac{1}{2}}| \\
+&amp;= |I_n + W(\hat{f})^{\frac{1}{2}} K_{\theta}(X,X) W(\hat{f})^{\frac{1}{2}}|\end{split}\]</div>
+<p>The last representation is particularly useful for implementation purposes, since <span class="math notranslate nohighlight">\(I_n + W(\hat{f})^{\frac{1}{2}} K_{\theta}(X,X) W(\hat{f})^{\frac{1}{2}}\)</span> is a positive definite matrix.</p>
+</div>
+<p>In application, the computational process can be summarized as follows:</p>
+<ol>
+<li><p>Choose a Gaussian process with hyperparemeters <span class="math notranslate nohighlight">\(\theta\)</span> as prior for the latent labels <span class="math notranslate nohighlight">\(f\)</span></p></li>
+<li><p>For fixed <span class="math notranslate nohighlight">\(\theta\)</span> set <span class="math notranslate nohighlight">\(\Psi(f) := \ln \big(p(y~|~f) ~ p(f~|~X, \theta)\big)\)</span></p></li>
+<li><p>Compute the root <span class="math notranslate nohighlight">\(\hat{f}\)</span> (depends on <span class="math notranslate nohighlight">\(\theta\)</span>) of <span class="math notranslate nohighlight">\(\nabla \Psi\)</span> in use of Newton’s method</p></li>
+<li><p>Calculate the log marginal likelihood by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\ln p(y~|~X, \theta) &amp;\approx \ln \big(p(y~|~\hat{f})\big) - \frac{1}{2} \hat{f}^T K_{\theta}(X,X)^{-1} \hat{f} - \frac{1}{2} \ln \big(|K_{\theta}(X,X)|\big) + \frac{1}{2} \ln\big(|\Sigma_{\hat{f}}|\big)\\
+   &amp;=\ln \big(p(y~|~\hat{f})\big) - \frac{1}{2} \hat{f}^T K_{\theta}(X,X)^{-1} \hat{f} - \frac{1}{2} \ln \big(|I_n + W(\hat{f})^{\frac{1}{2}} K_{\theta}(X,X) W(\hat{f})^{\frac{1}{2}}|\big),\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(W(\hat{f}) = - \nabla^2 \ln \big(p(y~|~\hat{f})\big)\)</span>, <span class="math notranslate nohighlight">\(\Sigma_{\hat{f}} = \big(W(\hat{f}) + K_{\theta}(X, X)^{-1}\big)^{-1}\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\ln \big(p(y~|~\hat{f})\big) = - \sum_{i=1}^n \ln \big(1 + \exp(-y_i\hat{f}_i)\big)\]</div>
+</li>
+<li><p>Maximize <span class="math notranslate nohighlight">\(\ln \big(p(y~|~X, \theta)\big)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span> (which means application of an optimization algorithm and looping steps 2.-4.)</p></li>
+</ol>
+<p>Then, the class probability for a test point <span class="math notranslate nohighlight">\(x^*\)</span> in <a class="reference internal" href="#equation-classprob">(7.5)</a> is given by the one dimensional integral</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p(y^*=1~|~X, y, x^*) &amp;= \int_{\mathbb{R}} ~ \sigma(f^*)~p(f^*~|~X, y, x^*)~df^* \\
+&amp;\approx \int_{\mathbb{R}} ~ \sigma(f^*)~q(f^*~|~X, y, x^*)~df^*,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(q(f^*~|~X, y, x^*)~df^*\)</span> is the density of a normal distribution with mean</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(f^*~|~X, y, x^*) = k(x^*, X) K(X, X)^{-1} \hat{f}\]</div>
+<p>and variance</p>
+<div class="math notranslate nohighlight">
+\[\text{var}(f^*~|~X, y, x^*) = k(x^*, x^*) - K(x^*, X)\big(W(\hat{f})^{-1} + K(X,X)\big)^{-1} K(X, x^*)\]</div>
+<p>Thus, the assigned class probability is the expectation of <span class="math notranslate nohighlight">\(\sigma\)</span> with respect to the posterior distribution of the latent variable <span class="math notranslate nohighlight">\(f^*\)</span>. If we are not interested in the precise value of the probability, but only in the favored class, it is sufficient to consider the sign of <span class="math notranslate nohighlight">\(\mathbb{E}(f^*~|~X, y, x^*)\)</span>. For negative values the predicted class is <span class="math notranslate nohighlight">\(-1\)</span> and for positive values the predicted class is <span class="math notranslate nohighlight">\(1\)</span>. This is equivalent to computing <span class="math notranslate nohighlight">\(\sigma(\mathbb{E}(f^*~|~X, y, x^*))\)</span> and to conclude that the predicted class is <span class="math notranslate nohighlight">\(-1\)</span> for a value less than <span class="math notranslate nohighlight">\(0.5\)</span> and the predicted class is <span class="math notranslate nohighlight">\(1\)</span> for a value larger than <span class="math notranslate nohighlight">\(0.5\)</span>.</p>
+</div>
+<div class="section" id="multi-class-classification">
+<h2><span class="section-number">7.8.2. </span>Multi-class Classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this headline">¶</a></h2>
+<p>In binary classification the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is of the form</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \{-1, 1\} \quad \text{for } i=1,\dots,n \},\]</div>
+<p>i.e., the (discrete) label has either value <span class="math notranslate nohighlight">\(-1\)</span> or <span class="math notranslate nohighlight">\(1\)</span> representing the two possible classes. In the multi-class setting the data is of the form</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \{C_1, \dots, C_k \} \quad \text{for } i=1,\dots,n \},\]</div>
+<p>where <span class="math notranslate nohighlight">\(C_1, \dots, C_k\)</span> represent the <span class="math notranslate nohighlight">\(k\)</span> different classes.</p>
+<p>Similarly to the multi-output case in Gaussian process regression, several different approaches exist for multi-class classification. First of all, the Laplace approximtion discussed in <a class="reference internal" href="#sec-binaryclass"><span class="std std-ref">Binary Classification</span></a> can be generalized to a multi-class Laplace approximation (refer to Section 3.5 in <span id="id2">[<a class="reference internal" href="#id10">1</a>]</span>). Moreover, there exist general approaches to extend binary classifiers to multi-class tasks:</p>
+<ul class="simple">
+<li><p>One-vs-Rest / One-vs-All:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(k\)</span> binary classifiers are trained by creating binary labels with the classes <span class="math notranslate nohighlight">\(C_k\)</span> (encoded as <span class="math notranslate nohighlight">\(1\)</span>) and all remaining classes (encoded as <span class="math notranslate nohighlight">\(-1\)</span>)</p></li>
+<li><p>For a test point each classifier predicts the probability for class <span class="math notranslate nohighlight">\(C_k\)</span> and the class with the highest probability is assigned</p></li>
+</ul>
+</li>
+<li><p>One-vs-One:</p>
+<ul>
+<li><p>A binary problem is created by considering only two distinct classes <span class="math notranslate nohighlight">\(C_k\)</span> and <span class="math notranslate nohighlight">\(C_l\)</span>, <span class="math notranslate nohighlight">\(k \ne l\)</span>, (each possible pair of classes) and fitting a binary classifier (results in <span class="math notranslate nohighlight">\(\frac{k~(k-1)}{2}\)</span> classifiers)</p></li>
+<li><p>Each model predicts a class probability and the class with most votes or alternatively, the class with the highest sum of probabilities is assigned</p></li>
+</ul>
+</li>
+</ul>
+<p id="id3"><dl class="citation">
+<dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02_probML/02_GPforML"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="07_multiout.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">7.7. </span>Extension to Multiple Outputs</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="09_advanced.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">7.9. </span>Advanced Methods</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

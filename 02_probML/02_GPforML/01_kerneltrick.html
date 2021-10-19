@@ -54,12 +54,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_kernelmethods/01_kerneltrick.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/01_kerneltrick.html" />
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="7.2. Gaussian Processes for Machine Learning" href="02_GP.html" />
-    <link rel="prev" title="7. Kernel-based Methods" href="../02_kernelmethods.html" />
+    <link rel="next" title="7.2. Gaussian Processes" href="02_GP.html" />
+    <link rel="prev" title="7. Gaussian Processes for Machine Learning" href="../02_GPforML.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -225,8 +225,8 @@
   </a>
  </li>
  <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../02_kernelmethods.html">
-   7. Kernel-based Methods
+  <a class="reference internal" href="../02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -241,12 +241,42 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="02_GP.html">
-     7.2. Gaussian Processes for Machine Learning
+     7.2. Gaussian Processes
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="03_addmethods.html">
-     7.3. Additional Kernel-based Methods
+    <a class="reference internal" href="03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_advanced.html">
+     7.9. Advanced Methods
     </a>
    </li>
   </ul>
@@ -319,7 +349,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/02_probML/02_kernelmethods/01_kerneltrick.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_GPforML/01_kerneltrick.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -359,7 +389,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_kernelmethods/01_kerneltrick.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_GPforML/01_kerneltrick.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -419,7 +449,7 @@
 <p>where <span class="math notranslate nohighlight">\(K = K(X, X) \in \mathbb{R}^{n \times n}\)</span> is the so called <strong>kernel matrix</strong> defined as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} K(X, X) = \begin{pmatrix} \phi(x_1)^T\phi(x_1) &amp; \phi(x_1)^T\phi(x_2) &amp; \dots &amp; \phi(x_1)^T\phi(x_n) \\ \phi(x_2)^T\phi(x_1) &amp; \phi(x_2)^T\phi(x_2) &amp; \dots &amp; \phi(x_2)^T\phi(x_n) \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ \phi(x_n)^T\phi(x_1) &amp; \phi(x_n)^T\phi(x_2) &amp; \dots &amp; \phi(x_n)^T\phi(x_n) \end{pmatrix}\end{split}\]</div>
-<p>We will cover kernels and the kernel matrix more in depth <a class="reference internal" href="02_GP.html#sec-gpforml"><span class="std std-ref">later</span></a> but for now, it is important to note that <span class="math notranslate nohighlight">\(K\)</span> is a positive semi-definite matrix (see <a class="reference external" href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">Mercer’s Theorem</a> for details). Please note that we implicitly assume that <span class="math notranslate nohighlight">\(K\)</span> is even positive definite in order to ensure the existence of its inverse. Rewriting the prediction equation as before yields</p>
+<p>We will cover kernels and the kernel matrix more in depth <a class="reference internal" href="../02_GPforML.html#sec-gpforml"><span class="std std-ref">later</span></a> but for now, it is important to note that <span class="math notranslate nohighlight">\(K\)</span> is a positive semi-definite matrix (see <a class="reference external" href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">Mercer’s Theorem</a> for details). Please note that we implicitly assume that <span class="math notranslate nohighlight">\(K\)</span> is even positive definite in order to ensure the existence of its inverse. Rewriting the prediction equation as before yields</p>
 <div class="math notranslate nohighlight">
 \[y = \phi(x)^T \phi(X)^T K(X, X)^{-1} Y = k(x, X) K(X, X)^{-1} Y\]</div>
 <p>where <span class="math notranslate nohighlight">\(k(x, X) \in \mathbb{R}^{1 \times n}\)</span> denotes the row vector of kernel function values between the prediction point <span class="math notranslate nohighlight">\(x\)</span> and the training data <span class="math notranslate nohighlight">\(X\)</span>. Notice that <span class="math notranslate nohighlight">\(K(X, X)^{-1} Y \in \mathbb{R}^n\)</span> is vector of weights for each entry of <span class="math notranslate nohighlight">\(k(x, X)\)</span> and the prediction function is a weighted sum of kernel functions.</p>
@@ -477,6 +507,12 @@
 </div>
 </div>
 <p>Thanks to the new dimension, a linear horizontal plane is now sufficient to separate the two classes. In practice, finding a good mapping may be difficult. Nonetheless, the premise of the kernel based methods is finding such a mapping without a need to explicitly defining it.</p>
+<p>In addition to Gaussian processes for machine learning, the following list contains a selection of furhter kernel-based methods:</p>
+<ul class="simple">
+<li><p>support-vector machines (SVM),</p></li>
+<li><p>kernel principal component analysis (kernel PCA)</p></li>
+<li><p>kernel ridge regression</p></li>
+</ul>
 </div>
 
     <script type="text/x-thebe-config">
@@ -492,7 +528,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./02_probML/02_kernelmethods"
+            path: "./02_probML/02_GPforML"
         },
         predefinedOutput: true
     }
@@ -509,11 +545,11 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../02_kernelmethods.html" title="previous page">
+        <a class="left-prev" href="../02_GPforML.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">7. </span>Kernel-based Methods</p>
+                <p class="prevnext-title"><span class="section-number">7. </span>Gaussian Processes for Machine Learning</p>
             </div>
         </a>
     </div>
@@ -521,7 +557,7 @@
         <a class="right-next" href="02_GP.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">7.2. </span>Gaussian Processes for Machine Learning</p>
+                <p class="prevnext-title"><span class="section-number">7.2. </span>Gaussian Processes</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

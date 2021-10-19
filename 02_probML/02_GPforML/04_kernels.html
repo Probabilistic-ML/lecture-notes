@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7.4. Kernel Functions &#8212; Introduction to Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/additional.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/04_kernels.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.5. Impact of Hyperparameters" href="05_hyperparamimpact.html" />
+    <link rel="prev" title="7.3. Gaussian Process Regression" href="03_GPregression.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/01_preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/02_python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/03_notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/03_bayes.html">
+   3. Bayesian Inference, MAP &amp; MLE
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/03_MLEandMAP.html">
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/04_opt.html">
+   4. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_motivation.html">
+   6. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_kerneltrick.html">
+     7.1. The Kernel Trick: Implicit embeddings from inner products
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_GP.html">
+     7.2. Gaussian Processes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_advanced.html">
+     7.9. Advanced Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_overview.html">
+   8. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   9. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   10. Design Uncertainty Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/03_RL.html">
+   11. Efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_GPforML/04_kernels.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_GPforML/04_kernels.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examples-of-kernels">
+   7.4.1. Examples of Kernels
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#linear-kernel">
+     7.4.1.1. Linear Kernel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#polynomial-kernel">
+     7.4.1.2. Polynomial Kernel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#squared-exponential-kernel">
+     7.4.1.3. Squared Exponential Kernel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exponential-kernel">
+     7.4.1.4. Exponential Kernel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#matern-kernel">
+     7.4.1.5. Matérn Kernel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rational-quadratic-kernel">
+     7.4.1.6. Rational Quadratic Kernel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#periodic-kernel">
+     7.4.1.7. Periodic Kernel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#brownian-motion-kernel">
+     7.4.1.8. Brownian Motion Kernel
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combination-of-kernels">
+   7.4.2. Combination of Kernels
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="kernel-functions">
+<h1><span class="section-number">7.4. </span>Kernel Functions<a class="headerlink" href="#kernel-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="examples-of-kernels">
+<h2><span class="section-number">7.4.1. </span>Examples of Kernels<a class="headerlink" href="#examples-of-kernels" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned before, the choice of the kernel (the prior distribution) determines the properties of the Gaussian process and consequently also of the regression model. In the present section, we define the most common covariance functions and visualize the corresponding sample paths.</p>
+<div class="section" id="linear-kernel">
+<h3><span class="section-number">7.4.1.1. </span>Linear Kernel<a class="headerlink" href="#linear-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The linear kernel reads</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \beta_0 + \langle x, x^{\prime} \rangle \quad \text{for } x, x^{\prime} \in \mathbb{R}^d,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta_0 \ge 0\)</span> and <span class="math notranslate nohighlight">\(\langle x, x^{\prime} \rangle\)</span> denotes the scalar product of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x^{\prime}\)</span>. In the subsequent animation, we used <span class="math notranslate nohighlight">\(\beta_0 = 0\)</span>.</p>
+<a class="reference internal image-reference" href="../../_images/linear.gif"><img alt="Linear kernel" src="../../_images/linear.gif" style="width: 800px;" /></a>
+</div>
+<div class="section" id="polynomial-kernel">
+<h3><span class="section-number">7.4.1.2. </span>Polynomial Kernel<a class="headerlink" href="#polynomial-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The polynomial kernel is constructed by exponentiation of the linear kernel, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \big(\beta_0 + \langle x, x^{\prime} \rangle\big)^p \quad \text{for } x, x^{\prime} \in \mathbb{R}^d,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta_0 \ge 0\)</span> and <span class="math notranslate nohighlight">\(p \in \mathbb{N}\)</span>. In the subsequent animation, we used <span class="math notranslate nohighlight">\(\beta_0 = 1\)</span> and <span class="math notranslate nohighlight">\(p=3\)</span>.</p>
+<a class="reference internal image-reference" href="../../_images/polynomial.gif"><img alt="Polynomial kernel" src="../../_images/polynomial.gif" style="width: 800px;" /></a>
+</div>
+<div class="section" id="squared-exponential-kernel">
+<h3><span class="section-number">7.4.1.3. </span>Squared Exponential Kernel<a class="headerlink" href="#squared-exponential-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The squared exponential kernel is possibly the most important kernel in kernel-based machine learning. It is also called radial basis function (RBF) kernel. It is defined by</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp \big(-\frac{r^2}{2~l^2} \big)\]</div>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. <span class="math notranslate nohighlight">\(l\)</span> is called <strong>length scale</strong> and is assumed to be positive. In particular, the squared exponential kernel is isotropic. In the subsequent animation, we used <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
+<a class="reference internal image-reference" href="../../_images/rbf.gif"><img alt="RBF kernel" src="../../_images/rbf.gif" style="width: 800px;" /></a>
+</div>
+<div class="section" id="exponential-kernel">
+<h3><span class="section-number">7.4.1.4. </span>Exponential Kernel<a class="headerlink" href="#exponential-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The (absolute) exponential kernel is another isotropic kernel and is defined by</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp \big(-\frac{r}{l} \big)\]</div>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(l\)</span> is the length scale. In the subsequent animation, we used <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
+<a class="reference internal image-reference" href="../../_images/exp.gif"><img alt="Exp kernel" src="../../_images/exp.gif" style="width: 800px;" /></a>
+</div>
+<div class="section" id="matern-kernel">
+<h3><span class="section-number">7.4.1.5. </span>Matérn Kernel<a class="headerlink" href="#matern-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The Matérn kernel denotes a class of isotropic kernels which is parametrized by a parameter <span class="math notranslate nohighlight">\(\nu &gt; 0\)</span>. The kernel is given by</p>
+<div class="math notranslate nohighlight">
+\[k_{\nu}(x, x^{\prime}) = \frac{2^{1 - \nu}}{\Gamma(\nu)}~\Big(\frac{\sqrt{2\nu}~ r}{l}\Big)^{\nu} ~K_{\nu} \Big(\frac{\sqrt{2\nu}~r}{l}\Big),\]</div>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(l &gt;0\)</span> is the length scale, <span class="math notranslate nohighlight">\(\Gamma\)</span> is the gamma function and <span class="math notranslate nohighlight">\(K_{\nu}\)</span> is a modified Bessel function.</p>
+<p>For <span class="math notranslate nohighlight">\(\nu = 0.5\)</span> the Matérn kernel becomes the exponential kernel and for <span class="math notranslate nohighlight">\(\nu \rightarrow \infty\)</span> the Matérn kernel approaches the squared exponential kernel. Thus, <span class="math notranslate nohighlight">\(\nu\)</span> determines the roughness of the samples paths and the samples paths get smoother as <span class="math notranslate nohighlight">\(\nu\)</span> increases.</p>
+<p>The most interesting other cases for machine learning are <span class="math notranslate nohighlight">\(\nu = 1.5\)</span> and <span class="math notranslate nohighlight">\(\nu = 2.5\)</span>. It holds</p>
+<div class="math notranslate nohighlight">
+\[k_{\nu = 1.5}(x, x^{\prime}) = \Big( 1 + \frac{\sqrt{3}~r}{l} \Big)~\exp\Big(\frac{\sqrt{3}~r}{l}\Big)\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[k_{\nu = 2.5}(x, x^{\prime}) = \Big( 1 + \frac{\sqrt{5}~r}{l} + \frac{5~r^2}{3~l^2} \Big)~\exp\Big(\frac{\sqrt{5}~r}{l}\Big).\]</div>
+<p>For both cases, sample paths are animated below with <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\nu = 1.5\)</span>:</p>
+<a class="reference internal image-reference" href="../../_images/matern15.gif"><img alt="Matern 1.5 kernel" src="../../_images/matern15.gif" style="width: 800px;" /></a>
+<p><span class="math notranslate nohighlight">\(\nu = 2.5\)</span>:</p>
+<a class="reference internal image-reference" href="../../_images/matern25.gif"><img alt="Matern 2.5 kernel" src="../../_images/matern25.gif" style="width: 800px;" /></a>
+</div>
+<div class="section" id="rational-quadratic-kernel">
+<h3><span class="section-number">7.4.1.6. </span>Rational Quadratic Kernel<a class="headerlink" href="#rational-quadratic-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The rational quadratic kernel denotes a family of isotropic kernels with parameter <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> defined by</p>
+<div class="math notranslate nohighlight">
+\[k_{\alpha}(x, x^{\prime}) = \Big( 1 + \frac{r^2}{2\alpha~l^2} \Big)^{-\alpha}\]</div>
+<p>with <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(l &gt; 0\)</span>. This kernel can be seen as mixture of squared exponential kernels with different length scales (see (4.20) in <span id="id1">[<a class="reference internal" href="08_GPclassification.html#id10">1</a>]</span>). In the subsequent animation, we used <span class="math notranslate nohighlight">\(\alpha = l = 1\)</span>.</p>
+<a class="reference internal image-reference" href="../../_images/rq.gif"><img alt="rq kernel" src="../../_images/rq.gif" style="width: 800px;" /></a>
+</div>
+<div class="section" id="periodic-kernel">
+<h3><span class="section-number">7.4.1.7. </span>Periodic Kernel<a class="headerlink" href="#periodic-kernel" title="Permalink to this headline">¶</a></h3>
+<p>The periodic kernel is also called Exp-Sine-Squared kernel. It is given by</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp\Big( - \frac{2~\sin^2\big(\pi \frac{r}{p}\big)}{l^2}\Big)\]</div>
+<p>with <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. <span class="math notranslate nohighlight">\(l\)</span> is the length scale and <span class="math notranslate nohighlight">\(p\)</span> the <strong>periodicity</strong>. To illustrate the sample paths we used <span class="math notranslate nohighlight">\(l=p=1\)</span>.</p>
+<a class="reference internal image-reference" href="../../_images/periodic.gif"><img alt="Periodic kernel" src="../../_images/periodic.gif" style="width: 800px;" /></a>
+</div>
+<div class="section" id="brownian-motion-kernel">
+<h3><span class="section-number">7.4.1.8. </span>Brownian Motion Kernel<a class="headerlink" href="#brownian-motion-kernel" title="Permalink to this headline">¶</a></h3>
+<p>Since we illustrated the sample paths of Brownian motion as an example for a stochastic process, we state its covariance function. Nevertheless, this kernel is not of interest for our machine learning applications. It holds</p>
+<div class="math notranslate nohighlight">
+\[k(s, t) = \text{min}(s, t)\]</div>
+<p>for <span class="math notranslate nohighlight">\(s, t \in \mathbb{R}_{&gt; 0}\)</span>.</p>
+</div>
+</div>
+<div class="section" id="combination-of-kernels">
+<span id="sec-combofkernels"></span><h2><span class="section-number">7.4.2. </span>Combination of Kernels<a class="headerlink" href="#combination-of-kernels" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to obtain new covariance functions from known kernels by recombination.</p>
+<p>Let <span class="math notranslate nohighlight">\((f_1(x))_{x \in \mathbb{R}^d}\)</span> and <span class="math notranslate nohighlight">\((f_2(x))_{x \in \mathbb{R}^d}\)</span> be two independent centered Gaussian processes with kernels <span class="math notranslate nohighlight">\(k_1\)</span> and <span class="math notranslate nohighlight">\(k_2\)</span>, respectively. Moreover, let <span class="math notranslate nohighlight">\(a : \mathbb{R}^d \rightarrow \mathbb{R}_{&gt; 0}\)</span>. Then, sums and products can be used to generate new kernels <span class="math notranslate nohighlight">\(k\)</span> and Gaussian processes <span class="math notranslate nohighlight">\(f\)</span> from old ones:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Gaussian process</p></th>
+<th class="text-align:right head"><p>kernel <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p><span class="math notranslate nohighlight">\(f_1 + f_2\)</span></p></td>
+<td class="text-align:right"><p><span class="math notranslate nohighlight">\(k_1(x, x^{\prime})+k_2(x, x^{\prime})\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><span class="math notranslate nohighlight">\(f_1 f_2\)</span></p></td>
+<td class="text-align:right"><p><span class="math notranslate nohighlight">\(k_1(x, x^{\prime}) k_2(x, x^{\prime})\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><span class="math notranslate nohighlight">\(a f_1\)</span></p></td>
+<td class="text-align:right"><p><span class="math notranslate nohighlight">\(a(x) k_1(x, x^{\prime}) a(x^{\prime})\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>Of course, a constant <span class="math notranslate nohighlight">\(a\)</span> can be used for scaling and the three approaches can be combined arbitrarily.</p>
+<p>For example, by multiplication of the periodic kernel with the squared exponential kernel the <strong>locally periodic kernel</strong> is constructed:</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp\Big( - \frac{2~\sin^2\big(\pi \frac{r}{p}\big)}{l^2}\Big) \exp \Big(-\frac{r^2}{2~l^2} \Big),\]</div>
+<p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>.</p>
+<p>The sample paths are indeed locally periodic, i.e., the periodic part changes over time:</p>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel1</span> <span class="o">=</span> <span class="n">ExpSineSquared</span><span class="p">()</span>
+<span class="n">kernel2</span> <span class="o">=</span> <span class="n">RBF</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">kernel1</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">kernel2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="c1"># anim = get_anim(kernel, xbnd=4., ybnd=5.)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<a class="reference internal image-reference" href="../../_images/locperiodic.gif"><img alt="locally periodic kernel" src="../../_images/locperiodic.gif" style="width: 800px;" /></a>
+<p>Furthermore, <strong>scaling of a Gaussian process</strong> with kernel <span class="math notranslate nohighlight">\(k\)</span> by a constant <span class="math notranslate nohighlight">\(\sigma \ne 0\)</span> (i.e., choosing <span class="math notranslate nohighlight">\(a(x) = \sigma\)</span> in the notation above) yields the kernel <span class="math notranslate nohighlight">\(\sigma^2 k\)</span>. This is also a common approach to modify kernel functions.</p>
+<p>For additional techniques for creating new covariance functions please refer to section 4.2.4 in <span id="id2">[<a class="reference internal" href="08_GPclassification.html#id10">1</a>]</span>.</p>
+<p id="id3"><dl class="citation">
+<dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02_probML/02_GPforML"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="03_GPregression.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">7.3. </span>Gaussian Process Regression</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="05_hyperparamimpact.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">7.5. </span>Impact of Hyperparameters</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

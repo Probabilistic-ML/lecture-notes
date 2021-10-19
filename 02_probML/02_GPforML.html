@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>6. Motivation of Probabilistic Models &#8212; Introduction to Probabilistic Machine Learning</title>
+    <title>7. Gaussian Processes for Machine Learning &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -45,8 +45,6 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -54,12 +52,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/01_motivation.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. Gaussian Processes for Machine Learning" href="02_GPforML.html" />
-    <link rel="prev" title="5. Machine Learning Workflow" href="../01_fund/05_MLworkflow.html" />
+    <link rel="next" title="7.1. The Kernel Trick: Implicit embeddings from inner products" href="02_GPforML/01_kerneltrick.html" />
+    <link rel="prev" title="6. Motivation of Probabilistic Models" href="01_motivation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -219,16 +217,16 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_motivation.html">
    6. Motivation of Probabilistic Models
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="02_GPforML.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    7. Gaussian Processes for Machine Learning
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
@@ -349,7 +347,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/02_probML/01_motivation.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/02_probML/02_GPforML.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -395,35 +393,11 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="motivation-of-probabilistic-models">
-<h1><span class="section-number">6. </span>Motivation of Probabilistic Models<a class="headerlink" href="#motivation-of-probabilistic-models" title="Permalink to this headline">¶</a></h1>
-<p>In <a class="reference internal" href="../01_fund/03_bayes/04_linregr.html#sec-linregr"><span class="std std-ref">Linear Regression</span></a>, we have discussed a simple linear model in use of different approaches:</p>
-<ul class="simple">
-<li><p>MLE / ordinary least squares</p></li>
-<li><p>MAP with Gaussian prior / ridge regression</p></li>
-<li><p>MAP with Laplace prior / LASSO</p></li>
-<li><p>Bayesian ridge regression</p></li>
-</ul>
-<p>The first three methods yield <strong>point estimates</strong> for the slope <span class="math notranslate nohighlight">\(\beta\)</span>. It is possible to include some prior belief by using a MAP estimate, but the result is still an ordinary linear function which can be used to make predictions on unseen inputs. This way it is very hard to quantify the uncertainty of the prediction. <em>Is it reasonable to assume that the prediction is close to the outcome of a real experiment or is it possible only a rough guess?</em> This is a huge disadvantage in decision making. However, the Bayesian ridge regression yields additional information. The model does not only make a prediction. Instead of a fixed value for <span class="math notranslate nohighlight">\(\beta\)</span>, it uses a probability distribution and returns even a distribution of possible outcomes (refer to posterior distribution and posterior predictive distribution in <a class="reference internal" href="../01_fund/03_bayes/02_bayesianinference.html#sec-bayesianinference"><span class="std std-ref">Bayesian Inference</span></a>). Additionally, Bayesian ridge regression includes regularization.</p>
-<p>Hence, a main advantage of Bayesian / probabilistic models is the possibility to include uncertainty into decision making. It is even possible to consider different types of uncertainty. In the example in <a class="reference internal" href="../01_fund/03_bayes/04_linregr.html#sec-linregr"><span class="std std-ref">Linear Regression</span></a>, we already mentioned the terms <strong>epistemic</strong> and <strong>aleatoric</strong> uncertainty:</p>
-<ul class="simple">
-<li><p>epistemic uncertainty:</p>
-<ul>
-<li><p>uncertainty due to the lack of knowledge of the real world</p></li>
-<li><p>can be reduced by more data</p></li>
-</ul>
-</li>
-<li><p>aleatoric uncertainty:</p>
-<ul>
-<li><p>inherent uncertainty of the data</p></li>
-<li><p>represents the randomness (noise) in experiments, i.e., it causes different outcomes when repeating the same experiment over and over again</p></li>
-<li><p>can not be reduced</p></li>
-</ul>
-</li>
-</ul>
-<p>In the simple linear regression, it was assumed that the noise term (the  aleatoric uncertainty) is normally distributed with zero mean and <strong>known</strong> variance <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span>. A more general setting could also include <span class="math notranslate nohighlight">\(\sigma^2\)</span> as a unknown parameter. In this case, the aim is to perform Bayesian inference on <span class="math notranslate nohighlight">\(\beta\)</span> (with Gaussian prior) and <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span> (with inverse gamma distributed prior) simultaneously. Consequently, the resulting Bayesian model contains both types of uncertainty. Additional to the mean prediction, the posterior predictive distribution contains information on the epistemic uncertainty and estimates the aleaetoric uncertainty as well. The frequentist approach to linear regression can also make some statements about uncertainty in terms of confidence and prediction intervals, but we have already seen in the <a class="reference internal" href="../01_fund/03_bayes/01_cointoss.html#sec-cointoss"><span class="std std-ref">coin toss example</span></a> that the interpretation is more difficult and less intuitive. Please note that the interpretation of uncertainty in frequentists statistics and  Bayesian inference is much discussed. Hence, the present explanations reflect only a specific, but hopefully reasonable, point of view.</p>
-<p>A drawback of the use of probabilistic models is the <strong>increased computational effort</strong>. In the simple example, we needed first to apply some more mathematics and in addition to the mean of the posterior distribution it is necessary to calculate the variance. This is an acceptable effort, but one should keep in mind that the posterior (predictive) distribution can not be computed analytically in most applications. Therefore, approximations such as MCMC and variational inference are used which include expensive computations for high dimensional and complex problems. For this reason, these types of models have just become more and more popular in recent years due to the rapid progress in computational power.</p>
-<p>Overall, a <strong>major advantage of Bayesian models is the quantification of uncertainty</strong> and in particular, of the epistemic uncertainty. This property is highly relevant in more complex problems. After the discussion of more advanced models in the following sections, we will review some important applications.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="gaussian-processes-for-machine-learning">
+<span id="sec-gpforml"></span><h1><span class="section-number">7. </span>Gaussian Processes for Machine Learning<a class="headerlink" href="#gaussian-processes-for-machine-learning" title="Permalink to this headline">¶</a></h1>
+<p>Roughly speaking, Gaussian processes are a collection of random variables with Gaussian distributions. They are mainly characterized by their <strong>kernel</strong> or <strong>kernel function</strong>. In particular, they provide the foundation for probabilistic machine learning models belonging to the class of kernel-based methods. These methods use the kernel function to enable the use of a high-dimensional feature space. The purpose is to generate a more flexible machine learning model. This approach is particularly useful to generalize linear learning methods to non-linear settings and is also referred to as <strong>kernel trick</strong>. In this chapter, we focus on Gaussian processes, since they are most useful for our applications and fit into our probabilistic framework. First, let us discuss the intuition behind the kernels.</p>
+<div class="toctree-wrapper compound">
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -456,19 +430,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../01_fund/05_MLworkflow.html" title="previous page">
+        <a class="left-prev" href="01_motivation.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">5. </span>Machine Learning Workflow</p>
+                <p class="prevnext-title"><span class="section-number">6. </span>Motivation of Probabilistic Models</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="02_GPforML.html" title="next page">
+        <a class="right-next" href="02_GPforML/01_kerneltrick.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><span class="section-number">7. </span>Gaussian Processes for Machine Learning</p>
+                <p class="prevnext-title"><span class="section-number">7.1. </span>The Kernel Trick: Implicit embeddings from inner products</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

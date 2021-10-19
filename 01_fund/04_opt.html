@@ -225,8 +225,8 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../02_probML/02_kernelmethods.html">
-   7. Kernel-based Methods
+  <a class="reference internal" href="../02_probML/02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -235,18 +235,48 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/01_kerneltrick.html">
+    <a class="reference internal" href="../02_probML/02_GPforML/01_kerneltrick.html">
      7.1. The Kernel Trick: Implicit embeddings from inner products
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/02_GP.html">
-     7.2. Gaussian Processes for Machine Learning
+    <a class="reference internal" href="../02_probML/02_GPforML/02_GP.html">
+     7.2. Gaussian Processes
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../02_probML/02_kernelmethods/03_addmethods.html">
-     7.3. Additional Kernel-based Methods
+    <a class="reference internal" href="../02_probML/02_GPforML/03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/09_advanced.html">
+     7.9. Advanced Methods
     </a>
    </li>
   </ul>
@@ -477,7 +507,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2572.284183889859
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  3017.695015287992
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -509,7 +539,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  94.40827063369213
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  83.59011463292168
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -922,14 +952,12 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.61234498 2.59082974]
+[1.52818923 2.34465376]
+Rastrigin
+[1.10064883 2.04345569]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
-[1.09311862 0.06771295]
-</pre></div>
-</div>
-<img alt="../_images/04_opt_23_2.png" src="../_images/04_opt_23_2.png" />
+<img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -1027,22 +1055,20 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 4113
-     nit: 136
+    nfev: 3993
+     nit: 132
  success: True
        x: array([1., 1.])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1803
-     nit: 59
+    nfev: 1713
+     nit: 56
  success: True
-       x: array([-2.93415847e-09, -1.62897584e-09])
+       x: array([-2.84945623e-10,  2.56673044e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />
+<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
 </div>
 </div>
 </div>

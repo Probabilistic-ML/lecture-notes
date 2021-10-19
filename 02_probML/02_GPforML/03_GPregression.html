@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7.3. Gaussian Process Regression &#8212; Introduction to Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/additional.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/03_GPregression.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.4. Kernel Functions" href="04_kernels.html" />
+    <link rel="prev" title="7.2. Gaussian Processes" href="02_GP.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/01_preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/02_python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/03_notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/03_bayes.html">
+   3. Bayesian Inference, MAP &amp; MLE
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/03_MLEandMAP.html">
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/04_opt.html">
+   4. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_motivation.html">
+   6. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_kerneltrick.html">
+     7.1. The Kernel Trick: Implicit embeddings from inner products
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_GP.html">
+     7.2. Gaussian Processes
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_advanced.html">
+     7.9. Advanced Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_overview.html">
+   8. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   9. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   10. Design Uncertainty Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/03_RL.html">
+   11. Efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_GPforML/03_GPregression.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_GPforML/03_GPregression.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="gaussian-process-regression">
+<span id="sec-gpr"></span><h1><span class="section-number">7.3. </span>Gaussian Process Regression<a class="headerlink" href="#gaussian-process-regression" title="Permalink to this headline">¶</a></h1>
+<p>In the machine learning context, Gaussian processes are used for <strong>Gaussian process regression</strong> or <strong>kriging</strong>. We have some data set <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> of observations</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \{ (x_i, y_i)~|~x_i \in \mathbb{R}^d, y_i \in \mathbb{R} \quad \text{for } i=1,\dots,n \}\]</div>
+<p>similarly to the example in <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html#sec-linregr"><span class="std std-ref">Linear Regression</span></a>, but now the <strong>functional relation</strong> between inputs <span class="math notranslate nohighlight">\(x_i\)</span> and outputs <span class="math notranslate nohighlight">\(y_i\)</span> is not necessarily linear. Indeed, by assumption the relation is given by</p>
+<div class="math notranslate nohighlight">
+\[y_i = f(x_i) + \varepsilon_i,\]</div>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is some function which is identified with (a sample path of) a suitable Gaussian process <span class="math notranslate nohighlight">\(f\)</span>. Either <span class="math notranslate nohighlight">\(\varepsilon_i=0\)</span> for <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span> if the data is noise-free or <span class="math notranslate nohighlight">\(\varepsilon_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are independent <span class="math notranslate nohighlight">\(\mathcal{N}(0, \sigma_n^2)\)</span>-distributed random variables if the data is noisy. Please note that the labels <span class="math notranslate nohighlight">\(y_i\)</span> are assumed to be <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>-valued. The case of multiple outputs is discussed later on in <a class="reference internal" href="07_multiout.html#sec-multiout"><span class="std std-ref">Extension to Multiple Outputs</span></a>.</p>
+<p>The basic idea is to consider only those sample paths of the Gaussian process which match the data. From the Bayesian point of view, the initial Gaussian process defines a <strong>prior distribution over functions</strong> and restriction to fitting sample paths yields the <strong>posterior distribution over functions</strong> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>. As an example, the prior can be the Gaussian process with RBF kernel from <a class="reference internal" href="02_GP.html#sec-introgp"><span class="std std-ref">Gaussian Processes</span></a>:</p>
+<a class="reference internal image-reference" href="../../_images/smooth.gif"><img alt="Gaussian process" src="../../_images/smooth.gif" style="width: 800px;" /></a>
+<p>The follwing animation visualizes samples paths from the posterior distribution in use of eight noise-free observations from the sine function:</p>
+<a class="reference internal image-reference" href="../../_images/gaussianregr.gif"><img alt="Cond Gaussian process" src="../../_images/gaussianregr.gif" style="width: 800px;" /></a>
+<p>Typically, the <strong>mean function is chosen to be zero</strong>. Otherwise <span class="math notranslate nohighlight">\(m\)</span> would already approximate the dependence of the output <span class="math notranslate nohighlight">\(y\)</span> of the input <span class="math notranslate nohighlight">\(x\)</span>. Learning this relation is purpose of the regression model. However, if we still like to use a non-zero mean <span class="math notranslate nohighlight">\(m\)</span>, this can also be done by substracting <span class="math notranslate nohighlight">\(m(x_i)\)</span> from <span class="math notranslate nohighlight">\(y_i\)</span> and considering a centered model on the residuals. Thus, we always make the assumption <span class="math notranslate nohighlight">\(m=0\)</span>, i.e., <strong>we only consider centered Gaussian processes</strong>.</p>
+<p>For a test point <span class="math notranslate nohighlight">\(x^*\)</span> the <strong>distribution of</strong> <span class="math notranslate nohighlight">\(f(x^*)\)</span> <strong>given the data</strong> <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html#lem-condnormaldistr"><span class="std std-ref">conditional distribution</span></a> which can be computed explicitly, since we are dealing with normal distributions. The prediction of the model at <span class="math notranslate nohighlight">\(x^*\)</span> is given by the mean of the conditional distribution and the uncertainty is quantified by the variance which corresponds to the variability of the string in the preceding animation. As seen before, this uncertainty can also be expressed in terms of credible intervals:</p>
+<img alt="Cond Gaussian process" src="../../_images/gaussianregr.png" />
+<p>The following interactive plot shows how the distribution of one component of a two dimensional normally distributed random vector behaves if the other component is fixed. The main observation is that the fixed value has no impact on the other component if the correlation is zero. In this case, the two components are independent. Moreover, the impact increases as the absolute value of the correlation increases. This means for Gaussian process regression that the impact of training points <span class="math notranslate nohighlight">\(x\)</span> on the prediction for test points <span class="math notranslate nohighlight">\(x^*\)</span> depends on the variance <span class="math notranslate nohighlight">\(k(x, x^*)\)</span>. Please open the notebook in Google Colab to use the visualization.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">clear_output</span>
+<span class="o">!</span>pip install ipympl
+<span class="n">clear_output</span><span class="p">()</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_formats = [&#39;svg&#39;]
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">multivariate_normal</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;darkgrid&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot bivariate distribution</span>
+<span class="k">def</span> <span class="nf">generate_surface</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">covariance</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Helper function to generate density surface.&quot;&quot;&quot;</span>
+    <span class="n">nb_of_x</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># grid size</span>
+    <span class="n">x1s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">nb_of_x</span><span class="p">)</span>
+    <span class="n">x2s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">nb_of_x</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1s</span><span class="p">,</span> <span class="n">x2s</span><span class="p">)</span> <span class="c1"># Generate grid</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pdf</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">mean</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">covariance</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">pdf</span>
+
+<span class="nd">@interact</span><span class="p">(</span><span class="n">x_condition</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> 
+          <span class="n">y_condition</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> 
+          <span class="n">correlation</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">0.995</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">0.995</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">plot_conddistr</span><span class="p">(</span><span class="n">x_condition</span><span class="p">,</span> <span class="n">y_condition</span><span class="p">,</span> <span class="n">correlation</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># dimensions</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]])</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">correlation</span><span class="p">],</span> 
+        <span class="p">[</span><span class="n">correlation</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">])</span>
+
+    <span class="c1"># Get the mean values from the vector</span>
+    <span class="n">mean_x</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mean_y</span> <span class="o">=</span> <span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Get the blocks (single values in this case) from </span>
+    <span class="c1">#  the covariance matrix</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">cov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">cov</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">cov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># = C transpose in this case</span>
+    <span class="c1"># Calculate x|y</span>
+    <span class="n">mean_xgiveny</span> <span class="o">=</span> <span class="n">mean_x</span> <span class="o">+</span> <span class="n">C</span> <span class="o">/</span><span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_condition</span> <span class="o">-</span> <span class="n">mean_y</span><span class="p">)</span>
+    <span class="n">cov_xgiveny</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="n">C</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span><span class="n">B</span>
+
+    <span class="c1"># Calculate y|x</span>
+    <span class="n">mean_ygivenx</span> <span class="o">=</span> <span class="n">mean_y</span> <span class="o">+</span> <span class="n">C</span> <span class="o">/</span><span class="n">A</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_condition</span> <span class="o">-</span> <span class="n">mean_x</span><span class="p">)</span>
+    <span class="n">cov_ygivenx</span> <span class="o">=</span> <span class="n">B</span> <span class="o">-</span> <span class="n">C</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span><span class="n">A</span>
+    <span class="c1"># Plot the conditional distributions</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Conditional distributions&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.93</span><span class="p">)</span>
+
+    <span class="c1"># Plot surface on top left</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">generate_surface</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="c1"># Plot bivariate distribution</span>
+    <span class="n">con</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;turbo&#39;</span><span class="p">)</span>
+    <span class="c1"># y=1 that is conditioned upon</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="p">[</span><span class="n">y_condition</span><span class="p">,</span> <span class="n">y_condition</span><span class="p">],</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+    <span class="c1"># x=-1. that is conditioned upon</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x_condition</span><span class="p">,</span> <span class="n">x_condition</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="s1">&#39;b--&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">])</span>
+
+    <span class="c1"># Plot y|x</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">yx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">pyx</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">yx</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mean_ygivenx</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cov_ygivenx</span><span class="p">))</span>
+    <span class="c1"># Plot univariate distribution</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pyx</span><span class="p">,</span> <span class="n">yx</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;$p(y|x=</span><span class="si">{</span><span class="n">x_condition</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">)$&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;symlog&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">ScalarFormatter</span><span class="p">())</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+    <span class="n">title2</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\mu_{y|x} =$&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">, &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mean_ygivenx</span><span class="p">)</span>
+    <span class="n">title2</span> <span class="o">+=</span> <span class="sa">r</span><span class="s1">&#39;$\sigma_{y|x}^2 =$&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cov_ygivenx</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title2</span><span class="p">)</span>
+
+    <span class="c1"># Plot x|y</span>
+    <span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">pxy</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mean_xgiveny</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cov_xgiveny</span><span class="p">))</span>
+    <span class="c1"># Plot univariate distribution</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">pxy</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;$p(x|y=</span><span class="si">{</span><span class="n">y_condition</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">)$&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;symlog&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">])</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">ScalarFormatter</span><span class="p">())</span>
+    <span class="n">title3</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\mu_{x|y} =$&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">, &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mean_xgiveny</span><span class="p">)</span>
+    <span class="n">title3</span> <span class="o">+=</span> <span class="sa">r</span><span class="s1">&#39;$\sigma_{x|y}^2 =$&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cov_xgiveny</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title3</span><span class="p">)</span>
+
+    <span class="c1"># Clear axis 4 and plot colarbar in its place</span>
+    <span class="n">ax4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">ax4</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax4</span><span class="p">)</span>
+    <span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;20%&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;density: $p(x, y)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "ed21ae41d63146ab86e30c0e5b7bb567", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<p>The general equations for Gaussian process regression without noise are derived as follows:</p>
+<p>Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X = \begin{pmatrix} x^T_1 \\ x^T_2 \\ \vdots \\ x^T_n \end{pmatrix}\end{split}\]</div>
+<p>be the so called <strong>sample matrix</strong> and denote by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}y = \begin{pmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{pmatrix}\end{split}\]</div>
+<p>the associated <strong>labels</strong>. <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span> split the training data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> into inputs and outputs. Assume that we have some test points</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X^* = \begin{pmatrix} {x^*}^T_1 \\ {x^*}^T_2 \\ \vdots \\ {x^*}^T_m \end{pmatrix}\end{split}\]</div>
+<p>for some <span class="math notranslate nohighlight">\(m \in \mathbb{N}\)</span>. Our goal is to determine the distribution of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(X^*) := \begin{pmatrix} f(x^*_1) \\ f(x^*_2) \\ \vdots \\ f(x^*_m) \end{pmatrix}\end{split}\]</div>
+<p>given</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{pmatrix} f(x_1) \\ f(x_2) \\ \vdots \\ f(x_n) \end{pmatrix} = \begin{pmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{pmatrix}\end{split}\]</div>
+<p>Since we use a Gaussian process with zero mean, we know that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{pmatrix} f(x^*_1) \\ f(x^*_2) \\ \vdots \\ f(x^*_m) \\ f(x_1) \\ f(x_2) \\ \vdots \\ f(x_n) \end{pmatrix} \sim \mathcal{N}(0, \Sigma)\end{split}\]</div>
+<p>The kernel <span class="math notranslate nohighlight">\(k\)</span> determines the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span>. We use the notation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}K(X, X^*) = \begin{pmatrix} k(x_1, x^*_1) &amp; k(x_1, x^*_2) &amp; \dots &amp; k(x_1, x^*_m) \\ 
+k(x_2, x^*_1) &amp; k(x_2, x^*_2) &amp; \dots &amp; k(x_2, x^*_m) \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+k(x_n, x^*_1) &amp; k(x_n, x^*_2) &amp; \dots &amp; k(x_n, x^*_m) \end{pmatrix}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(K(X, X)\)</span>, <span class="math notranslate nohighlight">\(K(X^*, X^*)\)</span> and <span class="math notranslate nohighlight">\(K(X^*, X)\)</span> are defined accordingly. Consequently, it follows</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Sigma = \begin{pmatrix} K(X^*, X^*) &amp; K(X^*, X) \\ K(X, X^*) &amp; K(X, X) \end{pmatrix}\end{split}\]</div>
+<p>Finally, we can apply <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html#lem-condnormaldistr"><span class="std std-ref">conditional distribution formula</span></a> to deduce the following:</p>
+<div class="important admonition" id="lem-gpregr">
+<p class="admonition-title">Lemma</p>
+<p>Gaussian process regression predicts the distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> by a multivariate normally distributed with mean</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(f(X^*)) = K(X^*, X) K(X, X)^{-1} y\]</div>
+<p>and covariance</p>
+<div class="math notranslate nohighlight">
+\[\text{cov}(f(X^*)) = K(X^*, X^*) - K(X^*, X) K(X, X)^{-1} K(X, X^*)\]</div>
+</div>
+<p>By definition of the conditional probability distribution, the following density has the stated distribution</p>
+<div class="math notranslate nohighlight" id="equation-level1">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-level1" title="Permalink to this equation">¶</a></span>\[
+p(y^*~|~X^*, X, y) = \frac{p(y, y^*~|~X^*, X)}{p(y~|~X^*, X)} = \frac{p(y, y^*~|~X^*, X)}{p(y~|~X)},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(p(y^*~|~X^*, X, y)\)</span> denotes the likelihood that <span class="math notranslate nohighlight">\(f(X^*)\)</span> attains the value <span class="math notranslate nohighlight">\(y^*\)</span> given <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. The marginal likelihood <span class="math notranslate nohighlight">\(p(y~|~X)\)</span>, i.e., the likelihood of <span class="math notranslate nohighlight">\(f(X) = y\)</span> will be of particular importance in <a class="reference internal" href="06_hyperparamselect.html#sec-selectofhyperp"><span class="std std-ref">Selection of Hyperparameters</span></a>.</p>
+<p>The term <span class="math notranslate nohighlight">\(\alpha := K(X, X)^{-1} y\)</span> is a vector of size <span class="math notranslate nohighlight">\(n\)</span> which is independent of <span class="math notranslate nohighlight">\(x^*\)</span>. Moreover, for a single test point <span class="math notranslate nohighlight">\(x^*\)</span> the covariance matrix <span class="math notranslate nohighlight">\(K(x^*, X)\)</span> reduces to a row vector. Hence, it holds</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(f(x^*)) = K(x^*, X) \alpha = \sum_{i=1}^n \alpha_i~ k(x^*, x_i).\]</div>
+<p>In other words, the <strong>mean prediction is a linear combination of the functions</strong> <span class="math notranslate nohighlight">\(k(\cdot, x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>. The weights <span class="math notranslate nohighlight">\(\alpha_i\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, are constructed such that the training data is fitted exactly (see plot above). This is <strong>only possible if the inverse matrix</strong> <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span> <strong>exists</strong>. This might not always the case. Think of the linear regression example including noise in the data. In this case, it is not possible to find a linear function which fits the data exactly. Furthermore, we possibly do not like to obtain a perfect fit, since we suppose that our training data contains noise. In order to solve this issue, a <strong>noise term</strong> <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2 &gt; 0\)</span> is added to the covariance related to the training data, i.e., <span class="math notranslate nohighlight">\(K(X, X)\)</span> is replaced by <span class="math notranslate nohighlight">\(K(X, X) + \sigma_{\text{noise}}^2 I_n\)</span>, where <span class="math notranslate nohighlight">\(I_n\)</span> denotes the identity matrix. In this way, the variance of <span class="math notranslate nohighlight">\(f(x_i)\)</span>, <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, is increased by <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span>. Adding noise is additionally useful to <strong>avoid numerical problems</strong>, since it has a regularizing effect. Indeed, the inverse matrix <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span> might exist mathematically. However, if the matrix is “almost singular”, it is often not possible to compute <span class="math notranslate nohighlight">\(K(X, X)^{-1}\)</span>. It holds</p>
+<div class="important admonition" id="lem-gpregrnoise">
+<p class="admonition-title">Lemma</p>
+<p>Gaussian process regression with noise <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span> predicts the distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> given the data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> by a multivariate normally distributed with mean</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(f(X^*)) = K(X^*, X) \big(K(X, X) + \sigma_{\text{noise}}^2 I_n\big)^{-1} y\]</div>
+<p>and covariance</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov}(f(X^*)) = K(X^*, X^*) - K(X^*, X) \big(K(X, X) + \sigma_{\text{noise}}^2 I_n\big)^{-1} K(X, X^*)\]</div>
+</div>
+<p>It is also possible to incorporate the <a class="reference internal" href="#lem-gpregrnoise"><span class="std std-ref">result with noise</span></a> informally into the <a class="reference internal" href="#lem-gpregr"><span class="std std-ref">case without noise</span></a> by replacing the kernel <span class="math notranslate nohighlight">\(k\)</span> by <span class="math notranslate nohighlight">\(k + \sigma_{\text{noise}}^2 \delta\)</span> <strong>only for samples from <span class="math notranslate nohighlight">\(X\)</span></strong>, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \delta(x, x') = \begin{cases} 1, &amp; \text{if } x = x^{\prime} \\
+                                 0, &amp; \text{if } x \ne x^{\prime}
+                   \end{cases}
+\end{split}\]</div>
+<p>In this way, the noise <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2\)</span> is added to the diagonal of <span class="math notranslate nohighlight">\(K(X, X)\)</span> and the notation is maintained. However, this modification must not be used for test points <span class="math notranslate nohighlight">\(X^*\)</span>, since the noise should not appear in <span class="math notranslate nohighlight">\(K(X^*, X)\)</span> or <span class="math notranslate nohighlight">\(K(X^*, X^*)\)</span>.</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02_probML/02_GPforML"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="02_GP.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">7.2. </span>Gaussian Processes</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="04_kernels.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">7.4. </span>Kernel Functions</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

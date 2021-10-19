@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7.2. Gaussian Processes &#8212; Introduction to Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/additional.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/02_GP.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.3. Gaussian Process Regression" href="03_GPregression.html" />
+    <link rel="prev" title="7.1. The Kernel Trick: Implicit embeddings from inner products" href="01_kerneltrick.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/01_preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/02_python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/03_notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/03_bayes.html">
+   3. Bayesian Inference, MAP &amp; MLE
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/03_MLEandMAP.html">
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/04_opt.html">
+   4. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_motivation.html">
+   6. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_kerneltrick.html">
+     7.1. The Kernel Trick: Implicit embeddings from inner products
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.2. Gaussian Processes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_advanced.html">
+     7.9. Advanced Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_overview.html">
+   8. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   9. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   10. Design Uncertainty Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/03_RL.html">
+   11. Efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_GPforML/02_GP.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="gaussian-processes">
+<span id="sec-introgp"></span><h1><span class="section-number">7.2. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">¶</a></h1>
+<p>A Gaussian proccess is a paricular type of stochastic process. <em>But what do we understand by a stochastic process?</em> Typically, a stochastic process denotes a collection of random variables with a time dependence. Hence, the term <em>stochastic</em> is justified by the consideration of <em>random variables</em> and <em>process</em> relates to the <em>time dependence</em>.
+We state the following brief definition:</p>
+<div class="tip admonition" id="def-tsp">
+<p class="admonition-title">Definition</p>
+<p>A <strong>(temporal) stochastic process</strong> is a collection of <span class="math notranslate nohighlight">\(\mathbb{R}^k\)</span>-valued random variables <span class="math notranslate nohighlight">\((X_t)_{t \in \mathcal{I}}\)</span>, where either <span class="math notranslate nohighlight">\(\mathcal{I} = \mathbb{N}\)</span> (discrete-time) or <span class="math notranslate nohighlight">\(\mathcal{I} = \mathbb{R}_{\ge 0}\)</span> (continuous-time).</p>
+</div>
+<p>Hence, this kind of stochastic process describes the temporal process of random events. In this context, it makes sense to say that the outcome of <span class="math notranslate nohighlight">\(X_s\)</span> happended before <span class="math notranslate nohighlight">\(X_t\)</span> for <span class="math notranslate nohighlight">\(s &lt; t\)</span>. Keep in mind that each random variable <span class="math notranslate nohighlight">\(X_t\)</span> is a map <span class="math notranslate nohighlight">\(X_t: \Omega \rightarrow \mathbb{R}^d\)</span> and <span class="math notranslate nohighlight">\(X_t(\omega)\)</span> for <span class="math notranslate nohighlight">\(\omega \in \Omega\)</span> is the outcome of a random experiment. The use of a stochastic process makes it possible to consider the outcomes of all random variables simultaneously. In this way, a so-called <strong>sample path</strong> or <strong>random path</strong> <span class="math notranslate nohighlight">\((X_t(\omega))_{t \in \mathcal{I}}\)</span> is obtained. The shape of these paths depend strongly on the underlying properties of the stochastic process.</p>
+<p>A very famous example is <strong>Brownian motion</strong> or <strong>Wiener process</strong> which has numerous applications in physics, finance, biology and many other areas. For example, the movement of a large particle (like pollen) due to collisions with small particles (like water molecules). A nice simulation can be found on the website of Andrew Duffy at Boston University (please click on the image to follow the link):</p>
+<p><a href="http://physics.bu.edu/~duffy/HTML5/brownian_motion.html"> <center><img alt="../../_images/BManim.gif" src="../../_images/BManim.gif" /></center></a></p>
+<p>Please note that the 2d simulation shows the current position of some particle as well as its previous path. In one dimension, we can easily simulate sample paths of Brownian motion starting at <span class="math notranslate nohighlight">\(X_0 =0\)</span> and plot the result as position against time:</p>
+<a class="reference internal image-reference" href="../../_images/bm.gif"><img alt="Brownian motion" src="../../_images/bm.gif" style="width: 800px;" /></a>
+<p>The concept can be generalized to general index sets and in particular, to <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In the preceding animation time-dependent random functions are genarted, i.e., for each input <span class="math notranslate nohighlight">\(t\)</span> is mapped to a random variable <span class="math notranslate nohighlight">\(f(t)\)</span> (<span class="math notranslate nohighlight">\(X_t\)</span> with the earlier notation). For our machine learning applications we are interested in general inputs <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span> with scalar random variables <span class="math notranslate nohighlight">\(f(x)\)</span>. In other words, a time-index is too restrictive and therefore, we generalize the idea to general index sets. Moreover, in view of the nice properties of normal distributions an additional property is supposed:</p>
+<div class="tip admonition" id="def-gp">
+<p class="admonition-title">Definition</p>
+<p>A Gaussian process is a collection of random variables, any finite number of which have a joint Gaussian distribution.<span id="id1">[<a class="reference internal" href="08_GPclassification.html#id10">1</a>]</span></p>
+</div>
+<p>Henceforth, a Gaussian process is denoted by <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span>. We assume that the random variables <span class="math notranslate nohighlight">\(f(x)\)</span>, <span class="math notranslate nohighlight">\(x \in \mathcal{I}\)</span>, take <strong>scalar values</strong> (i.e., values in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>). Moreover, <span class="math notranslate nohighlight">\(\mathcal{I} = \mathbb{R}^d\)</span> for some <span class="math notranslate nohighlight">\(d \in \mathbb{N}\)</span> unless stated otherwise. In this case, <span class="math notranslate nohighlight">\((f(x))_{x \in \mathcal{I}}\)</span> is also called a <strong>random field</strong> instead of random process. The additional Gaussian condition means that for an arbitrary number of elements <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span>, <span class="math notranslate nohighlight">\(i=1, \dots, n\)</span>, the <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>-valued random vector</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{pmatrix} f(x_1) \\ f(x_2) \\ \vdots \\ f(x_n) \end{pmatrix}\end{split}\]</div>
+<p>is mulivariate normally distributed. By construction the Gaussian process yields random functions from <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Moreover, Brownian motion is a specific Gaussian process.</p>
+<p>In <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html#def-multnormal"><span class="std std-ref">Normal Distribution</span></a>, we have seen that a multivariate normal distribution is uniquely characterized by its mean <span class="math notranslate nohighlight">\(\mu\)</span> and covariance <span class="math notranslate nohighlight">\(\Sigma\)</span>. A Gaussian process is an infinite-dimensional analogue if the index set is infinite. Indeed, we can select an arbitrary number of <span class="math notranslate nohighlight">\(x_i\)</span> values and consider the corresponding multivariate normal distribution of arbitrary dimension. It turns out that <strong>a Gaussian process is also specified by its mean and covariance, but they are functions instead of a vector and a matrix</strong>. More precisely, the <strong>mean</strong> is a function</p>
+<div class="math notranslate nohighlight">
+\[m: \mathbb{R}^d \rightarrow \mathbb{R}, x \mapsto m(x)\]</div>
+<p>and the <strong>covariance function</strong> or <strong>kernel</strong> is a function of two variables</p>
+<div class="math notranslate nohighlight">
+\[k: \mathbb{R}^d \times \mathbb{R}^d \mapsto \mathbb{R}, (x, x^{\prime}) \mapsto k(x, x^{\prime})\]</div>
+<p>Then, the finite-dimensional distributions of the Gaussian process are given by <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(k\)</span>, i.e., the distribution of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{pmatrix} f(x_1) \\ f(x_2) \\ \vdots \\ f(x_n) \end{pmatrix} \sim \mathcal{N}(\mu, \Sigma)\end{split}\]</div>
+<p>is specified by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu = \begin{pmatrix} m(x_1) \\ m(x_2) \\ \vdots \\ m(x_n) \end{pmatrix}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Sigma = \begin{pmatrix} k(x_1, x_1) &amp; k(x_1, x_2) &amp; \dots &amp; k(x_1, x_n) \\ 
+k(x_2, x_1) &amp; k(x_2, x_2) &amp; \dots &amp; k(x_2, x_n) \\ 
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 
+k(x_n, x_1) &amp; k(x_n, x_2) &amp; \dots &amp; k(x_n, x_n) \end{pmatrix}\end{split}\]</div>
+<p>Thus, a Gaussian process is specified by choosing a mean function <span class="math notranslate nohighlight">\(m\)</span> and a kernel <span class="math notranslate nohighlight">\(k\)</span>. We also write</p>
+<div class="math notranslate nohighlight">
+\[ f \sim \mathcal{GP}(m, k).\]</div>
+<p>If <span class="math notranslate nohighlight">\(m\)</span> is zero, the corresponding Gaussian process is called <strong>centered</strong>.</p>
+<p>The kernel <span class="math notranslate nohighlight">\(k\)</span> generates the covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> and the covariance of a multivariate normal distiribution possesses certain properties such as symmetry and positive definiteness. Consequently, a general function of two variables will not be a valid covariance function of a Gaussian process. Clearly, a covariance function is necessarily <strong>symmetric</strong>, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime}) = k(x^{\prime}, x)\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathcal{I}\)</span>. <strong>Positive definiteness</strong> of covariance function can also be defined, but requires some additional mathematical background (refer to (4.2) in <span id="id2">[<a class="reference internal" href="08_GPclassification.html#id10">1</a>]</span>).</p>
+<p>A kernel <span class="math notranslate nohighlight">\(k\)</span> is called <strong>stationary</strong> if it depends only on the difference of two inputs, i.e., <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> depends only on <span class="math notranslate nohighlight">\(x - x^{\prime}\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. Furthermore, it is even <strong>isotropic</strong> if it depends only on the distance <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span>.</p>
+<p>The choice of <span class="math notranslate nohighlight">\(k\)</span> determines the properties of the sample paths of the Gaussian process. For example, the paths can be very rough as for Brownian motion or they can be very smooth as for the squared exponential or RBF kernel:</p>
+<a class="reference internal image-reference" href="../../_images/smooth.gif"><img alt="Gaussian process" src="../../_images/smooth.gif" style="width: 800px;" /></a>
+<p id="id3"><dl class="citation">
+<dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>C.E. Rasmussen and C.K.I. Williams. <em>Gaussian Processes for Machine Learning</em>. Adaptive Computation and Machine Learning. MIT Press, 2nd edition, 2006. URL: <a class="reference external" href="http://www.gaussianprocess.org/gpml/">http://www.gaussianprocess.org/gpml/</a>.</p>
+</dd>
+</dl>
+</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02_probML/02_GPforML"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="01_kerneltrick.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">7.1. </span>The Kernel Trick: Implicit embeddings from inner products</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="03_GPregression.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">7.3. </span>Gaussian Process Regression</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

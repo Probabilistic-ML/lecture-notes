@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7.6. Selection of Hyperparameters &#8212; Introduction to Probabilistic Machine Learning</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/additional.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/06_hyperparamselect.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.7. Extension to Multiple Outputs" href="07_multiout.html" />
+    <link rel="prev" title="7.5. Impact of Hyperparameters" href="05_hyperparamimpact.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/01_preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/02_python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../00_preface/03_notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/01_fundprob/05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../01_fund/03_bayes.html">
+   3. Bayesian Inference, MAP &amp; MLE
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/03_MLEandMAP.html">
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/04_opt.html">
+   4. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_motivation.html">
+   6. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01_kerneltrick.html">
+     7.1. The Kernel Trick: Implicit embeddings from inner products
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_GP.html">
+     7.2. Gaussian Processes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_advanced.html">
+     7.9. Advanced Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../03_overview.html">
+   8. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/BO.html">
+   9. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/uncertainty.html">
+   10. Design Uncertainty Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03_appl/03_RL.html">
+   11. Efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/02_probML/02_GPforML/06_hyperparamselect.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_GPforML/06_hyperparamselect.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="selection-of-hyperparameters">
+<span id="sec-selectofhyperp"></span><h1><span class="section-number">7.6. </span>Selection of Hyperparameters<a class="headerlink" href="#selection-of-hyperparameters" title="Permalink to this headline">¶</a></h1>
+<p>In <span class="xref std std-ref">&lt;sec:impactofhyperp&gt;</span>, we have seen that the choice of the hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span> impacts the behavior of the Gaussian process regression model. Therefore, the question arises how the hyperparameters should be selected appropriately. In this context, the term “model fitting” is also used. Nevertheless, this approach is fundamentally different from fitting e.g. in case of linear/polynomial regression models or neural networks. These models try to minimize some loss function which calculates the error between the actual labels of the training data and the model predictions. In contrast, the Gaussian process regression model (without noise) has no such prediction error, since it is conditioned to fit the training samples. The selection of hyperparameters determines only how the regression model passes the training samples (refer to the previous animation).</p>
+<p>In <a class="reference internal" href="03_GPregression.html#equation-level1">(7.1)</a> we have seen how the distribution of <span class="math notranslate nohighlight">\(f(X^*)\)</span> is computed given <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. This procedure is also called level 1 inference. By incorporating the dependence of the distribution on <span class="math notranslate nohighlight">\(\theta\)</span> the equation has the form</p>
+<div class="math notranslate nohighlight" id="equation-level1b">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-level1b" title="Permalink to this equation">¶</a></span>\[
+p(y^*~|~X^*, X, y, \theta) = \frac{p(y, y^*~|~X^*, X, \theta)}{p(y~|~X, \theta)},
+\]</div>
+<p>From the Bayesian point of view, a natural approach would be to choose a prior distribution on the hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span> and to compute the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span> in use of Bayesian inference:</p>
+<div class="math notranslate nohighlight" id="equation-level2">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-level2" title="Permalink to this equation">¶</a></span>\[\begin{split}
+\begin{align}
+p(\theta~|~X, y) &amp;= \frac{p(y~|~X, \theta)~p(\theta~|~X)}{p(y~|~X)} \\
+&amp;= \frac{p(y~|~X, \theta)~p(\theta)}{\int p(y~|~X, \theta)~p(\theta) ~d\theta}
+\end{align}\end{split}\]</div>
+<p>Please note that the marginal likelihood <span class="math notranslate nohighlight">\(p(y~|~X, \theta)\)</span> from <a class="reference internal" href="#equation-level1b">(7.2)</a> plays the role of the likelihood in the level 2 inference in <a class="reference internal" href="#equation-level2">(7.3)</a>.</p>
+<p>Then, the posterior predictive distribution reads</p>
+<div class="math notranslate nohighlight">
+\[p(y^*~|~X^*, X, y) = \int p(y^*~|~X^*, X, y, \theta) ~ p(\theta~|~X, y)~d\theta.\]</div>
+<p>In particular, the expected values of <span class="math notranslate nohighlight">\(y*\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\mathbb{E}(y^*) &amp;= \int y^* \int p(y^*~|~X^*, X, y, \theta) ~ p(\theta~|~X, y)~d\theta ~dy^* \\
+&amp;= \int \int y^* p(y^*~|~X^*, X, y, \theta) ~dy^*~ p(\theta~|~X, y)~d\theta \\
+&amp;= \int K_{\theta}(X^*, X) K_{\theta}(X, X)^{-1} y ~ p(\theta~|~X, y)~d\theta,
+\end{align}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(K_{\theta}\)</span> illustrates the dependence of the kernel <span class="math notranslate nohighlight">\(k\)</span> and hence, of <span class="math notranslate nohighlight">\(K\)</span> on <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<p>However, the marginal likelihood <span class="math notranslate nohighlight">\(p(y~|~X) = \int p(y~|~X, \theta)~p(\theta) ~d\theta\)</span> usually requires approximations, since it can not be computed analytically. This can for example be done in use of <a class="reference external" href="https://gpflow.readthedocs.io/en/master/notebooks/advanced/mcmc.html">MCMC methods</a>.</p>
+<p>In most cases, the <strong>MLE or sometimes a MAP estimate for <span class="math notranslate nohighlight">\(\theta\)</span> is used</strong> to obtain a predictive Gaussian process model. More precisely, a prior distribution for <span class="math notranslate nohighlight">\(\theta\)</span> is chosen and the estimate is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+  \hat{\theta} &amp;= \underset{\theta}{\text{argmax}}~ p(y~|~X, \theta)~p(\theta) \\
+               &amp;= \underset{\theta}{\text{argmax}}~ \ln \big(p(y~|~X, \theta)\big) + \ln \big(p(\theta)\big) \\
+               &amp;= \underset{\theta}{\text{argmax}}~ \ln \big(p(y~|~X, \theta)\big) + \ln \big(p(\theta)\big) \\
+               &amp;= \underset{\theta}{\text{argmax}}~ \mathcal{L}(\theta~|~X, y) + \ln \big(p(\theta)\big),
+  \end{align}\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\mathcal{L}(\theta~|~X, y) &amp;= \ln \Big( \frac{1}{\sqrt{(2\pi)^d |K_{\theta}(X, X)|}} ~\exp\Big(-\frac{1}{2}~y^T K_{\theta}(X, X)^{-1}y\Big)\Big)\\
+&amp;= - \frac{d}{2} \ln \big(2 \pi \big) - \ln \big(|K_{\theta}(X, X)| \big) - \frac{1}{2} y^T K_{\theta}(X, X)^{-1}y
+\end{align}\end{split}\]</div>
+<p>denotes the so-called <strong>log marginal likelihood</strong>. MLE implies that <span class="math notranslate nohighlight">\(p(\theta)\)</span> is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and therefore, the MLE estimate is given by</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \underset{\theta}{\text{argmax}}~ \mathcal{L}(\theta~|~X, y)\]</div>
+<p>The term <span class="math notranslate nohighlight">\(- \frac{1}{2} y^T K_{\theta}(X, X)^{-1}y\)</span> is called <strong>data-fit</strong> and <span class="math notranslate nohighlight">\(\ln \big(|K_{\theta}(X, X)| \big)\)</span> is the <strong>complexity penalty</strong>. The counterplay of these two terms provides an automatic trade-off which tends to the <strong>least complex model which is able to explain the given data</strong>. This principle is also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Occam%27s_razor">Occam’s razor</a>.</p>
+<p>MLE implies that <span class="math notranslate nohighlight">\(p(\theta)\)</span> is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and therefore, the MLE estimate is given by</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \underset{\theta}{\text{argmax}}~ \mathcal{L}(\theta~|~X, y)\]</div>
+<p>The log marginal likelihood for the example illustrated in <a class="reference internal" href="05_hyperparamimpact.html#sec-impactofhyperp"><span class="std std-ref">Impact of Hyperparameters</span></a> in dependence of the length scale <span class="math notranslate nohighlight">\(l\)</span> with fixed values <span class="math notranslate nohighlight">\(\sigma_{\text{noise}}^2 = 0\)</span> and <span class="math notranslate nohighlight">\(\sigma^2 = 1\)</span> is given as follows:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;darkgrid&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">ConstantKernel</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">WhiteKernel</span>
+
+<span class="c1"># sample training data</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.01</span><span class="p">,</span> <span class="mf">3.51</span><span class="p">,</span> <span class="mf">4.51</span><span class="p">,</span> <span class="mf">7.01</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">9.01</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">nb_steps</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">delta_t</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="n">nb_steps</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">log_marginal_likelihood</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">ConstantKernel</span><span class="p">(</span><span class="n">constant_value</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="n">noise_level</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">datafit</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">complexity</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">K</span><span class="p">))</span>
+    <span class="n">lml</span> <span class="o">=</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">datafit</span> <span class="o">+</span> <span class="n">complexity</span>
+    <span class="k">return</span> <span class="n">datafit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">complexity</span><span class="p">,</span> <span class="n">lml</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        
+<span class="n">length_scales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mf">3.05</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">datafits</span><span class="p">,</span> <span class="n">complexities</span><span class="p">,</span> <span class="n">lmls</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">length_scales</span><span class="p">:</span>
+    <span class="n">datafit</span><span class="p">,</span> <span class="n">complexity</span><span class="p">,</span> <span class="n">lml</span> <span class="o">=</span> <span class="n">log_marginal_likelihood</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">datafits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datafit</span><span class="p">)</span>
+    <span class="n">complexities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">complexity</span><span class="p">)</span>
+    <span class="n">lmls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lml</span><span class="p">)</span>
+                          
+<span class="n">fig</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_scales</span><span class="p">,</span> <span class="n">datafits</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_scales</span><span class="p">,</span> <span class="n">complexities</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;minus complexity penalty&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">length_scales</span><span class="p">,</span> <span class="n">lmls</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log marginal likelihood&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">length_scales</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">lmls</span><span class="p">)],</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lmls</span><span class="p">),</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> 
+           <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MLE estimate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The MLE estimate for l is </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">length_scales</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">lmls</span><span class="p">)]))</span>                        
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/06_hyperparamselect_1_0.png" src="../../_images/06_hyperparamselect_1_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The MLE estimate for l is 2.03
+</pre></div>
+</div>
+</div>
+</div>
+<p>This result can be visualized in use of the interactive animation in <a class="reference internal" href="05_hyperparamimpact.html#sec-impactofhyperp"><span class="std std-ref">Impact of Hyperparameters</span></a>.</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./02_probML/02_GPforML"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="05_hyperparamimpact.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="section-number">7.5. </span>Impact of Hyperparameters</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="07_multiout.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title"><span class="section-number">7.7. </span>Extension to Multiple Outputs</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
