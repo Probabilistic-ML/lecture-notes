@@ -54,8 +54,7 @@ sphinx:
 
 execute:
   timeout: -1
-
-# jupyter_execute_notebooks: "off"
+  execute_notebooks: force
 
 parse:
   myst_enable_extensions:
