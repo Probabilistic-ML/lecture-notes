@@ -30,11 +30,17 @@ parts:
   numbered: true
   chapters:
   - file: 02_probML/01_motivation
-  - file: 02_probML/02_kernelmethods
+  - file: 02_probML/02_GPforML
     sections:
-    - file: 02_probML/02_kernelmethods/01_kerneltrick
-    - file: 02_probML/02_kernelmethods/02_GP
-    - file: 02_probML/02_kernelmethods/03_addmethods
+    - file: 02_probML/02_GPforML/01_kerneltrick
+    - file: 02_probML/02_GPforML/02_GP
+    - file: 02_probML/02_GPforML/03_GPregression
+    - file: 02_probML/02_GPforML/04_kernels
+    - file: 02_probML/02_GPforML/05_hyperparamimpact
+    - file: 02_probML/02_GPforML/06_hyperparamselect
+    - file: 02_probML/02_GPforML/07_multiout
+    - file: 02_probML/02_GPforML/08_GPclassification
+    - file: 02_probML/02_GPforML/09_advanced
   - file: 02_probML/03_overview
 - caption: Applications
   numbered: true
