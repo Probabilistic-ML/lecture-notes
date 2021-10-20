@@ -456,8 +456,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combination-of-kernels">
-   7.4.2. Combination of Kernels
+  <a class="reference internal nav-link" href="#combination-and-modification-of-kernels">
+   7.4.2. Combination and Modification of Kernels
   </a>
  </li>
 </ul>
@@ -494,7 +494,7 @@
 </div>
 <div class="section" id="squared-exponential-kernel">
 <h3><span class="section-number">7.4.1.3. </span>Squared Exponential Kernel<a class="headerlink" href="#squared-exponential-kernel" title="Permalink to this headline">¶</a></h3>
-<p>The squared exponential kernel is possibly the most important kernel in kernel-based machine learning. It is also called radial basis function (RBF) kernel. It is defined by</p>
+<p>The squared exponential kernel is possibly the most important kernel in kernel-based machine learning. It is also called <strong>radial basis function (RBF) kernel</strong>. It is defined by</p>
 <div class="math notranslate nohighlight">
 \[k(x, x^{\prime}) = \exp \big(-\frac{r^2}{2~l^2} \big)\]</div>
 <p>where <span class="math notranslate nohighlight">\(r = |x - x^{\prime}|\)</span> for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span>. <span class="math notranslate nohighlight">\(l\)</span> is called <strong>length scale</strong> and is assumed to be positive. In particular, the squared exponential kernel is isotropic. In the subsequent animation, we used <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
@@ -551,9 +551,9 @@
 <p>for <span class="math notranslate nohighlight">\(s, t \in \mathbb{R}_{&gt; 0}\)</span>.</p>
 </div>
 </div>
-<div class="section" id="combination-of-kernels">
-<span id="sec-combofkernels"></span><h2><span class="section-number">7.4.2. </span>Combination of Kernels<a class="headerlink" href="#combination-of-kernels" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to obtain new covariance functions from known kernels by recombination.</p>
+<div class="section" id="combination-and-modification-of-kernels">
+<span id="sec-combofkernels"></span><h2><span class="section-number">7.4.2. </span>Combination and Modification of Kernels<a class="headerlink" href="#combination-and-modification-of-kernels" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to obtain new covariance functions from known kernels by recombination and/or modification.</p>
 <p>Let <span class="math notranslate nohighlight">\((f_1(x))_{x \in \mathbb{R}^d}\)</span> and <span class="math notranslate nohighlight">\((f_2(x))_{x \in \mathbb{R}^d}\)</span> be two independent centered Gaussian processes with kernels <span class="math notranslate nohighlight">\(k_1\)</span> and <span class="math notranslate nohighlight">\(k_2\)</span>, respectively. Moreover, let <span class="math notranslate nohighlight">\(a : \mathbb{R}^d \rightarrow \mathbb{R}_{&gt; 0}\)</span>. Then, sums and products can be used to generate new kernels <span class="math notranslate nohighlight">\(k\)</span> and Gaussian processes <span class="math notranslate nohighlight">\(f\)</span> from old ones:</p>
 <table class="colwidths-auto table">
 <thead>
@@ -594,6 +594,22 @@
 </div>
 <a class="reference internal image-reference" href="../../_images/locperiodic.gif"><img alt="locally periodic kernel" src="../../_images/locperiodic.gif" style="width: 800px;" /></a>
 <p>Furthermore, <strong>scaling of a Gaussian process</strong> with kernel <span class="math notranslate nohighlight">\(k\)</span> by a constant <span class="math notranslate nohighlight">\(\sigma \ne 0\)</span> (i.e., choosing <span class="math notranslate nohighlight">\(a(x) = \sigma\)</span> in the notation above) yields the kernel <span class="math notranslate nohighlight">\(\sigma^2 k\)</span>. This is also a common approach to modify kernel functions.</p>
+<p>Another possibility create <strong>anisotropic versions of isotropic kernels</strong> by modification of the euclidean distance. Recall that most of the examples stated above are indeed isotropic. The (squared) distance</p>
+<div class="math notranslate nohighlight">
+\[r^2 = |x - x^{\prime}|^2 = \sum_{i=1}^d \big(x_i - x^{\prime}_i\big)^2 = \big(x - x^{\prime}\big)^T \big(x - x^{\prime}\big)\]</div>
+<p>for <span class="math notranslate nohighlight">\(x, x^{\prime} \in \mathbb{R}^d\)</span> can be replaced by</p>
+<div class="math notranslate nohighlight">
+\[r_M^2 = \big(x - x^{\prime}\big)^T M \big(x - x^{\prime}\big),\]</div>
+<p>where <span class="math notranslate nohighlight">\(M\)</span> is a positive definite matrix. A very common special case is the diagonal matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}M = \begin{pmatrix} l^2_1 &amp; &amp; 0 \\ &amp; \ddots &amp; \\ 0 &amp; &amp; l^2_d \end{pmatrix}\end{split}\]</div>
+<p>with positive diagonal elements which results in</p>
+<div class="math notranslate nohighlight">
+\[r_M^2 = \sum_{i=1}^d \frac{\big(x_i - x^{\prime}_i\big)^2}{l^2_i}\]</div>
+<p>The values <span class="math notranslate nohighlight">\(l_1, \dots, l_d\)</span> are treated as hyperparameters of the kernel and are used to introduce <strong>component-wise length scales</strong>. For example, the anisotropic RBF kernel is given by</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = \exp \big(-\frac{r_M^2}{2} \big) = \exp \Big(-\frac{1}{2}~\sum_{i=1}^d \frac{\big(x_i - x^{\prime}_i\big)^2}{l^2_i} \Big)\]</div>
+<p>If all length scales coincide (i.e., <span class="math notranslate nohighlight">\(l_1 = \dots = l_d = l\)</span>), we reobtain the ordinary RBF kernel.</p>
 <p>For additional techniques for creating new covariance functions please refer to section 4.2.4 in <span id="id2">[<a class="reference internal" href="08_GPclassification.html#id10">1</a>]</span>.</p>
 <p id="id3"><dl class="citation">
 <dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
