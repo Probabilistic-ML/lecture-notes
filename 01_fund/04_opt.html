@@ -507,7 +507,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2761.761747847807
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2875.200788123265
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -539,7 +539,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  110.35409771039384
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  103.64798246371991
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -666,7 +666,7 @@ Rosenbrock functoins minimum is at <span class="math notranslate nohighlight">\(
 <p>Now want to move along the steepest direction with a given step size <span class="math notranslate nohighlight">\(\alpha\)</span>. The step size is often called learning rate in machine learning. We could also find an optimal <span class="math notranslate nohighlight">\(\alpha\)</span> to find the minimum along these line (linesearch). The problem here is, that we do not want to overshoot our mininum and we do not want to take too small step size that our search have a lot of iterations.</p>
 <p>Our algorithm looks as follows:</p>
 <div class="math notranslate nohighlight">
-\[  x^{(n+1)}:=x^{(n)} + \alpha g(x)^{(n)}   \]</div>
+\[  x^{(n+1)}:=x^{(n)} + \alpha g(x^{(n)})   \]</div>
 <p>where <span class="math notranslate nohighlight">\(x^{(n+1)}\)</span> is the next iteration value and <span class="math notranslate nohighlight">\(x^{(n)}\)</span> is the current value and <span class="math notranslate nohighlight">\(n\)</span> denotes the number of iteration.</p>
 <p>Now we will look at an implementation of gradient descent algorithm. As you will notice above we need the first derivative of the function for this method. The best way for this is analytical dereivation of this. We are very lazy and we use and automatic differentiation algorithm for us. A package <code class="docutils literal notranslate"><span class="pre">autograd</span></code> is develop for this purpose. Note: This package will only be maintainend but not develop further. A newer implementation called <code class="docutils literal notranslate"><span class="pre">jax</span></code> with more features is the follow up. But for our needs we will stick to <code class="docutils literal notranslate"><span class="pre">autograd</span></code>.</p>
 <div class="cell docutils container">
@@ -769,7 +769,7 @@ To handle the first problem we can adress some features:</p>
 <p>The momentum update equations are:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} 
-v^{(n+1)} = \beta v^{(n)} +\alpha g(x)^{(n)}  \\
+v^{(n+1)} = \beta v^{(n)} +\alpha g(x^{(n)}+)  \\
 x^{(n+1)} = x^{(n)} + v^{(n+1)}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\beta\)</span> is the momentum decay factor and <span class="math notranslate nohighlight">\(v\)</span> is the momentum. For <span class="math notranslate nohighlight">\(\beta=0\)</span> we get the normal gradiant descent method. This methods increases the speed in narrow flat valley but will also tend to overshoot.</p>
@@ -788,7 +788,6 @@ x^{(n+1)} = x^{(n)} + v^{(n+1)}
     <span class="n">hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iters</span><span class="p">):</span>
         <span class="n">norm_grad</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">grad_fun</span><span class="p">(</span><span class="n">x_old</span><span class="p">)</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">grad_fun</span><span class="p">(</span><span class="n">x_old</span><span class="p">)))</span> <span class="c1">#normalize gradient</span>
-        <span class="c1">#norm_grad = -(grad_fun(x_old+beta*momentum_old)/abs(grad_fun(x_old+beta*momentum_old))) #NesterovMomentum: look at gradient from future position</span>
         <span class="n">momentum_new</span>  <span class="o">=</span> <span class="n">beta</span><span class="o">*</span><span class="n">momentum_old</span><span class="o">+</span><span class="n">alpha</span><span class="o">*</span><span class="n">norm_grad</span> <span class="c1">#momentum calculation</span>
         <span class="n">x_new</span> <span class="o">=</span> <span class="n">x_old</span><span class="o">+</span><span class="n">momentum_new</span> <span class="c1">#gradient descent step</span>
         <span class="n">hist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span><span class="n">fun</span><span class="p">(</span><span class="n">x_new</span><span class="p">)))</span><span class="c1">#appending history</span>
@@ -873,7 +872,7 @@ Rastrigin
 <p>This chapter gives an overview of some stochastic methods that use randomization strategically to help explore the design space for a minimum. With the help of randomness we can escape local minima and increase the chance of finding a global minimum.</p>
 <p>An upgrade for the gradient descent algorithm if it is stuck in a local minimina, is to add noise in each step</p>
 <div class="math notranslate nohighlight">
-\[  x^{(n+1)}:=x^{(n)} + \alpha  g(x)^{(n)}  + \epsilon^{(n)} \]</div>
+\[  x^{(n+1)}:=x^{(n)} + \alpha  g(x^{(n)}) + \epsilon^{(n)} \]</div>
 <p>where <span class="math notranslate nohighlight">\(\epsilon\)</span> is  a zero-mean Gaussian noise with standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. The noise is typacally decrease with increasing iterations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -952,9 +951,9 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[0.95173624 0.9190395 ]
+[1.5787348  2.49875505]
 Rastrigin
-[-0.01166177  2.0839395 ]
+[0.07718998 2.04221518]
 </pre></div>
 </div>
 <img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
@@ -1055,20 +1054,22 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 4143
-     nit: 137
+    nfev: 3903
+     nit: 129
  success: True
        x: array([1., 1.])
-Rastrigin
-     fun: 0.0
- message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1593
-     nit: 52
- success: True
-       x: array([-1.43354217e-11,  7.66905317e-10])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+     fun: 0.0
+ message: &#39;Optimization terminated successfully.&#39;
+    nfev: 1953
+     nit: 64
+ success: True
+       x: array([-2.10224704e-09, -1.75655379e-10])
+</pre></div>
+</div>
+<img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />
 </div>
 </div>
 </div>

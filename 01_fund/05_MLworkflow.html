@@ -803,7 +803,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fc64cad9e50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7ff418cccb90&gt;
 </pre></div>
 </div>
 <img alt="../_images/05_MLworkflow_14_1.png" src="../_images/05_MLworkflow_14_1.png" />
@@ -819,8 +819,7 @@ In general wrapper methods create many models with different subsets of input fe
 In filter selection methods we use statistical techniques to evaluate the correlation between each input variable and a target variable. Methods to note for numerical input/output are <strong>Pearson’s correlation coefficient</strong> for linear relationship, <strong>Spearman’s rank coefficient</strong> for nonlinear relationship and for categorical input/output are <strong>Chi-Squared test</strong> and <strong>Mutual Information score</strong>.</p>
 <p>Methods to note:</p>
 <ul class="simple">
-<li><p><strong>Sobol Indices / Variance-based sensitivity analysis</strong> is intended to determine how much of the variability in model output is
-dependent upon each of the input variables, either upon a single variable or upon an interaction between different variables. For a more detailed description, see <a class="reference external" href="http://www.andreasaltelli.eu/file/repository/A_Saltelli_Marco_Ratto_Terry_Andres_Francesca_Campolongo_Jessica_Cariboni_Debora_Gatelli_Michaela_Saisana_Stefano_Tarantola_Global_Sensitivity_Analysis_The_Primer_Wiley_Interscience_2008_.pdf">book from Saltelli</a>.</p></li>
+<li><p><strong>Sobol Indices / Variance-based sensitivity analysis</strong> is intended to determine how much of the variability in model output is dependent upon each of the input variables, either upon a single variable or upon an interaction between different variables. For a more detailed description, see <a class="reference external" href="http://www.andreasaltelli.eu/file/repository/A_Saltelli_Marco_Ratto_Terry_Andres_Francesca_Campolongo_Jessica_Cariboni_Debora_Gatelli_Michaela_Saisana_Stefano_Tarantola_Global_Sensitivity_Analysis_The_Primer_Wiley_Interscience_2008_.pdf">book from Saltelli</a>.</p></li>
 <li><p><strong>Decision Trees</strong> have a build in feature selection during the training.</p></li>
 </ul>
 <p>Feature selection reduces the number of feature whereas <strong>dimensionality reduction</strong> create a projection of the data in a less dimensional subspace. For this topic we recommend to look on: <strong>Autoenconder Methods</strong>, <strong>Principal Component Analysis (PCA)</strong> or <strong>Manifold Learning</strong>.</p>
