@@ -803,7 +803,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7ff418cccb90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fa8bd670c10&gt;
 </pre></div>
 </div>
 <img alt="../_images/05_MLworkflow_14_1.png" src="../_images/05_MLworkflow_14_1.png" />
@@ -959,7 +959,7 @@ ACC = \frac{TP+TN}{TP+TN+FN+FP}
 <p>precision is probability that positive class prediction is correct</p>
 <div class="math notranslate nohighlight">
 \[
-PRC = \frac{TP}{TP+FN}
+PRC = \frac{TP}{TP+FP}
 \]</div>
 <p>recall is probability that positive class is correctly predicted</p>
 <div class="math notranslate nohighlight">
@@ -981,7 +981,7 @@ MSE = \frac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2 \\
 RSME = \sqrt{MSE}
 \end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(y\)</span> is the real value and <span class="math notranslate nohighlight">\(\hat y\)</span> is the prediction from our model.</p>
-<p>Another popular metric is the R-squared or adjusted R-squared</p>
+<p>Another popular metric is the R-squared</p>
 <div class="math notranslate nohighlight">
 \[
 R^2 = 1-\frac{SS_{regression}}{SS_{total}} = 1-\frac{\sum_i(y_i-\hat y_i)}{\sum_i(y_i-\bar y_i)}
@@ -989,7 +989,7 @@ R^2 = 1-\frac{SS_{regression}}{SS_{total}} = 1-\frac{\sum_i(y_i-\hat y_i)}{\sum_
 <p>where <span class="math notranslate nohighlight">\(\bar y_i\)</span> is the mean of the data. To interpret these value we will look at a picture from wikipedia.
 <a href="https://de.wikipedia.org/wiki/Bestimmtheitsma%C3%9F"> <center><img alt="https://upload.wikimedia.org/wikipedia/commons/4/4a/R2values.svg" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/R2values.svg" /></center></a></p>
 <p><strong>Clustering</strong></p>
-<p>For clustering techniques we will refer to silhoutte score, (adjusted) rand index and mutual information score.</p>
+<p>For clustering techniques we will refer to <strong>silhoutte score</strong>, <strong>(adjusted) rand index</strong> and <strong>mutual information score</strong>.</p>
 </div>
 <div class="section" id="statistical-and-information-based-model-selection">
 <h3><span class="section-number">5.2.2. </span>Statistical and information based model selection<a class="headerlink" href="#statistical-and-information-based-model-selection" title="Permalink to this headline">¶</a></h3>

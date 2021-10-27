@@ -507,7 +507,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2875.200788123265
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  3008.3552775889916
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -539,7 +539,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  103.64798246371991
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  98.64338995529523
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -803,7 +803,7 @@ x^{(n+1)} = x^{(n)} + v^{(n+1)}
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_end</span> <span class="p">,</span><span class="n">hist</span> <span class="o">=</span> <span class="n">mom_gradient_descent</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">Rosenbrock</span><span class="p">,</span> <span class="n">grad_fun</span><span class="o">=</span><span class="n">grad_rose</span><span class="p">,</span><span class="n">start_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">]),</span><span class="n">max_iters</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span><span class="n">step_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="mf">0.90</span><span class="p">)</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
 <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
@@ -873,7 +873,7 @@ Rastrigin
 <p>An upgrade for the gradient descent algorithm if it is stuck in a local minimina, is to add noise in each step</p>
 <div class="math notranslate nohighlight">
 \[  x^{(n+1)}:=x^{(n)} + \alpha  g(x^{(n)}) + \epsilon^{(n)} \]</div>
-<p>where <span class="math notranslate nohighlight">\(\epsilon\)</span> is  a zero-mean Gaussian noise with standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. The noise is typacally decrease with increasing iterations.</p>
+<p>where <span class="math notranslate nohighlight">\(\epsilon\)</span> is  a zero-mean Gaussian noise with standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. The noise is typically decrease with increasing iterations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">stochastic_gradient_descent</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">grad_fun</span><span class="p">,</span> <span class="n">start_value</span><span class="p">,</span> <span class="n">max_iters</span><span class="p">,</span> <span class="n">step_size</span><span class="p">,</span> <span class="n">init_noise</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -897,7 +897,7 @@ Rastrigin
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_end</span> <span class="p">,</span><span class="n">hist</span> <span class="o">=</span> <span class="n">stochastic_gradient_descent</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">Rosenbrock</span><span class="p">,</span> <span class="n">grad_fun</span><span class="o">=</span><span class="n">grad_rose</span><span class="p">,</span><span class="n">start_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">]),</span><span class="n">max_iters</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span><span class="n">step_size</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
 <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
@@ -951,9 +951,9 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.5787348  2.49875505]
+[1.67220307 2.78521284]
 Rastrigin
-[0.07718998 2.04221518]
+[1.06396908 2.01513495]
 </pre></div>
 </div>
 <img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
@@ -966,7 +966,7 @@ Rastrigin
 <p>Unlike in the previous chapter where a single point moved incrementally to the minimum, in population algorithms we have a lot of points as start points all over the design space which are called individuals. We start with the first genaration of individuals. The best performers of these individuals will make a new generation. This will iterate as long as the minimium is not found. As an example we will show differential evolution. Differential evolution attempts to improve each individual in the population by recombining other individuals in the population according to a simple formula. It is parameterized by a crossover probability <span class="math notranslate nohighlight">\(p\)</span> and a differential weight <span class="math notranslate nohighlight">\(w\)</span>. <span class="math notranslate nohighlight">\(w\)</span> is usually between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For each individual <span class="math notranslate nohighlight">\(x\)</span>. For More Details look in <span id="id4">[<a class="reference internal" href="#id14">2</a>]</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="c1">#===============</span>
 <span class="c1">#  First subplot</span>
 <span class="c1">#===============</span>
@@ -1054,22 +1054,20 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3903
-     nit: 129
+    nfev: 3933
+     nit: 130
  success: True
        x: array([1., 1.])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1953
-     nit: 64
+    nfev: 1713
+     nit: 56
  success: True
-       x: array([-2.10224704e-09, -1.75655379e-10])
+       x: array([-8.21669399e-11,  2.94517938e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />
+<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
 </div>
 </div>
 </div>
