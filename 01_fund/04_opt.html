@@ -507,7 +507,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  3008.3552775889916
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2342.420345470972
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -539,7 +539,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  98.64338995529523
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  103.09713691908377
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -695,7 +695,7 @@ Rosenbrock functoins minimum is at <span class="math notranslate nohighlight">\(
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_end</span> <span class="p">,</span><span class="n">hist</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">Rosenbrock</span><span class="p">,</span> <span class="n">grad_fun</span><span class="o">=</span><span class="n">grad_rose</span><span class="p">,</span><span class="n">start_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">]),</span><span class="n">max_iters</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span><span class="n">step_size</span><span class="o">=</span><span class="mf">0.0005</span><span class="p">)</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>     
 <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>   
@@ -769,7 +769,7 @@ To handle the first problem we can adress some features:</p>
 <p>The momentum update equations are:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} 
-v^{(n+1)} = \beta v^{(n)} +\alpha g(x^{(n)}+)  \\
+v^{(n+1)} = \beta v^{(n)} +\alpha g(x^{(n)})  \\
 x^{(n+1)} = x^{(n)} + v^{(n+1)}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\beta\)</span> is the momentum decay factor and <span class="math notranslate nohighlight">\(v\)</span> is the momentum. For <span class="math notranslate nohighlight">\(\beta=0\)</span> we get the normal gradiant descent method. This methods increases the speed in narrow flat valley but will also tend to overshoot.</p>
@@ -951,9 +951,9 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.67220307 2.78521284]
+[1.66867362 2.76509075]
 Rastrigin
-[1.06396908 2.01513495]
+[1.05885733 1.96900641]
 </pre></div>
 </div>
 <img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
@@ -1054,17 +1054,17 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3933
-     nit: 130
+    nfev: 3993
+     nit: 132
  success: True
        x: array([1., 1.])
 Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1713
-     nit: 56
+    nfev: 1923
+     nit: 63
  success: True
-       x: array([-8.21669399e-11,  2.94517938e-09])
+       x: array([ 6.13809448e-10, -3.39724626e-09])
 </pre></div>
 </div>
 <img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
