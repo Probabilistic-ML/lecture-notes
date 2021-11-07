@@ -67,7 +67,7 @@ Luckily, we do not necessarily need to consider measure theory in detail for our
 - Set $C := \big\{ [a_1, b_1] \times [a_2, b_2] \times \cdots \times [a_d, b_d]~\big|~-\infty \le a_i \le b_i \le \infty, ~i = 1, \dots, d\big\}$. An event $A \in C$ is simply a box. 
 - For d=1 we obtain an interval $A = [a_1, b_1]$.
 - For d=2 we get a rectangle $A = [a_1, b_1] \times [a_2, b_2] \subset \mathbb{R}^2$.
-- In measury theory, $C$ is a so-called generating system of the **Borel** $\sigma$-**algebra** $\mathcal{B}(\mathbb{R}^d)$. 
+- In measure theory, $C$ is a so-called generating system of the **Borel** $\sigma$-**algebra** $\mathcal{B}(\mathbb{R}^d)$. 
 - The Borel $\sigma$-algebra is the smallest collection of events with sufficiently nice properties which contains alle these boxes.
 - $\mathcal{B}(\mathbb{R}^d)$ is fairly abstract. Just rembember that
     * $\mathcal{B}(\mathbb{R}^d)$ contains all events we would like / are able to assign a probability to,
