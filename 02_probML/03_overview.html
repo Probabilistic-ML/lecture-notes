@@ -45,6 +45,8 @@
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -406,6 +408,24 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#naives-bayes-classification">
+   8.1. Naives Bayes Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-mixture-model">
+   8.2. Gaussian Mixture Model
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -416,6 +436,95 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="overview-of-further-probabilistic-models">
 <h1><span class="section-number">8. </span>Overview of Further Probabilistic Models<a class="headerlink" href="#overview-of-further-probabilistic-models" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="naives-bayes-classification">
+<h2><span class="section-number">8.1. </span>Naives Bayes Classification<a class="headerlink" href="#naives-bayes-classification" title="Permalink to this headline">¶</a></h2>
+<p>For a given class <span class="math notranslate nohighlight">\(k\)</span>, we can use Bayes’ theorem</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align} 
+p(C_l~|~x) &amp;= \frac{p(x~|~C_l) ~ p(C_l)}{p(x)}
+\end{align} 
+\]</div>
+<p>with a <strong>naive assumption</strong> that the feature <span class="math notranslate nohighlight">\(x = (x_1, \dots, x_n)\)</span> are <strong>conditionally independent</strong>
+which allows us to express the contitional propability term <span class="math notranslate nohighlight">\(p(x~|~C_l)\)</span> as a product of conditional probabilities of individual features <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align} 
+p(C_l~|~x) &amp;= \frac{\prod_{i=1}^n p(x_i~|~C_l) ~ p(C_l)}{p(x)}
+\end{align} 
+\]</div>
+<p>We can now omit <span class="math notranslate nohighlight">\(p(x)\)</span>, since it does not depend on <span class="math notranslate nohighlight">\(l\)</span>. Now we can search with a optimization algorithm to find the class which maximises the probability <span class="math notranslate nohighlight">\(p(C_l~|~x)\)</span>. We call this maximimum a posterior (MAP) decision rule.</p>
+<div class="math notranslate nohighlight">
+\[\hat{y} = \text{argmax}_{l=1,\dots,k} ~\prod_{i=1}^n p(x_i~|~C_l)~p(C_l)  \]</div>
+<p>Limits of NBC:
+-aspect covariance</p>
+<p>So the independece implies zero covariance between two random variables. A non zero covariance leads to Gaussian Mixture Model.</p>
+</div>
+<div class="section" id="gaussian-mixture-model">
+<h2><span class="section-number">8.2. </span>Gaussian Mixture Model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h2>
+<p>If we generalize the Naive Bayes approach to a non zero covariance matrix, we arrive at Gaussian Mixture Model (GMM) where we assume multivariate Normal distribution</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x~|~C=j) = \mathcal{N_p}(x;\mu_j,\Sigma_j)
+\]</div>
+<p>with mean <span class="math notranslate nohighlight">\(\mu \in \R^d \)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma \in \R^{d\times d }\)</span>.</p>
+<p>The marginal propability <span class="math notranslate nohighlight">\(P(X)\)</span> is a Gaussian Mixture that is weighted sum of mulitvariate Normal distributions</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x) = \sum_{j=1}^k\pi_j\mathcal{N_p}(x;\mu_j,\Sigma_j)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\pi_j:= P(C=j)\)</span> is a mixture coeffiecent for which applies
+$<span class="math notranslate nohighlight">\(
+\sum_{j=1}^J\pi_j=1.
+\)</span>$</p>
+<p>Inference of parameters in GMM</p>
+<p>For data <span class="math notranslate nohighlight">\(D={x_i:i=1,...,n}\)</span> and parameters <span class="math notranslate nohighlight">\(\Theta\)</span> model likelihood is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(\Theta~|~D)= \prod_{i=1}^nP(X=x_i)=\prod_{i=1}^n\sum_{j=1}^k \pi_j\mathcal{N_p}(x;\mu_j,\Sigma_j)
+\]</div>
+<p>and log-likelihood is given as</p>
+<div class="math notranslate nohighlight">
+\[
+\log \mathcal{L}(\Theta~|~D)=\sum_{i=1}^n\log\sum_{j=1}^k \pi_j\mathcal{N_p}(x;\mu_j,\Sigma_j)
+\]</div>
+<p>The question now is how we can infer the parameters of a GMM that best explain the data? Our first idea is to compute the likelihood of the model parameters, given a data set <span class="math notranslate nohighlight">\(D\)</span>. To maximise this likelihood, we can try to simplify the likelihood expression using our standard trick, that is we take the logarithm and maximise the log-likelihood function instead.</p>
+<p>Unfortunately, in the GMM this is not as simple as in our previous applications of maximum-likelihood estimation. We are left  with a logarithm of a sum of Gaussians, for which we cannot compute the derivative in a straight-forward way.</p>
+<p>Expectation-Maximisation (EM)</p>
+<p>Let us assume we knew the “correct” cluster <span class="math notranslate nohighlight">\(C(i)\)</span> for each <span class="math notranslate nohighlight">\(x_i\in D\)</span>. We can write the likelihood of model parameters <span class="math notranslate nohighlight">\(\Theta\)</span> based on joint distribution</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(\Theta~|~D)= \prod_{i=1}^nP(X=x_i,C=C(i)~|~\Theta)
+\]</div>
+<p>The log-likelihood of the model is</p>
+<div class="math notranslate nohighlight">
+\[
+\log \mathcal{L}(\Theta~|~D)= \sum_{i=1}^n\log P(X=x_i,C=C(i)~|~\Theta)
+\]</div>
+<p>For a guess of parameters <span class="math notranslate nohighlight">\(\Theta^{(t)} = (\pi_j,\mu_j\Sigma_j)_{j=1,...,k}\)</span> the expected log-likelihood can be calculated as</p>
+<div class="math notranslate nohighlight">
+\[
+E[\log\mathcal{L}(\Theta~|~D)]= \sum_{i=1}^n \sum_{j=1}^k P(C=j~|~X=x_i,\Theta^{(t)})\log P(X=x_i,C=j~|~\Theta)
+\]</div>
+<p>To find the optimal parameters of the <span class="math notranslate nohighlight">\(k d\)</span>-dimensional multivariate Normal distributions that maximise the likelihood, we can apply a general and powerful iterative approach, the so-called expectation-maximisation (EM) algorithm. It is based on the idea that, rather than maximising the model likelihood based on the marginal probability <span class="math notranslate nohighlight">\(P(X)\)</span>, we can instead use an  estimate for the conditional probability <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> to compute the expected log-likelihood based on the joint distribution <span class="math notranslate nohighlight">\(P(X, C)\)</span>.</p>
+<p>To better understand this, let us assume we knew the cluster <span class="math notranslate nohighlight">\(C(i)\)</span> for each observation <span class="math notranslate nohighlight">\(x_i \in D\)</span>. For each we could then calculate the likelihood and log-likelihood function of our model based on the joint distribution <span class="math notranslate nohighlight">\(P(X, C)\)</span>. Unfortunately, we lack the information to which clusters the data points belong. However, we can capture this lack of information based on the conditional probability <span class="math notranslate nohighlight">\(P(C|X)\)</span>, which we can compute for any guess of parameters <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span>.</p>
+<p>For <span class="math notranslate nohighlight">\(j=1,...,k\)</span> we use guessed parameters <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span> to calculate
+$<span class="math notranslate nohighlight">\(
+P(C=j~|~X=x_i,\Theta^{(t)})= \frac{\mathcal{N_d}(x;\mu_j,\Sigma_j)\pi_j}{\sum_{j=1}^k\mathcal{N_d}(x;\mu_j,\Sigma_j)}:=\gamma_{ij}
+\)</span><span class="math notranslate nohighlight">\( 
+Update \)</span>\Theta^{(t)}\rightarrow \Theta^{(t+1)}<span class="math notranslate nohighlight">\( such that \)</span>\gamma_{ij}<span class="math notranslate nohighlight">\( and thus \)</span>E[\log\mathcal{L}(\Theta~|~D)]<span class="math notranslate nohighlight">\( is maximal.
+With \)</span>N_j:=\sum_{i=1}^n\gamma_{ij}$ expactation-maximising parameters are</p>
+<div class="math notranslate nohighlight">
+\[
+\pi_j = \frac{N_j}{n}, \quad \mu_j = \frac{1}{N}\sum_{i=1}^n\gamma_{ij}x_i, \quad \Sigma_j=\frac{1}{N}\sum_{i=1}^n\gamma_{ij}(x_i  \mu_j)(x_i-\mu_j)^T
+\]</div>
+<p>expactation-maximisation agorithm iteratively updates  <span class="math notranslate nohighlight">\(\Theta^{(t)}\rightarrow \Theta^{(t+1)}\)</span> to find maximum-likehood parameters</p>
+<p>The trick is now to compute <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> based on our current guess of <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span> and then update the parameters such that <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> (and thus the expected log-likelihood) is maximised. Those maximum parameters can actually be determined by taking the
+derivative of the conditional probability (the constraint <span class="math notranslate nohighlight">\(\sum_{j=1}\pi_j=1\)</span> requires quadratic programming to find <span class="math notranslate nohighlight">\(\pi_j\)</span>).</p>
+<p>We can now use the updated parameters to get a better estimate for the conditional probability, so we can simply repeat the procedure. In each step, we first compute the expectation for the model likelihood and then find the parameters that maximise this expectation, which is why the algorithm is called expectation-maximisation.</p>
+<p>This yields an iterative algorithm, which starts from an initial guess of the model parameters and then, step-by-step, updates the model parameters to iteratively increase the model likelihood until we reach a maximum.</p>
+<p>Note that the expectation/maximisation steps ares similar to k-means in the sense that the expectation step can be thought of as assigning clusters to the data (by computing <span class="math notranslate nohighlight">\(P(C|X)\)</span>), while the maximisation step moves the cluster centroids (as well as the covariances and the priors) based on the new assignment.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
