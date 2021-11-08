@@ -40,7 +40,8 @@ parts:
     - file: 02_probML/02_GPforML/06_hyperparamselect
     - file: 02_probML/02_GPforML/07_multiout
     - file: 02_probML/02_GPforML/08_GPclassification
-    - file: 02_probML/02_GPforML/09_advanced
+    - file: 02_probML/02_GPforML/09_examples
+    - file: 02_probML/02_GPforML/10_advanced
   - file: 02_probML/03_overview
 - caption: Applications
   numbered: true
