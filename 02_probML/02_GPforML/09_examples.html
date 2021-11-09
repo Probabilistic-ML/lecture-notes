@@ -43,6 +43,8 @@
     <script src="../../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -495,7 +497,11 @@
 
 <span class="c1"># print optimized hyperparameter values</span>
 <span class="n">params</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
-<span class="c1"># print(params[&quot;k1&quot;], params[&quot;k2&quot;])</span>
+<span class="n">noise_level</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;noise_level&quot;</span><span class="p">]</span>
+<span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;constant_value&quot;</span><span class="p">]</span>
+<span class="n">length_scales</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;length_scale&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scaling factor = </span><span class="si">{:.2f}</span><span class="s2">, noise level = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scaling_factor</span><span class="p">,</span> <span class="n">noise_level</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length scales = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">length_scales</span><span class="p">]))</span>
 
 <span class="c1"># test model</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">scalerX</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
@@ -505,12 +511,14 @@
 <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r2 = </span><span class="si">{:.4f}</span><span class="s2">, mse = </span><span class="si">{:.2f}</span><span class="s2">, mae = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">mae</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">r2 = </span><span class="si">{:.4f}</span><span class="s2">, mse = </span><span class="si">{:.2f}</span><span class="s2">, mae = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">mae</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.14**2 * RBF(length_scale=[6.28, 7.5, 5.02, 7.18, 15.8, 397, 7.71, 365, 3.13, 107]) WhiteKernel(noise_level=0.469)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scaling factor = 1.29, noise level = 0.47
+length scales = [6.28, 7.5, 5.02, 7.18, 15.79, 397.2, 7.71, 365.15, 3.13, 106.73]
+
 r2 = 0.5238, mse = 2523.04, mae = 39.47
 </pre></div>
 </div>
@@ -566,7 +574,11 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 
 <span class="c1"># print optimized hyperparameter values</span>
 <span class="n">params</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
-<span class="c1"># print(params[&quot;k1&quot;], params[&quot;k2&quot;])</span>
+<span class="n">noise_level</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;noise_level&quot;</span><span class="p">]</span>
+<span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;constant_value&quot;</span><span class="p">]</span>
+<span class="n">length_scale</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;length_scale&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scaling factor = </span><span class="si">{:.2f}</span><span class="s2">, noise level = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scaling_factor</span><span class="p">,</span> <span class="n">noise_level</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length scales = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">length_scale</span><span class="p">)</span>
 
 <span class="c1"># test model</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">scalerX</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
@@ -577,22 +589,19 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;r2 = </span><span class="si">{:.4f}</span><span class="s2">, mse = </span><span class="si">{:.2f}</span><span class="s2">, mae = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">mae</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">r2 = </span><span class="si">{:.4f}</span><span class="s2">, mse = </span><span class="si">{:.2f}</span><span class="s2">, mae = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">mae</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8256, 7) (12384, 7)
-</pre></div>
-</div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_646</span><span class="o">/</span><span class="mf">3102657094.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span> 
-<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">38</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_</span><span class="p">,</span> <span class="n">y_train_</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span> 
-<span class="g g-Whitespace">     </span><span class="mi">40</span> <span class="c1"># print optimized hyperparameter values</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1002</span><span class="o">/</span><span class="mf">2061575529.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span> 
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">37</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_</span><span class="p">,</span> <span class="n">y_train_</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span> 
+<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="c1"># print optimized hyperparameter values</span>
 
 <span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/_gpr.py</span> in <span class="ni">fit</span><span class="nt">(self, X, y)</span>
 <span class="g g-Whitespace">    </span><span class="mi">236</span> 
@@ -616,25 +625,18 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 <span class="g g-Whitespace">    </span><span class="mi">625</span>     <span class="k">elif</span> <span class="n">meth</span> <span class="o">==</span> <span class="s1">&#39;tnc&#39;</span><span class="p">:</span>
 
 <span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/lbfgsb.py</span> in <span class="ni">_minimize_lbfgsb</span><span class="nt">(fun, x0, args, jac, bounds, disp, maxcor, ftol, gtol, eps, maxfun, maxiter, iprint, callback, maxls, finite_diff_rel_step, **unknown_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span>             <span class="n">iprint</span> <span class="o">=</span> <span class="n">disp</span>
-<span class="g g-Whitespace">    </span><span class="mi">305</span> 
-<span class="ne">--&gt; </span><span class="mi">306</span>     <span class="n">sf</span> <span class="o">=</span> <span class="n">_prepare_scalar_function</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="n">jac</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">307</span>                                   <span class="n">bounds</span><span class="o">=</span><span class="n">new_bounds</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">308</span>                                   <span class="n">finite_diff_rel_step</span><span class="o">=</span><span class="n">finite_diff_rel_step</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">358</span>             <span class="c1"># until the completion of the current minimization iteration.</span>
+<span class="g g-Whitespace">    </span><span class="mi">359</span>             <span class="c1"># Overwrite f and g:</span>
+<span class="ne">--&gt; </span><span class="mi">360</span>             <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">func_and_grad</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">361</span>         <span class="k">elif</span> <span class="n">task_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;NEW_X&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">362</span>             <span class="c1"># new iteration</span>
 
-<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/optimize.py</span> in <span class="ni">_prepare_scalar_function</span><span class="nt">(fun, x0, jac, args, bounds, epsilon, finite_diff_rel_step, hess)</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span>     <span class="c1"># ScalarFunction caches. Reuse of fun(x) during grad</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span>     <span class="c1"># calculation reduces overall function evaluations.</span>
-<span class="ne">--&gt; </span><span class="mi">261</span>     <span class="n">sf</span> <span class="o">=</span> <span class="n">ScalarFunction</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">hess</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">262</span>                         <span class="n">finite_diff_rel_step</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">263</span> 
-
-<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_differentiable_functions.py</span> in <span class="ni">__init__</span><span class="nt">(self, fun, x0, args, grad, hess, finite_diff_rel_step, finite_diff_bounds, epsilon)</span>
-<span class="g g-Whitespace">    </span><span class="mi">138</span> 
-<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun_impl</span> <span class="o">=</span> <span class="n">update_fun</span>
-<span class="ne">--&gt; </span><span class="mi">140</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">141</span> 
-<span class="g g-Whitespace">    </span><span class="mi">142</span>         <span class="c1"># Gradient evaluation</span>
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_differentiable_functions.py</span> in <span class="ni">fun_and_grad</span><span class="nt">(self, x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_update_x_impl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">267</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_grad</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span>
 
 <span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_differentiable_functions.py</span> in <span class="ni">_update_fun</span><span class="nt">(self)</span>
 <span class="g g-Whitespace">    </span><span class="mi">231</span>     <span class="k">def</span> <span class="nf">_update_fun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -679,32 +681,18 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 <span class="g g-Whitespace">    </span><span class="mi">232</span>                     <span class="k">return</span> <span class="o">-</span><span class="n">lml</span><span class="p">,</span> <span class="o">-</span><span class="n">grad</span>
 
 <span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/_gpr.py</span> in <span class="ni">log_marginal_likelihood</span><span class="nt">(self, theta, eval_gradient, clone_kernel)</span>
-<span class="g g-Whitespace">    </span><span class="mi">460</span> 
-<span class="g g-Whitespace">    </span><span class="mi">461</span>         <span class="k">if</span> <span class="n">eval_gradient</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">462</span>             <span class="n">K</span><span class="p">,</span> <span class="n">K_gradient</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span><span class="p">,</span> <span class="n">eval_gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">463</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">464</span>             <span class="n">K</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span>         <span class="k">if</span> <span class="n">eval_gradient</span><span class="p">:</span>  <span class="c1"># compare Equation 5.9 from GPML</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span>             <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ik,jk-&gt;ijk&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>  <span class="c1"># k: output-dimension</span>
+<span class="ne">--&gt; </span><span class="mi">488</span>             <span class="n">tmp</span> <span class="o">-=</span> <span class="n">cho_solve</span><span class="p">((</span><span class="n">L</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span>             <span class="c1"># Compute &quot;0.5 * trace(tmp.dot(K_gradient))&quot; without</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>             <span class="c1"># constructing the full matrix tmp.dot(K_gradient) since only</span>
 
-<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/kernels.py</span> in <span class="ni">__call__</span><span class="nt">(self, X, Y, eval_gradient)</span>
-<span class="g g-Whitespace">    </span><span class="mi">812</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">813</span><span class="s2">         if eval_gradient:</span>
-<span class="ne">--&gt; </span><span class="mi">814</span><span class="s2">             K1, K1_gradient = self.k1(X, Y, eval_gradient=True)</span>
-<span class="g g-Whitespace">    </span><span class="mi">815</span><span class="s2">             K2, K2_gradient = self.k2(X, Y, eval_gradient=True)</span>
-<span class="g g-Whitespace">    </span><span class="mi">816</span><span class="s2">             return K1 + K2, np.dstack((K1_gradient, K2_gradient))</span>
-
-<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/kernels.py</span> in <span class="ni">__call__</span><span class="nt">(self, X, Y, eval_gradient)</span>
-<span class="g g-Whitespace">    </span><span class="mi">911</span><span class="s2">         if eval_gradient:</span>
-<span class="g g-Whitespace">    </span><span class="mi">912</span><span class="s2">             K1, K1_gradient = self.k1(X, Y, eval_gradient=True)</span>
-<span class="ne">--&gt; </span><span class="mi">913</span><span class="s2">             K2, K2_gradient = self.k2(X, Y, eval_gradient=True)</span>
-<span class="g g-Whitespace">    </span><span class="mi">914</span><span class="s2">             return K1 * K2, np.dstack((K1_gradient * K2[:, :, np.newaxis],</span>
-<span class="g g-Whitespace">    </span><span class="mi">915</span><span class="s2">                                        K2_gradient * K1[:, :, np.newaxis]))</span>
-
-<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/kernels.py</span> in <span class="ni">__call__</span><span class="nt">(self, X, Y, eval_gradient)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1654</span><span class="s2">         elif self.nu == 1.5:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1655</span><span class="s2">             K = dists * math.sqrt(3)</span>
-<span class="ne">-&gt; </span><span class="mi">1656</span><span class="s2">             K = (1. + K) * np.exp(-K)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1657</span><span class="s2">         elif self.nu == 2.5:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1658</span><span class="s2">             K = dists * math.sqrt(5)</span>
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/linalg/decomp_cholesky.py</span> in <span class="ni">cho_solve</span><span class="nt">(c_and_lower, b, overwrite_b, check_finite)</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span> 
+<span class="g g-Whitespace">    </span><span class="mi">207</span>     <span class="n">potrs</span><span class="p">,</span> <span class="o">=</span> <span class="n">get_lapack_funcs</span><span class="p">((</span><span class="s1">&#39;potrs&#39;</span><span class="p">,),</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">b1</span><span class="p">))</span>
+<span class="ne">--&gt; </span><span class="mi">208</span>     <span class="n">x</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">potrs</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">lower</span><span class="p">,</span> <span class="n">overwrite_b</span><span class="o">=</span><span class="n">overwrite_b</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>     <span class="k">if</span> <span class="n">info</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;illegal value in </span><span class="si">%d</span><span class="s1">th argument of internal potrs&#39;</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
@@ -724,7 +712,7 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span><span class="p">,</span> <span class="n">Matern</span><span class="p">,</span> <span class="n">ConstantKernel</span><span class="p">,</span> <span class="n">WhiteKernel</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">plot_confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span> 
@@ -754,7 +742,11 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 
 <span class="c1"># print optimized hyperparameter values</span>
 <span class="n">params</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
-<span class="c1"># print(params[&quot;k1&quot;], params[&quot;k2&quot;])</span>
+<span class="n">noise_level</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;noise_level&quot;</span><span class="p">]</span>
+<span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;constant_value&quot;</span><span class="p">]</span>
+<span class="n">length_scales</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;length_scale&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scaling factor = </span><span class="si">{:.2f}</span><span class="s2">, noise level = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scaling_factor</span><span class="p">,</span> <span class="n">noise_level</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length scales = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">length_scales</span><span class="p">]))</span>
 
 <span class="c1"># test model</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">scalerX</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
@@ -763,9 +755,9 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 <span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;acc = </span><span class="si">{:.2f}</span><span class="s2">, f1 = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">f1</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">acc = </span><span class="si">{:.2f}</span><span class="s2">, f1 = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">f1</span><span class="p">))</span> 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;precision = </span><span class="si">{:.2f}</span><span class="s2">, recall = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">))</span>
-<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">scalerX</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -807,9 +799,6 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../_images/09_examples_7_0.png" src="../../_images/09_examples_7_0.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -828,26 +817,21 @@ r2 = 0.5238, mse = 2523.04, mae = 39.47
 
 <span class="c1"># print optimized hyperparameter values</span>
 <span class="n">params</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;kernels&quot;</span><span class="p">])</span>
+<span class="n">noise_level</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;noise_level&quot;</span><span class="p">]</span>
+<span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;constant_value&quot;</span><span class="p">]</span>
+<span class="n">length_scale</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;k2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">&quot;length_scale&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scaling factor = </span><span class="si">{:.2f}</span><span class="s2">, noise level = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scaling_factor</span><span class="p">,</span> <span class="n">noise_level</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;length scales = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">length_scale</span><span class="p">))</span>
 
 <span class="c1"># test model</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">scalerX</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
 
 <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;acc = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f1 = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f1</span><span class="p">))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">acc = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f1 = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f1</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[108**2 * RBF(length_scale=48.3) + WhiteKernel(noise_level=3.95e-07), 28.4**2 * RBF(length_scale=12.8) + WhiteKernel(noise_level=0.00099), 247**2 * RBF(length_scale=87.9) + WhiteKernel(noise_level=0.000995), 42.7**2 * RBF(length_scale=18.1) + WhiteKernel(noise_level=0.000991), 121**2 * RBF(length_scale=49.5) + WhiteKernel(noise_level=2.11e-07), 96.3**2 * RBF(length_scale=43.6) + WhiteKernel(noise_level=0.000994), 99.1**2 * RBF(length_scale=41.7) + WhiteKernel(noise_level=0.000995), 64.6**2 * RBF(length_scale=33.3) + WhiteKernel(noise_level=0.000994), 19.9**2 * RBF(length_scale=10.2) + WhiteKernel(noise_level=1.63e-07), 43.7**2 * RBF(length_scale=21) + WhiteKernel(noise_level=6.67e-07)]
-acc = 97.78
-f1 = [100.          98.24561404 100.          97.05882353 100.
-  95.74468085  97.14285714  98.50746269  96.66666667  95.        ]
-</pre></div>
-</div>
-<img alt="../../_images/09_examples_8_1.png" src="../../_images/09_examples_8_1.png" />
 </div>
 </div>
 </div>
