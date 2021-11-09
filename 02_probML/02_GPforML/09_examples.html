@@ -43,8 +43,6 @@
     <script src="../../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -512,7 +510,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r2 = 0.5233, mse = 2525.46, mae = 39.48
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.14**2 * RBF(length_scale=[6.28, 7.5, 5.02, 7.18, 15.8, 397, 7.71, 365, 3.13, 107]) WhiteKernel(noise_level=0.469)
+r2 = 0.5238, mse = 2523.04, mae = 39.47
 </pre></div>
 </div>
 </div>
@@ -583,7 +582,131 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r2 = 0.7079, mse = 0.65, mae = 0.58
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8256, 7) (12384, 7)
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_646</span><span class="o">/</span><span class="mf">3102657094.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> 
+<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">38</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_</span><span class="p">,</span> <span class="n">y_train_</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span> 
+<span class="g g-Whitespace">     </span><span class="mi">40</span> <span class="c1"># print optimized hyperparameter values</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/_gpr.py</span> in <span class="ni">fit</span><span class="nt">(self, X, y)</span>
+<span class="g g-Whitespace">    </span><span class="mi">236</span> 
+<span class="g g-Whitespace">    </span><span class="mi">237</span>             <span class="c1"># First optimize starting from theta specified in kernel</span>
+<span class="ne">--&gt; </span><span class="mi">238</span>             <span class="n">optima</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">_constrained_optimization</span><span class="p">(</span><span class="n">obj_func</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">239</span>                                                       <span class="bp">self</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">240</span>                                                       <span class="bp">self</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">bounds</span><span class="p">))]</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/_gpr.py</span> in <span class="ni">_constrained_optimization</span><span class="nt">(self, obj_func, initial_theta, bounds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">501</span>     <span class="k">def</span> <span class="nf">_constrained_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_func</span><span class="p">,</span> <span class="n">initial_theta</span><span class="p">,</span> <span class="n">bounds</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;fmin_l_bfgs_b&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">503</span>             <span class="n">opt_res</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span>                 <span class="n">obj_func</span><span class="p">,</span> <span class="n">initial_theta</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span>                 <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_minimize.py</span> in <span class="ni">minimize</span><span class="nt">(fun, x0, args, method, jac, hess, hessp, bounds, constraints, tol, callback, options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">621</span>                                   <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">622</span>     <span class="k">elif</span> <span class="n">meth</span> <span class="o">==</span> <span class="s1">&#39;l-bfgs-b&#39;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">623</span>         <span class="k">return</span> <span class="n">_minimize_lbfgsb</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">jac</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">624</span>                                 <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">625</span>     <span class="k">elif</span> <span class="n">meth</span> <span class="o">==</span> <span class="s1">&#39;tnc&#39;</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/lbfgsb.py</span> in <span class="ni">_minimize_lbfgsb</span><span class="nt">(fun, x0, args, jac, bounds, disp, maxcor, ftol, gtol, eps, maxfun, maxiter, iprint, callback, maxls, finite_diff_rel_step, **unknown_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span>             <span class="n">iprint</span> <span class="o">=</span> <span class="n">disp</span>
+<span class="g g-Whitespace">    </span><span class="mi">305</span> 
+<span class="ne">--&gt; </span><span class="mi">306</span>     <span class="n">sf</span> <span class="o">=</span> <span class="n">_prepare_scalar_function</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="n">jac</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">307</span>                                   <span class="n">bounds</span><span class="o">=</span><span class="n">new_bounds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">308</span>                                   <span class="n">finite_diff_rel_step</span><span class="o">=</span><span class="n">finite_diff_rel_step</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/optimize.py</span> in <span class="ni">_prepare_scalar_function</span><span class="nt">(fun, x0, jac, args, bounds, epsilon, finite_diff_rel_step, hess)</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>     <span class="c1"># ScalarFunction caches. Reuse of fun(x) during grad</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>     <span class="c1"># calculation reduces overall function evaluations.</span>
+<span class="ne">--&gt; </span><span class="mi">261</span>     <span class="n">sf</span> <span class="o">=</span> <span class="n">ScalarFunction</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">hess</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span>                         <span class="n">finite_diff_rel_step</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">263</span> 
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_differentiable_functions.py</span> in <span class="ni">__init__</span><span class="nt">(self, fun, x0, args, grad, hess, finite_diff_rel_step, finite_diff_bounds, epsilon)</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span> 
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun_impl</span> <span class="o">=</span> <span class="n">update_fun</span>
+<span class="ne">--&gt; </span><span class="mi">140</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span> 
+<span class="g g-Whitespace">    </span><span class="mi">142</span>         <span class="c1"># Gradient evaluation</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_differentiable_functions.py</span> in <span class="ni">_update_fun</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span>     <span class="k">def</span> <span class="nf">_update_fun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_updated</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">233</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun_impl</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">234</span>             <span class="bp">self</span><span class="o">.</span><span class="n">f_updated</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">235</span> 
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_differentiable_functions.py</span> in <span class="ni">update_fun</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> 
+<span class="g g-Whitespace">    </span><span class="mi">136</span>         <span class="k">def</span> <span class="nf">update_fun</span><span class="p">():</span>
+<span class="ne">--&gt; </span><span class="mi">137</span>             <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">fun_wrapped</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span> 
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun_impl</span> <span class="o">=</span> <span class="n">update_fun</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/_differentiable_functions.py</span> in <span class="ni">fun_wrapped</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span>             <span class="c1"># Overwriting results in undefined behaviour because</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>             <span class="c1"># fun(self.x) will change self.x, with the two no longer linked.</span>
+<span class="ne">--&gt; </span><span class="mi">134</span>             <span class="k">return</span> <span class="n">fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> 
+<span class="g g-Whitespace">    </span><span class="mi">136</span>         <span class="k">def</span> <span class="nf">update_fun</span><span class="p">():</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/optimize.py</span> in <span class="ni">__call__</span><span class="nt">(self, x, *args)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span>         <span class="sd">&quot;&quot;&quot; returns the the function value &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">74</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_compute_if_needed</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span> 
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/scipy/optimize/optimize.py</span> in <span class="ni">_compute_if_needed</span><span class="nt">(self, x, *args)</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>             <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="ne">---&gt; </span><span class="mi">68</span>             <span class="n">fg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>             <span class="bp">self</span><span class="o">.</span><span class="n">jac</span> <span class="o">=</span> <span class="n">fg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">fg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/_gpr.py</span> in <span class="ni">obj_func</span><span class="nt">(theta, eval_gradient)</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span>             <span class="k">def</span> <span class="nf">obj_func</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">eval_gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span>                 <span class="k">if</span> <span class="n">eval_gradient</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">230</span>                     <span class="n">lml</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_marginal_likelihood</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span>                         <span class="n">theta</span><span class="p">,</span> <span class="n">eval_gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">clone_kernel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>                     <span class="k">return</span> <span class="o">-</span><span class="n">lml</span><span class="p">,</span> <span class="o">-</span><span class="n">grad</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/_gpr.py</span> in <span class="ni">log_marginal_likelihood</span><span class="nt">(self, theta, eval_gradient, clone_kernel)</span>
+<span class="g g-Whitespace">    </span><span class="mi">460</span> 
+<span class="g g-Whitespace">    </span><span class="mi">461</span>         <span class="k">if</span> <span class="n">eval_gradient</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">462</span>             <span class="n">K</span><span class="p">,</span> <span class="n">K_gradient</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span><span class="p">,</span> <span class="n">eval_gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">463</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">464</span>             <span class="n">K</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train_</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/kernels.py</span> in <span class="ni">__call__</span><span class="nt">(self, X, Y, eval_gradient)</span>
+<span class="g g-Whitespace">    </span><span class="mi">812</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span><span class="s2">         if eval_gradient:</span>
+<span class="ne">--&gt; </span><span class="mi">814</span><span class="s2">             K1, K1_gradient = self.k1(X, Y, eval_gradient=True)</span>
+<span class="g g-Whitespace">    </span><span class="mi">815</span><span class="s2">             K2, K2_gradient = self.k2(X, Y, eval_gradient=True)</span>
+<span class="g g-Whitespace">    </span><span class="mi">816</span><span class="s2">             return K1 + K2, np.dstack((K1_gradient, K2_gradient))</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/kernels.py</span> in <span class="ni">__call__</span><span class="nt">(self, X, Y, eval_gradient)</span>
+<span class="g g-Whitespace">    </span><span class="mi">911</span><span class="s2">         if eval_gradient:</span>
+<span class="g g-Whitespace">    </span><span class="mi">912</span><span class="s2">             K1, K1_gradient = self.k1(X, Y, eval_gradient=True)</span>
+<span class="ne">--&gt; </span><span class="mi">913</span><span class="s2">             K2, K2_gradient = self.k2(X, Y, eval_gradient=True)</span>
+<span class="g g-Whitespace">    </span><span class="mi">914</span><span class="s2">             return K1 * K2, np.dstack((K1_gradient * K2[:, :, np.newaxis],</span>
+<span class="g g-Whitespace">    </span><span class="mi">915</span><span class="s2">                                        K2_gradient * K1[:, :, np.newaxis]))</span>
+
+<span class="nn">~/anaconda3/envs/AMLenv/lib/python3.8/site-packages/sklearn/gaussian_process/kernels.py</span> in <span class="ni">__call__</span><span class="nt">(self, X, Y, eval_gradient)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1654</span><span class="s2">         elif self.nu == 1.5:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1655</span><span class="s2">             K = dists * math.sqrt(3)</span>
+<span class="ne">-&gt; </span><span class="mi">1656</span><span class="s2">             K = (1. + K) * np.exp(-K)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1657</span><span class="s2">         elif self.nu == 2.5:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1658</span><span class="s2">             K = dists * math.sqrt(5)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -645,20 +768,6 @@
 <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">scalerX</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>acc = 98.25, f1 = 98.61
-precision = 97.26, recall = 100.00
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/sklearn/utils/deprecation.py:87: FutureWarning: Function plot_confusion_matrix is deprecated; Function `plot_confusion_matrix` is deprecated in 1.0 and will be removed in 1.2. Use one of the class methods: ConfusionMatrixDisplay.from_predictions or ConfusionMatrixDisplay.from_estimator.
-  warnings.warn(msg, category=FutureWarning)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x7f9daf1e9d50&gt;
-</pre></div>
-</div>
-<img alt="../../_images/09_examples_5_3.png" src="../../_images/09_examples_5_3.png" />
 </div>
 </div>
 </div>
@@ -733,13 +842,12 @@ precision = 97.26, recall = 100.00
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[108**2 * RBF(length_scale=48.3) + WhiteKernel(noise_level=3.95e-07), 28.4**2 * RBF(length_scale=12.8) + WhiteKernel(noise_level=0.00099), 247**2 * RBF(length_scale=87.9) + WhiteKernel(noise_level=0.000995), 42.7**2 * RBF(length_scale=18.1) + WhiteKernel(noise_level=0.000991), 121**2 * RBF(length_scale=49.5) + WhiteKernel(noise_level=2.11e-07), 96.3**2 * RBF(length_scale=43.6) + WhiteKernel(noise_level=0.000994), 99.1**2 * RBF(length_scale=41.7) + WhiteKernel(noise_level=0.000995), 64.6**2 * RBF(length_scale=33.3) + WhiteKernel(noise_level=0.000994), 19.9**2 * RBF(length_scale=10.2) + WhiteKernel(noise_level=1.63e-07), 43.7**2 * RBF(length_scale=21) + WhiteKernel(noise_level=6.67e-07)]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>acc = 97.78
+acc = 97.78
 f1 = [100.          98.24561404 100.          97.05882353 100.
   95.74468085  97.14285714  98.50746269  96.66666667  95.        ]
 </pre></div>
 </div>
+<img alt="../../_images/09_examples_8_1.png" src="../../_images/09_examples_8_1.png" />
 </div>
 </div>
 </div>
