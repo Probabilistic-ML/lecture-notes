@@ -455,7 +455,7 @@ p(C_l~|~x) &amp;= \frac{\prod_{i=1}^n p(x_i~|~C_l) ~ p(C_l)}{p(x)}
 <div class="math notranslate nohighlight">
 \[\hat{y} = \text{argmax}_{l=1,\dots,k} ~\prod_{i=1}^n p(x_i~|~C_l)~p(C_l)  \]</div>
 <p>Limits of NBC:
--aspect covariance</p>
+-&gt;aspect covariance</p>
 <p>So the independece implies zero covariance between two random variables. A non zero covariance leads to Gaussian Mixture Model.</p>
 </div>
 <div class="section" id="gaussian-mixture-model">
@@ -465,7 +465,7 @@ p(C_l~|~x) &amp;= \frac{\prod_{i=1}^n p(x_i~|~C_l) ~ p(C_l)}{p(x)}
 \[
 P(X=x~|~C=j) = \mathcal{N_p}(x;\mu_j,\Sigma_j)
 \]</div>
-<p>with mean <span class="math notranslate nohighlight">\(\mu \in \R^d \)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma \in \R^{d\times d }\)</span>.</p>
+<p>with mean <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}^d \)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{d\times d }\)</span>.</p>
 <p>The marginal propability <span class="math notranslate nohighlight">\(P(X)\)</span> is a Gaussian Mixture that is weighted sum of mulitvariate Normal distributions</p>
 <div class="math notranslate nohighlight">
 \[
@@ -474,8 +474,110 @@ P(X=x) = \sum_{j=1}^k\pi_j\mathcal{N_p}(x;\mu_j,\Sigma_j)
 <p>where <span class="math notranslate nohighlight">\(\pi_j:= P(C=j)\)</span> is a mixture coeffiecent for which applies
 $<span class="math notranslate nohighlight">\(
 \sum_{j=1}^J\pi_j=1.
+\)</span>$
+For example a gaussian Mixture would be</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x) = \frac{1}{2}\mathcal{N_2}(\mu_0,\Sigma_0+\frac{1}{2}\mathcal{N_2}(\mu_1,\Sigma_1)
+\]</div>
+<p>with
+$<span class="math notranslate nohighlight">\(
+\pi_{0,1}=0.5,\quad \mu_0=[0,0],\quad \mu_1=[1.5,-1.5].\quad \Sigma_{0,1}=
+\left[\begin{array}{rr} 
+1 &amp; 0.95  \\ 
+0.95 &amp; 1  \\ 
+\end{array}\right]
 \)</span>$</p>
-<p>Inference of parameters in GMM</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">adjusted_mutual_info_score</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cov_1</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">],[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">mean_1</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov_1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">data_cigars_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span> <span class="p">})</span>
+
+<span class="n">mean_2</span><span class="o">=</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">]</span>
+<span class="n">cov_2</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">],[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">mean_2</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov_2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">data_cigars_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span> <span class="p">})</span>
+
+<span class="n">data_cigars</span> <span class="o">=</span> <span class="n">data_cigars_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_cigars_2</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_cigars</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$X$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$Y$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_overview_4_0.png" src="../_images/03_overview_4_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gaussian_mixture_proba</span><span class="p">(</span><span class="n">pos_for_pdf</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">pi</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">pos_for_pdf</span><span class="p">,</span> <span class="n">mu</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">cov</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> 
+    <span class="k">return</span> <span class="n">s</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mean_1</span><span class="p">,</span> <span class="n">mean_2</span><span class="p">])</span>
+<span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cov_1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cov_2</span><span class="p">)])</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">pos</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">;</span> <span class="n">pos</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">gaussian_mixture_proba</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">,</span> <span class="n">pi</span><span class="o">=</span><span class="n">pi</span><span class="p">),</span> <span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_cigars</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$Y$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$X$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_overview_7_0.png" src="../_images/03_overview_7_0.png" />
+</div>
+</div>
+<p>As an esay example we had assumed that we already know the GMM parameters to show that the model can fit the data. The big problem is that we need to find these parameters <span class="math notranslate nohighlight">\((\pi_j,\mu_j\Sigma_j)_{j=1,...,k}\)</span> for the gaussian mixture which fits the data best. We will begin with the inference of parameters in GMM</p>
 <p>For data <span class="math notranslate nohighlight">\(D={x_i:i=1,...,n}\)</span> and parameters <span class="math notranslate nohighlight">\(\Theta\)</span> model likelihood is given by</p>
 <div class="math notranslate nohighlight">
 \[
@@ -492,36 +594,55 @@ $<span class="math notranslate nohighlight">\(
 <p>Let us assume we knew the “correct” cluster <span class="math notranslate nohighlight">\(C(i)\)</span> for each <span class="math notranslate nohighlight">\(x_i\in D\)</span>. We can write the likelihood of model parameters <span class="math notranslate nohighlight">\(\Theta\)</span> based on joint distribution</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{L}(\Theta~|~D)= \prod_{i=1}^nP(X=x_i,C=C(i)~|~\Theta)
+\mathcal{L}(\Theta~|~D)= \prod_{i=1}^nP(X=x_i,C=C(i)~|~\Theta).
 \]</div>
 <p>The log-likelihood of the model is</p>
 <div class="math notranslate nohighlight">
 \[
-\log \mathcal{L}(\Theta~|~D)= \sum_{i=1}^n\log P(X=x_i,C=C(i)~|~\Theta)
+\log \mathcal{L}(\Theta~|~D)= \sum_{i=1}^n\log P(X=x_i,C=C(i)~|~\Theta).
 \]</div>
 <p>For a guess of parameters <span class="math notranslate nohighlight">\(\Theta^{(t)} = (\pi_j,\mu_j\Sigma_j)_{j=1,...,k}\)</span> the expected log-likelihood can be calculated as</p>
 <div class="math notranslate nohighlight">
 \[
-E[\log\mathcal{L}(\Theta~|~D)]= \sum_{i=1}^n \sum_{j=1}^k P(C=j~|~X=x_i,\Theta^{(t)})\log P(X=x_i,C=j~|~\Theta)
+E[\log\mathcal{L}(\Theta~|~D)]= \sum_{i=1}^n \sum_{j=1}^k P(C=j~|~X=x_i,\Theta^{(t)})\log P(X=x_i,C=j~|~\Theta).
 \]</div>
 <p>To find the optimal parameters of the <span class="math notranslate nohighlight">\(k d\)</span>-dimensional multivariate Normal distributions that maximise the likelihood, we can apply a general and powerful iterative approach, the so-called expectation-maximisation (EM) algorithm. It is based on the idea that, rather than maximising the model likelihood based on the marginal probability <span class="math notranslate nohighlight">\(P(X)\)</span>, we can instead use an  estimate for the conditional probability <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> to compute the expected log-likelihood based on the joint distribution <span class="math notranslate nohighlight">\(P(X, C)\)</span>.</p>
 <p>To better understand this, let us assume we knew the cluster <span class="math notranslate nohighlight">\(C(i)\)</span> for each observation <span class="math notranslate nohighlight">\(x_i \in D\)</span>. For each we could then calculate the likelihood and log-likelihood function of our model based on the joint distribution <span class="math notranslate nohighlight">\(P(X, C)\)</span>. Unfortunately, we lack the information to which clusters the data points belong. However, we can capture this lack of information based on the conditional probability <span class="math notranslate nohighlight">\(P(C|X)\)</span>, which we can compute for any guess of parameters <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span>.</p>
-<p>For <span class="math notranslate nohighlight">\(j=1,...,k\)</span> we use guessed parameters <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span> to calculate
-$<span class="math notranslate nohighlight">\(
-P(C=j~|~X=x_i,\Theta^{(t)})= \frac{\mathcal{N_d}(x;\mu_j,\Sigma_j)\pi_j}{\sum_{j=1}^k\mathcal{N_d}(x;\mu_j,\Sigma_j)}:=\gamma_{ij}
-\)</span><span class="math notranslate nohighlight">\( 
-Update \)</span>\Theta^{(t)}\rightarrow \Theta^{(t+1)}<span class="math notranslate nohighlight">\( such that \)</span>\gamma_{ij}<span class="math notranslate nohighlight">\( and thus \)</span>E[\log\mathcal{L}(\Theta~|~D)]<span class="math notranslate nohighlight">\( is maximal.
-With \)</span>N_j:=\sum_{i=1}^n\gamma_{ij}$ expactation-maximising parameters are</p>
+<p>For <span class="math notranslate nohighlight">\(j=1,...,k\)</span> we use guessed parameters <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span> to calculate</p>
 <div class="math notranslate nohighlight">
 \[
-\pi_j = \frac{N_j}{n}, \quad \mu_j = \frac{1}{N}\sum_{i=1}^n\gamma_{ij}x_i, \quad \Sigma_j=\frac{1}{N}\sum_{i=1}^n\gamma_{ij}(x_i  \mu_j)(x_i-\mu_j)^T
+P(C=j~|~X=x_i,\Theta^{(t)})= \frac{\mathcal{N_d}(x;\mu_j,\Sigma_j)\pi_j}{\sum_{j=1}^k\mathcal{N_d}(x;\mu_j,\Sigma_j)}:=\gamma_{ij}.
 \]</div>
-<p>expactation-maximisation agorithm iteratively updates  <span class="math notranslate nohighlight">\(\Theta^{(t)}\rightarrow \Theta^{(t+1)}\)</span> to find maximum-likehood parameters</p>
-<p>The trick is now to compute <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> based on our current guess of <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span> and then update the parameters such that <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> (and thus the expected log-likelihood) is maximised. Those maximum parameters can actually be determined by taking the
+<p>Update <span class="math notranslate nohighlight">\(\Theta^{(t)}\rightarrow \Theta^{(t+1)}\)</span> such that <span class="math notranslate nohighlight">\(\gamma_{ij}\)</span> and thus <span class="math notranslate nohighlight">\(E[\log\mathcal{L}(\Theta~|~D)]\)</span> is maximal.
+With <span class="math notranslate nohighlight">\(N_j:=\sum_{i=1}^n\gamma_{ij}\)</span> expactation-maximising parameters are</p>
+<div class="math notranslate nohighlight">
+\[
+\pi_j = \frac{N_j}{n}, \quad \mu_j = \frac{1}{N_j}\sum_{i=1}^n\gamma_{ij}x_i, \quad \Sigma_j=\frac{1}{N_j}\sum_{i=1}^n\gamma_{ij}(x_i -\mu_j)(x_i-\mu_j)^T.
+\]</div>
+<p>The expactation-maximisation agorithm iteratively updates  <span class="math notranslate nohighlight">\(\Theta^{(t)}\rightarrow \Theta^{(t+1)}\)</span> to find maximum-likehood parameters</p>
+<p>The trick is now to compute <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> based on our current guess of <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span> and then update the parameters such that <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> and the expected log-likelihood is maximised. Those maximum parameters can actually be determined by taking the
 derivative of the conditional probability (the constraint <span class="math notranslate nohighlight">\(\sum_{j=1}\pi_j=1\)</span> requires quadratic programming to find <span class="math notranslate nohighlight">\(\pi_j\)</span>).</p>
 <p>We can now use the updated parameters to get a better estimate for the conditional probability, so we can simply repeat the procedure. In each step, we first compute the expectation for the model likelihood and then find the parameters that maximise this expectation, which is why the algorithm is called expectation-maximisation.</p>
 <p>This yields an iterative algorithm, which starts from an initial guess of the model parameters and then, step-by-step, updates the model parameters to iteratively increase the model likelihood until we reach a maximum.</p>
-<p>Note that the expectation/maximisation steps ares similar to k-means in the sense that the expectation step can be thought of as assigning clusters to the data (by computing <span class="math notranslate nohighlight">\(P(C|X)\)</span>), while the maximisation step moves the cluster centroids (as well as the covariances and the priors) based on the new assignment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_cigars</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]])</span>
+<span class="n">data_cigars</span><span class="p">[</span><span class="s1">&#39;cluster_predicted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_cigars</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;cluster_predicted&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_cigars</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$X$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$Y$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;$Y$&#39;)
+</pre></div>
+</div>
+<img alt="../_images/03_overview_15_1.png" src="../_images/03_overview_15_1.png" />
+</div>
+</div>
 </div>
 </div>
 
