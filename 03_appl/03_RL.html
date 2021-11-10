@@ -43,8 +43,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -498,8 +496,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b5ac644b-1b8b-42e3-ac52-0d909110d6b9">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-b5ac644b-1b8b-42e3-ac52-0d909110d6b9" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-74fbbdee-13e8-4a32-b8aa-f1ff495338fa">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-74fbbdee-13e8-4a32-b8aa-f1ff495338fa" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
