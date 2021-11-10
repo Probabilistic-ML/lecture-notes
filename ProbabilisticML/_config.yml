@@ -54,7 +54,7 @@ sphinx:
 
 execute:
   timeout: -1
-  execute_notebooks: cache
+  execute_notebooks: "off" # force, cache
 
 parse:
   myst_enable_extensions:
