@@ -5,7 +5,7 @@ autograd
 numpy
 scipy
 matplotlib
-scikit-learn
+scikit-learn>=1.0.1
 seaborn
 ipympl
 ipywidgets
