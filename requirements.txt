@@ -1,3 +1,4 @@
+sphinx<4.3
 jupyter-book
 ghp-import
 tensorflow>=2.4
