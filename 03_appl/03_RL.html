@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>11. Efficient Reinforcement Learning &#8212; Introduction to Probabilistic Machine Learning</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -43,6 +43,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -58,7 +60,10 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="10. Design Uncertainty Analysis" href="uncertainty.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -97,7 +102,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Preface
  </span>
@@ -119,7 +124,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Fundamentals
  </span>
@@ -210,7 +215,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Probabilistic Machine Learning
  </span>
@@ -289,7 +294,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Applications
  </span>
@@ -496,8 +501,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ae966a6e-3318-4b0f-95b4-095df609f648">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-ae966a6e-3318-4b0f-95b4-095df609f648" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4027bf0d-20a2-4ce0-9dd7-c3abadf20ea7">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-4027bf0d-20a2-4ce0-9dd7-c3abadf20ea7" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -541,22 +546,15 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="uncertainty.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title"><span class="section-number">10. </span>Design Uncertainty Analysis</p>
-            </div>
-        </a>
-    </div>
-
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="uncertainty.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">10. </span>Design Uncertainty Analysis</p>
+        </div>
+    </a>
 </div>
         
         </div>
@@ -579,8 +577,7 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>
