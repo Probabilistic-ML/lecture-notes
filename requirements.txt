@@ -10,3 +10,4 @@ scikit-learn
 seaborn
 ipympl
 ipywidgets
+autograd
