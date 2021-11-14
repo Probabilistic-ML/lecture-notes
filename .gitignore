@@ -2,5 +2,6 @@
 .idea/
 venv/
 **/_*/
+*.bib.*
 !ProbabilisticML/_static/
 ProbabilisticML/02_probML/02_kernelmethods/GPanimation.ipynb

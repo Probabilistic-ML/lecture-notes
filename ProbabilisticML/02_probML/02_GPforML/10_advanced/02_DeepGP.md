@@ -6,9 +6,11 @@ Both {cite}```Damianou2013``` and {cite}```Salimbeni2017``` propose to use deep 
 
 Besides stacking $\mathcal{GP}$s, various neural network architectures are also proposed for the transformation $f_t$. Most importantly, exact {cite}```Wilson2015``` and approximate {cite}```Wilson2016``` deep kernel learning were proposed, where a deep neural network (DNN) with reducing number of neurons were used as $f_t(\dot)$ to reduce the dimensionality. This approach is especially useful, if the original representation contains redundant features such as in images. 
 
-Moreover, using variational autoencoders with exact {cite}```Casale2018``` and sparse {cite}```Jazbec2021``` $\mathcal{GP}$ were also proposed. Since variational autoencoder seek to learn independent Gaussians as latent variables {cite}```Kingma2014```, using them in a $\mathcal{GP}$ context becomes more straightforward while providing the advantages of probabilistic treatment.  Finally, {cite}```Lee2018``` derive an exact equivalence between $\mathcal{GP}$ and DNN, followed by a proposal to use $\ac{GP}$ prior on DNN, yielding neural network Gaussian Processes. As such, $f_t(\cdot)$ consists of all latent layers of the DNN before the output layer.
+Moreover, using variational autoencoders with exact {cite}```Casale2018``` and sparse {cite}```Jazbec2021``` $\mathcal{GP}$ were also proposed. Since variational autoencoder seek to learn independent Gaussians as latent variables {cite}```Kingma2014```, using them in a $\mathcal{GP}$ context becomes more straightforward while providing the advantages of probabilistic treatment.  Finally, {cite}```Lee2018``` derive an exact equivalence between $\mathcal{GP}$ and DNN, followed by a proposal to use $\mathcal{GP}$ prior on DNN, yielding neural network Gaussian Processes. As such, $f_t(\cdot)$ consists of all latent layers of the DNN before the output layer.
 
-
-
+```{bibliography}
+:filter: docname in docnames
+:style: plain
+```
 
 
