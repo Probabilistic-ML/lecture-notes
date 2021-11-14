@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7.10.2. Non-stationary Gaussian Processes &#8212; Introduction to Probabilistic Machine Learning</title>
+    <title>7.10.3. Non-stationary Gaussian Processes &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="8. Overview of Further Probabilistic Models" href="../../03_overview.html" />
-    <link rel="prev" title="7.10.1. Gaussian Processes on latent representations" href="02_DeepGP.html" />
+    <link rel="prev" title="7.10.2. Gaussian Processes on latent representations" href="02_DeepGP.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -293,13 +293,18 @@
     </label>
     <ul class="current">
      <li class="toctree-l3">
+      <a class="reference internal" href="01_SparseGP.html">
+       7.10.1. Scalable Gaussian Processes
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="02_DeepGP.html">
-       7.10.1. Gaussian Processes on latent representations
+       7.10.2. Gaussian Processes on latent representations
       </a>
      </li>
      <li class="toctree-l3 current active">
       <a class="current reference internal" href="#">
-       7.10.2. Non-stationary Gaussian Processes
+       7.10.3. Non-stationary Gaussian Processes
       </a>
      </li>
     </ul>
@@ -421,7 +426,7 @@
               <div>
                 
   <div class="section" id="non-stationary-gaussian-processes">
-<h1><span class="section-number">7.10.2. </span>Non-stationary Gaussian Processes<a class="headerlink" href="#non-stationary-gaussian-processes" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.10.3. </span>Non-stationary Gaussian Processes<a class="headerlink" href="#non-stationary-gaussian-processes" title="Permalink to this headline">¶</a></h1>
 <p>Length scale and other kernel parameters have a large influence on the resulting <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model. For example, if the lengthscale is too large, the resulting model may underfit the data, smoothing out important characteristics. Similarly, a too small lengthscale will lead to overfitting data points, generating peaks around them. MLE or MAP approaches seek to find a good trade-off between under- and overfitting.</p>
 <p>However, a global treatment of the length scale and other kernel parameters may be too limiting. Some functions may depict locally different structures, where the optimal length scale in one region is not equal to the optimal length scale in another. If we use MLE in this case, we would get a weighted average of these optimal values, where the weights depend on the number of data points in the corresponding subregion.</p>
 <p>Non-stationary <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> were proposed to tackle this problem, where <span class="math notranslate nohighlight">\(q\in\mathbb{N}\)</span> kernel parameters <span class="math notranslate nohighlight">\(\theta \in \mathbb{R}^q\)</span> are replaced with continous functions <span class="math notranslate nohighlight">\(\theta_{x}: \mathbb{R}^n \rightarrow \mathbb{R}^q\)</span> which depend on the input coordinates <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> of the <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> prediction. In the following, we only consider isotropic <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> for ease of notation but the results can be trivially extended to anisotropic <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>.</p>
@@ -476,7 +481,7 @@
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7.10.1. </span>Gaussian Processes on latent representations</p>
+            <p class="prev-next-title"><span class="section-number">7.10.2. </span>Gaussian Processes on latent representations</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../../03_overview.html" title="next page">

@@ -292,13 +292,18 @@
     </label>
     <ul>
      <li class="toctree-l3">
+      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/01_SparseGP.html">
+       7.10.1. Scalable Gaussian Processes
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/02_DeepGP.html">
-       7.10.1. Gaussian Processes on latent representations
+       7.10.2. Gaussian Processes on latent representations
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/03_NonstationaryGP.html">
-       7.10.2. Non-stationary Gaussian Processes
+       7.10.3. Non-stationary Gaussian Processes
       </a>
      </li>
     </ul>
@@ -518,8 +523,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a85c1f32-8fab-40ad-ab5c-672057501c18">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-a85c1f32-8fab-40ad-ab5c-672057501c18" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b16be144-4147-4723-b7a9-71437fcde573">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-b16be144-4147-4723-b7a9-71437fcde573" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\

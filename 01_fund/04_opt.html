@@ -293,13 +293,18 @@
     </label>
     <ul>
      <li class="toctree-l3">
+      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/01_SparseGP.html">
+       7.10.1. Scalable Gaussian Processes
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/02_DeepGP.html">
-       7.10.1. Gaussian Processes on latent representations
+       7.10.2. Gaussian Processes on latent representations
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/03_NonstationaryGP.html">
-       7.10.2. Non-stationary Gaussian Processes
+       7.10.3. Non-stationary Gaussian Processes
       </a>
      </li>
     </ul>
@@ -532,7 +537,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2551.33590160682
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2325.5849747421616
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -564,13 +569,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum: 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  66.26194452177671
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 111.38277255513079
-</pre></div>
-</div>
-<img alt="../_images/04_opt_5_2.png" src="../_images/04_opt_5_2.png" />
+<img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
 </div>
 </div>
 <p>We now see that the “fit” of our model is much better. This method above falls under the category gradient optimization. However Newton’s method is not often used in machine learning because we need the second derivative, because we are searching the zeros of the first derivative. But often this is not possible or it is just to resource consuming to use it. For the newton’s method we need to calculate a inverse of the hessian matrix to get better convergence than first order gradient descent methods.</p>
@@ -979,14 +981,12 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.70234834 2.90338894]
+[1.07445147 1.14227186]
+Rastrigin
+[ 0.07043117 -0.01270989]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
-[1.08859072 1.04862378]
-</pre></div>
-</div>
-<img alt="../_images/04_opt_23_2.png" src="../_images/04_opt_23_2.png" />
+<img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -1084,8 +1084,8 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3903
-     nit: 129
+    nfev: 3933
+     nit: 130
  success: True
        x: array([1., 1.])
 </pre></div>
@@ -1093,10 +1093,10 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1983
-     nit: 65
+    nfev: 1803
+     nit: 59
  success: True
-       x: array([-3.12450510e-09, -1.19938748e-09])
+       x: array([-1.18179977e-09, -9.26773547e-10])
 </pre></div>
 </div>
 <img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />
