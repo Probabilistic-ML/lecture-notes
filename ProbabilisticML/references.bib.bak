@@ -112,11 +112,4 @@ journal = {International Journal of Computer Science}
   year      = {2008},
 }
 
-@PhdThesis{Cremanns2021,
-  author = {Kevin Cremanns and Dirk Roos and Stefan Reh and Sebastian M{\"u}nstermann},
-  school = {RWTH Aachen},
-  title  = {Probabilistic machine learning for pattern recognition and design exploration},
-  year   = {2021},
-}
-
 @Comment{jabref-meta: databaseType:bibtex;}
