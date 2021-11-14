@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7.10.2. Gaussian Processes on latent representations &#8212; Introduction to Probabilistic Machine Learning</title>
+    <title>7.10.1. Gaussian Processes on latent representations &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -58,8 +58,8 @@
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="7.10.3. Non-stationary Gaussian Processes" href="03_NonstationaryGP.html" />
-    <link rel="prev" title="7.10.1. Sparse Gaussian Process For Regresson" href="01_SparseGP.html" />
+    <link rel="next" title="7.10.2. Non-stationary Gaussian Processes" href="03_NonstationaryGP.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="01_SparseGP.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -292,19 +292,14 @@
      </i>
     </label>
     <ul class="current">
-     <li class="toctree-l3">
-      <a class="reference internal" href="01_SparseGP.html">
-       7.10.1. Sparse Gaussian Process For Regresson
-      </a>
-     </li>
      <li class="toctree-l3 current active">
       <a class="current reference internal" href="#">
-       7.10.2. Gaussian Processes on latent representations
+       7.10.1. Gaussian Processes on latent representations
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="03_NonstationaryGP.html">
-       7.10.3. Non-stationary Gaussian Processes
+       7.10.2. Non-stationary Gaussian Processes
       </a>
      </li>
     </ul>
@@ -426,7 +421,7 @@
               <div>
                 
   <div class="section" id="gaussian-processes-on-latent-representations">
-<h1><span class="section-number">7.10.2. </span>Gaussian Processes on latent representations<a class="headerlink" href="#gaussian-processes-on-latent-representations" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.10.1. </span>Gaussian Processes on latent representations<a class="headerlink" href="#gaussian-processes-on-latent-representations" title="Permalink to this headline">¶</a></h1>
 <p>Although the representative power of a Gaussian process is quite high due to the use of kernels, a single kernel measure may not be sufficient to represent very complicated relationships. Although kernel engineering, i.e. combining multiple kernels, may provide some improvement of the representative power, this may still be insufficient. The kernel evaluation is bound to the original <span class="math notranslate nohighlight">\(d\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. However, the Euclidean distance as used in stationary kernels may not be the best way of measuring similarity between the samples <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span>, on which the kernel approximation relies. Thus, a transformation <span class="math notranslate nohighlight">\(f_t: \mathbb{R}^d \rightarrow \mathbb{R}^q\)</span> to a latent space <span class="math notranslate nohighlight">\(\mathbb{R}^q\)</span> can be deployed to improve the effectivenes of the Eulidean distance on the new latent samples <span class="math notranslate nohighlight">\(u_i = f_t(x_i)\)</span>.</p>
 <p>Both <span id="id1">[<a class="reference internal" href="#id27">2</a>]</span> and <span id="id2">[<a class="reference internal" href="#id26">5</a>]</span> propose to use deep <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>, where multiple <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> are stacked and the outputs of the previous layer <span class="math notranslate nohighlight">\(\mathcal{GP}_{i-1}\)</span> are used as the inputs of the current layer <span class="math notranslate nohighlight">\(\mathcal{GP}_{i}\)</span>. In other words, <span class="math notranslate nohighlight">\(l\)</span> number of <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>s are stacked, where the first layers <span class="math notranslate nohighlight">\(\mathcal{GP}_{1, \dots, l-1}\)</span> correspond to the transformation function <span class="math notranslate nohighlight">\(f_t(\cdot)\)</span> and the posterior of the last layer <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> corresponds to the predicted posterior. Both publications differ in the way the training and posterior prediction are formulated. In <span id="id3">[<a class="reference internal" href="#id27">2</a>]</span>, a variational posterior is used. This assumes an independence of the outputs of each layer. In <span id="id4">[<a class="reference internal" href="#id26">5</a>]</span>, a doubly stochastic variational inference is performed instead, where the assumption of independence is dropped.</p>
 <p>Besides stacking <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>s, various neural network architectures are also proposed for the transformation <span class="math notranslate nohighlight">\(f_t\)</span>. Most importantly, exact <span id="id5">[<a class="reference internal" href="#id28">6</a>]</span> and approximate <span id="id6">[<a class="reference internal" href="#id29">7</a>]</span> deep kernel learning were proposed, where a deep neural network (DNN) with reducing number of neurons were used as <span class="math notranslate nohighlight">\(f_t(\dot)\)</span> to reduce the dimensionality. This approach is especially useful, if the original representation contains redundant features such as in images.</p>
@@ -486,13 +481,13 @@
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7.10.1. </span>Sparse Gaussian Process For Regresson</p>
+            <p class="prev-next-title">&lt;no title&gt;</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="03_NonstationaryGP.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7.10.3. </span>Non-stationary Gaussian Processes</p>
+        <p class="prev-next-title"><span class="section-number">7.10.2. </span>Non-stationary Gaussian Processes</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

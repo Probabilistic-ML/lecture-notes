@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7.10.1. Sparse Gaussian Process For Regresson &#8212; Introduction to Probabilistic Machine Learning</title>
+    <title>&lt;no title&gt; &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -45,8 +45,6 @@
     <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -58,7 +56,7 @@
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="7.10.2. Gaussian Processes on latent representations" href="02_DeepGP.html" />
+    <link rel="next" title="7.10.1. Gaussian Processes on latent representations" href="02_DeepGP.html" />
     <link rel="prev" title="7.10. Advanced Methods" href="../10_advanced.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -221,22 +219,22 @@
   Probabilistic Machine Learning
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../01_motivation.html">
    6. Motivation of Probabilistic Models
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../02_GPforML.html">
    7. Gaussian Processes for Machine Learning
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../01_kerneltrick.html">
      7.1. The Kernel Trick: Implicit embeddings from inner products
@@ -282,29 +280,24 @@
      7.9. Examples
     </a>
    </li>
-   <li class="toctree-l2 current active has-children">
+   <li class="toctree-l2 has-children">
     <a class="reference internal" href="../10_advanced.html">
      7.10. Advanced Methods
     </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
     <label for="toctree-checkbox-4">
      <i class="fas fa-chevron-down">
      </i>
     </label>
-    <ul class="current">
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
-       7.10.1. Sparse Gaussian Process For Regresson
-      </a>
-     </li>
+    <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="02_DeepGP.html">
-       7.10.2. Gaussian Processes on latent representations
+       7.10.1. Gaussian Processes on latent representations
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="03_NonstationaryGP.html">
-       7.10.3. Non-stationary Gaussian Processes
+       7.10.2. Non-stationary Gaussian Processes
       </a>
      </li>
     </ul>
@@ -412,27 +405,19 @@
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/02_probML/02_GPforML/10_advanced/01_SparseGP.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -441,83 +426,7 @@
         
               <div>
                 
-  <div class="section" id="sparse-gaussian-process-for-regresson">
-<h1><span class="section-number">7.10.1. </span>Sparse Gaussian Process For Regresson<a class="headerlink" href="#sparse-gaussian-process-for-regresson" title="Permalink to this headline">¶</a></h1>
-<p><strong>Recap Gaussian Process Regression</strong></p>
-<p>In <span class="xref std std-ref">GPR-Lemma</span> we have fully discribed a gaussian process for regression. For repitition we will write this down again</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-p(y_* \lvert X_*X,y) &amp;= \mathcal{N}(y_* \lvert \mu_*, \Sigma_*)\\
-\mu_* = \mathbb{E}(f(X^*)) &amp;= K(X^*, X) \big(K(X, X) + \sigma_{n}^2 I_n\big)^{-1} y\\
-\Sigma_* =\text{Cov}(f(X^*)) &amp;= K(X^*, X^*) - K(X^*, X) \big(K(X, X) + \sigma_{n}^2 I_n\big)^{-1} K(X, X^*)
-\end{aligned}
-\end{split}\]</div>
-<p>We will shorten this notation of <span class="math notranslate nohighlight">\(K(X^*, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{**}\)</span> , <span class="math notranslate nohighlight">\(K(X^*, X)\)</span> to <span class="math notranslate nohighlight">\(K_{*}^T\)</span> and <span class="math notranslate nohighlight">\(K(X, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{*}\)</span> and this we lead to</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-p(y_* \lvert X_*X,y) &amp;= \mathcal{N}(y_* \lvert \mu_*, \Sigma_*)\\
-\mu_* &amp;= K_{*}^T \big(K + \sigma_{n}^2 I_n\big)^{-1} y\\
-\Sigma_* &amp;= K_{**} - K_{*}^T \big(K + \sigma_{\text{noise}}^2 I_n\big)^{-1} K_{*}
-\end{aligned}
-\end{split}\]</div>
-<p>We can predict function values <span class="math notranslate nohighlight">\(f^*\)</span> at new inputs <span class="math notranslate nohighlight">\(X^*\)</span> with this. The most costly computation step of this is to compute the invserse of a covariance matrix (with noise)</p>
-<div class="math notranslate nohighlight">
-\[
-\big(K + \sigma_{n}^2 I_n\big)^{-1}
-\]</div>
-<p>which is needed in the mean and the covariance of the gaussian process.
-This matrix has the size of <span class="math notranslate nohighlight">\(n \times n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of training samples. The problem now is that, for large <span class="math notranslate nohighlight">\(n\)</span> a matrix inversion is intractable.</p>
-<p>The posterior ca also be defined as</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-p(f_* | X^*,X, y) = \int p(f_*,f| X^*,X,y)df \quad  \textrm{marginalize }f\\
-p(f_* | X^*,X, y) = \int p(f_*| X^*,X,f,y)p(f|X^*,X, y)df \quad \textrm{reserve chain rule}\\
-p(f_* | X^*,X, y) = \int p(f_* | X^*,X,f) p(f| X^*,X, y) df \quad \textrm{drop irrelevant y}
-\end{split}\]</div>
-<p><strong>Sparse Gaussian Process Regression</strong></p>
-<p>To avoid costly matrix inversion of <span class="math notranslate nohighlight">\(n \times n\)</span>-matrix, Authors in <span id="id1">[<a class="reference internal" href="#id17">2</a>]</span> propose to use the so called <em>inducing variables</em>. They assume the existence a set of <span class="math notranslate nohighlight">\(m\)</span> inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> with corresponding inputs <span class="math notranslate nohighlight">\(X_m\)</span> that will discribe our model well enough as if we used all datapoints <span class="math notranslate nohighlight">\(n\)</span>. Note that inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> evaluated at the pseudo-inputs <span class="math notranslate nohighlight">\(X_m\)</span>, which are independent from the training inputs. We will define the approximation posterior as
-$<span class="math notranslate nohighlight">\(
-q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
-\)</span>$</p>
-<p>where <span class="math notranslate nohighlight">\(\phi(f_m)\)</span> is the approximation of the intractable <span class="math notranslate nohighlight">\(p(f_m|y)\)</span> and is defined by</p>
-<div class="math notranslate nohighlight">
-\[
-\phi(f_m) = \mathcal{N}(f_m | \mu_m, A_m).
-\]</div>
-<p>Here is <span class="math notranslate nohighlight">\(\mu_m\)</span> the mean and <span class="math notranslate nohighlight">\(A_m\)</span> the covariance matrix. The goal is to find optimal values for the mean <span class="math notranslate nohighlight">\(\mu_m\)</span> and covarince <span class="math notranslate nohighlight">\(A_m\)</span> as well as the optimal location of the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. The mean and covariance matrix of the Guassian Process is defined by</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-q(f_*) = \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
-\mu_*^q = K_{*m} K_{mm}^{-1} \mu_m  \\
-\Sigma_*^q = K_{**} - K_{*m} K_{mm}^{-1} K_{m*} + K_{*m} K_{mm}^{-1} \mathbf{A}_m K_{mm}^{-1} K_{m*} 
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(K_{mm}=K(X_m,X_m)\)</span>, <span class="math notranslate nohighlight">\(K_{*m}=K(X_*,X_m)\)</span> and <span class="math notranslate nohighlight">\(K_{m*}=K(X_m,X_*)=K_{*m}^T\)</span>. Now we can see, that we have to do the inversion of a <span class="math notranslate nohighlight">\(m \times m\)</span> matrix if we found the optimal values for <span class="math notranslate nohighlight">\(\mu_m, A_m\)</span> and <span class="math notranslate nohighlight">\(X_m\)</span>. For optimization of this we will use a variational approach by minimizing the Kullback-Leibler (KL) divergence between the approximate <span class="math notranslate nohighlight">\(q(f)\)</span> and the exact posterior <span class="math notranslate nohighlight">\(p(f|y)\)</span> over latent variables <span class="math notranslate nohighlight">\(f\)</span>.</p>
-<p>The minimization of KL divergence is equivalent to maximization of a lower bound <span class="math notranslate nohighlight">\(\mathcal{L}(\mu_m, A_m,X_m)\)</span> on the true log marginal likelihood <span class="math notranslate nohighlight">\(\log p(y).\)</span> This lower bound can be optimized by analytically solving for <span class="math notranslate nohighlight">\(μ_m\)</span> and <span class="math notranslate nohighlight">\(A_m\)</span>. The resulting lower bound after optimization is a function of <span class="math notranslate nohighlight">\(X_m\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{L}(X_m)= \log \mathcal{N}(y|0,\sigma^2_y I+ Q_{nn})-\frac{1}{2 \sigma^2_y}\textrm{Tr}(K{nn}-Q{nn})
-\]</div>
-<p>with <span class="math notranslate nohighlight">\(Q{nn}=K{nm}K{mm}^{-1}K{mn}\)</span>. The first term on the RHS is the approximate log likelihood term and the second one is a regularization term which result of using variational approach.The second term can be interpreted as minimizing the error predicting <span class="math notranslate nohighlight">\(f\)</span> from inducing variables <span class="math notranslate nohighlight">\(f_m\)</span>. The better the variables <span class="math notranslate nohighlight">\(f_m\)</span> represent the function to be modeled the smaller this error will be. So the optimization will try to find the best postions for the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. With optimal inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span> we ca analytically find values for <span class="math notranslate nohighlight">\(\mu_m\)</span> and <span class="math notranslate nohighlight">\(A_m\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mu_m = \frac{1}{\sigma_y^2} K_{mm} \Sigma K_{mn} y \\
-A_m = K_{mm} \Sigma K_{mm} 
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\Sigma = (K_{mm}+\sigma^2_yK_{mm}K_{nm}^{-1})\)</span> is.</p>
-<p>For a more detailed description of sparse and variational GP, please refer to <span id="id2">[<a class="reference internal" href="#id25">1</a>]</span>.</p>
-<p id="id3"><dl class="citation">
-<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>Felix Leibfried, Vincent Dutordoir, ST John, and Nicolas Durrande. A tutorial on sparse gaussian processes and variational inference. 2021. <a class="reference external" href="https://arxiv.org/abs/2012.13962">arXiv:2012.13962</a>.</p>
-</dd>
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
-<dd><p>Michalis Titsias. Variational learning of inducing variables in sparse gaussian processes. In David van Dyk and Max Welling, editors, <em>Proceedings of the Twelth International Conference on Artificial Intelligence and Statistics</em>, volume 5 of Proceedings of Machine Learning Research, 567–574. Hilton Clearwater Beach Resort, Clearwater Beach, Florida USA, 16–18 Apr 2009. PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v5/titsias09a.html">https://proceedings.mlr.press/v5/titsias09a.html</a>.</p>
-</dd>
-</dl>
-</p>
-</div>
-
+  
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -553,7 +462,7 @@ A_m = K_{mm} \Sigma K_{mm}
     <a class='right-next' id="next-link" href="02_DeepGP.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7.10.2. </span>Gaussian Processes on latent representations</p>
+        <p class="prev-next-title"><span class="section-number">7.10.1. </span>Gaussian Processes on latent representations</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

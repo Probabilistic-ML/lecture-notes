@@ -293,18 +293,13 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/01_SparseGP.html">
-       7.10.1. Sparse Gaussian Process For Regresson
-      </a>
-     </li>
-     <li class="toctree-l3">
       <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/02_DeepGP.html">
-       7.10.2. Gaussian Processes on latent representations
+       7.10.1. Gaussian Processes on latent representations
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/03_NonstationaryGP.html">
-       7.10.3. Non-stationary Gaussian Processes
+       7.10.2. Non-stationary Gaussian Processes
       </a>
      </li>
     </ul>
@@ -537,7 +532,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  3857.592429319507
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2551.33590160682
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -569,10 +564,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  96.58927642296128
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum: 
 </pre></div>
 </div>
-<img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 111.38277255513079
+</pre></div>
+</div>
+<img alt="../_images/04_opt_5_2.png" src="../_images/04_opt_5_2.png" />
 </div>
 </div>
 <p>We now see that the “fit” of our model is much better. This method above falls under the category gradient optimization. However Newton’s method is not often used in machine learning because we need the second derivative, because we are searching the zeros of the first derivative. But often this is not possible or it is just to resource consuming to use it. For the newton’s method we need to calculate a inverse of the hessian matrix to get better convergence than first order gradient descent methods.</p>
@@ -981,11 +979,11 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.10043771 1.19576791]
+[1.70234834 2.90338894]
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
-[0.02474046 0.99664104]
+[1.08859072 1.04862378]
 </pre></div>
 </div>
 <img alt="../_images/04_opt_23_2.png" src="../_images/04_opt_23_2.png" />
@@ -1086,21 +1084,22 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 4353
-     nit: 144
+    nfev: 3903
+     nit: 129
  success: True
        x: array([1., 1.])
-Rastrigin
-     fun: 0.9949590570932969
-     jac: array([0.00000000e+00, 3.55271366e-07])
- message: &#39;Optimization terminated successfully.&#39;
-    nfev: 552
-     nit: 17
- success: True
-       x: array([-5.00175052e-09,  9.94958634e-01])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+     fun: 0.0
+ message: &#39;Optimization terminated successfully.&#39;
+    nfev: 1983
+     nit: 65
+ success: True
+       x: array([-3.12450510e-09, -1.19938748e-09])
+</pre></div>
+</div>
+<img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />
 </div>
 </div>
 </div>
