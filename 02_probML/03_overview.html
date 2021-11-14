@@ -476,23 +476,25 @@ P(X=x~|~C=j) = \mathcal{N_p}(x;\mu_j,\Sigma_j)
 \[
 P(X=x) = \sum_{j=1}^k\pi_j\mathcal{N_p}(x;\mu_j,\Sigma_j)
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\pi_j:= P(C=j)\)</span> is a mixture coeffiecent for which applies
-$<span class="math notranslate nohighlight">\(
+<p>where <span class="math notranslate nohighlight">\(\pi_j:= P(C=j)\)</span> is a mixture coeffiecent for which applies</p>
+<div class="math notranslate nohighlight">
+\[
 \sum_{j=1}^J\pi_j=1.
-\)</span>$
-For example a gaussian Mixture would be</p>
+\]</div>
+<p>For example a gaussian Mixture would be</p>
 <div class="math notranslate nohighlight">
 \[
 P(X=x) = \frac{1}{2}\mathcal{N_2}(\mu_0,\Sigma_0+\frac{1}{2}\mathcal{N_2}(\mu_1,\Sigma_1)
 \]</div>
-<p>with
-$<span class="math notranslate nohighlight">\(
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \pi_{0,1}=0.5,\quad \mu_0=[0,0],\quad \mu_1=[1.5,-1.5].\quad \Sigma_{0,1}=
 \left[\begin{array}{rr} 
 1 &amp; 0.95  \\ 
 0.95 &amp; 1  \\ 
 \end{array}\right]
-\)</span>$</p>
+\end{split}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
