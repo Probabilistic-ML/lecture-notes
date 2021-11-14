@@ -58,7 +58,7 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="8. Overview of Further Probabilistic Models" href="../03_overview.html" />
+    <link rel="next" title="7.10.1. Sparse Gaussian Process For Regresson" href="10_advanced/01_SparseGP.html" />
     <link rel="prev" title="7.9. Examples" href="09_examples.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -282,10 +282,32 @@
      7.9. Examples
     </a>
    </li>
-   <li class="toctree-l2 current active">
+   <li class="toctree-l2 current active has-children">
     <a class="current reference internal" href="#">
      7.10. Advanced Methods
     </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="10_advanced/01_SparseGP.html">
+       7.10.1. Sparse Gaussian Process For Regresson
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="10_advanced/02_DeepGP.html">
+       7.10.2. Gaussian Processes on latent representations
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="10_advanced/03_NonstationaryGP.html">
+       7.10.3. Non-stationary Gaussian Processes
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -411,19 +433,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sparse-gaussian-process-for-regresson">
-   7.10.1. Sparse Gaussian Process For Regresson
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -434,64 +443,8 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="advanced-methods">
 <h1><span class="section-number">7.10. </span>Advanced Methods<a class="headerlink" href="#advanced-methods" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="sparse-gaussian-process-for-regresson">
-<h2><span class="section-number">7.10.1. </span>Sparse Gaussian Process For Regresson<a class="headerlink" href="#sparse-gaussian-process-for-regresson" title="Permalink to this headline">¶</a></h2>
-<p><strong>Recap Gaussian Process Regression</strong></p>
-<p>In <span class="xref std std-ref">GPR-Lemma</span> we have fully discribed a gaussian process for regression. For repitition we will write this down again</p>
-<p>\begin{aligned}
-p(y_* \lvert X_<em>X,y) &amp;= \mathcal{N}(y_</em> \lvert \mu_<em>, \Sigma_</em>)\
-\mu_* = \mathbb{E}(f(X^<em>)) &amp;= K(X^</em>, X) \big(K(X, X) + \sigma_{\text{noise}}^2 I_n\big)^{-1} y\
-\Sigma_* =\text{Cov}(f(X^<em>)) &amp;= K(X^</em>, X^<em>) - K(X^</em>, X) \big(K(X, X) + \sigma_{\text{noise}}^2 I_n\big)^{-1} K(X, X^*)
-\end{aligned}</p>
-<p>We will shorten this notation of <span class="math notranslate nohighlight">\(K(X^*, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{**}\)</span> , <span class="math notranslate nohighlight">\(K(X^*, X)\)</span> to <span class="math notranslate nohighlight">\(K_{*}^T\)</span> and <span class="math notranslate nohighlight">\(K(X, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{*}\)</span> and this we lead to</p>
-<p>\begin{aligned}
-p(y_* \lvert X_<em>X,y) &amp;= \mathcal{N}(y_</em> \lvert \mu_<em>, \Sigma_</em>)\
-\mu_* &amp;= K_{<em>}^T \big(K + \sigma_{\text{noise}}^2 I_n\big)^{-1} y\
-\Sigma_</em> &amp;= K_{**} - K_{<em>}^T \big(K + \sigma_{\text{noise}}^2 I_n\big)^{-1} K_{</em>}
-\end{aligned}
-We can predict function values <span class="math notranslate nohighlight">\(f^*\)</span> at new inputs <span class="math notranslate nohighlight">\(X^*\)</span> with this. The most costly computation step of this is to compute the invserse of a covariance matrix (with noise)</p>
-<div class="math notranslate nohighlight">
-\[
-\big(K + \sigma_{\text{noise}}^2 I_n\big)^{-1}
-\]</div>
-<p>which is needed in the mean and the covariance of the gaussian process.
-This matrix has the size of <span class="math notranslate nohighlight">\(n \times n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of training samples. The problem now is that, for large <span class="math notranslate nohighlight">\(n\)</span> a matrix inversion is intractable.</p>
-<p>The posterior ca also be defined as
-$<span class="math notranslate nohighlight">\(
-p(f_* | X^*,X, y) = \int p(f_*,f| X^*,X,y)df \quad  \textrm{marginalize }f\\
-p(f_* | X^*,X, y) = \int p(f_*| X^*,X,f,y)p(f|X^*,X, y)df \quad \textrm{reserve chain rule}\\
-p(f_* | X^*,X, y) = \int p(f_* | X^*,X,f) p(f| X^*,X, y) df \quad \textrm{drop irrelevant y}
-\)</span>$</p>
-<p><strong>Sparse Gaussian Process Regression</strong></p>
-<p>To avoid costly matrix inversion of <span class="math notranslate nohighlight">\(n \times n\)</span>-matrix we suppose there exist a set of <span class="math notranslate nohighlight">\(m\)</span> inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> with corresponding inputs <span class="math notranslate nohighlight">\(X_m\)</span> that will discribe our model well enough as if we used all datapoints <span class="math notranslate nohighlight">\(n\)</span>. Note that inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> evaluated at the pseudo-inputs <span class="math notranslate nohighlight">\(X_m\)</span>, which are independent from the training inputs. We will define the approximation posterior as
-$<span class="math notranslate nohighlight">\(
-q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
-\)</span>$</p>
-<p>where <span class="math notranslate nohighlight">\(\phi(f_m)\)</span> is the approximation of the intractable <span class="math notranslate nohighlight">\(p(f_m|y)\)</span> and is defined by</p>
-<div class="math notranslate nohighlight">
-\[
-\phi(f_m) = \mathcal{N}(f_m | \mu_m, A_m).
-\]</div>
-<p>Here is <span class="math notranslate nohighlight">\(\mu_m\)</span> the mean and <span class="math notranslate nohighlight">\(A_m\)</span> the covariance matrix. The goal is to find optimal values for the mean <span class="math notranslate nohighlight">\(\mu_m\)</span> and covarince <span class="math notranslate nohighlight">\(A_m\)</span> as well as the optimal location of the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. The mean and covariance matrix of the Guassian Process is defined by</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-q(f_*) = \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
-\mu_*^q = K_{*m} K_{mm}^{-1} \mu_m  \\
-\Sigma_*^q = K_{**} - K_{*m} K_{mm}^{-1} K_{m*} + K_{*m} K_{mm}^{-1} \mathbf{A}_m K_{mm}^{-1} K_{m*} 
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(K_{mm}=K(X_m,X_m)\)</span>, <span class="math notranslate nohighlight">\(K_{*m}=K(X_*,X_m)\)</span> and <span class="math notranslate nohighlight">\(K_{m*}=K(X_m,X_*)=K_{*m}^T\)</span>. Now we can see, that we have to do the inversion of a <span class="math notranslate nohighlight">\(m \times m\)</span> matrix if we found the optimal values for <span class="math notranslate nohighlight">\(\mu_m, A_m\)</span> and <span class="math notranslate nohighlight">\(X_m\)</span>. For optimization of this we will use a variational approach by minimizing the Kullback-Leibler (KL) divergence between the approximate <span class="math notranslate nohighlight">\(q(f)\)</span> and the exact posterior <span class="math notranslate nohighlight">\(p(f|y)\)</span> over latent variables <span class="math notranslate nohighlight">\(f\)</span>.</p>
-<p>The minimization of KL divergence is equivalent to maximization of a lower bound <span class="math notranslate nohighlight">\(\mathcal{L}(\mu_m, A_m,X_m)\)</span> on the true log marginal likelihood <span class="math notranslate nohighlight">\(\log p(y).\)</span> This lower bound can be optimized by analytically solving for <span class="math notranslate nohighlight">\(μ_m\)</span> and <span class="math notranslate nohighlight">\(A_m\)</span>. The resulting lower bound after optimization is a function of <span class="math notranslate nohighlight">\(X_m\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{L}(X_m)= \log \mathcal{N}(y|0,\sigma^2_y I+ Q_{nn})-\frac{1}{2 \sigma^2_y}\textrm{Tr}(K{nn}-Q{nn})
-\]</div>
-<p>with <span class="math notranslate nohighlight">\(Q{nn}=K{nm}K{mm}^{-1}K{mn}\)</span>. The first term on the RHS is the approximate log likelihood term and the second one is a regularization term which result of using variational approach.The second term can be interpreted as minimizing the error predicting <span class="math notranslate nohighlight">\(f\)</span> from inducing variables <span class="math notranslate nohighlight">\(f_m\)</span>. The better the variables <span class="math notranslate nohighlight">\(f_m\)</span> represent the function to be modeled the smaller this error will be. So the optimization will try to find the best postions for the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. With optimal inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span> we ca analytically find values for <span class="math notranslate nohighlight">\(\mu_m\)</span> and <span class="math notranslate nohighlight">\(A_m\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mu_m = \frac{1}{\sigma_y^2} K_{mm} \Sigma K_{mn} y \\
-A_m = K_{mm} \Sigma K_{mm} 
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\Sigma = (K_{mm}+\sigma^2_yK_{mm}K_{nm}^{-1})\)</span> is.</p>
+<p>Some extensions of <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> are introduced briefly in the following. The aim is not to present a complete overview of the current state of research here but to provide some starting point about possible research topics. These arise from some disadvantages of traditional <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> formulations as well as proposed solutions to eliminate or neutralize them.</p>
+<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -527,10 +480,10 @@ A_m = K_{mm} \Sigma K_{mm}
             <p class="prev-next-title"><span class="section-number">7.9. </span>Examples</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../03_overview.html" title="next page">
+    <a class='right-next' id="next-link" href="10_advanced/01_SparseGP.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Overview of Further Probabilistic Models</p>
+        <p class="prev-next-title"><span class="section-number">7.10.1. </span>Sparse Gaussian Process For Regresson</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
