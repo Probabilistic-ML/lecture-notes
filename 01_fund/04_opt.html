@@ -298,13 +298,13 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/02_DeepGP.html">
-       7.10.2. Gaussian Processes on latent representations
+      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/02_NonstationaryGP.html">
+       7.10.2. Non-stationary Gaussian Processes
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/03_NonstationaryGP.html">
-       7.10.3. Non-stationary Gaussian Processes
+      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/03_DeepGP.html">
+       7.10.3. Gaussian Processes on latent representations
       </a>
      </li>
     </ul>
@@ -537,7 +537,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2325.5849747421616
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2818.410069283554
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -569,7 +569,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  66.26194452177671
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  119.85984044385202
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
@@ -981,12 +981,14 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.07445147 1.14227186]
-Rastrigin
-[ 0.07043117 -0.01270989]
+[1.06613582 1.12822556]
 </pre></div>
 </div>
-<img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+[0.93738481 1.9414908 ]
+</pre></div>
+</div>
+<img alt="../_images/04_opt_23_2.png" src="../_images/04_opt_23_2.png" />
 </div>
 </div>
 <p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
@@ -1084,8 +1086,8 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 3933
-     nit: 130
+    nfev: 4323
+     nit: 143
  success: True
        x: array([1., 1.])
 </pre></div>
@@ -1093,10 +1095,10 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
      fun: 0.0
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1803
-     nit: 59
+    nfev: 1833
+     nit: 60
  success: True
-       x: array([-1.18179977e-09, -9.26773547e-10])
+       x: array([-2.93552693e-09,  4.18094503e-10])
 </pre></div>
 </div>
 <img alt="../_images/04_opt_26_2.png" src="../_images/04_opt_26_2.png" />

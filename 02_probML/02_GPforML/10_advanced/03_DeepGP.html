@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7.10.3. Non-stationary Gaussian Processes &#8212; Introduction to Probabilistic Machine Learning</title>
+    <title>7.10.3. Gaussian Processes on latent representations &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -54,12 +54,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/10_advanced/03_NonstationaryGP.html" />
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/02_probML/02_GPforML/10_advanced/03_DeepGP.html" />
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="8. Overview of Further Probabilistic Models" href="../../03_overview.html" />
-    <link rel="prev" title="7.10.2. Gaussian Processes on latent representations" href="02_DeepGP.html" />
+    <link rel="prev" title="7.10.2. Non-stationary Gaussian Processes" href="02_NonstationaryGP.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -298,13 +298,13 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="02_DeepGP.html">
-       7.10.2. Gaussian Processes on latent representations
+      <a class="reference internal" href="02_NonstationaryGP.html">
+       7.10.2. Non-stationary Gaussian Processes
       </a>
      </li>
      <li class="toctree-l3 current active">
       <a class="current reference internal" href="#">
-       7.10.3. Non-stationary Gaussian Processes
+       7.10.3. Gaussian Processes on latent representations
       </a>
      </li>
     </ul>
@@ -379,7 +379,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/02_probML/02_GPforML/10_advanced/03_NonstationaryGP.md"><button type="button"
+        <a class="dropdown-buttons" href="../../../_sources/02_probML/02_GPforML/10_advanced/03_DeepGP.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -425,28 +425,33 @@
         
               <div>
                 
-  <div class="section" id="non-stationary-gaussian-processes">
-<h1><span class="section-number">7.10.3. </span>Non-stationary Gaussian Processes<a class="headerlink" href="#non-stationary-gaussian-processes" title="Permalink to this headline">¶</a></h1>
-<p>Length scale and other kernel parameters have a large influence on the resulting <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model. For example, if the lengthscale is too large, the resulting model may underfit the data, smoothing out important characteristics. Similarly, a too small lengthscale will lead to overfitting data points, generating peaks around them. MLE or MAP approaches seek to find a good trade-off between under- and overfitting.</p>
-<p>However, a global treatment of the length scale and other kernel parameters may be too limiting. Some functions may depict locally different structures, where the optimal length scale in one region is not equal to the optimal length scale in another. If we use MLE in this case, we would get a weighted average of these optimal values, where the weights depend on the number of data points in the corresponding subregion.</p>
-<p>Non-stationary <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> were proposed to tackle this problem, where <span class="math notranslate nohighlight">\(q\in\mathbb{N}\)</span> kernel parameters <span class="math notranslate nohighlight">\(\theta \in \mathbb{R}^q\)</span> are replaced with continous functions <span class="math notranslate nohighlight">\(\theta_{x}: \mathbb{R}^n \rightarrow \mathbb{R}^q\)</span> which depend on the input coordinates <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> of the <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> prediction. In the following, we only consider isotropic <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> for ease of notation but the results can be trivially extended to anisotropic <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>.</p>
-<p>Point estimates of local smoothness were used in <span id="id1">[<a class="reference internal" href="#id15">2</a>]</span>, where a further <span class="math notranslate nohighlight">\(\mathcal{GP}_l\)</span> is deployed to predict the log-length scales <span class="math notranslate nohighlight">\(l_i \in \mathbb{R}\)</span>, such that <span class="math notranslate nohighlight">\(l_i =\mathrm{exp}(f_\theta(x_i))\)</span> to impose positivity, where <span class="math notranslate nohighlight">\(f_\theta\)</span> is the mean prediction of <span class="math notranslate nohighlight">\(\mathcal{GP}_l\)</span> at point <span class="math notranslate nohighlight">\(x_i\)</span>. In addition, the authors proposed to use a modified version of the squared exponential kernel for the first level <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span></p>
-<div class="math notranslate nohighlight">
-\[ k(x_i, x_j) = \sigma^2 \sqrt{l_i l_j} \cdot \sqrt{\frac{2}{l_i^2 + l_j^2}} \cdot \mathrm{exp}\left(-2 \frac{\left(x_i - x_j\right)^2}{l_i^2 + l_j^2}\right) \]</div>
-<p>which results from averaging two local covariance matrices <span class="math notranslate nohighlight">\(\Sigma_i\)</span> and <span class="math notranslate nohighlight">\(\Sigma_j\)</span> of the correspoding <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> with length scales <span class="math notranslate nohighlight">\(l_i\)</span> and <span class="math notranslate nohighlight">\(l_j\)</span>. Authors propose to use the posterior likelihood  for training</p>
-<div class="math notranslate nohighlight">
-\[ \mathrm{log} \, p(l | y, X, \theta) = \mathrm{log} \, p(y|X, exp(l), \theta_y) + \mathrm{log} \, p(l|X,l_l, X_l, \theta_l) + const. \]</div>
-<p>where <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{m, n}, y \in \mathbb{R}^m\)</span> represent the <span class="math notranslate nohighlight">\(m\)</span> training samples, <span class="math notranslate nohighlight">\(\theta_y\)</span> are the further parameters of <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>, <span class="math notranslate nohighlight">\(X_l\)</span>, <span class="math notranslate nohighlight">\(l_l\)</span> and <span class="math notranslate nohighlight">\(\theta_l\)</span> represent the support points, the length scale and further parameters of <span class="math notranslate nohighlight">\(\mathcal{GP}_l\)</span> respectively. Other kernel parameters <span class="math notranslate nohighlight">\(\theta_y, \theta_l\)</span> such as the variances <span class="math notranslate nohighlight">\(\sigma, \sigma_l\)</span> of the kernels as well as the noise variance <span class="math notranslate nohighlight">\(\sigma_n\)</span> are obtained in an outer optimization loop, where the length scale parameters <span class="math notranslate nohighlight">\(l, l_l\)</span> were fixed.</p>
-<p>Deep Gaussian covariance networks, a more general non-stationary <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> is proposed in <span id="id2">[<a class="reference internal" href="#id16">1</a>]</span>. In this work, the authors propose to use a deep neural network (DNN) to approximate the length scales. Moreover, they also propose to learn a non-stationary noise variance <span class="math notranslate nohighlight">\(\sigma_{\mathrm{noise}}^2\)</span> using a DNN to handle data sets, where the amount of noise varies in different regions (i.e. heteroscedastic instead of homoscedastic noise). Moreover, instead of restricting to a squared exponential kernel, they propose to reparametrize the existing kernels using two length scales <span class="math notranslate nohighlight">\(l_i, l_j\)</span>. For squared exponential kernel, this would look like</p>
-<div class="math notranslate nohighlight">
-\[ k(x_i, x_j) = \sigma^2 \mathrm{exp} \left( -\frac{1}{2} \left(\frac{x_i}{l_i} - \frac{x_j}{l_j}\right)^2 \right) \]</div>
-<p>For the training, the weights of the DNN have to be obtained. Authors use the <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_GPforML/06_hyperparamselect.html#sec-selectofhyperp">MLE of the stationary <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span></a> as the loss function. Using backpropagation, the gradients of the weights wrt. the MLE are computed and the optimal weights are obtained through optimization.</p>
-<p id="id3"><dl class="citation">
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>Kevin Cremanns, Dirk Roos, Stefan Reh, and Sebastian Münstermann. <em>Probabilistic machine learning for pattern recognition and design exploration</em>. PhD thesis, RWTH Aachen, 2021.</p>
+  <div class="section" id="gaussian-processes-on-latent-representations">
+<h1><span class="section-number">7.10.3. </span>Gaussian Processes on latent representations<a class="headerlink" href="#gaussian-processes-on-latent-representations" title="Permalink to this headline">¶</a></h1>
+<p>Although the representative power of a Gaussian process is quite high due to the use of kernels, a single kernel measure may not be sufficient to represent very complicated relationships. Although kernel engineering, i.e. combining multiple kernels, may provide some improvement of the representative power, this may still be insufficient. The kernel evaluation is bound to the original <span class="math notranslate nohighlight">\(d\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. However, the Euclidean distance as used in stationary kernels may not be the best way of measuring similarity between the samples <span class="math notranslate nohighlight">\(x_i \in \mathbb{R}^d\)</span>, on which the kernel approximation relies. Thus, a transformation <span class="math notranslate nohighlight">\(f_t: \mathbb{R}^d \rightarrow \mathbb{R}^q\)</span> to a latent space <span class="math notranslate nohighlight">\(\mathbb{R}^q\)</span> can be deployed to improve the effectivenes of the Eulidean distance on the new latent samples <span class="math notranslate nohighlight">\(u_i = f_t(x_i)\)</span>.</p>
+<p>Both <span id="id1">[<a class="reference internal" href="#id27">2</a>]</span> and <span id="id2">[<a class="reference internal" href="#id26">5</a>]</span> propose to use deep <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>, where multiple <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> are stacked and the outputs of the previous layer <span class="math notranslate nohighlight">\(\mathcal{GP}_{i-1}\)</span> are used as the inputs of the current layer <span class="math notranslate nohighlight">\(\mathcal{GP}_{i}\)</span>. In other words, <span class="math notranslate nohighlight">\(l\)</span> number of <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>s are stacked, where the first layers <span class="math notranslate nohighlight">\(\mathcal{GP}_{1, \dots, l-1}\)</span> correspond to the transformation function <span class="math notranslate nohighlight">\(f_t(\cdot)\)</span> and the posterior of the last layer <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> corresponds to the predicted posterior. Both publications differ in the way the training and posterior prediction are formulated. In <span id="id3">[<a class="reference internal" href="#id27">2</a>]</span>, a variational posterior is used. This assumes an independence of the outputs of each layer. In <span id="id4">[<a class="reference internal" href="#id26">5</a>]</span>, a doubly stochastic variational inference is performed instead, where the assumption of independence is dropped.</p>
+<p>Besides stacking <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>s, various neural network architectures are also proposed for the transformation <span class="math notranslate nohighlight">\(f_t\)</span>. Most importantly, exact <span id="id5">[<a class="reference internal" href="#id28">6</a>]</span> and approximate <span id="id6">[<a class="reference internal" href="#id29">7</a>]</span> deep kernel learning were proposed, where a deep neural network (DNN) with reducing number of neurons were used as <span class="math notranslate nohighlight">\(f_t(\dot)\)</span> to reduce the dimensionality. This approach is especially useful, if the original representation contains redundant features such as in images.</p>
+<p>Moreover, using variational autoencoders with exact <span id="id7">[<a class="reference internal" href="#id30">1</a>]</span> and sparse <span id="id8">[<a class="reference internal" href="#id31">3</a>]</span> <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> were also proposed. Since variational autoencoder seek to learn independent Gaussians as latent variables <span id="id9">[<a class="reference internal" href="#id32">4</a>]</span>, using them in a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> context becomes more straightforward while providing the advantages of probabilistic treatment.  Finally, <span id="id10">[]</span> derive an exact equivalence between <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> and DNN, followed by a proposal to use <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> prior on DNN, yielding neural network Gaussian Processes. As such, <span class="math notranslate nohighlight">\(f_t(\cdot)\)</span> consists of all latent layers of the DNN before the output layer.</p>
+<p id="id11"><dl class="citation">
+<dt class="label" id="id30"><span class="brackets"><a class="fn-backref" href="#id7">1</a></span></dt>
+<dd><p>Francesco Paolo Casale, Adrian V. Dalca, Luca Saglietti, Jennifer Listgarten, and Nicoló Fusi. Gaussian process prior variational autoencoders. In <em>NeurIPS</em>. 2018.</p>
 </dd>
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
-<dd><p>Christian Plagemann, Kristian Kersting, and Wolfram Burgard. Nonstationary Gaussian process regression using point estimates of local smoothness. In <em>ECML/PKDD</em>. 2008.</p>
+<dt class="label" id="id27"><span class="brackets">2</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Andreas Damianou and Neil D. Lawrence. Deep Gaussian processes. In Carlos M. Carvalho and Pradeep Ravikumar, editors, <em>Proceedings of the Sixteenth International Conference on Artificial Intelligence and Statistics</em>, volume 31 of Proceedings of Machine Learning Research, 207–215. Scottsdale, Arizona, USA, 29 Apr–01 May 2013. PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v31/damianou13a.html">https://proceedings.mlr.press/v31/damianou13a.html</a>.</p>
+</dd>
+<dt class="label" id="id31"><span class="brackets"><a class="fn-backref" href="#id8">3</a></span></dt>
+<dd><p>Metod Jazbec, Matt Ashman, Vincent Fortuin, Michael Pearce, Stephan Mandt, and Gunnar Rätsch. Scalable gaussian process variational autoencoders. In Arindam Banerjee and Kenji Fukumizu, editors, <em>Proceedings of The 24th International Conference on Artificial Intelligence and Statistics</em>, volume 130 of Proceedings of Machine Learning Research, 3511–3519. PMLR, 13–15 Apr 2021. URL: <a class="reference external" href="https://proceedings.mlr.press/v130/jazbec21a.html">https://proceedings.mlr.press/v130/jazbec21a.html</a>.</p>
+</dd>
+<dt class="label" id="id32"><span class="brackets"><a class="fn-backref" href="#id9">4</a></span></dt>
+<dd><p>Diederik P Kingma and Max Welling. Auto-encoding variational bayes. 2014. <a class="reference external" href="https://arxiv.org/abs/1312.6114">arXiv:1312.6114</a>.</p>
+</dd>
+<dt class="label" id="id26"><span class="brackets">5</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>Hugh Salimbeni and Marc Deisenroth. Doubly stochastic variational inference for deep gaussian processes. In I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, editors, <em>Advances in Neural Information Processing Systems</em>, volume 30. Curran Associates, Inc., 2017. URL: <a class="reference external" href="https://proceedings.neurips.cc/paper/2017/file/8208974663db80265e9bfe7b222dcb18-Paper.pdf">https://proceedings.neurips.cc/paper/2017/file/8208974663db80265e9bfe7b222dcb18-Paper.pdf</a>.</p>
+</dd>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id5">6</a></span></dt>
+<dd><p>Andrew Gordon Wilson, Zhiting Hu, Ruslan Salakhutdinov, and Eric P. Xing. Deep kernel learning. In Arthur Gretton and Christian C. Robert, editors, <em>Proceedings of the 19th International Conference on Artificial Intelligence and Statistics</em>, volume 51 of Proceedings of Machine Learning Research, 370–378. Cadiz, Spain, 09–11 May 2016. PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v51/wilson16.html">https://proceedings.mlr.press/v51/wilson16.html</a>.</p>
+</dd>
+<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id6">7</a></span></dt>
+<dd><p>Andrew Gordon Wilson, Zhiting Hu, Ruslan Salakhutdinov, and Eric P. Xing. Stochastic variational deep kernel learning. In <em>NIPS</em>. 2016.</p>
 </dd>
 </dl>
 </p>
@@ -477,11 +482,11 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="02_DeepGP.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="02_NonstationaryGP.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7.10.2. </span>Gaussian Processes on latent representations</p>
+            <p class="prev-next-title"><span class="section-number">7.10.2. </span>Non-stationary Gaussian Processes</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../../03_overview.html" title="next page">
