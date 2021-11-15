@@ -34,6 +34,14 @@ jobs:
       run: |
         jupyter-book build ./ProbabilisticML
 
+    # Push jupyter cache
+    - name: Update cache
+      run: |
+        git config --global user.name 'rvosshall'
+        git config --global user.email 'rvosshall@users.noreply.github.com'
+        git commit -am "cache update"
+        git push
+
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
       uses: peaceiris/actions-gh-pages@v3.6.1
