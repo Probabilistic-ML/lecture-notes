@@ -1,7 +1,8 @@
 .ipynb_checkpoints/
 .idea/
 venv/
-**/_*/
-*.bib.*
+ProbabilisticML/_build/*
+!ProbabilisticML/_build/.jupyter_cache/
 !ProbabilisticML/_static/
+*.bib.*
 ProbabilisticML/02_probML/02_kernelmethods/GPanimation.ipynb
