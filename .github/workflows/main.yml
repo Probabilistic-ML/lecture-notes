@@ -39,7 +39,8 @@ jobs:
       run: |
         git config --global user.name 'rvosshall'
         git config --global user.email 'rvosshall@users.noreply.github.com'
-        git commit -am "cache update"
+        git add .
+        git commit -m "cache update"
         git push
 
     # Push the book's HTML to github-pages
