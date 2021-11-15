@@ -433,6 +433,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualisation-of-the-training">
+   7.10.1.1. Visualisation of the training
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -477,7 +490,7 @@ p(f_* | X^*,X, y) = \int p(f_*| X^*,X,f,y)p(f|X^*,X, y)df \quad \textrm{reserve 
 p(f_* | X^*,X, y) = \int p(f_* | X^*,X,f) p(f| X^*,X, y) df \quad \textrm{drop irrelevant y}
 \end{split}\]</div>
 <p><strong>Sparse Gaussian Process Regression</strong></p>
-<p>To avoid costly matrix inversion of <span class="math notranslate nohighlight">\(n \times n\)</span>-matrix, Authors in <span id="id1">[<a class="reference internal" href="#id17">2</a>]</span> propose to use the so called <em>inducing variables</em>. They assume the existence a set of <span class="math notranslate nohighlight">\(m\)</span> inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> with corresponding inputs <span class="math notranslate nohighlight">\(X_m\)</span> that will discribe our model well enough as if we used all datapoints <span class="math notranslate nohighlight">\(n\)</span>. Note that inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> evaluated at the pseudo-inputs <span class="math notranslate nohighlight">\(X_m\)</span>, which are independent from the training inputs. We will define the approximation posterior as
+<p>To avoid costly matrix inversion of <span class="math notranslate nohighlight">\(n \times n\)</span>-matrix, Authors in <span id="id1">[]</span> propose to use the so called <em>inducing variables</em>. They assume the existence a set of <span class="math notranslate nohighlight">\(m\)</span> inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> with corresponding inputs <span class="math notranslate nohighlight">\(X_m\)</span> that will discribe our model well enough as if we used all datapoints <span class="math notranslate nohighlight">\(n\)</span>. Note that inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> evaluated at the pseudo-inputs <span class="math notranslate nohighlight">\(X_m\)</span>, which are independent from the training inputs. We will define the approximation posterior as
 $<span class="math notranslate nohighlight">\(
 q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
 \)</span>$</p>
@@ -506,16 +519,32 @@ q(f_*) = \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
 A_m = K_{mm} \Sigma K_{mm} 
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\Sigma = (K_{mm}+\sigma^2_yK_{mm}K_{nm}^{-1})\)</span> is.</p>
-<p>For a more detailed description of sparse and variational GP, please refer to <span id="id2">[<a class="reference internal" href="#id25">1</a>]</span>.</p>
-<p id="id3"><dl class="citation">
-<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>Felix Leibfried, Vincent Dutordoir, ST John, and Nicolas Durrande. A tutorial on sparse gaussian processes and variational inference. 2021. <a class="reference external" href="https://arxiv.org/abs/2012.13962">arXiv:2012.13962</a>.</p>
-</dd>
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
-<dd><p>Michalis Titsias. Variational learning of inducing variables in sparse gaussian processes. In David van Dyk and Max Welling, editors, <em>Proceedings of the Twelth International Conference on Artificial Intelligence and Statistics</em>, volume 5 of Proceedings of Machine Learning Research, 567–574. Hilton Clearwater Beach Resort, Clearwater Beach, Florida USA, 16–18 Apr 2009. PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v5/titsias09a.html">https://proceedings.mlr.press/v5/titsias09a.html</a>.</p>
-</dd>
-</dl>
-</p>
+<p>For a more detailed description of sparse and variational GP, please refer to <span id="id2">[]</span>.</p>
+<div class="section" id="visualisation-of-the-training">
+<h2><span class="section-number">7.10.1.1. </span>Visualisation of the training<a class="headerlink" href="#visualisation-of-the-training" title="Permalink to this headline">¶</a></h2>
+<figure>
+  <table>
+    <tr>
+      <td>
+        <img src="svgp_samples.gif" width="700px" alt="Inducing points"/>
+      </td>
+      <td>
+        <img src="svgp_preds.gif" width="700px" alt="Model prediction"/>
+      </td>
+    </tr>
+  </table>
+  <figcaption>Evolution of the inducing points and the corresponding model displayed as $\mu_*\pm 2\sigma_*^2$. As the training goes on, some inducing points are moved outside of the training boundaries.</figcaption>
+</figure><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>```{bibliography}
+:filter: docname in docnames
+:style: plain
+```
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
