@@ -43,9 +43,9 @@ parts:
     - file: 02_probML/02_GPforML/09_examples
     - file: 02_probML/02_GPforML/10_advanced
       sections:
-        - file: 02_probML/02_GPforML/10_advanced/01_SparseGP.ipynb
-        - file: 02_probML/02_GPforML/10_advanced/02_NonstationaryGP.md
-        - file: 02_probML/02_GPforML/10_advanced/03_DeepGP.md
+        - file: 02_probML/02_GPforML/10_advanced/01_SparseGP
+        - file: 02_probML/02_GPforML/10_advanced/02_NonstationaryGP
+        - file: 02_probML/02_GPforML/10_advanced/03_DeepGP
   - file: 02_probML/03_overview
 - caption: Applications
   numbered: true
