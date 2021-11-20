@@ -444,28 +444,45 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-formal-definition">
+   4.2. A formal definition
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#single-objective-optimization">
+     4.2.1. Single objective optimization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#constrained-optimization">
+     4.2.2. Constrained optimization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#benchmark-problems">
-   4.2. Benchmark Problems
+   4.3. Benchmark Problems
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gradient-methods">
-   4.3. Gradient Methods
+   4.4. Gradient Methods
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#stochastic-methods">
-   4.4. Stochastic Methods
+   4.5. Stochastic Methods
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#population-based-methods">
-   4.5. Population Based Methods
+   4.6. Population Based Methods
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
-   4.6. References
+   4.7. References
   </a>
  </li>
 </ul>
@@ -537,7 +554,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2827.5102076022017
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of initial guess:  2698.93796550431
 </pre></div>
 </div>
 <img alt="../_images/04_opt_3_1.png" src="../_images/04_opt_3_1.png" />
@@ -545,7 +562,7 @@
 </div>
 <p>We now see that our initial guess is not good at all. But we can now use the RSS to fit our function to the data. We are searching for a minimum of the RSS function. The coeficents which fits our data best are</p>
 <div class="math notranslate nohighlight">
-\[(\hat{\beta}_0\hat{\beta}_1)=\underset{\beta_0,\beta_1}{\text{argmin}}(RSS)\]</div>
+\[(\beta_0^*\beta_1^*)=\underset{\beta_0,\beta_1}{\text{argmin}}(RSS)\]</div>
 <p>For this we can use the given solution in OLS section of the book. We could also use for example newton’s method to solve this for us. Luckily <code class="docutils literal notranslate"><span class="pre">scipy.opimize.minimize</span></code> has a software for us.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -569,13 +586,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  93.11659910107687
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RSS of optimum:  109.49334120187221
 </pre></div>
 </div>
 <img alt="../_images/04_opt_5_1.png" src="../_images/04_opt_5_1.png" />
 </div>
 </div>
-<p>We now see that the “fit” of our model is much better. This method above falls under the category gradient optimization. However Newton’s method is not often used in machine learning because we need the second derivative, because we are searching the zeros of the first derivative. But often this is not possible or it is just to resource consuming to use it. For the newton’s method we need to calculate a inverse of the hessian matrix to get better convergence than first order gradient descent methods.</p>
+<p>We now see that the “fit” of our model is much better. This method above falls under the category gradient-based optimization. However Newton’s method is not often used in machine learning because we need the second derivative, because we are searching the zeros of the first derivative. But often this is not possible or it is just to resource consuming to use it. For the newton’s method we need to calculate a inverse of the hessian matrix to get better convergence than first order gradient descent methods.</p>
 <p>Now let us take a look on what happend to the RSS function in our optimization algorithm. The next plot shows the start value and the iteration of the algorithm to find a minimum with the help of the gradient.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -607,8 +624,7 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;RSS&#39;</span><span class="p">)</span>
 <span class="n">dots</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># ToDo add order of iterations</span>
 <span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iters</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">iters</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span> 
-<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -620,9 +636,52 @@
 </div>
 </div>
 </div>
+<div class="section" id="a-formal-definition">
+<h2><span class="section-number">4.2. </span>A formal definition<a class="headerlink" href="#a-formal-definition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="single-objective-optimization">
+<h3><span class="section-number">4.2.1. </span>Single objective optimization<a class="headerlink" href="#single-objective-optimization" title="Permalink to this headline">¶</a></h3>
+<p>Consider a map <span class="math notranslate nohighlight">\(f: \mathbb{R}^d \rightarrow \mathbb{R}\)</span>. The aim of the (single-objective) optimization is finding a combination of input variables <span class="math notranslate nohighlight">\(x^* \in \mathbb{R}^d\)</span>, that minimize or maximize <span class="math notranslate nohighlight">\(f\)</span>. In the case of minimization, the following condition holds:</p>
+<div class="math notranslate nohighlight">
+\[ f(x^*) &lt; f(x) \]</div>
+<p>for all <span class="math notranslate nohighlight">\(x \in \mathbb{R}^d\)</span>, where <span class="math notranslate nohighlight">\(x \neq x^*\)</span>. We neglect the case, where <span class="math notranslate nohighlight">\(f\)</span> may exhibit multiple optima for ease of notation.</p>
+<p>As such, we denote the minimization problem as</p>
+<div class="math notranslate nohighlight">
+\[ \mathrm{arg}\min_x \,f(x) \]</div>
+<p>In the followin, we assume minimization but note that</p>
+<div class="math notranslate nohighlight">
+\[ \mathrm{arg}\min_x \,f(x) = \mathrm{arg}\max_x \,-f(x)\]</div>
+<p>Therefore, any further definition for minimization can be trivially extended to maximization problems.</p>
+</div>
+<div class="section" id="constrained-optimization">
+<h3><span class="section-number">4.2.2. </span>Constrained optimization<a class="headerlink" href="#constrained-optimization" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes, it may be useful to enforce some criteria on the solution of the optimization problem. Specifically, we expect to find <span class="math notranslate nohighlight">\(x^* \in \mathbb{S}\)</span> in the <em>feasible</em> space <span class="math notranslate nohighlight">\(\mathbb{S}\)</span>; a subset <span class="math notranslate nohighlight">\(\mathbb{S}\subseteq\mathbb{R}^d\)</span> of the variable space <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In this case, the optimization problem is denoted as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c927c8d1-afe5-4bfb-b2d2-a32301011ac8">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-c927c8d1-afe5-4bfb-b2d2-a32301011ac8" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\mathrm{arg}\min_x\,&amp; f(x) \\
+\mathrm{subject} \, \mathrm{to} \, &amp; x \in \mathbb{S}
+\end{align}\]</div>
+<p>The most common definition of the feasible space <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> is through using equality and inequality constraints. An equality constraint <span class="math notranslate nohighlight">\(h: \mathbb{R}^d \rightarrow \mathbb{R}\)</span> is a map similar to <span class="math notranslate nohighlight">\(f\)</span>, which defines <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> as follows</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{S}:= \{x \in \mathbb{R}^d | h(x) = 0\} \]</div>
+<p>Notice that we could have any other value than <span class="math notranslate nohighlight">\(0\)</span> for the equality condition but any such condition can be transformed to the above form buy substracting the left hand side value from both sides.</p>
+<p>An inequality condition <span class="math notranslate nohighlight">\(g: \mathbb{R}^d \rightarrow \mathbb{R}\)</span> is also a map and the feasible space <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{S}:= \{x \in \mathbb{R}^d | g(x) \geq 0\} \]</div>
+<p>In case both equality and inequality constraints exist or if there are multiple constraints, each of these conditions define <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{S}:= \{ x \in \mathbb{R}^d | g_1(x) \geq 0, \dots, g_{n_i}(x) \geq 0, h_1(x) =0, \dots, h_{n_e}(x)=0 \} \]</div>
+<p>where <span class="math notranslate nohighlight">\(n_e\)</span> and <span class="math notranslate nohighlight">\(n_i\)</span> are the number of equality and inequality constraints respectively. For a more concise notation, <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> is often omitted and only the conditions are used for the notation of a constrained optimization problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8abc37b9-a09a-4641-bcf2-6df475859391">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-8abc37b9-a09a-4641-bcf2-6df475859391" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\mathrm{arg}\min_x\,&amp; f(x) \\
+\mathrm{s. t.}\; &amp; g_i(x) \geq 0 \quad \mathrm{for} \, i \in [1, n_i] \\
+&amp;h_j(x) =0 \quad \mathrm{for} \, j \in [1, n_e] \\
+\end{align}\]</div>
+</div>
+</div>
 <div class="section" id="benchmark-problems">
-<h2><span class="section-number">4.2. </span>Benchmark Problems<a class="headerlink" href="#benchmark-problems" title="Permalink to this headline">¶</a></h2>
-<p>In the next part we will look on different optimization algorithm and how they perform on various problems. Not all problems are that easy to solve that we done above. We will take a look on some benchmark problems.</p>
+<h2><span class="section-number">4.3. </span>Benchmark Problems<a class="headerlink" href="#benchmark-problems" title="Permalink to this headline">¶</a></h2>
+<p>In the next part we will look on different optimization algorithms and how they perform on various problems. Not all problems are that easy to solve that we done above. We will take a look on some benchmark problems.</p>
 <p>We will look at the Rosenbrock function in 2d</p>
 <div class="math notranslate nohighlight">
 \[f(x,y) = (a-x)^2+b(y-x^2)^2 \]</div>
@@ -679,18 +738,28 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04_opt_10_0.png" src="../_images/04_opt_10_0.png" />
+<img alt="../_images/04_opt_12_0.png" src="../_images/04_opt_12_0.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>The problem at these functions is, that we will find a local minima very fast but to find the global minima is difficult.These problems are called non-convex optimization problem.
-Rosenbrock functoins minimum is at <span class="math notranslate nohighlight">\([1,1]\)</span> and Rastrigin functions minimum is at <span class="math notranslate nohighlight">\([0,0]\)</span></p>
+<p>The problem with these functions is that we will find a local minima but to find the global minima is difficult. These problems are called non-convex optimization problems.
+Rosenbrock functions minimum is at <span class="math notranslate nohighlight">\([1,1]\)</span> and Rastrigin functions minimum is at <span class="math notranslate nohighlight">\([0,0]\)</span></p>
 </div>
 <div class="section" id="gradient-methods">
-<h2><span class="section-number">4.3. </span>Gradient Methods<a class="headerlink" href="#gradient-methods" title="Permalink to this headline">¶</a></h2>
-<p>As in our easy example newtons methods is in this category. This requires that the functon is twice differentiable. This is often not the case or to calculate the second derivative is just to time consuming. The gradient descent methods is the easiest method in this case. For this method we the first derivative which is the gradient <span class="math notranslate nohighlight">\(\nabla f\)</span>. Per definition the gradient shows in the direction of the speepest direction. We want find a mininum so will take the negative gradient. Usually in the gradient descent method the gradient is normalized. So the direction of steepest descent is</p>
+<h2><span class="section-number">4.4. </span>Gradient Methods<a class="headerlink" href="#gradient-methods" title="Permalink to this headline">¶</a></h2>
+<p>As in our easy example newtons methods is in this category. This requires that the functon is twice differentiable. This is often not the case or to calculate the second derivative is just to time consuming. The gradient descent methods is the easiest method in this case. For this method we the first derivative which is the gradient <span class="math notranslate nohighlight">\(\nabla f\)</span>. For a one-dimensinal function <span class="math notranslate nohighlight">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span>, the gradient <span class="math notranslate nohighlight">\(\nabla f(x) \in \mathbb{R}\)</span> can be defined as the following limit</p>
+<div class="math notranslate nohighlight">
+\[\nabla f(x) = \frac{df(x)}{dx} = \lim_{\epsilon \rightarrow 0} \frac{f(x) -f(x+\epsilon)}{x - (x + \epsilon)} = \lim_{\epsilon \rightarrow 0} \frac{f(x) -f(x+\epsilon)}{\epsilon}\]</div>
+<p>For a higher dimensional function <span class="math notranslate nohighlight">\(f: \mathbb{R}^d \rightarrow \mathbb{R}\)</span>, the gradient <span class="math notranslate nohighlight">\(\nabla f(x) \in \mathbb{R}^d\)</span> is a <span class="math notranslate nohighlight">\(d\)</span>-dimensional vector</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \nabla f(x) = \begin{pmatrix} \frac{df(x)}{dx_1} \\ 
+\frac{df(x)}{dx_2} \\
+\vdots \\
+\frac{df(x)}{dx_d}\end{pmatrix} \end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x = [x_1, x_2, \dots, x_d\)</span> represent the optimization variables.</p>
+<p>Per definition the gradient shows in the direction of the speepest direction. We want find a mininum so will take the negative gradient. Usually in the gradient descent method the gradient is normalized. So the direction of steepest descent is</p>
 <div class="math notranslate nohighlight">
 \[g(x) := -\frac{\nabla f(x)}{|\nabla f(x)|} \]</div>
 <p>Now want to move along the steepest direction with a given step size <span class="math notranslate nohighlight">\(\alpha\)</span>. The step size is often called learning rate in machine learning. We could also find an optimal <span class="math notranslate nohighlight">\(\alpha\)</span> to find the minimum along these line (linesearch). The problem here is, that we do not want to overshoot our mininum and we do not want to take too small step size that our search have a lot of iterations.</p>
@@ -698,7 +767,7 @@ Rosenbrock functoins minimum is at <span class="math notranslate nohighlight">\(
 <div class="math notranslate nohighlight">
 \[  x^{(n+1)}:=x^{(n)} + \alpha g(x^{(n)})   \]</div>
 <p>where <span class="math notranslate nohighlight">\(x^{(n+1)}\)</span> is the next iteration value and <span class="math notranslate nohighlight">\(x^{(n)}\)</span> is the current value and <span class="math notranslate nohighlight">\(n\)</span> denotes the number of iteration.</p>
-<p>Now we will look at an implementation of gradient descent algorithm. As you will notice above we need the first derivative of the function for this method. The best way for this is analytical dereivation of this. We are very lazy and we use and automatic differentiation algorithm for us. A package <code class="docutils literal notranslate"><span class="pre">autograd</span></code> is develop for this purpose. Note: This package will only be maintainend but not develop further. A newer implementation called <code class="docutils literal notranslate"><span class="pre">jax</span></code> with more features is the follow up. But for our needs we will stick to <code class="docutils literal notranslate"><span class="pre">autograd</span></code>.</p>
+<p>Now we will look at an implementation of gradient descent algorithm. As you will notice above we need the first derivative of the function for this method. We could analytically derive the given functions. However, this may be time consuming for more difficult functions. Thus, we prefer a more generalized approach here and use an automatic differentiation algorithm. A package <code class="docutils literal notranslate"><span class="pre">autograd</span></code> is developed for this purpose. Note: This package will only be maintainend but not develop further. A newer implementation called <code class="docutils literal notranslate"><span class="pre">jax</span></code> with more features is the follow up. But for our needs we will stick to <code class="docutils literal notranslate"><span class="pre">autograd</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span> <span class="n">grad</span>    
@@ -784,7 +853,7 @@ Rastrigin
 [-1.98 -1.  ]
 </pre></div>
 </div>
-<img alt="../_images/04_opt_15_1.png" src="../_images/04_opt_15_1.png" />
+<img alt="../_images/04_opt_17_1.png" src="../_images/04_opt_17_1.png" />
 </div>
 </div>
 <p>Now we see that we need a lot of iterations for the Rosenbrock function and the minimum is not reached. For the Rastrigin function is clear that pure gradient based approach will not lad to the global minimina at <span class="math notranslate nohighlight">\((0,0)\)</span>.
@@ -888,17 +957,19 @@ x^{(n+1)} = x^{(n)} + v^{(n+1)}
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
 [1.0980919 0.9019081]
-Rastrigin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
 [-2. -1.]
 </pre></div>
 </div>
-<img alt="../_images/04_opt_19_1.png" src="../_images/04_opt_19_1.png" />
+<img alt="../_images/04_opt_21_2.png" src="../_images/04_opt_21_2.png" />
 </div>
 </div>
 <p>Here you can the the oscilation in the left plot. We are a lot faster than before but we tending to overshoot the valley floor. An improvement is Nesterov Momentum, where we use a gradient at a projected future position. Important upgrades from this would be adaptive learning rate which is already implemented in so called <strong>AdaGrad</strong>. One of the most popular algorithms is the adaptive moment estimation method(<strong>ADAM</strong>). <strong>ADAM</strong> includes the exponentially decaying gradient from moment and an exponentially decaying squared gradient like <strong>RMSProp</strong> (which is an improvment of <strong>AdaGrad</strong>). A popular libary for <strong>ADAM</strong> is <code class="docutils literal notranslate"><span class="pre">Tensorflow</span></code>. For more information you can look there or in <span id="id3">[<a class="reference internal" href="#id13">1</a>]</span>.</p>
 </div>
 <div class="section" id="stochastic-methods">
-<h2><span class="section-number">4.4. </span>Stochastic Methods<a class="headerlink" href="#stochastic-methods" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.5. </span>Stochastic Methods<a class="headerlink" href="#stochastic-methods" title="Permalink to this headline">¶</a></h2>
 <p>This chapter gives an overview of some stochastic methods that use randomization strategically to help explore the design space for a minimum. With the help of randomness we can escape local minima and increase the chance of finding a global minimum.</p>
 <p>An upgrade for the gradient descent algorithm if it is stuck in a local minimina, is to add noise in each step</p>
 <div class="math notranslate nohighlight">
@@ -981,18 +1052,20 @@ Rastrigin
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
-[1.03667531 1.07185404]
-Rastrigin
-[0.90927077 2.05942606]
+[1.1082099  1.23076933]
 </pre></div>
 </div>
-<img alt="../_images/04_opt_23_1.png" src="../_images/04_opt_23_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rastrigin
+[0.07207385 1.01216854]
+</pre></div>
+</div>
+<img alt="../_images/04_opt_25_2.png" src="../_images/04_opt_25_2.png" />
 </div>
 </div>
-<p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differntly and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
+<p>As you can see, it is possible to get better results with the addition of some noise. Unfortunately it is not garantued to get to the minimum. In the case of the rastrigin function our search path can “jump” around very differently and we have no history which iteration was the best. To improve this furter we could add different starting points to our algorithm.</p>
 </div>
 <div class="section" id="population-based-methods">
-<h2><span class="section-number">4.5. </span>Population Based Methods<a class="headerlink" href="#population-based-methods" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.6. </span>Population Based Methods<a class="headerlink" href="#population-based-methods" title="Permalink to this headline">¶</a></h2>
 <p>Unlike in the previous chapter where a single point moved incrementally to the minimum, in population algorithms we have a lot of points as start points all over the design space which are called individuals. We start with the first genaration of individuals. The best performers of these individuals will make a new generation. This will iterate as long as the minimium is not found. As an example we will show differential evolution. Differential evolution attempts to improve each individual in the population by recombining other individuals in the population according to a simple formula. It is parameterized by a crossover probability <span class="math notranslate nohighlight">\(p\)</span> and a differential weight <span class="math notranslate nohighlight">\(w\)</span>. <span class="math notranslate nohighlight">\(w\)</span> is usually between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For each individual <span class="math notranslate nohighlight">\(x\)</span>. For More Details look in <span id="id4">[<a class="reference internal" href="#id14">2</a>]</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1084,25 +1157,26 @@ Rastrigin
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rosenbrock
      fun: 1.9721522630525295e-31
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 4473
-     nit: 148
+    nfev: 4083
+     nit: 135
  success: True
        x: array([1., 1.])
 Rastrigin
-     fun: 0.0
+     fun: 0.994959057093304
+     jac: array([-7.10542732e-07,  0.00000000e+00])
  message: &#39;Optimization terminated successfully.&#39;
-    nfev: 1623
-     nit: 53
+    nfev: 462
+     nit: 14
  success: True
-       x: array([4.47147208e-10, 1.43678097e-09])
+       x: array([-9.94958645e-01, -4.98547071e-09])
 </pre></div>
 </div>
-<img alt="../_images/04_opt_26_1.png" src="../_images/04_opt_26_1.png" />
+<img alt="../_images/04_opt_28_1.png" src="../_images/04_opt_28_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="references">
-<h2><span class="section-number">4.6. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.7. </span>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="id5"><dl class="citation">
 <dt class="label" id="id13"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
 <dd><p>Mykel J. Kochenderfer and Tim A. Wheeler. <em>Algorithms for Optimization</em>. The MIT Press, 2019. ISBN 0262039427.</p>
