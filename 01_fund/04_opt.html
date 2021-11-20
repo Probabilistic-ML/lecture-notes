@@ -655,8 +655,8 @@
 <div class="section" id="constrained-optimization">
 <h3><span class="section-number">4.2.2. </span>Constrained optimization<a class="headerlink" href="#constrained-optimization" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes, it may be useful to enforce some criteria on the solution of the optimization problem. Specifically, we expect to find <span class="math notranslate nohighlight">\(x^* \in \mathbb{S}\)</span> in the <em>feasible</em> space <span class="math notranslate nohighlight">\(\mathbb{S}\)</span>; a subset <span class="math notranslate nohighlight">\(\mathbb{S}\subseteq\mathbb{R}^d\)</span> of the variable space <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In this case, the optimization problem is denoted as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c927c8d1-afe5-4bfb-b2d2-a32301011ac8">
-<span class="eqno">(4.1)<a class="headerlink" href="#equation-c927c8d1-afe5-4bfb-b2d2-a32301011ac8" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-df0937ae-320e-43af-98d0-ab1e132cde9c">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-df0937ae-320e-43af-98d0-ab1e132cde9c" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x\,&amp; f(x) \\
 \mathrm{subject} \, \mathrm{to} \, &amp; x \in \mathbb{S}
 \end{align}\]</div>
@@ -671,8 +671,8 @@
 <div class="math notranslate nohighlight">
 \[ \mathbb{S}:= \{ x \in \mathbb{R}^d | g_1(x) \geq 0, \dots, g_{n_i}(x) \geq 0, h_1(x) =0, \dots, h_{n_e}(x)=0 \} \]</div>
 <p>where <span class="math notranslate nohighlight">\(n_e\)</span> and <span class="math notranslate nohighlight">\(n_i\)</span> are the number of equality and inequality constraints respectively. For a more concise notation, <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> is often omitted and only the conditions are used for the notation of a constrained optimization problem</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8abc37b9-a09a-4641-bcf2-6df475859391">
-<span class="eqno">(4.2)<a class="headerlink" href="#equation-8abc37b9-a09a-4641-bcf2-6df475859391" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d4048cdf-91cf-4aff-8caf-e0252de23645">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-d4048cdf-91cf-4aff-8caf-e0252de23645" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x\,&amp; f(x) \\
 \mathrm{s. t.}\; &amp; g_i(x) \geq 0 \quad \mathrm{for} \, i \in [1, n_i] \\
 &amp;h_j(x) =0 \quad \mathrm{for} \, j \in [1, n_e] \\
@@ -751,14 +751,14 @@ Rosenbrock functions minimum is at <span class="math notranslate nohighlight">\(
 <h2><span class="section-number">4.4. </span>Gradient Methods<a class="headerlink" href="#gradient-methods" title="Permalink to this headline">¶</a></h2>
 <p>As in our easy example newtons methods is in this category. This requires that the functon is twice differentiable. This is often not the case or to calculate the second derivative is just to time consuming. The gradient descent methods is the easiest method in this case. For this method we the first derivative which is the gradient <span class="math notranslate nohighlight">\(\nabla f\)</span>. For a one-dimensinal function <span class="math notranslate nohighlight">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span>, the gradient <span class="math notranslate nohighlight">\(\nabla f(x) \in \mathbb{R}\)</span> can be defined as the following limit</p>
 <div class="math notranslate nohighlight">
-\[\nabla f(x) = \frac{df(x)}{dx} = \lim_{\epsilon \rightarrow 0} \frac{f(x) -f(x+\epsilon)}{x - (x + \epsilon)} = \lim_{\epsilon \rightarrow 0} \frac{f(x) -f(x+\epsilon)}{\epsilon}\]</div>
+\[\nabla f(x) = \frac{df(x)}{dx} = \lim_{\epsilon \rightarrow 0} \frac{f(x+\epsilon) - f(x)}{(x + \epsilon) - x} = \lim_{\epsilon \rightarrow 0} \frac{f(x+\epsilon) - f(x)}{\epsilon}\]</div>
 <p>For a higher dimensional function <span class="math notranslate nohighlight">\(f: \mathbb{R}^d \rightarrow \mathbb{R}\)</span>, the gradient <span class="math notranslate nohighlight">\(\nabla f(x) \in \mathbb{R}^d\)</span> is a <span class="math notranslate nohighlight">\(d\)</span>-dimensional vector</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} \nabla f(x) = \begin{pmatrix} \frac{df(x)}{dx_1} \\ 
 \frac{df(x)}{dx_2} \\
 \vdots \\
 \frac{df(x)}{dx_d}\end{pmatrix} \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(x = [x_1, x_2, \dots, x_d\)</span> represent the optimization variables.</p>
+<p>where <span class="math notranslate nohighlight">\(x = [x_1, x_2, \dots, x_d]\)</span> represent the optimization variables.</p>
 <p>Per definition the gradient shows in the direction of the speepest direction. We want find a mininum so will take the negative gradient. Usually in the gradient descent method the gradient is normalized. So the direction of steepest descent is</p>
 <div class="math notranslate nohighlight">
 \[g(x) := -\frac{\nabla f(x)}{|\nabla f(x)|} \]</div>

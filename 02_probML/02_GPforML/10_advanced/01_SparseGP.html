@@ -445,8 +445,8 @@
 <h1><span class="section-number">7.10.1. </span>Scalable Gaussian Processes<a class="headerlink" href="#scalable-gaussian-processes" title="Permalink to this headline">¶</a></h1>
 <p><strong>Recap Gaussian Process Regression</strong></p>
 <p>In <span class="xref std std-ref">GPR-Lemma</span> we have fully discribed a Gaussian process for regression. For repitition we will write this down again</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cb5459d5-c493-4a8f-abf0-a4405126a9bb">
-<span class="eqno">(7.12)<a class="headerlink" href="#equation-cb5459d5-c493-4a8f-abf0-a4405126a9bb" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-765ac95c-f7fb-4b36-976d-466f65109dc3">
+<span class="eqno">(7.12)<a class="headerlink" href="#equation-765ac95c-f7fb-4b36-976d-466f65109dc3" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(y_* \lvert X_*X,y) &amp;= \mathcal{N}(y_* \lvert \mu_*, \Sigma_*)\\
 \mu_* = \mathbb{E}(f(X^*)) &amp;= K(X^*, X) \big(K(X, X) + \sigma_{\mathrm{noise}}^2 I_n\big)^{-1} y\\
 \Sigma_* =\text{Cov}(f(X^*)) &amp;= K(X^*, X^*) - K(X^*, X) \big(K(X, X) + \sigma_{\mathrm{noise}}^2 I_n\big)^{-1} K(X, X^*)
@@ -468,14 +468,14 @@ p(y_* \lvert X_*X,y) &amp;= \mathcal{N}(y_* \lvert \mu_*, \Sigma_*)\\
 <p>which is needed in the mean and the covariance of the gaussian process.
 This matrix has the size of <span class="math notranslate nohighlight">\(n \times n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of training samples. The problem now is that, for large <span class="math notranslate nohighlight">\(n\)</span> a matrix inversion is intractable.</p>
 <p>The posterior can also be defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ee90c506-0bad-4d10-b749-aba87536c9ab">
-<span class="eqno">(7.13)<a class="headerlink" href="#equation-ee90c506-0bad-4d10-b749-aba87536c9ab" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-05c5340b-65c7-4a19-9f87-7e74cf2ea082">
+<span class="eqno">(7.13)<a class="headerlink" href="#equation-05c5340b-65c7-4a19-9f87-7e74cf2ea082" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(f_* | X^*,X, y) &amp;= \int p(f_*,f| X^*,X,y)df \quad  \textrm{marginalize }f\\
 p(f_* | X^*,X, y) &amp;= \int p(f_*| X^*,X,f,y)p(f|X^*,X, y)df \quad \textrm{reserve chain rule}\\
 p(f_* | X^*,X, y) &amp;= \int p(f_* | X^*,X,f) p(f| X^*,X, y) df \quad \textrm{drop irrelevant y}
 \end{align}\]</div>
 <p><strong>Sparse Gaussian Process Regression</strong></p>
-<p>To avoid costly matrix inversion of <span class="math notranslate nohighlight">\(n \times n\)</span>-matrix, Authors in <span id="id1">[]</span> propose to use the so called <em>inducing variables</em>. They assume the existence a set of <span class="math notranslate nohighlight">\(m\)</span> inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> with corresponding inputs <span class="math notranslate nohighlight">\(X_m\)</span> that will discribe our model well enough as if we used all datapoints <span class="math notranslate nohighlight">\(n\)</span>. Note that inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> evaluated at the pseudo-inputs <span class="math notranslate nohighlight">\(X_m\)</span>, which are independent from the training inputs. We will define the approximation posterior as
+<p>To avoid costly matrix inversion of <span class="math notranslate nohighlight">\(n \times n\)</span>-matrix, Authors in <span id="id1">[<a class="reference internal" href="#id18">2</a>]</span> propose to use the so called <em>inducing variables</em>. They assume the existence a set of <span class="math notranslate nohighlight">\(m\)</span> inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> with corresponding inputs <span class="math notranslate nohighlight">\(X_m\)</span> that will discribe our model well enough as if we used all datapoints <span class="math notranslate nohighlight">\(n\)</span>. Note that inducing variables <span class="math notranslate nohighlight">\(f_m\)</span> evaluated at the pseudo-inputs <span class="math notranslate nohighlight">\(X_m\)</span>, which are independent from the training inputs. We will define the approximation posterior as
 $<span class="math notranslate nohighlight">\(
 q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
 \)</span>$</p>
@@ -485,8 +485,8 @@ q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
 \phi(f_m) = \mathcal{N}(f_m | \mu_m, A_m).
 \]</div>
 <p>Here is <span class="math notranslate nohighlight">\(\mu_m\)</span> the mean and <span class="math notranslate nohighlight">\(A_m\)</span> the covariance matrix. The goal is to find optimal values for the mean <span class="math notranslate nohighlight">\(\mu_m\)</span> and covarince <span class="math notranslate nohighlight">\(A_m\)</span> as well as the optimal location of the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. The mean and covariance matrix of the Guassian Process is defined by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-97496f5d-7611-4715-a371-0a5cfb70b33e">
-<span class="eqno">(7.14)<a class="headerlink" href="#equation-97496f5d-7611-4715-a371-0a5cfb70b33e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ec58a34e-93df-487c-ac16-6a263fa6fd37">
+<span class="eqno">(7.14)<a class="headerlink" href="#equation-ec58a34e-93df-487c-ac16-6a263fa6fd37" title="Permalink to this equation">¶</a></span>\[\begin{align}
 q(f_*) =&amp; \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
 \mu_*^q =&amp; K_{*m} K_{mm}^{-1} \mu_m  \\
 \Sigma_*^q =&amp; K_{**} - K_{*m} K_{mm}^{-1} K_{m*} + K_{*m} K_{mm}^{-1} \mathbf{A}_m K_{mm}^{-1} K_{m*} 
@@ -507,7 +507,7 @@ q(f_*) =&amp; \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
 A_m = K_{mm} \Sigma K_{mm} 
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\Sigma = (K_{mm}+\sigma^2_yK_{mm}K_{nm}^{-1})\)</span> is.</p>
-<p>For a more detailed description of sparse and variational GP, please refer to <span id="id2">[]</span>.</p>
+<p>For a more detailed description of sparse and variational GP, please refer to <span id="id2">[<a class="reference internal" href="#id26">1</a>]</span>.</p>
 <p><strong>Visualization of SVGP training</strong></p>
 <div class="figure align-default" id="directive-fig">
 <a class="reference internal image-reference" href="../../../_images/svgpsamples.gif"><img alt="../../../_images/svgpsamples.gif" src="../../../_images/svgpsamples.gif" style="width: 700px;" /></a>
@@ -682,6 +682,15 @@ r2 = 0.6395, mse = 0.48, mae = 0.51
 </div>
 </div>
 </div>
+<p id="id4"><dl class="citation">
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Felix Leibfried, Vincent Dutordoir, ST John, and Nicolas Durrande. A tutorial on sparse gaussian processes and variational inference. 2021. <a class="reference external" href="https://arxiv.org/abs/2012.13962">arXiv:2012.13962</a>.</p>
+</dd>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dd><p>Michalis Titsias. Variational learning of inducing variables in sparse gaussian processes. In David van Dyk and Max Welling, editors, <em>Proceedings of the Twelth International Conference on Artificial Intelligence and Statistics</em>, volume 5 of Proceedings of Machine Learning Research, 567–574. Hilton Clearwater Beach Resort, Clearwater Beach, Florida USA, 16–18 Apr 2009. PMLR. URL: <a class="reference external" href="https://proceedings.mlr.press/v5/titsias09a.html">https://proceedings.mlr.press/v5/titsias09a.html</a>.</p>
+</dd>
+</dl>
+</p>
 </div>
 
     <script type="text/x-thebe-config">
