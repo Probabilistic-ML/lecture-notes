@@ -444,7 +444,7 @@
   <div class="section" id="scalable-gaussian-processes">
 <h1><span class="section-number">7.10.1. </span>Scalable Gaussian Processes<a class="headerlink" href="#scalable-gaussian-processes" title="Permalink to this headline">¶</a></h1>
 <p><strong>Recap Gaussian Process Regression</strong></p>
-<p>In <span class="xref myst">GPR lemma</span> we have fully discribed a Gaussian process for regression. We will shorten this notation of <span class="math notranslate nohighlight">\(K(X^*, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{**}\)</span> , <span class="math notranslate nohighlight">\(K(X^*, X)\)</span> to <span class="math notranslate nohighlight">\(K_{*}^T\)</span> and <span class="math notranslate nohighlight">\(K(X, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{*}\)</span>, which leads to</p>
+<p>In <a class="reference internal" href="../03_GPregression.html#lem-gpregrnoise"><span class="std std-ref">GPR lemma</span></a> we have fully discribed a Gaussian process for regression. We will shorten this notation of <span class="math notranslate nohighlight">\(K(X^*, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{**}\)</span> , <span class="math notranslate nohighlight">\(K(X^*, X)\)</span> to <span class="math notranslate nohighlight">\(K_{*}^T\)</span> and <span class="math notranslate nohighlight">\(K(X, X^*)\)</span> to <span class="math notranslate nohighlight">\(K_{*}\)</span>, which leads to</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -461,8 +461,8 @@ p(y_* \lvert X_*X,y) &amp;= \mathcal{N}(y_* \lvert \mu_*, \Sigma_*)\\
 <p>which is needed in the mean and the covariance of the gaussian process.
 This matrix has the size of <span class="math notranslate nohighlight">\(n \times n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of training samples. The problem now is that, for large <span class="math notranslate nohighlight">\(n\)</span> a matrix inversion is intractable.</p>
 <p>The posterior can also be defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2ff7f148-0ce1-4217-87f0-c87d408e8bea">
-<span class="eqno">(7.12)<a class="headerlink" href="#equation-2ff7f148-0ce1-4217-87f0-c87d408e8bea" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8f634666-29ce-45c1-b858-9e3d6dda151a">
+<span class="eqno">(7.12)<a class="headerlink" href="#equation-8f634666-29ce-45c1-b858-9e3d6dda151a" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(f_* | X^*,X, y) &amp;= \int p(f_*,f| X^*,X,y)df \quad  \textrm{marginalize }f\\
 p(f_* | X^*,X, y) &amp;= \int p(f_*| X^*,X,f,y)p(f|X^*,X, y)df \quad \textrm{reserve chain rule}\\
 p(f_* | X^*,X, y) &amp;= \int p(f_* | X^*,X,f) p(f| X^*,X, y) df \quad \textrm{drop irrelevant y}
@@ -478,8 +478,8 @@ q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
 \phi(f_m) = \mathcal{N}(f_m | \mu_m, A_m).
 \]</div>
 <p>Here is <span class="math notranslate nohighlight">\(\mu_m\)</span> the mean and <span class="math notranslate nohighlight">\(A_m\)</span> the covariance matrix. The goal is to find optimal values for the mean <span class="math notranslate nohighlight">\(\mu_m\)</span> and covarince <span class="math notranslate nohighlight">\(A_m\)</span> as well as the optimal location of the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. The mean and covariance matrix of the Guassian Process is defined by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a31b2b54-8c82-4067-9728-687dab660f7a">
-<span class="eqno">(7.13)<a class="headerlink" href="#equation-a31b2b54-8c82-4067-9728-687dab660f7a" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-61240e11-d7f0-44cc-a9c9-384c6b446d7c">
+<span class="eqno">(7.13)<a class="headerlink" href="#equation-61240e11-d7f0-44cc-a9c9-384c6b446d7c" title="Permalink to this equation">¶</a></span>\[\begin{align}
 q(f_*) =&amp; \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
 \mu_*^q =&amp; K_{*m} K_{mm}^{-1} \mu_m  \\
 \Sigma_*^q =&amp; K_{**} - K_{*m} K_{mm}^{-1} K_{m*} + K_{*m} K_{mm}^{-1} \mathbf{A}_m K_{mm}^{-1} K_{m*} 
