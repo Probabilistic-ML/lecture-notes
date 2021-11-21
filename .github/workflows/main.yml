@@ -28,6 +28,11 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+    
+    # For equation rendering in plots
+    - name: Install TeXlive 
+      run: |
+        sudo apt-get install texlive texlive-publishers texlive-science latexmk cm-super
 
     # Build the book
     - name: Build the book
