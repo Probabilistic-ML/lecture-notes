@@ -539,8 +539,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8a9aab9e-f71b-44e0-9e32-544effd321ea">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-8a9aab9e-f71b-44e0-9e32-544effd321ea" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dbcca7f7-12ab-40cf-aa3a-dfb843fdda01">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-dbcca7f7-12ab-40cf-aa3a-dfb843fdda01" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -656,7 +656,7 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9977646926114375 0.3909119755090764
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9977646926145693 0.3909119755210874
 </pre></div>
 </div>
 <img alt="../_images/03_RL_6_1.png" src="../_images/03_RL_6_1.png" />
@@ -674,7 +674,7 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8834713160948126 1.0697868671294513
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.88591470414472 1.0695878594102877
 </pre></div>
 </div>
 <img alt="../_images/03_RL_7_1.png" src="../_images/03_RL_7_1.png" />
@@ -804,8 +804,8 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu: 0.867533918054006 0.1590983263618532
-sigma: 0.9769986099716209 1.18747063069897
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu: 0.867533918639736 0.1590960143325786
+sigma: 0.9769986091821927 1.1874826216007126
 </pre></div>
 </div>
 <img alt="../_images/03_RL_11_1.png" src="../_images/03_RL_11_1.png" />
@@ -820,7 +820,7 @@ sigma: 0.9769986099716209 1.18747063069897
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mu: 0.868 Sigma: 0.977 Dura: 0.000263 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mu: 0.868 Sigma: 0.977 Dura: 0.000250 seconds
 </pre></div>
 </div>
 </div>
@@ -835,16 +835,18 @@ sigma: 0.9769986099716209 1.18747063069897
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Samples:  2000 Mu:  0.924 Sigma:  1.069 Dura: 2.794175 seconds
-Samples:  1000 Mu:  0.584 Sigma:  1.212 Dura: 0.133940 seconds
-Samples:   500 Mu:  0.883 Sigma:  1.116 Dura: 0.024062 seconds
-Samples:   250 Mu:  0.906 Sigma:  1.097 Dura: 0.006199 seconds
-Samples:   100 Mu:  0.117 Sigma:  1.167 Dura: 0.001987 seconds
-Samples:    50 Mu:  0.218 Sigma:  1.269 Dura: 0.001496 seconds
-Samples:    25 Mu:  0.352 Sigma:  1.246 Dura: 0.044127 seconds
-Samples:    10 Mu:  0.938 Sigma:  1.139 Dura: 0.001721 seconds
-Samples:     5 Mu:  1.414 Sigma:  0.728 Dura: 0.001830 seconds
-Samples:     2 Mu:  0.638 Sigma:  0.536 Dura: 0.001722 seconds
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Samples:  2000 Mu:  0.871 Sigma:  1.037 Dura: 2.731446 seconds
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Samples:  1000 Mu:  0.421 Sigma:  1.312 Dura: 0.393812 seconds
+Samples:   500 Mu:  0.343 Sigma:  1.261 Dura: 0.072699 seconds
+Samples:   250 Mu:  0.923 Sigma:  1.070 Dura: 0.014544 seconds
+Samples:   100 Mu:  0.660 Sigma:  1.204 Dura: 0.003513 seconds
+Samples:    50 Mu:  0.512 Sigma:  1.276 Dura: 0.002263 seconds
+Samples:    25 Mu: -0.048 Sigma:  1.322 Dura: 0.001963 seconds
+Samples:    10 Mu:  0.551 Sigma:  0.981 Dura: 0.001711 seconds
+Samples:     5 Mu: -1.039 Sigma:  0.621 Dura: 0.001677 seconds
+Samples:     2 Mu: -0.056 Sigma:  2.089 Dura: 0.001673 seconds
 </pre></div>
 </div>
 </div>

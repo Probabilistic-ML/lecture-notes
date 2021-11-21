@@ -516,8 +516,8 @@
 <div class="section" id="sample-efficiency">
 <h3><span class="section-number">9.1.2. </span>Sample efficiency<a class="headerlink" href="#sample-efficiency" title="Permalink to this headline">¶</a></h3>
 <p>In practical applications, other properties such as the <em>sample efficiency</em> may be more important. Consider the single objective optimization problem <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/01_fund/04_opt.html#a-formal-definition">as defined before</a></p>
-<div class="amsmath math notranslate nohighlight" id="equation-ca3c71f7-7086-4e18-b150-3207d8911ca1">
-<span class="eqno">(9.1)<a class="headerlink" href="#equation-ca3c71f7-7086-4e18-b150-3207d8911ca1" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d8c1c6b7-7ea4-4eca-8465-d5adfcb91d31">
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-d8c1c6b7-7ea4-4eca-8465-d5adfcb91d31" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathrm{arg}\, \min_x f(x)
 \end{equation}\]</div>
 <p>Given that two algorithms can find the optimum <span class="math notranslate nohighlight">\(x^* \in \mathbb{R}^d\)</span>, the one that requires a smaller number of function evaluations <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> is considered more sample efficient. However, some algorithms may result in different solutions <span class="math notranslate nohighlight">\(x^*_1, x^*_2 \in \mathbb{R}^d\)</span> and one or both of of them may be different than the true optimum, for example <span class="math notranslate nohighlight">\(f(x^*) &lt; f(x^*_1) &lt; f(x^*_2)\)</span>. In this case, further domain knowledge is required to assess the sample efficiency, so that the cost of an evaluation becomes comparable to the cost of a function evaluation.</p>
@@ -526,8 +526,8 @@
 <div class="section" id="surrogate-based-strategies">
 <h3><span class="section-number">9.1.3. </span>Surrogate-based strategies<a class="headerlink" href="#surrogate-based-strategies" title="Permalink to this headline">¶</a></h3>
 <p>Using a surrogate model <span class="math notranslate nohighlight">\(\tilde{f}(x) \approx f(x)\)</span> for the optimization such as a Gaussian process may already decrease the number of required samples. Since the evaluation of this surrogate model is assumed to be much cheaper than the original function, greedy optimization algorithms can be deployed to solve the following problem</p>
-<div class="amsmath math notranslate nohighlight" id="equation-77fb9023-505d-421b-9158-fb7a90d2e4d1">
-<span class="eqno">(9.2)<a class="headerlink" href="#equation-77fb9023-505d-421b-9158-fb7a90d2e4d1" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-13fd385a-385d-46d3-821a-6fe51c12ce72">
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-13fd385a-385d-46d3-821a-6fe51c12ce72" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathrm{arg} \min_x \tilde{f}(x)
 \end{equation}\]</div>
 <p>in the hope that <span class="math notranslate nohighlight">\(\mathrm{arg}\min_x \tilde{f}(x) \approx \mathrm{arg}\min_x f(x)\)</span>, which may not hold if the surrogate model is inaccurate. In this case, improving the accuracy of the model is required, e.g. by increasing the amount of data and thus the number of function evaluations.</p>
@@ -537,13 +537,13 @@
 <p>Adaptive sampling strategies are proposed to increase the sample efficiency of the surrogate-based solutions, where a model is initialized with a small portion of the total budget. At each iteration, new data points are queried and the model is retrained to refine the model accuracy in regions, that are relevant for the solution of the optimization problem.</p>
 <p>Bayesian optimization <span id="id1">[]</span> decribes a category of adaptive sampling algorithms, that use a probabilistic surrogate model and solve an <em>auxiliary</em> problem by using the so-called <em>acquisition functions</em> <span class="math notranslate nohighlight">\(a(\cdot)\)</span>. Through the use of model uncertainty, they seek to improve the sample-efficiency of surrogate based solutions.</p>
 <p>Consider a Gaussian process <span class="math notranslate nohighlight">\(\tilde{f} \sim \mathcal{GP}\)</span> as the surrogate model. As mentioned <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_GPforML/02_GP.html">before</a>, each prediction <span class="math notranslate nohighlight">\(\tilde{f}(x) = Y \sim \mathcal{N}(\mu_Y(x), \sigma_Y(x))\)</span> represents a normal distribution. Thus, the surrogate-based problem from before could be rewritten as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f5bb0851-eb4b-4dee-b457-987d4e0b851c">
-<span class="eqno">(9.3)<a class="headerlink" href="#equation-f5bb0851-eb4b-4dee-b457-987d4e0b851c" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-030ed7c1-fffb-4380-b10e-178443f8cc5d">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-030ed7c1-fffb-4380-b10e-178443f8cc5d" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathrm{arg}\min_x \mu_Y(x)
 \end{equation}\]</div>
 <p>From a Bayesian optimization perspective, this acquisition function <span class="math notranslate nohighlight">\(a(x)=\mu_Y(x)\)</span> is called the mean acquisition. More generally, some of the most popular acquisition functions are in form <span class="math notranslate nohighlight">\(a: \mathbb{R}^2 \rightarrow \mathbb{R}\)</span> and the Bayesian optimization problem can be denoted as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4432b296-5fcc-4c83-ac0f-814ba81d8af3">
-<span class="eqno">(9.4)<a class="headerlink" href="#equation-4432b296-5fcc-4c83-ac0f-814ba81d8af3" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9a06cacc-73ca-46dc-8171-e5d794640882">
+<span class="eqno">(9.4)<a class="headerlink" href="#equation-9a06cacc-73ca-46dc-8171-e5d794640882" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathrm{arg}\min_x a(\mu_Y(x), \sigma_Y(x))
 \end{equation}\]</div>
 <p>Here, three well-known acquisition functions are introduced but there are a number of alternatives and constructing useful acquisition functions is an actively researched topic (see <a class="reference external" href="https://bbochallenge.com">black-box optimization challenge</a>). An overview of some functions can be found <a class="reference external" href="https://arxiv.org/pdf/1807.02811.pdf">here</a>.</p>
@@ -554,8 +554,8 @@
 <div class="section" id="lower-confidence-bound-lcb">
 <h3><span class="section-number">9.2.1. </span>Lower confidence bound (LCB)<a class="headerlink" href="#lower-confidence-bound-lcb" title="Permalink to this headline">¶</a></h3>
 <p>Using the mean acquisition function may lead to model not exploring unseen regions. Consider the following one dimensional example.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-345afac1-3e81-46e7-9874-92839ea1c5f9">
-<span class="eqno">(9.5)<a class="headerlink" href="#equation-345afac1-3e81-46e7-9874-92839ea1c5f9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-008c8a41-adfa-42fd-9dce-498e5c0cf059">
+<span class="eqno">(9.5)<a class="headerlink" href="#equation-008c8a41-adfa-42fd-9dce-498e5c0cf059" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathrm{arg}\min_x \sin(x) + \sin(\frac{10}{3}x)
 \end{equation}\]</div>
 <p>evaluated in <span class="math notranslate nohighlight">\(x \in [2.7, 7.5]\)</span>.</p>
@@ -627,8 +627,8 @@
 </div>
 </div>
 <p>It can be seen that the minimum of the mean prediction is very close to an existing sample and corresponds to a local minimum of the original function. As such, using mean acquisition would result in a solution, where the exploitation is weighted heavily. Instead of exploring unknown regions, it would prefer looking for improvements near the already known small values. For increasing exploration, lower confidence bound (LCB) can be used instead as an acquisition function</p>
-<div class="amsmath math notranslate nohighlight" id="equation-69933f01-c371-4921-afbd-728000ba2cb8">
-<span class="eqno">(9.6)<a class="headerlink" href="#equation-69933f01-c371-4921-afbd-728000ba2cb8" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-eab9ae8e-8f5a-45ec-b5e1-815ed6fc5c59">
+<span class="eqno">(9.6)<a class="headerlink" href="#equation-eab9ae8e-8f5a-45ec-b5e1-815ed6fc5c59" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 a(\mu_Y(x), \sigma_Y(x)) = \mu_Y(x) - \alpha * \sigma_Y(x)
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span> is a positive factor. A larger <span class="math notranslate nohighlight">\(\alpha\)</span> would weight the exploration more. Let us use <span class="math notranslate nohighlight">\(\alpha=1.96\)</span>, which would be the z-score of the double sided <span class="math notranslate nohighlight">\(95\%\)</span> confidence bounds of a normal distribution</p>
@@ -654,13 +654,13 @@ a(\mu_Y(x), \sigma_Y(x)) = \mu_Y(x) - \alpha * \sigma_Y(x)
 </div>
 <p>It can be seen that the LCB function with the chosen <span class="math notranslate nohighlight">\(\alpha\)</span> would lead to a query near the global optimum. Thus, the exploration behaviour is improved compared to the mean acquisition. LCB acquisition is sometimes also called the optimistic or upper confidence bound (UCB) acquisition. The latter makes sense in the context of maximization problems.</p>
 <p>There are two important observations about the LCB, that guarantee convergence given that the used optimization method is able to solve the original problem. In the noise free case, as the number of samples <span class="math notranslate nohighlight">\(n\)</span> goes to infinity, the approximation error</p>
-<div class="amsmath math notranslate nohighlight" id="equation-29782ae3-1303-4e08-8f5b-8882723c7199">
-<span class="eqno">(9.7)<a class="headerlink" href="#equation-29782ae3-1303-4e08-8f5b-8882723c7199" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ed9c8e92-dd16-4a5c-983c-17c82de090ff">
+<span class="eqno">(9.7)<a class="headerlink" href="#equation-ed9c8e92-dd16-4a5c-983c-17c82de090ff" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \lim_{n\rightarrow\infty} ||\mu_Y(x) - f(x)|| = 0
 \end{equation}\]</div>
 <p>and the model variance <span class="math notranslate nohighlight">\(\sigma^2_Y(x)\)</span></p>
-<div class="amsmath math notranslate nohighlight" id="equation-a23b8fc8-22a5-4c9d-b1df-454c0bc1586c">
-<span class="eqno">(9.8)<a class="headerlink" href="#equation-a23b8fc8-22a5-4c9d-b1df-454c0bc1586c" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a8a90079-62b4-4613-8a4d-e989877a6a5b">
+<span class="eqno">(9.8)<a class="headerlink" href="#equation-a8a90079-62b4-4613-8a4d-e989877a6a5b" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \lim_{n\rightarrow\infty} \sigma^2_Y(x) = 0
 \end{equation}\]</div>
 <p>given infinite computation power and a noise free <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. The first condition is a result of the universal approximation theorem as derived <a class="reference external" href="https://jmlr.csail.mit.edu/papers/volume7/micchelli06a/micchelli06a.pdf">here</a> for some of the kernels discussed <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_GPforML/04_kernels.html">before</a>. The second one is true due to the definition of the prediction variance, which is zero for known points <span class="math notranslate nohighlight">\(x\)</span> (see <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_GPforML/03_GPregression.html">noise-free equations</a> and replace <span class="math notranslate nohighlight">\(X^*\)</span> with <span class="math notranslate nohighlight">\(X\)</span> for a proof).</p>
@@ -669,18 +669,18 @@ a(\mu_Y(x), \sigma_Y(x)) = \mu_Y(x) - \alpha * \sigma_Y(x)
 <div class="section" id="probability-of-improvement">
 <h3><span class="section-number">9.2.2. </span>Probability of Improvement<a class="headerlink" href="#probability-of-improvement" title="Permalink to this headline">¶</a></h3>
 <p>The probabilistic nature of our surrogate model allows using probabilistic reasoning to choose an acquisition function. Let us define <span class="math notranslate nohighlight">\(y^* = f(x_k)\)</span> to be the best sample observed so far, where <span class="math notranslate nohighlight">\(x_k \in \mathbb{R}^d\)</span> is the input coordinates of the <span class="math notranslate nohighlight">\(k\)</span>-th sample point. We can define improvement <span class="math notranslate nohighlight">\(I\)</span> of the current iteration as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3121e792-2cb7-4fbb-b504-81dd021b3572">
-<span class="eqno">(9.9)<a class="headerlink" href="#equation-3121e792-2cb7-4fbb-b504-81dd021b3572" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a4a8b98e-af8c-476d-8b71-5f954825d1a4">
+<span class="eqno">(9.9)<a class="headerlink" href="#equation-a4a8b98e-af8c-476d-8b71-5f954825d1a4" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 I(x) = y^* - Y
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(Y \sim \mathcal{N}(\mu_Y(x), \sigma_Y(x))\)</span> is the uncertain variable predicted by our <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>. Since <span class="math notranslate nohighlight">\(y^*\)</span> is a constant, <span class="math notranslate nohighlight">\(I(x) \sim \mathcal{N}(y^* -\mu_Y(x), \sigma_Y(x))\)</span> is also a Gaussian variable. Thus, probability of improvement defines the acquisition function as follows</p>
-<div class="amsmath math notranslate nohighlight" id="equation-402e3858-1eae-4310-b5be-e4df5bb49c3e">
-<span class="eqno">(9.10)<a class="headerlink" href="#equation-402e3858-1eae-4310-b5be-e4df5bb49c3e" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-1c19b99d-4f0c-4c3c-844c-e063b908eda3">
+<span class="eqno">(9.10)<a class="headerlink" href="#equation-1c19b99d-4f0c-4c3c-844c-e063b908eda3" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 a(\mu_Y(x), \sigma_Y(x)) = P(I(x)) = P(Y(x) \leq y^*) = \Phi(\frac{y^* -\mu_Y(x)}{\sigma_Y(x)})
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span> is the standard normal cumulative density function (CDF). There are some differences compared to the previous acquisition functions. Firstly, we want to maximize the probability of improvement and the surrogate problem can be denoted as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ac518c03-1a68-4d49-8df1-065171ac8ae5">
-<span class="eqno">(9.11)<a class="headerlink" href="#equation-ac518c03-1a68-4d49-8df1-065171ac8ae5" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f7a0bb7c-16ab-419e-a15a-44f8d7b9e834">
+<span class="eqno">(9.11)<a class="headerlink" href="#equation-f7a0bb7c-16ab-419e-a15a-44f8d7b9e834" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathrm{arg}\max_x a(\mu_Y(x), \sigma_Y(x))
 \end{equation}\]</div>
 <p>Moreover, probability of improvement weights exploitation even more than the mean acquisition function, since not only we want to minimize <span class="math notranslate nohighlight">\(\mu_Y(x)\)</span> but also <span class="math notranslate nohighlight">\(\sigma_Y(x)\)</span> to maximize <span class="math notranslate nohighlight">\(P(I(x))\)</span> as <span class="math notranslate nohighlight">\(\Phi\)</span> is a monotonically increasing function. Let us visualize it for the 1-D example to see this clearly.</p>
@@ -716,28 +716,28 @@ a(\mu_Y(x), \sigma_Y(x)) = P(I(x)) = P(Y(x) \leq y^*) = \Phi(\frac{y^* -\mu_Y(x)
 <div class="section" id="expected-improvement">
 <h3><span class="section-number">9.2.3. </span>Expected improvement<a class="headerlink" href="#expected-improvement" title="Permalink to this headline">¶</a></h3>
 <p>Another improvement based acquisition function, which is quite popular is the expected improvement. Notice that the expectation of the improvement variable <span class="math notranslate nohighlight">\(I(x) \sim \mathcal{N}\)</span> defined before would be</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dd08dfc1-04fa-486d-96bb-fa3e09951edb">
-<span class="eqno">(9.12)<a class="headerlink" href="#equation-dd08dfc1-04fa-486d-96bb-fa3e09951edb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-65de9642-fc8a-4286-bec7-66af61783f94">
+<span class="eqno">(9.12)<a class="headerlink" href="#equation-65de9642-fc8a-4286-bec7-66af61783f94" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \mathrm{E}[I(x)] = y^* - \mu_Y(x)
 \end{equation}\]</div>
 <p>which would be aquivalent to using the mean acquisition function. However, it becomes more useful, if we disregard the negative improvement values. Thus, let us redefine the improvement as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d592fcbc-7ed9-466e-bd69-07705b065d12">
-<span class="eqno">(9.13)<a class="headerlink" href="#equation-d592fcbc-7ed9-466e-bd69-07705b065d12" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-1705bb88-ce8b-45ad-9eb6-ad444e8aa89a">
+<span class="eqno">(9.13)<a class="headerlink" href="#equation-1705bb88-ce8b-45ad-9eb6-ad444e8aa89a" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 I(x) = max(0, y^* - Y)
 \end{equation}\]</div>
 <p>Due to the max operation, <span class="math notranslate nohighlight">\(I(x)\)</span> is no longer a Gaussian variable. However, using the integral form, we can derive the expectation</p>
-<div class="amsmath math notranslate nohighlight" id="equation-699e4f6d-8ae7-43a4-aa31-20e3aec2ed54">
-<span class="eqno">(9.14)<a class="headerlink" href="#equation-699e4f6d-8ae7-43a4-aa31-20e3aec2ed54" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2d96469f-c3d0-4fd3-a0a0-c24e6a4003ea">
+<span class="eqno">(9.14)<a class="headerlink" href="#equation-2d96469f-c3d0-4fd3-a0a0-c24e6a4003ea" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 E[I(x)] = \int_{-\infty}^{\infty} s f_I(s) ds
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_I: \mathbb{R}\rightarrow\mathbb{R}\)</span> is the probability density function (PDF) of <span class="math notranslate nohighlight">\(I(x)\)</span>. For a concise notation, let us define <span class="math notranslate nohighlight">\(\mu=\mu_Y(x)\)</span> and <span class="math notranslate nohighlight">\(\sigma=\sigma_Y(x)\)</span>. Using the reparametrization trick, we can rewrite <span class="math notranslate nohighlight">\(Y\)</span> as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8422656d-abcf-4fe2-aafe-e6041799c2b5">
-<span class="eqno">(9.15)<a class="headerlink" href="#equation-8422656d-abcf-4fe2-aafe-e6041799c2b5" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-85beff5f-af20-4682-afc8-5eab2012dbdc">
+<span class="eqno">(9.15)<a class="headerlink" href="#equation-85beff5f-af20-4682-afc8-5eab2012dbdc" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 Y = \mu + \sigma U
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(U \sim \mathcal{N}(0, 1)\)</span> is a standard normal variable. Notice that</p>
-<div class="amsmath math notranslate nohighlight" id="equation-35335fbb-aa8a-4cf0-850c-973291d683d8">
-<span class="eqno">(9.16)<a class="headerlink" href="#equation-35335fbb-aa8a-4cf0-850c-973291d683d8" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9379c748-67fe-4b9d-8e9e-8db1700c4ffb">
+<span class="eqno">(9.16)<a class="headerlink" href="#equation-9379c748-67fe-4b9d-8e9e-8db1700c4ffb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 f_I(s) = \left\{ 
   \begin{array}{ c l }
     \phi(\frac{s}{\sigma}) &amp; \quad \textrm{if } s \geq 0 \\
@@ -746,8 +746,8 @@ f_I(s) = \left\{
 \right.
 \end{equation}\]</div>
 <p>per definition, where <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span> denotes the standard normal PDF. For ease of notation, let us define a variable <span class="math notranslate nohighlight">\(z=\frac{y^* -\mu}{\sigma}\)</span>. Using these equations, we can rewrite the integral as follows and solve it</p>
-<div class="amsmath math notranslate nohighlight" id="equation-340726fe-c707-4c5c-9827-91966cafe48b">
-<span class="eqno">(9.17)<a class="headerlink" href="#equation-340726fe-c707-4c5c-9827-91966cafe48b" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8eba5bb0-6216-4510-85ab-e96732a57836">
+<span class="eqno">(9.17)<a class="headerlink" href="#equation-8eba5bb0-6216-4510-85ab-e96732a57836" title="Permalink to this equation">¶</a></span>\[\begin{align}
 E[I(x)] =&amp; \int_{-\infty}^{z} (y^* - \mu - \sigma u) \phi(u) du \\
     =&amp; (y^* - \mu)\Phi(z) - \sigma \int_{-\infty}^{z} u\phi(u) du \\
     =&amp; (y^* - \mu)\Phi(z) - \frac{\sigma}{2\pi} \int_{-\infty}^{z} u e^{\frac{-u^2}{2}} du \\
@@ -786,25 +786,25 @@ E[I(x)] =&amp; \int_{-\infty}^{z} (y^* - \mu - \sigma u) \phi(u) du \\
 <div class="section" id="probability-of-feasibility">
 <h3><span class="section-number">9.2.4. </span>Probability of Feasibility<a class="headerlink" href="#probability-of-feasibility" title="Permalink to this headline">¶</a></h3>
 <p>So far, we have only talked about unconstrained problems. However, many problems in engineering applications have some constraints. Thus, accounting for the model uncertainty when evaluating the constraints can be useful due to same motivations as before. Consider the following constrained optimization problem.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d7335aba-923b-4d99-9979-554ba449c402">
-<span class="eqno">(9.18)<a class="headerlink" href="#equation-d7335aba-923b-4d99-9979-554ba449c402" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8deb7640-d528-487b-ae7f-10847c9bc5ba">
+<span class="eqno">(9.18)<a class="headerlink" href="#equation-8deb7640-d528-487b-ae7f-10847c9bc5ba" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x \, &amp; f(x)\\
 \mathrm{s.t.} \, &amp; g_i(x) \geq 0, i \in [1, n_c]
 \end{align}\]</div>
 <p>An improvement based acquisition function <span class="math notranslate nohighlight">\(a()\)</span> can be transformed to the constrained form <span class="math notranslate nohighlight">\(a_c()\)</span> as follows</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fd76ca3e-7543-47a3-8586-162ed9ecb776">
-<span class="eqno">(9.19)<a class="headerlink" href="#equation-fd76ca3e-7543-47a3-8586-162ed9ecb776" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-845dbc09-d7ad-4617-8178-35388218e19f">
+<span class="eqno">(9.19)<a class="headerlink" href="#equation-845dbc09-d7ad-4617-8178-35388218e19f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 a_c(\mu_Y(x), \sigma_Y(x)) = a(\mu_Y(x), \sigma_Y(x)) P(g_1(x) \geq 0, \dots g_{n_c}(x) \geq 0)
 \end{equation}\]</div>
 <p>For independent constraints (<span class="math notranslate nohighlight">\(P(g_i(x) \geq 0 | g_{j} \geq 0) = P(g_i(x) \geq 0)\)</span> for <span class="math notranslate nohighlight">\(i\neq j\)</span>), the probability of feasibility can be written as the product</p>
-<div class="amsmath math notranslate nohighlight" id="equation-064376ad-1815-48f2-b69a-f6fce155b6f3">
-<span class="eqno">(9.20)<a class="headerlink" href="#equation-064376ad-1815-48f2-b69a-f6fce155b6f3" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e04bcd3e-4c67-4f54-80c3-f5683cd2c289">
+<span class="eqno">(9.20)<a class="headerlink" href="#equation-e04bcd3e-4c67-4f54-80c3-f5683cd2c289" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 P(g_1(x) \geq 0, \dots g_{n_c}(x) \geq 0) = \prod_{i=1}^{n_c} P(g_i(x) \geq 0)
 \end{equation}\]</div>
 <p>Otherwise, a multi-dimensional integral has to be solved to compute this probability. A more detailed derivation of the above equation for expected improvement can be found <a class="reference external" href="http://proceedings.mlr.press/v32/gardner14.pdf">here</a>.</p>
 <p>For constraints <span class="math notranslate nohighlight">\(g_i: \mathbb{R}^d \rightarrow \mathbb{R}\)</span> without uncertainty, the probability of feasibility <span class="math notranslate nohighlight">\(P(g_i(x) \geq 0) \)</span> is an indicator function with binary output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5638c861-fc6c-41f9-848f-f6e20f531e01">
-<span class="eqno">(9.21)<a class="headerlink" href="#equation-5638c861-fc6c-41f9-848f-f6e20f531e01" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-8452941c-cf13-4253-8332-58e912917358">
+<span class="eqno">(9.21)<a class="headerlink" href="#equation-8452941c-cf13-4253-8332-58e912917358" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 P(g_i(x) \geq 0) = \left\{ 
   \begin{array}{ c l }
     1 &amp; \quad \textrm{if } g_i(x) \geq 0 \\
@@ -813,8 +813,8 @@ P(g_i(x) \geq 0) = \left\{
 \right.
 \end{equation}\]</div>
 <p>However, if <span class="math notranslate nohighlight">\(g_i(\cdot)\)</span> is approximated using a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>, the prediction <span class="math notranslate nohighlight">\(g_i(x) = G_i \sim \mathcal{N}(\mu_{G_i}(x), \sigma_{G_i}(x))\)</span> is a Gaussian variable. As such, the probability of feasibility for Gaussian constraints is defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b2d7ef36-03e3-4aac-a490-50f37e3be625">
-<span class="eqno">(9.22)<a class="headerlink" href="#equation-b2d7ef36-03e3-4aac-a490-50f37e3be625" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a466f00f-ff61-4503-91fa-6432830aca37">
+<span class="eqno">(9.22)<a class="headerlink" href="#equation-a466f00f-ff61-4503-91fa-6432830aca37" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 P(G_i \geq 0) = \Phi \left( \frac{\mu_{G_i}(x)}{\sigma_{G_i}(x)} \right)
 \end{equation}\]</div>
 <p>Using the constrained acquisition function <span class="math notranslate nohighlight">\(a_c()\)</span> prefers designs with a high probability of feasibility, i.e. a larger mean <span class="math notranslate nohighlight">\(\mu_{G_i}(x)\)</span> or a smaller variance <span class="math notranslate nohighlight">\(\sigma_{G_i}(x)^2\)</span>. Thus, while the expected improvement leads to more queries in the unknown regions compared to the mean acquisition, probability of feasibility weights the known regions higher to reduce the risk of infeasibility. Let us treat the 1-D example as a constraint function to plot the probability of feasibility.</p>
@@ -845,8 +845,8 @@ P(G_i \geq 0) = \Phi \left( \frac{\mu_{G_i}(x)}{\sigma_{G_i}(x)} \right)
 </div>
 <p>It can be seen that the probability of feasibility <span class="math notranslate nohighlight">\(P(Y\leq0)\)</span> is non-zero for unobserved portions of the optimization space even for some <span class="math notranslate nohighlight">\(\mu_Y(x) \leq 0\)</span>, whereas it is close to <span class="math notranslate nohighlight">\(1\)</span> or <span class="math notranslate nohighlight">\(0\)</span> near the observed samples.</p>
 <p>Finally, let us plot <span class="math notranslate nohighlight">\(a_c(\cdot)\)</span> for the following problem</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ad9fd88e-3ecd-4e1e-b4cb-2915a15ad5fe">
-<span class="eqno">(9.23)<a class="headerlink" href="#equation-ad9fd88e-3ecd-4e1e-b4cb-2915a15ad5fe" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d7c07ebe-368e-4072-a539-04aa1c8bba47">
+<span class="eqno">(9.23)<a class="headerlink" href="#equation-d7c07ebe-368e-4072-a539-04aa1c8bba47" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x \, &amp; f(x)\\
 \mathrm{s.t.} \, &amp; f(x) \geq 0
 \end{align}\]</div>
