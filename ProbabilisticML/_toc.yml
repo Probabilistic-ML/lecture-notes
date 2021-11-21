@@ -52,7 +52,7 @@ parts:
   chapters:
   - file: 03_appl/01_BO
   - file: 03_appl/02_DesignUncertainty
-  - file: 03_appl/03_RL.md
+  - file: 03_appl/03_RL
 #- caption: Appendix
 #  numbered: false
 #  chapters:
