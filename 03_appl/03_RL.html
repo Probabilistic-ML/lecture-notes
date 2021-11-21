@@ -58,7 +58,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="10. Design Uncertainty Analysis" href="uncertainty.html" />
+    <link rel="prev" title="10. Design Uncertainty Analysis" href="02_DesignUncertainty.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -328,7 +328,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="uncertainty.html">
+  <a class="reference internal" href="02_DesignUncertainty.html">
    10. Design Uncertainty Analysis
   </a>
  </li>
@@ -378,9 +378,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/03_appl/03_RL.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/03_appl/03_RL.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -410,6 +410,22 @@
             class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/03_appl/03_RL.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
 
         </div>
 
@@ -499,7 +515,7 @@ In such problems, the aim is to reach and maintain a target state <span class="m
 Thus, a possible objective for this kind of problems can be given as</p>
 <div class="math notranslate nohighlight">
 \[ \mathrm{arg} \min_{\pi} \sum_{t=0}^{n_t}\left(s_t - s^*\right)^2 \]</div>
-<p>where expectation is computed along the time dimension. Notice that any other error metric could also be used instead of the
+<p>where the expectation is computed along the time dimension. Notice that any other error metric could also be used instead of the
 squared error. As such, the optimal controller <span class="math notranslate nohighlight">\(\pi^*\)</span> is the one, that minimizes the chosen error metric.</p>
 </div>
 <div class="section" id="reinforcement-learning">
@@ -523,8 +539,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-34da62a2-3199-4f45-af3b-cb7dbf463e92">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-34da62a2-3199-4f45-af3b-cb7dbf463e92" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8a9aab9e-f71b-44e0-9e32-544effd321ea">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-8a9aab9e-f71b-44e0-9e32-544effd321ea" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -535,7 +551,304 @@ Moreover, we could use Bayesian optimization to account for the model uncertaint
 However, notice that the output of each step is the input to the next step.
 Even if we assume the initial state <span class="math notranslate nohighlight">\(s_0\)</span> to be known, <span class="math notranslate nohighlight">\(s_1\)</span> is an uncertain variable, which will be part of the input when predicting <span class="math notranslate nohighlight">\(s_2\)</span>.
 A better strategy would be to propagate the uncertainty for a more accurate estimate of <span class="math notranslate nohighlight">\(\Sigma_{t+1}\)</span>.</p>
-<p>Propagating the uncertainty is not a trivial task <span id="id1">[<a class="reference internal" href="RL.html#id4">1</a>]</span>. Let us elaborate using an example.</p>
+<p>Propagating the uncertainty is not a trivial task <span id="id1">[<a class="reference internal" href="#id4">1</a>]</span>. Let us elaborate using an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">transition</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.</span>
+
+<span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">plot_pred</span><span class="p">(</span><span class="n">pred_fun</span><span class="p">,</span> <span class="n">true_fun</span><span class="p">,</span> <span class="n">fig_ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">bounds</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">true_fun</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+    <span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">y_pred_sigma</span> <span class="o">=</span> <span class="n">pred_fun</span><span class="p">(</span><span class="n">x_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">y_pred_sigma</span> <span class="o">=</span> <span class="n">y_pred_mu</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_pred_sigma</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">fig_ax</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">fig_ax</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_pred_mu</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">y_pred_sigma</span><span class="p">,</span> <span class="n">y_pred_mu</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">y_pred_sigma</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;95 % CI&quot;</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;GP mean&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;x[t]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x[t - 1]&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">data_y</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">RBF</span><span class="p">(),</span> <span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">data_y</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">pred_fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">data_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">pred_fun</span>
+
+
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">*</span><span class="n">bounds</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">transition</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">model</span><span class="p">,</span> <span class="n">pred_fun</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_pred</span><span class="p">(</span><span class="n">pred_fun</span><span class="p">,</span> <span class="n">transition</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_RL_3_0.png" src="../_images/03_RL_3_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prev_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.25</span><span class="p">]])</span>
+<span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span> <span class="o">=</span> <span class="n">pred_fun</span><span class="p">(</span><span class="n">prev_point</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1.24316463]] [0.40209835]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Propagate the uncertainty using the true function and sampling approximation</span>
+<span class="n">posterior</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">cur_mu</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">cur_sigma</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+<span class="n">input_samples</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">rvs</span><span class="p">((</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">output_samples</span> <span class="o">=</span> <span class="n">transition</span><span class="p">(</span><span class="n">input_samples</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">histograms</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">histograms</span><span class="p">(</span><span class="n">input_samples</span><span class="p">,</span> <span class="n">output_samples</span><span class="p">)</span>
+<span class="n">next_mu_true</span> <span class="o">=</span> <span class="n">output_samples</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">next_sigma_true</span> <span class="o">=</span> <span class="n">output_samples</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">next_mu_true</span><span class="p">,</span> <span class="n">next_sigma_true</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9977646926114375 0.3909119755090764
+</pre></div>
+</div>
+<img alt="../_images/03_RL_6_1.png" src="../_images/03_RL_6_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sampling from posterior for GP approximation</span>
+<span class="n">output_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample_y</span><span class="p">(</span><span class="n">input_samples</span><span class="p">)</span>
+<span class="n">histograms</span><span class="p">(</span><span class="n">input_samples</span><span class="p">,</span> <span class="n">output_preds</span><span class="p">)</span>
+<span class="n">next_mu_pred</span> <span class="o">=</span> <span class="n">output_preds</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">next_sigma_pred</span> <span class="o">=</span> <span class="n">output_preds</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">next_mu_pred</span><span class="p">,</span> <span class="n">next_sigma_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8834713160948126 1.0697868671294513
+</pre></div>
+</div>
+<img alt="../_images/03_RL_7_1.png" src="../_images/03_RL_7_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Moment matching approximation</span>
+<span class="k">def</span> <span class="nf">compare_pdfs</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pdf_funs</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i_fun</span><span class="p">,</span> <span class="n">pdf_fun</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pdf_funs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;PDF &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i_fun</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">i_fun</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">pdf_fun</span><span class="p">(</span><span class="n">x_grid</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">norm_label</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Norm(mu=</span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, sigma=</span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+<span class="n">compare_pdfs</span><span class="p">(</span><span class="n">output_samples</span><span class="p">,</span> <span class="p">[</span><span class="n">norm</span><span class="p">(</span><span class="n">next_mu_true</span><span class="p">,</span> <span class="n">next_sigma_true</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">],</span> <span class="s2">&quot;True samples&quot;</span><span class="p">,</span>
+             <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">norm_label</span><span class="p">(</span><span class="n">next_mu_true</span><span class="p">,</span> <span class="n">next_sigma_true</span><span class="p">)])</span>
+<span class="n">compare_pdfs</span><span class="p">(</span><span class="n">output_preds</span><span class="p">,</span> <span class="p">[</span><span class="n">norm</span><span class="p">(</span><span class="n">next_mu_pred</span><span class="p">,</span> <span class="n">next_sigma_pred</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">],</span> <span class="s2">&quot;Pred. samples&quot;</span><span class="p">,</span> 
+            <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">norm_label</span><span class="p">(</span><span class="n">next_mu_pred</span><span class="p">,</span> <span class="n">next_sigma_pred</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_RL_8_0.png" src="../_images/03_RL_8_0.png" />
+<img alt="../_images/03_RL_8_1.png" src="../_images/03_RL_8_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Le big picture</span>
+<span class="k">def</span> <span class="nf">plot_big_picture_true</span><span class="p">(</span><span class="n">true_fun</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">inp_pdf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">bounds</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">true_fun</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+    <span class="n">out_samples</span> <span class="o">=</span> <span class="n">true_fun</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+    <span class="n">out_pdf</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">out_samples</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">out_samples</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">pdf</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="s2">&quot;col&quot;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True function&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">y_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">out_samples</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">out_samples</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">inp_pdf</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">out_samples</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">out_pdf</span><span class="p">(</span><span class="n">y_grid</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_grid</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plot_big_picture_true</span><span class="p">(</span><span class="n">transition</span><span class="p">,</span> <span class="n">input_samples</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_RL_9_0.png" src="../_images/03_RL_9_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Le big picture 2</span>
+<span class="k">def</span> <span class="nf">plot_big_picture_sample_pred</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">inp_pdf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">bounds</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">y_mu</span><span class="p">,</span> <span class="n">y_sigma</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">),</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">y_mu</span><span class="p">,</span> <span class="n">y_sigma</span> <span class="o">=</span> <span class="n">y_mu</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_sigma</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">out_samples</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample_y</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">out_pdf</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">out_samples</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">out_samples</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">pdf</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="s2">&quot;col&quot;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_mu</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">y_sigma</span><span class="p">,</span> <span class="n">y_mu</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">y_sigma</span><span class="p">,</span>
+                          <span class="n">label</span><span class="o">=</span><span class="s2">&quot;95 % CI&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_mu</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;GP Mean&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">inp_pdf</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">out_samples</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">y_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">out_samples</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">out_samples</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">out_pdf</span><span class="p">(</span><span class="n">y_grid</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_grid</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plot_big_picture_sample_pred</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">input_samples</span><span class="p">,</span> <span class="n">norm</span><span class="p">(</span><span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_RL_10_0.png" src="../_images/03_RL_10_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deisenroth et. al. Moment Matching using RBF for a single state dimension</span>
+<span class="c1"># Original Eq. are much complicated as they have to regard state covariance</span>
+
+<span class="k">def</span> <span class="nf">moment_match_mu_next</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mu_in</span><span class="p">,</span> <span class="n">sigma_in</span><span class="p">):</span>
+    <span class="n">nus</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">X_train_</span> <span class="o">-</span> <span class="n">mu_in</span> <span class="c1"># Eq. (16)</span>
+    <span class="n">ls_square</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel_</span><span class="o">.</span><span class="n">length_scale</span> <span class="c1"># Eq. (6)</span>
+    <span class="n">var_in</span> <span class="o">=</span> <span class="n">sigma_in</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">q_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">nus</span> <span class="o">*</span> <span class="p">(</span><span class="n">ls_square</span> <span class="o">+</span> <span class="n">var_in</span><span class="p">)</span> <span class="o">**</span> <span class="o">-</span><span class="mi">1</span>  <span class="o">*</span> <span class="n">nus</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">var_in</span> <span class="o">*</span> <span class="n">ls_square</span><span class="o">**-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Eq. (15)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">q_a</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">alpha_</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">moment_match_sigma_next</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mu_in</span><span class="p">,</span> <span class="n">sigma_in</span><span class="p">,</span> <span class="n">mu_out</span><span class="p">):</span>
+    <span class="n">sigma_sq_out</span> <span class="o">=</span> <span class="n">sigma_in</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">mu_in</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">mu_out</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># Eq. (17)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma_sq_out</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">moment_match</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mu_in</span><span class="p">,</span> <span class="n">sigma_in</span><span class="p">):</span>
+    <span class="n">mu_out</span> <span class="o">=</span> <span class="n">moment_match_mu_next</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mu_in</span><span class="p">,</span> <span class="n">sigma_in</span><span class="p">)</span>
+    <span class="n">sigma_out</span> <span class="o">=</span> <span class="n">moment_match_sigma_next</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mu_in</span><span class="p">,</span> <span class="n">sigma_in</span><span class="p">,</span> <span class="n">mu_out</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mu_out</span><span class="p">,</span> <span class="n">sigma_out</span>
+
+<span class="k">def</span> <span class="nf">sample_match</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">mu_in</span><span class="p">,</span> <span class="n">sigma_in</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">):</span>
+    <span class="n">samps</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample_y</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">mu_in</span><span class="p">,</span> <span class="n">sigma_in</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">((</span><span class="n">samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">samps</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">samps</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">next_mu_sample</span><span class="p">,</span> <span class="n">next_sigma_sample</span> <span class="o">=</span> <span class="n">sample_match</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span><span class="p">)</span>
+<span class="n">next_mu_mm</span><span class="p">,</span> <span class="n">next_sigma_mm</span> <span class="o">=</span> <span class="n">moment_match</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mu:&quot;</span><span class="p">,</span> <span class="n">next_mu_mm</span><span class="p">,</span> <span class="n">next_mu_sample</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sigma:&quot;</span><span class="p">,</span> <span class="n">next_sigma_mm</span><span class="p">,</span> <span class="n">next_sigma_sample</span><span class="p">)</span>
+<span class="n">compare_pdfs</span><span class="p">(</span><span class="n">output_preds</span><span class="p">,</span> <span class="p">[</span><span class="n">norm</span><span class="p">(</span><span class="n">next_mu_mm</span><span class="p">,</span> <span class="n">next_sigma_mm</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span>
+                            <span class="n">norm</span><span class="p">(</span><span class="n">next_mu_pred</span><span class="p">,</span> <span class="n">next_sigma_pred</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">],</span> <span class="s2">&quot;Comparison Moment Matching vs. Sampling&quot;</span><span class="p">,</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">norm_label</span><span class="p">(</span><span class="n">next_mu_mm</span><span class="p">,</span> <span class="n">next_sigma_mm</span><span class="p">),</span>
+                    <span class="n">norm_label</span><span class="p">(</span><span class="n">next_mu_pred</span><span class="p">,</span> <span class="n">next_sigma_pred</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu: 0.867533918054006 0.1590983263618532
+sigma: 0.9769986099716209 1.18747063069897
+</pre></div>
+</div>
+<img alt="../_images/03_RL_11_1.png" src="../_images/03_RL_11_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">mu_pred</span><span class="p">,</span> <span class="n">sigma_pred</span> <span class="o">=</span> <span class="n">moment_match</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mu: </span><span class="si">{</span><span class="n">mu_pred</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Sigma: </span><span class="si">{</span><span class="n">sigma_pred</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Dura: </span><span class="si">{</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mu: 0.868 Sigma: 0.977 Dura: 0.000263 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">samples</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="n">mu_pred</span><span class="p">,</span> <span class="n">sigma_pred</span> <span class="o">=</span> <span class="n">sample_match</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cur_mu</span><span class="p">,</span> <span class="n">cur_sigma</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="n">samples</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Samples: </span><span class="si">{</span><span class="n">samples</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> Mu: </span><span class="si">{</span><span class="n">mu_pred</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2"> Sigma: </span><span class="si">{</span><span class="n">sigma_pred</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2"> Dura: </span><span class="si">{</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="si">:</span><span class="s2">6.6f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Samples:  2000 Mu:  0.924 Sigma:  1.069 Dura: 2.794175 seconds
+Samples:  1000 Mu:  0.584 Sigma:  1.212 Dura: 0.133940 seconds
+Samples:   500 Mu:  0.883 Sigma:  1.116 Dura: 0.024062 seconds
+Samples:   250 Mu:  0.906 Sigma:  1.097 Dura: 0.006199 seconds
+Samples:   100 Mu:  0.117 Sigma:  1.167 Dura: 0.001987 seconds
+Samples:    50 Mu:  0.218 Sigma:  1.269 Dura: 0.001496 seconds
+Samples:    25 Mu:  0.352 Sigma:  1.246 Dura: 0.044127 seconds
+Samples:    10 Mu:  0.938 Sigma:  1.139 Dura: 0.001721 seconds
+Samples:     5 Mu:  1.414 Sigma:  0.728 Dura: 0.001830 seconds
+Samples:     2 Mu:  0.638 Sigma:  0.536 Dura: 0.001722 seconds
+</pre></div>
+</div>
+</div>
+</div>
 <p id="id2"><dl class="citation">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>M.P. Deisenroth and C.E. Rasmussen. Pilco: a model-based and data-efficient approach to policy search. In <em>Proceedings of the 28th International Conference on Machine Learning, ICML 2011</em>, 465–472. Omnipress, 2011.</p>
@@ -570,7 +883,7 @@ A better strategy would be to propagate the uncertainty for a more accurate esti
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="uncertainty.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="02_DesignUncertainty.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
