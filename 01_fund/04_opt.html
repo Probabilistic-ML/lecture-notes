@@ -655,8 +655,8 @@
 <div class="section" id="constrained-optimization">
 <h3><span class="section-number">4.2.2. </span>Constrained optimization<a class="headerlink" href="#constrained-optimization" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes, it may be useful to enforce some criteria on the solution of the optimization problem. Specifically, we expect to find <span class="math notranslate nohighlight">\(x^* \in \mathbb{S}\)</span> in the <em>feasible</em> space <span class="math notranslate nohighlight">\(\mathbb{S}\)</span>; a subset <span class="math notranslate nohighlight">\(\mathbb{S}\subseteq\mathbb{R}^d\)</span> of the variable space <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In this case, the optimization problem is denoted as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1f699b5b-eb03-4598-90f5-81261aa40ed6">
-<span class="eqno">(4.1)<a class="headerlink" href="#equation-1f699b5b-eb03-4598-90f5-81261aa40ed6" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f7f6b9a4-36d4-4478-a807-ea6c52071b17">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-f7f6b9a4-36d4-4478-a807-ea6c52071b17" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x\,&amp; f(x) \\
 \mathrm{subject} \, \mathrm{to} \, &amp; x \in \mathbb{S}
 \end{align}\]</div>
@@ -671,8 +671,8 @@
 <div class="math notranslate nohighlight">
 \[ \mathbb{S}:= \{ x \in \mathbb{R}^d | g_1(x) \geq 0, \dots, g_{n_i}(x) \geq 0, h_1(x) =0, \dots, h_{n_e}(x)=0 \} \]</div>
 <p>where <span class="math notranslate nohighlight">\(n_e\)</span> and <span class="math notranslate nohighlight">\(n_i\)</span> are the number of equality and inequality constraints respectively. For a more concise notation, <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> is often omitted and only the conditions are used for the notation of a constrained optimization problem</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5b16b46a-873b-4df2-8812-a1baded57e5d">
-<span class="eqno">(4.2)<a class="headerlink" href="#equation-5b16b46a-873b-4df2-8812-a1baded57e5d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4d8d5a08-01c8-4020-ad4f-546efde6f253">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-4d8d5a08-01c8-4020-ad4f-546efde6f253" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x\,&amp; f(x) \\
 \mathrm{s. t.}\; &amp; g_i(x) \geq 0 \quad \mathrm{for} \, i \in [1, n_i] \\
 &amp;h_j(x) =0 \quad \mathrm{for} \, j \in [1, n_e] \\
