@@ -1,0 +1,892 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9. Bayesian Optimization &#8212; Introduction to Probabilistic Machine Learning</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/additional.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://probabilistic-ml.github.io/lecture-notes/welcome.html/03_appl/01_BO.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10. Design Uncertainty Analysis" href="uncertainty.html" />
+    <link rel="prev" title="8. Overview of Further Probabilistic Models" href="../02_probML/03_overview.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Probabilistic Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../welcome.html">
+   Welcome
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../00_preface/01_preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../00_preface/02_python.html">
+   Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../00_preface/03_notation.html">
+   Notation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Fundamentals
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01_fund/01_fundprob.html">
+   1. Fundamentals of Probability Theory
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/01_fundprob/01_probabilityspaces.html">
+     1.1. Probability Spaces
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/01_fundprob/02_randomvariables.html">
+     1.2. Random Variables
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/01_fundprob/03_independence.html">
+     1.3. Independence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/01_fundprob/04_impprobdistr.html">
+     1.4. Important Probability Distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/01_fundprob/05_essthms.html">
+     1.5. Essential Theorems
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_fund/02_stat.html">
+   2. Bayesian vs. Frequentists View
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01_fund/03_bayes.html">
+   3. Bayesian Inference, MAP &amp; MLE
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/01_cointoss.html">
+     3.1. Coin Toss
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/02_bayesianinference.html">
+     3.2. Bayesian Inference
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/03_MLEandMAP.html">
+     3.3. MAP and MLE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01_fund/03_bayes/04_linregr.html">
+     3.4. Linear Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_fund/04_opt.html">
+   4. Optimization Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../01_fund/05_MLworkflow.html">
+   5. Machine Learning Workflow
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Probabilistic Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02_probML/01_motivation.html">
+   6. Motivation of Probabilistic Models
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02_probML/02_GPforML.html">
+   7. Gaussian Processes for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/01_kerneltrick.html">
+     7.1. The Kernel Trick: Implicit embeddings from inner products
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/02_GP.html">
+     7.2. Gaussian Processes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/03_GPregression.html">
+     7.3. Gaussian Process Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/04_kernels.html">
+     7.4. Kernel Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/05_hyperparamimpact.html">
+     7.5. Impact of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/06_hyperparamselect.html">
+     7.6. Selection of Hyperparameters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/07_multiout.html">
+     7.7. Extension to Multiple Outputs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/08_GPclassification.html">
+     7.8. Gaussian Process Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_probML/02_GPforML/09_examples.html">
+     7.9. Examples
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../02_probML/02_GPforML/10_advanced.html">
+     7.10. Advanced Methods
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/01_SparseGP.html">
+       7.10.1. Scalable Gaussian Processes
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/02_NonstationaryGP.html">
+       7.10.2. Non-stationary Gaussian Processes
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_probML/02_GPforML/10_advanced/03_DeepGP.html">
+       7.10.3. Gaussian Processes on latent representations
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../02_probML/03_overview.html">
+   8. Overview of Further Probabilistic Models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   9. Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uncertainty.html">
+   10. Design Uncertainty Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_RL.html">
+   11. Efficient Reinforcement Learning
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org/"><img alt="Jupyter Book" src="https://jupyterbook.org/badge.svg" width="100"></a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/03_appl/01_BO.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/Probabilistic-ML/lecture-notes"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/Probabilistic-ML/lecture-notes/blob/master/ProbabilisticML/03_appl/01_BO.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivation">
+   9.1. Motivation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exploration-vs-exploitation">
+     9.1.1. Exploration vs. Exploitation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sample-efficiency">
+     9.1.2. Sample efficiency
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#surrogate-based-strategies">
+     9.1.3. Surrogate-based strategies
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adaptive-sampling">
+     9.1.4. Adaptive sampling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acquisition-functions-for-bayesian-optimization">
+   9.2. Acquisition functions for Bayesian optimization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lower-confidence-bound-lcb">
+     9.2.1. Lower confidence bound (LCB)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#probability-of-improvement">
+     9.2.2. Probability of Improvement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#expected-improvement">
+     9.2.3. Expected improvement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#probability-of-feasibility">
+     9.2.4. Probability of Feasibility
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="bayesian-optimization">
+<h1><span class="section-number">9. </span>Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation">
+<h2><span class="section-number">9.1. </span>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>Optimization is already introduced in the context of machine learning as a way to obtain the parameters of a model that minimize the approximation error or a similar metric. In general, optimization is applied to various kinds of problems. For engineers, product and process design optimization, trajectory control. parameter identification and model validation are some of the most important use cases for deploying optimization algorithms. As such, an efficient solution of optimization problems is important and we present a probabilistic strategy in the following.</p>
+<div class="section" id="exploration-vs-exploitation">
+<h3><span class="section-number">9.1.1. </span>Exploration vs. Exploitation<a class="headerlink" href="#exploration-vs-exploitation" title="Permalink to this headline">¶</a></h3>
+<p>Various optimization algorithms exist with different advantages and disadvantages. Gradient-based methods often require less iterations compared to e.g. population based methods but they require the gradient and possibly higher order derivatives. Moreover, they may get stuck at local optima or saddle points. As such, multiple starts may be required, which increases the number of iterations.</p>
+<p>In contrast, population-based methods are often good at <em>exploration</em>, i.e. searching the global optimization space for candidate optima. In return, these methods often require more function evaluations compared to gradient-based methods. Moreover, their convergence rate to the exact optimum is often slower compared to the gradient-based methods. In other words, gradient-free methods are often better at finding the <em>neighbourhood</em> of the optimum with increasing accuracy over iterations but gradient-based methods are often more efficient at finding the exact optimum given a start point in the <em>convex</em> neighbourhood, which will be called <em>exploitation</em> from here on. Note that, these statements may not hold for all functions and all algorithms in these categories but they serve as an example of exploration and exploitation trade-off in the context of optimization. This trade-off has a large influence on the choice of the optimization algorithm.</p>
+</div>
+<div class="section" id="sample-efficiency">
+<h3><span class="section-number">9.1.2. </span>Sample efficiency<a class="headerlink" href="#sample-efficiency" title="Permalink to this headline">¶</a></h3>
+<p>In practical applications, other properties such as the <em>sample efficiency</em> may be more important. Consider the single objective optimization problem <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/01_fund/04_opt.html#a-formal-definition">as defined before</a></p>
+<div class="amsmath math notranslate nohighlight" id="equation-cd72cce0-58ec-44be-9597-17896060e4cb">
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-cd72cce0-58ec-44be-9597-17896060e4cb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\mathrm{arg}\, \min_x f(x)
+\end{equation}\]</div>
+<p>Given that two algorithms can find the optimum <span class="math notranslate nohighlight">\(x^* \in \mathbb{R}^d\)</span>, the one that requires a smaller number of function evaluations <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> is considered more sample efficient. However, some algorithms may result in different solutions <span class="math notranslate nohighlight">\(x^*_1, x^*_2 \in \mathbb{R}^d\)</span> and one or both of of them may be different than the true optimum, for example <span class="math notranslate nohighlight">\(f(x^*) &lt; f(x^*_1) &lt; f(x^*_2)\)</span>. In this case, further domain knowledge is required to assess the sample efficiency, so that the cost of an evaluation becomes comparable to the cost of a function evaluation.</p>
+<p>Since the function evaluation may represent anything from expensive physical experiments to long running computations, the sample efficiency has a direct influence on the total costs of designing a product or a process. Remember that analysis of such expensive functions are one of the motivations behind applying machine learning to obtain surrogate functions that approximate these. Thus, a much pragmatic definition of the sample efficiency is adopted here. Given a relatively low budget of function evaluations, the algorithm that achieves the best solution is assumed to be the most sample efficient.</p>
+</div>
+<div class="section" id="surrogate-based-strategies">
+<h3><span class="section-number">9.1.3. </span>Surrogate-based strategies<a class="headerlink" href="#surrogate-based-strategies" title="Permalink to this headline">¶</a></h3>
+<p>Using a surrogate model <span class="math notranslate nohighlight">\(\tilde{f}(x) \approx f(x)\)</span> for the optimization such as a Gaussian process may already decrease the number of required samples. Since the evaluation of this surrogate model is assumed to be much cheaper than the original function, greedy optimization algorithms can be deployed to solve the following problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8b0bc1c9-06df-44d6-8906-4d2ce3adc0ca">
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-8b0bc1c9-06df-44d6-8906-4d2ce3adc0ca" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\mathrm{arg} \min_x \tilde{f}(x)
+\end{equation}\]</div>
+<p>in the hope that <span class="math notranslate nohighlight">\(\mathrm{arg}\min_x \tilde{f}(x) \approx \mathrm{arg}\min_x f(x)\)</span>, which may not hold if the surrogate model is inaccurate. In this case, improving the accuracy of the model is required, e.g. by increasing the amount of data and thus the number of function evaluations.</p>
+</div>
+<div class="section" id="adaptive-sampling">
+<h3><span class="section-number">9.1.4. </span>Adaptive sampling<a class="headerlink" href="#adaptive-sampling" title="Permalink to this headline">¶</a></h3>
+<p>Adaptive sampling strategies are proposed to increase the sample efficiency of the surrogate-based solutions, where a model is initialized with a small portion of the total budget. At each iteration, new data points are queried and the model is retrained to refine the model accuracy in regions, that are relevant for the solution of the optimization problem.</p>
+<p>Bayesian optimization <span id="id1">[]</span> decribes a category of adaptive sampling algorithms, that use a probabilistic surrogate model and solve an <em>auxiliary</em> problem by using the so-called <em>acquisition functions</em> <span class="math notranslate nohighlight">\(a(\cdot)\)</span>. Through the use of model uncertainty, they seek to improve the sample-efficiency of surrogate based solutions.</p>
+<p>Consider a Gaussian process <span class="math notranslate nohighlight">\(\tilde{f} \sim \mathcal{GP}\)</span> as the surrogate model. As mentioned <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_GPforML/02_GP.html">before</a>, each prediction <span class="math notranslate nohighlight">\(\tilde{f}(x) = Y \sim \mathcal{N}(\mu_Y(x), \sigma_Y(x))\)</span> represents a normal distribution. Thus, the surrogate-based problem from before could be rewritten as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-18c2f517-57c4-4fb0-b455-8da57ff3e068">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-18c2f517-57c4-4fb0-b455-8da57ff3e068" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\mathrm{arg}\min_x \mu_Y(x)
+\end{equation}\]</div>
+<p>From a Bayesian optimization perspective, this acquisition function <span class="math notranslate nohighlight">\(a(x)=\mu_Y(x)\)</span> is called the mean acquisition. More generally, some of the most popular acquisition functions are in form <span class="math notranslate nohighlight">\(a: \mathbb{R}^2 \rightarrow \mathbb{R}\)</span> and the Bayesian optimization problem can be denoted as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4209c8c0-76a9-4a2b-9e64-617ddf72d215">
+<span class="eqno">(9.4)<a class="headerlink" href="#equation-4209c8c0-76a9-4a2b-9e64-617ddf72d215" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\mathrm{arg}\min_x a(\mu_Y(x), \sigma_Y(x))
+\end{equation}\]</div>
+<p>Here, three well-known acquisition functions are introduced but there are a number of alternatives and constructing useful acquisition functions is an actively researched topic (see <a class="reference external" href="https://bbochallenge.com">black-box optimization challenge</a>). An overview of some functions can be found <a class="reference external" href="https://arxiv.org/pdf/1807.02811.pdf">here</a>.</p>
+</div>
+</div>
+<div class="section" id="acquisition-functions-for-bayesian-optimization">
+<h2><span class="section-number">9.2. </span>Acquisition functions for Bayesian optimization<a class="headerlink" href="#acquisition-functions-for-bayesian-optimization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lower-confidence-bound-lcb">
+<h3><span class="section-number">9.2.1. </span>Lower confidence bound (LCB)<a class="headerlink" href="#lower-confidence-bound-lcb" title="Permalink to this headline">¶</a></h3>
+<p>Using the mean acquisition function may lead to model not exploring unseen regions. Consider the following one dimensional example.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4715ff57-567d-488d-8303-b177fb260761">
+<span class="eqno">(9.5)<a class="headerlink" href="#equation-4715ff57-567d-488d-8303-b177fb260761" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\mathrm{arg}\min_x \sin(x) + \sin(\frac{10}{3}x)
+\end{equation}\]</div>
+<p>evaluated in <span class="math notranslate nohighlight">\(x \in [2.7, 7.5]\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span><span class="p">,</span> <span class="n">Matern</span><span class="p">,</span> <span class="n">ConstantKernel</span><span class="p">,</span> <span class="n">WhiteKernel</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;font.size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the objective function</span>
+
+<span class="k">def</span> <span class="nf">obj</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="mf">2.7</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="mf">7.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the surrogate based solution, let us fit a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> and visualize the mean acquisition</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit a GP</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span> <span class="o">*</span> <span class="p">(</span><span class="n">upper_bound</span> <span class="o">-</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">+</span> <span class="n">lower_bound</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">obj</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="n">ConstantKernel</span><span class="p">()</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">length_scale_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1e-10</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">))</span> 
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize mean acquisition</span>
+<span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">obj</span><span class="p">(</span><span class="n">x_grid</span><span class="p">)</span>
+<span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">y_pred_std</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">y_pred_mu</span> <span class="o">=</span> <span class="n">y_pred_mu</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\mu_Y(x)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training samples&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y=f(x)$&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_BO_7_0.png" src="../_images/01_BO_7_0.png" />
+</div>
+</div>
+<p>It can be seen that the minimum of the mean prediction is very close to an existing sample and corresponds to a local minimum of the original function. As such, using mean acquisition would result in a solution, where the exploitation is weighted heavily. Instead of exploring unknown regions, it would prefer looking for improvements near the already known small values. For increasing exploration, lower confidence bound (LCB) can be used instead as an acquisition function</p>
+<div class="amsmath math notranslate nohighlight" id="equation-3817321e-abfa-49b9-acae-6bad1c827f7e">
+<span class="eqno">(9.6)<a class="headerlink" href="#equation-3817321e-abfa-49b9-acae-6bad1c827f7e" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+a(\mu_Y(x), \sigma_Y(x)) = \mu_Y(x) - \alpha * \sigma_Y(x)
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha \in \mathbb{R}\)</span> is a positive factor. A larger <span class="math notranslate nohighlight">\(\alpha\)</span> would weight the exploration more. Let us use <span class="math notranslate nohighlight">\(\alpha=1.96\)</span>, which would be the z-score of the double sided <span class="math notranslate nohighlight">\(95\%\)</span> confidence bounds of a normal distribution</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_lcb</span> <span class="o">=</span> <span class="n">y_pred_mu</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">y_pred_std</span> 
+<span class="n">y_ucb</span> <span class="o">=</span> <span class="n">y_pred_mu</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">y_pred_std</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_lcb</span><span class="p">,</span> <span class="n">y_ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$95\%$ CB&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\mu_Y(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training samples&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y=f(x)$&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_BO_9_0.png" src="../_images/01_BO_9_0.png" />
+</div>
+</div>
+<p>It can be seen that the LCB function would prefer the next sample to be near the global optimum. Thus, the exploration behaviour is improved compared to the mean acquisition. Note that, thus acquisition is sometimes also called the optimistic or upper confidence bound (UCB) acquisition. The latter makes sense in the context of maximization problems.</p>
+<p>There are two important observations about the LCB, that guarantee convergence given that the used optimization method is able to solve the original problem. In the noise free case, as the number of samples <span class="math notranslate nohighlight">\(n\)</span> goes to infinity, the approximation error</p>
+<div class="amsmath math notranslate nohighlight" id="equation-825d77c6-ba91-4bf8-9b99-c6b26e853c2e">
+<span class="eqno">(9.7)<a class="headerlink" href="#equation-825d77c6-ba91-4bf8-9b99-c6b26e853c2e" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\lim_{n\rightarrow\infty} ||\mu_Y(x) - f(x)|| = 0
+\end{equation}\]</div>
+<p>and the model variance <span class="math notranslate nohighlight">\(\sigma^2_Y(x)\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-d4496edb-d377-4037-b651-dcb4c5bd44ff">
+<span class="eqno">(9.8)<a class="headerlink" href="#equation-d4496edb-d377-4037-b651-dcb4c5bd44ff" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\lim_{n\rightarrow\infty} \sigma^2_Y(x) = 0
+\end{equation}\]</div>
+<p>given infinite computation power and a noise free <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. The first condition is a result of the universal approximation theorem as derived <a class="reference external" href="https://jmlr.csail.mit.edu/papers/volume7/micchelli06a/micchelli06a.pdf">here</a> for some of the kernels discussed <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_GPforML/04_kernels.html">before</a>. The second one is true due to the definition of the prediction variance, which is zero for known points <span class="math notranslate nohighlight">\(x\)</span> (see <a class="reference external" href="https://probabilistic-ml.github.io/lecture-notes/02_probML/02_GPforML/03_GPregression.html">noise-free equations</a> and replace <span class="math notranslate nohighlight">\(X^*\)</span> with <span class="math notranslate nohighlight">\(X\)</span> for a proof).</p>
+<p>Thus, as the number of samples goes to infinity, the acquisition function <span class="math notranslate nohighlight">\(a(\cdot)\)</span> converges to the true function <span class="math notranslate nohighlight">\(f(\cdot)\)</span>. This is rather a theoretical result to justify using LCB. However, the more important aspect of LCB and any other optimization algorithm is the rate of convergence. LCB seeks to increase this rate by discounting the objective value by some multiple of the prediction standard deviation <span class="math notranslate nohighlight">\(\sigma_Y(x)\)</span>, thus encouraging more exploration. For unscaled data, choosing <span class="math notranslate nohighlight">\(\alpha\)</span> may not be trivial. Moreover, although <span class="math notranslate nohighlight">\(\sigma_Y(x)\)</span> is expected to decrease through inclusion of new samples, the contribution of the model uncertainty to the acquisition function and thus the trade-off between exploration and exploitation remains constant.</p>
+</div>
+<div class="section" id="probability-of-improvement">
+<h3><span class="section-number">9.2.2. </span>Probability of Improvement<a class="headerlink" href="#probability-of-improvement" title="Permalink to this headline">¶</a></h3>
+<p>The probabilistic nature of our surrogate model allows using probabilistic reasoning to choose an acquisition function. Let us define <span class="math notranslate nohighlight">\(y^* = f(x_k)\)</span> to be the best sample observed so far, where <span class="math notranslate nohighlight">\(x_k \in \mathbb{R}^d\)</span> is the input coordinates of the <span class="math notranslate nohighlight">\(k\)</span>-th sample point. We can define improvement <span class="math notranslate nohighlight">\(I\)</span> of the current iteration as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-fa13f4a9-f3fe-4811-bbd1-32629009b65f">
+<span class="eqno">(9.9)<a class="headerlink" href="#equation-fa13f4a9-f3fe-4811-bbd1-32629009b65f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+I(x) = y^* - Y(x)
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(Y(x) \sim \mathcal{N}(\mu_Y(x), \sigma_Y(x))\)</span> is the distribution predicted by our <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>. Since <span class="math notranslate nohighlight">\(y^*\)</span> is a constant, <span class="math notranslate nohighlight">\(I(x) \sim \mathcal{N}(y^* -\mu_Y(x), \sigma_Y(x))\)</span> is also a Gaussian variable. Thus, probability of improvement defines the acquisition function as follows</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1b4e8f09-d9dc-4b5b-b837-a91738e8286a">
+<span class="eqno">(9.10)<a class="headerlink" href="#equation-1b4e8f09-d9dc-4b5b-b837-a91738e8286a" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+a(\mu_Y(x), \sigma_Y(x)) = P(I(x)) = P(Y(x) \leq y^*) = \Phi(\frac{y^* -\mu_Y(x)}{\sigma_Y(x)})
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span> is the standard normal cumulative density function (CDF). There are some differences compared to the previous acquisition functions. Firstly, we want to maximize the probability of improvement and the surrogate problem can be denoted as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4217752f-f4b0-4a77-8c4b-89cda441f773">
+<span class="eqno">(9.11)<a class="headerlink" href="#equation-4217752f-f4b0-4a77-8c4b-89cda441f773" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\mathrm{arg}\max_x a(\mu_Y(x), \sigma_Y(x))
+\end{equation}\]</div>
+<p>Moreover, probability of improvement weights exploitation even more than the mean acquisition function, since not only we want to minimize <span class="math notranslate nohighlight">\(\mu_Y(x)\)</span> but also <span class="math notranslate nohighlight">\(\sigma_Y(x)\)</span> to maximize <span class="math notranslate nohighlight">\(P(I(x))\)</span> as <span class="math notranslate nohighlight">\(\Phi\)</span> is a monotonically increasing function. Let us visualize it for the 1-D example to see this clearly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">star</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">x_star</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">star</span><span class="p">]</span>
+<span class="n">y_star</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">star</span><span class="p">]</span>
+<span class="n">y_pi</span> <span class="o">=</span> <span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">y_star</span> <span class="o">-</span> <span class="n">y_pred_mu</span><span class="p">)</span><span class="o">/</span> <span class="n">y_pred_std</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\mu_Y(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training samples&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">y_star</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$y^*$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_pi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y=f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$P(I(x))$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_BO_13_0.png" src="../_images/01_BO_13_0.png" />
+</div>
+</div>
+<p>It can be seen that using <span class="math notranslate nohighlight">\(P(I(x))\)</span> would result in a solution very close to a known sample, similar to the mean acquisition function. As such, <span class="math notranslate nohighlight">\(P(I(x))\)</span> is often not the best choice for low sample settings, where exploration is often more important. However, it can improve the exploitation if used later on or in combination with other acquisition functions (see for example <a class="reference external" href="https://arxiv.org/pdf/1009.5419.pdf">hedge acquisition</a>).</p>
+</div>
+<div class="section" id="expected-improvement">
+<h3><span class="section-number">9.2.3. </span>Expected improvement<a class="headerlink" href="#expected-improvement" title="Permalink to this headline">¶</a></h3>
+<p>Another improvement based acquisition function, which is quite popular is the expected improvement. Notice that the expectation of the improvement variable <span class="math notranslate nohighlight">\(I(x) \sim \mathcal{N}\)</span> defined before would be</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9037672a-6366-45f3-a09a-7f5976be0f6f">
+<span class="eqno">(9.12)<a class="headerlink" href="#equation-9037672a-6366-45f3-a09a-7f5976be0f6f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\mathrm{E}[I(x)] = y^* - \mu_Y(x)
+\end{equation}\]</div>
+<p>which would be aquivalent to using the mean acquisition function. However, it becomes more useful, if we disregard the negative improvement values. Thus, let us redefine the improvement as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9c96fe40-9dfe-44d8-99c6-888f02b769cb">
+<span class="eqno">(9.13)<a class="headerlink" href="#equation-9c96fe40-9dfe-44d8-99c6-888f02b769cb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+I(x) = max(0, y^* - Y)
+\end{equation}\]</div>
+<p>Due to the max operation, <span class="math notranslate nohighlight">\(I(x)\)</span> is no longer a Gaussian variable. However, using the integral form, we can derive the expectation</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4f383c0f-e4a6-4089-a61d-4915fc65cdf7">
+<span class="eqno">(9.14)<a class="headerlink" href="#equation-4f383c0f-e4a6-4089-a61d-4915fc65cdf7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+E[I(x)] = \int_{-\infty}^{\infty} s f_I(s) ds
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(f_I: \mathbb{R}\rightarrow\mathbb{R}\)</span> is the probability density function (PDF) of <span class="math notranslate nohighlight">\(I(x)\)</span>. For a concise notation, let us define <span class="math notranslate nohighlight">\(\mu=\mu_Y(x)\)</span> and <span class="math notranslate nohighlight">\(\sigma=\sigma_Y(x)\)</span>. Using the reparametrization trick, we can rewrite <span class="math notranslate nohighlight">\(Y\)</span> as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0bad9668-3538-4324-9b17-a5a9ef6e497c">
+<span class="eqno">(9.15)<a class="headerlink" href="#equation-0bad9668-3538-4324-9b17-a5a9ef6e497c" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+Y = \mu + \sigma U
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(U \sim \mathcal{N}(0, 1)\)</span> is a standard normal variable. Notice that</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2b11ec52-d4e4-44c5-b1c9-5ed75368bb4d">
+<span class="eqno">(9.16)<a class="headerlink" href="#equation-2b11ec52-d4e4-44c5-b1c9-5ed75368bb4d" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+f_I(s) = \left\{ 
+  \begin{array}{ c l }
+    \phi(\frac{s}{\sigma}) &amp; \quad \textrm{if } s \geq 0 \\
+    0                 &amp; \quad \textrm{otherwise}
+  \end{array}
+\right.
+\end{equation}\]</div>
+<p>per definition, where <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span> denotes the standard normal PDF. For ease of notation, let us define a variable <span class="math notranslate nohighlight">\(z=\frac{y^* -\mu}{\sigma}\)</span>. Using these equations, we can rewrite the integral as follows and solve it</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5f78be75-88d3-438d-b95d-a9c6773086f1">
+<span class="eqno">(9.17)<a class="headerlink" href="#equation-5f78be75-88d3-438d-b95d-a9c6773086f1" title="Permalink to this equation">¶</a></span>\[\begin{align}
+E[I(x)] =&amp; \int_{-\infty}^{z} (y^* - \mu - \sigma u) \phi(u) du \\
+    =&amp; (y^* - \mu)\Phi(z) - \sigma \int_{-\infty}^{z} u\phi(u) du \\
+    =&amp; (y^* - \mu)\Phi(z) - \frac{\sigma}{2\pi} \int_{-\infty}^{z} u e^{\frac{-u^2}{2}} du \\
+    =&amp; (y^* - \mu)\Phi(z) + \frac{\sigma}{2\pi} e^{\frac{-z^2}{2}} \\
+ a(\mu, \sigma) = E[I(x)] =&amp; (y^* - \mu)\Phi(z) + \sigma \phi(z) \\
+\end{align}\]</div>
+<p>Similar to the probability of improvement, <span class="math notranslate nohighlight">\(E[I(x)]\)</span> is to be maximized as an acquisition function. The closed form solution of the expectation operation above consists of two terms. The first term is a scaled version of the probability of improvement and encourages exploitation. The second term increases the expected improvement as the model uncertainty <span class="math notranslate nohighlight">\(\sigma\)</span> increases. Thus, expected improvement seeks to achieve a trade-off between exploration and exploitation using the standard normal PDF (<span class="math notranslate nohighlight">\(\phi\)</span>) and CDF (<span class="math notranslate nohighlight">\(\Phi\)</span>) values. Let us plot it for the 1-D example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_star</span> <span class="o">-</span> <span class="n">y_pred_mu</span><span class="p">)</span><span class="o">/</span> <span class="n">y_pred_std</span>
+<span class="n">y_ei</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_star</span> <span class="o">-</span> <span class="n">y_pred_mu</span><span class="p">)</span> <span class="o">*</span> <span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">y_pred_std</span> <span class="o">*</span> <span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">y_ei</span><span class="p">[</span><span class="n">y_pred_std</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Not part of the derivation above but useful in practice to avoid repeated samples</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="s2">&quot;--k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_pred_mu</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\mu_Y(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training samples&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_star</span><span class="p">,</span> <span class="n">y_star</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$y^*$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_ei</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$y=f(x)$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$E[I(x)]$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_BO_16_0.png" src="../_images/01_BO_16_0.png" />
+</div>
+</div>
+<p>Similar to the LCB, using <span class="math notranslate nohighlight">\(E[I(x)]\)</span> would yield a query near the global optimum of the true function at this step.</p>
+</div>
+<div class="section" id="probability-of-feasibility">
+<h3><span class="section-number">9.2.4. </span>Probability of Feasibility<a class="headerlink" href="#probability-of-feasibility" title="Permalink to this headline">¶</a></h3>
+<p>So far, we have only talked about unconstrained problems. However, many problems in engineering applications have some constraints. Thus, accounting for the model uncertainty when evaluating the constraints can be useful due to same motivations as before. Consider the following constrained optimization problem.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0d2d9a6c-faf8-456d-ae16-4bb0e3758da0">
+<span class="eqno">(9.18)<a class="headerlink" href="#equation-0d2d9a6c-faf8-456d-ae16-4bb0e3758da0" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\mathrm{arg}\min_x&amp; f(x)\\
+\mathrm{s.t.}&amp; g_i(x) \geq 0, i \in [1, n_c]
+\end{align}\]</div>
+<p>An improvement based acquisition function <span class="math notranslate nohighlight">\(a()\)</span> can be transformed to the constrained form <span class="math notranslate nohighlight">\(a_c()\)</span> as follows</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a7d81f57-3e1e-4158-b025-4bbdaeb40309">
+<span class="eqno">(9.19)<a class="headerlink" href="#equation-a7d81f57-3e1e-4158-b025-4bbdaeb40309" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+a_c(\mu_Y(x), \sigma_Y(x)) = a(\mu_Y(x), \sigma_Y(x)) P(g_1(x) \geq 0, \dots g_{n_c}(x) \geq 0)
+\end{equation}\]</div>
+<p>For independent constraints (<span class="math notranslate nohighlight">\(P(g_i(x) \geq 0 | g_{j} \geq 0) = P(g_i(x) \geq 0)\)</span>), the probability of feasibility can be written as the product</p>
+<div class="amsmath math notranslate nohighlight" id="equation-53b746a1-0740-4a5a-92ec-79d827350d67">
+<span class="eqno">(9.20)<a class="headerlink" href="#equation-53b746a1-0740-4a5a-92ec-79d827350d67" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+P(g_1(x) \geq 0, \dots g_{n_c}(x) \geq 0) = \prod_{i=1}^{n_c} P(g_i(x) \geq 0)
+\end{equation}\]</div>
+<p>Otherwise, a multi-dimensional integral has to be solved to compute this probability. A more detailed derivation of the above equation for expected improvement can be found <a class="reference external" href="http://proceedings.mlr.press/v32/gardner14.pdf">here</a>.</p>
+<p>For constraints <span class="math notranslate nohighlight">\(g_i: \mathbb{R}^d \rightarrow \mathbb{R}\)</span> without uncertainty, the probability of feasibility <span class="math notranslate nohighlight">\(P(g_i(x) \geq 0) \)</span> is an indicator function with binary output</p>
+<div class="amsmath math notranslate nohighlight" id="equation-296e8bd0-7e84-4b6d-bb9d-165c1512fd2f">
+<span class="eqno">(9.21)<a class="headerlink" href="#equation-296e8bd0-7e84-4b6d-bb9d-165c1512fd2f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+P(g_i(x) \geq 0) = \left\{ 
+  \begin{array}{ c l }
+    1 &amp; \quad \textrm{if } g_i(x) \geq 0 \\
+    0                 &amp; \quad \textrm{otherwise}
+  \end{array}
+\right.
+\end{equation}\]</div>
+<p>However, if <span class="math notranslate nohighlight">\(g_i(\cdot)\)</span> is approximated using a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span>, the prediction <span class="math notranslate nohighlight">\(g_i(x) = G_i \sim \mathcal{N}(\mu_{G_i}(x), \sigma_{G_i}(x))\)</span> is a Gaussian variable. As such, the probability of feasibility for Gaussian constraints is defined as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5ae42dc7-5036-4606-9736-10c260e3559d">
+<span class="eqno">(9.22)<a class="headerlink" href="#equation-5ae42dc7-5036-4606-9736-10c260e3559d" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+P(G_i \geq 0) = \Phi \left( \frac{\mu_{G_i}(x)}{\sigma_{G_i}(x)} \right)
+\end{equation}\]</div>
+<p>Using the constrained acquisition function <span class="math notranslate nohighlight">\(a_c()\)</span> prefers designs with a high probability of feasibility, i.e. a larger mean <span class="math notranslate nohighlight">\(\mu_{G_i}(x)\)</span> or a smaller variance <span class="math notranslate nohighlight">\(\sigma_{G_i}(x)^2\)</span>. Thus, while the expected improvement leads to more queries in the unknown regions compared to the mean acquisition, probability of feasibility weights the known regions higher to reduce the risk of infeasibility.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./03_appl"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../02_probML/03_overview.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">8. </span>Overview of Further Probabilistic Models</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="uncertainty.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Design Uncertainty Analysis</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
+        
+          <div class="extra_footer">
+            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
