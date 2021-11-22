@@ -707,7 +707,7 @@ p(\theta|x,y)= \frac{p(y|x,\theta)p(\theta)}{\int_{\theta}p(y|x,\theta')p(\theta
 \hat y = \frac{1}{|\Theta|}\sum_{\theta_i \in \Theta}g_{\theta_i}(x)
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\Theta\)</span> is a collection of samples from <span class="math notranslate nohighlight">\(p(\theta|D)\)</span> and <span class="math notranslate nohighlight">\(\hat y\)</span> is the prediction.</p>
-<p>We will now take a look on a implemtation example for BNN in <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> with our known “red wine quality” datasets.</p>
+<p>We will now take a look on a implemtation example for BNN in <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> with the “red wine quality” dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -757,7 +757,7 @@ p(\theta|x,y)= \frac{p(y|x,\theta)p(\theta)}{\int_{\theta}p(y|x,\theta')p(\theta
     <span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Start training the model...&quot;</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">test_dataset</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">test_dataset</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model training finished.&quot;</span><span class="p">)</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">rmse</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Train RMSE: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
