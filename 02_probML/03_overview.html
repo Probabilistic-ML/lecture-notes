@@ -453,6 +453,11 @@
    8.3. Bayesian Neural Networks
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#variational-autoencoder-vae">
+   8.4. Variational Autoencoder (VAE)
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -1017,6 +1022,19 @@ Predictions mean: 5.25, min: 4.88, max: 5.77, range: 0.89 - Actual: 5.0
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="variational-autoencoder-vae">
+<h2><span class="section-number">8.4. </span>Variational Autoencoder (VAE)<a class="headerlink" href="#variational-autoencoder-vae" title="Permalink to this headline">¶</a></h2>
+<p>The main idea for a general autoencoder is dimensionality reduction but however it is also used for learning generative models of data. The idea is, we build a Neural Network with a input layer for our data, smaller hidden layers than our input layer and an output layer with the same dimension of neuron as the input layer. The NN will learn how to encode(reduce) the data to a given hidden layer in the middle of the network and will also learn how to decode the reduced data to the original data.</p>
+<p>The loss of this function is called reconstructon error and is often a mean squared error.</p>
+<p>For visual reference we will show the picture below. There you can see a autoencoder architecture in general.</p>
+<p><a href="https://en.wikipedia.org/wiki/Autoencoder"> <left><img alt="https://upload.wikimedia.org/wikipedia/commons/3/37/Autoencoder_schema.png" src="https://upload.wikimedia.org/wikipedia/commons/3/37/Autoencoder_schema.png" /></left></a></p>
+<p>Variational autoencoders are meant to encode (compress) the input data into a constrained multivariate latent distribution to decode (reconstruct) it as accurately as possible. So instead of just a dimensional reduction we used in the middle hidden layer of a general autoencoder we use a middle layer with mean and standard deviation. Underneath is a architecture of a VAE which a distribution in the middle layer.</p>
+<p><a href="https://en.wikipedia.org/wiki/Variational_autoencoder"> <left><img alt="https://upload.wikimedia.org/wikipedia/commons/4/4a/VAE_Basic.png" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/VAE_Basic.png" /></left></a></p>
+<p>Here we use a slightly different loss. We will use the a mean of the evidence lower bound (ELBO) and a reconstruction error e.g.:MSE.
+This results in a tighter ordered latent space with less space in between the initial samples. This will allow us to generate new samples</p>
+<p>The next picture shows the latent space of the mnist dataset done by Irhum Shafkat. There is a lot of space in between the different classes and we get issues if we want to sample in areas which we have not data from the decoder. A better picture is shown in this post for VAE.
+<a href="https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf"> <left><img alt="https://miro.medium.com/max/500/1*-i8cp3ry4XS-05OWPAJLPg.png" src="https://miro.medium.com/max/500/1*-i8cp3ry4XS-05OWPAJLPg.png" /></left></a></p>
 <p id="id3"><dl class="citation">
 <dt class="label" id="id26"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
 <dd><p>Laurent Valentin Jospin, Wray L. Buntine, Farid Boussa\&quot;ıd, Hamid Laga, and Mohammed Bennamoun. Hands-on bayesian neural networks - a tutorial for deep learning users. <em>CoRR</em>, 2020. URL: <a class="reference external" href="https://arxiv.org/abs/2007.06823">https://arxiv.org/abs/2007.06823</a>, <a class="reference external" href="https://arxiv.org/abs/2007.06823">arXiv:2007.06823</a>.</p>
