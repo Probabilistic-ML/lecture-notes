@@ -461,8 +461,8 @@ p(y_* \lvert X_*X,y) &amp;= \mathcal{N}(y_* \lvert \mu_*, \Sigma_*)\\
 <p>which is needed in the mean and the covariance of the gaussian process.
 This matrix has the size of <span class="math notranslate nohighlight">\(n \times n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of training samples. The problem now is that, for large <span class="math notranslate nohighlight">\(n\)</span> a matrix inversion is intractable.</p>
 <p>The posterior can also be defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-86809ed0-d21b-4e27-8cdd-9918b02f911f">
-<span class="eqno">(7.12)<a class="headerlink" href="#equation-86809ed0-d21b-4e27-8cdd-9918b02f911f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-721bea60-c9b6-4b80-a481-f82b0ef55646">
+<span class="eqno">(7.12)<a class="headerlink" href="#equation-721bea60-c9b6-4b80-a481-f82b0ef55646" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(f_* | X^*,X, y) &amp;= \int p(f_*,f| X^*,X,y)df \quad  \textrm{marginalize }f\\
 p(f_* | X^*,X, y) &amp;= \int p(f_*| X^*,X,f,y)p(f|X^*,X, y)df \quad \textrm{reserve chain rule}\\
 p(f_* | X^*,X, y) &amp;= \int p(f_* | X^*,X,f) p(f| X^*,X, y) df \quad \textrm{drop irrelevant y}
@@ -478,8 +478,8 @@ q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
 \phi(f_m) = \mathcal{N}(f_m | \mu_m, A_m).
 \]</div>
 <p>Here is <span class="math notranslate nohighlight">\(\mu_m\)</span> the mean and <span class="math notranslate nohighlight">\(A_m\)</span> the covariance matrix. The goal is to find optimal values for the mean <span class="math notranslate nohighlight">\(\mu_m\)</span> and covarince <span class="math notranslate nohighlight">\(A_m\)</span> as well as the optimal location of the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. The mean and covariance matrix of the Guassian Process is defined by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-70d9ef21-b5bc-49cd-a380-959098a021ba">
-<span class="eqno">(7.13)<a class="headerlink" href="#equation-70d9ef21-b5bc-49cd-a380-959098a021ba" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f906fe6c-5e60-4383-a1c6-be2dd63990f8">
+<span class="eqno">(7.13)<a class="headerlink" href="#equation-f906fe6c-5e60-4383-a1c6-be2dd63990f8" title="Permalink to this equation">¶</a></span>\[\begin{align}
 q(f_*) =&amp; \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
 \mu_*^q =&amp; K_{*m} K_{mm}^{-1} \mu_m  \\
 \Sigma_*^q =&amp; K_{**} - K_{*m} K_{mm}^{-1} K_{m*} + K_{*m} K_{mm}^{-1} \mathbf{A}_m K_{mm}^{-1} K_{m*} 

@@ -491,8 +491,6 @@ p(C_l~|~x) &amp;= \frac{\prod_{i=1}^n p(x_i~|~C_l) ~ p(C_l)}{p(x)}
 <p>We can now omit <span class="math notranslate nohighlight">\(p(x)\)</span>, since it does not depend on <span class="math notranslate nohighlight">\(l\)</span>. Now we can search with a optimization algorithm to find the class which maximises the probability <span class="math notranslate nohighlight">\(p(C_l~|~x)\)</span>. We call this maximimum a posterior (MAP) decision rule.</p>
 <div class="math notranslate nohighlight">
 \[\hat{y} = \text{argmax}_{l=1,\dots,k} ~\prod_{i=1}^n p(x_i~|~C_l)~p(C_l)  \]</div>
-<p>Limits of NBC:
--&gt;aspect covariance</p>
 <p>So the independece implies zero covariance between two random variables. A non zero covariance leads to Gaussian Mixture Model.</p>
 </div>
 <div class="section" id="gaussian-mixture-model-for-clustering">
@@ -659,7 +657,7 @@ With <span class="math notranslate nohighlight">\(N_j:=\sum_{i=1}^n\gamma_{ij}\)
 \[
 \pi_j = \frac{N_j}{n}, \quad \mu_j = \frac{1}{N_j}\sum_{i=1}^n\gamma_{ij}x_i, \quad \Sigma_j=\frac{1}{N_j}\sum_{i=1}^n\gamma_{ij}(x_i -\mu_j)(x_i-\mu_j)^T.
 \]</div>
-<p>The expactation-maximisation agorithm iteratively updates  <span class="math notranslate nohighlight">\(\Theta^{(t)}\rightarrow \Theta^{(t+1)}\)</span> to find maximum-likehood parameters</p>
+<p>The expactation-maximisation algorithm iteratively updates  <span class="math notranslate nohighlight">\(\Theta^{(t)}\rightarrow \Theta^{(t+1)}\)</span> to find maximum-likehood parameters</p>
 <p>The trick is now to compute <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> based on our current guess of <span class="math notranslate nohighlight">\(\Theta^{(t)}\)</span> and then update the parameters such that <span class="math notranslate nohighlight">\(P(C~|~X)\)</span> and the expected log-likelihood is maximised. Those maximum parameters can actually be determined by taking the
 derivative of the conditional probability (the constraint <span class="math notranslate nohighlight">\(\sum_{j=1}\pi_j=1\)</span> requires quadratic programming to find <span class="math notranslate nohighlight">\(\pi_j\)</span>).</p>
 <p>We can now use the updated parameters to get a better estimate for the conditional probability, so we can simply repeat the procedure. In each step, we first compute the expectation for the model likelihood and then find the parameters that maximise this expectation, which is why the algorithm is called expectation-maximisation.</p>
@@ -701,7 +699,7 @@ The goal of a general artifial neural network(ANN) is to represent any funtion <
 \theta \sim p(\theta) \\
 y=g_0(x)+ \epsilon
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\epsilon\)</span> is a random noise. And a <strong>BNN</strong> is a stochastical network which uses Baysian inference as <a class="reference external" href="http://training.To">training.To</a> design an BNN we make a choice about the network architecture. Then we need to choose a stochstic model which means a prior distribution over possible model parametrizations <span class="math notranslate nohighlight">\(p(\theta)\)</span> and a prior confindence in the predictive power of the model <span class="math notranslate nohighlight">\(P(y|x,\theta)\)</span>. With the assumption of independence between the input variables <span class="math notranslate nohighlight">\(D=(x,y)\)</span> and the model parameters <span class="math notranslate nohighlight">\(\theta\)</span> and the use of bayes theorem the posterior can be written as</p>
+<p>where <span class="math notranslate nohighlight">\(\epsilon\)</span> is a random noise. And a <strong>BNN</strong> is a stochastical network which uses Baysian inference as training. To design an BNN we make a choice about the network architecture. Then we need to choose a stochstic model which means a prior distribution over possible model parametrizations <span class="math notranslate nohighlight">\(p(\theta)\)</span> and a prior confindence in the predictive power of the model <span class="math notranslate nohighlight">\(P(y|x,\theta)\)</span>. With the assumption of independence between the input variables <span class="math notranslate nohighlight">\(D=(x,y)\)</span> and the model parameters <span class="math notranslate nohighlight">\(\theta\)</span> and the use of bayes theorem the posterior can be written as</p>
 <div class="math notranslate nohighlight">
 \[
 p(\theta|x,y)= \frac{p(y|x,\theta)p(\theta)}{\int_{\theta}p(y|x,\theta')p(\theta')d\theta'}.
