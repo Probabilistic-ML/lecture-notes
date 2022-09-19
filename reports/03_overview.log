@@ -1,19 +1,19 @@
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/jupyter_cache/executors/utils.py", line 56, in single_nb_execution
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/jupyter_cache/executors/utils.py", line 56, in single_nb_execution
     record_timing=False,
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/nbclient/client.py", line 1093, in execute
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/nbclient/client.py", line 1204, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/nbclient/util.py", line 84, in wrapped
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/nbclient/util.py", line 84, in wrapped
     return just_run(coro(*args, **kwargs))
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/nbclient/util.py", line 62, in just_run
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/nbclient/util.py", line 62, in just_run
     return loop.run_until_complete(coro)
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/asyncio/base_events.py", line 587, in run_until_complete
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/asyncio/base_events.py", line 587, in run_until_complete
     return future.result()
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/nbclient/client.py", line 560, in async_execute
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/nbclient/client.py", line 664, in async_execute
     cell, index, execution_count=self.code_cells_executed + 1
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/nbclient/client.py", line 854, in async_execute_cell
-    self._check_raise_for_error(cell, exec_reply)
-  File "/opt/hostedtoolcache/Python/3.7.12/x64/lib/python3.7/site-packages/nbclient/client.py", line 756, in _check_raise_for_error
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -26,13 +26,89 @@ import tensorflow_probability as tfp
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-[0;32m/tmp/ipykernel_4403/552126475.py[0m in [0;36m<module>[0;34m[0m
+[0;31mImportError[0m                               Traceback (most recent call last)
+[0;32m/tmp/ipykernel_4612/552126475.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      2[0m [0;32mimport[0m [0mtensorflow[0m [0;32mas[0m [0mtf[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      3[0m [0;32mfrom[0m [0mtensorflow[0m [0;32mimport[0m [0mkeras[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      4[0m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mkeras[0m [0;32mimport[0m [0mlayers[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 5[0;31m [0;32mimport[0m [0mtensorflow_datasets[0m [0;32mas[0m [0mtfds[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      6[0m [0;32mimport[0m [0mtensorflow_probability[0m [0;32mas[0m [0mtfp[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 4[0;31m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mkeras[0m [0;32mimport[0m [0mlayers[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      5[0m [0;32mimport[0m [0mtensorflow_datasets[0m [0;32mas[0m [0mtfds[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      6[0m [0;32mimport[0m [0mtensorflow_probability[0m [0;32mas[0m [0mtfp[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mModuleNotFoundError[0m: No module named 'tensorflow_datasets'
-ModuleNotFoundError: No module named 'tensorflow_datasets'
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/api/_v2/keras/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     10[0m [0;32mimport[0m [0msys[0m [0;32mas[0m [0m_sys[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     11[0m [0;34m[0m[0m
+[0;32m---> 12[0;31m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0m__version__[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     13[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mapi[0m[0;34m.[0m[0m_v2[0m[0;34m.[0m[0mkeras[0m [0;32mimport[0m [0m__internal__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     14[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mapi[0m[0;34m.[0m[0m_v2[0m[0;34m.[0m[0mkeras[0m [0;32mimport[0m [0mactivations[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     18[0m [0;34m[[0m[0mkeras[0m[0;34m.[0m[0mio[0m[0;34m][0m[0;34m([0m[0mhttps[0m[0;34m:[0m[0;34m//[0m[0mkeras[0m[0;34m.[0m[0mio[0m[0;34m)[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     19[0m """
+[0;32m---> 20[0;31m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0mdistribute[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     21[0m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0mmodels[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     22[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mengine[0m[0;34m.[0m[0minput_layer[0m [0;32mimport[0m [0mInput[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/distribute/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     16[0m [0;34m[0m[0m
+[1;32m     17[0m [0;34m[0m[0m
+[0;32m---> 18[0;31m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mdistribute[0m [0;32mimport[0m [0msidecar_evaluator[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/distribute/sidecar_evaluator.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     20[0m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mpython[0m[0;34m.[0m[0mplatform[0m [0;32mimport[0m [0mtf_logging[0m [0;32mas[0m [0mlogging[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     21[0m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mpython[0m[0;34m.[0m[0mutil[0m [0;32mimport[0m [0mdeprecation[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 22[0;31m from keras.optimizers.optimizer_experimental import (
+[0m[1;32m     23[0m     [0moptimizer[0m [0;32mas[0m [0moptimizer_experimental[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     24[0m )
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/optimizers/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     24[0m [0;31m# Imports needed for deserialization.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     25[0m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0mbackend[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 26[0;31m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0moptimizers[0m[0;34m.[0m[0mlegacy[0m [0;32mimport[0m [0madadelta[0m [0;32mas[0m [0madadelta_legacy[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     27[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0moptimizers[0m[0;34m.[0m[0mlegacy[0m [0;32mimport[0m [0madagrad[0m [0;32mas[0m [0madagrad_legacy[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     28[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0moptimizers[0m[0;34m.[0m[0mlegacy[0m [0;32mimport[0m [0madam[0m [0;32mas[0m [0madam_legacy[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/optimizers/legacy/adadelta.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     15[0m [0;34m"""Legacy Adadelta optimizer implementation."""[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     16[0m [0;34m[0m[0m
+[0;32m---> 17[0;31m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0moptimizers[0m[0;34m.[0m[0moptimizer_v2[0m [0;32mimport[0m [0madadelta[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     18[0m [0;34m[0m[0m
+[1;32m     19[0m [0;31m# isort: off[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/optimizers/optimizer_v2/adadelta.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     19[0m [0;34m[0m[0m
+[1;32m     20[0m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0mbackend_config[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 21[0;31m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0moptimizers[0m[0;34m.[0m[0moptimizer_v2[0m [0;32mimport[0m [0moptimizer_v2[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     22[0m [0;34m[0m[0m
+[1;32m     23[0m [0;31m# isort: off[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/optimizers/optimizer_v2/optimizer_v2.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     24[0m [0;34m[0m[0m
+[1;32m     25[0m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0mbackend[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 26[0;31m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0minitializers[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     27[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mengine[0m [0;32mimport[0m [0mbase_layer_utils[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     28[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0moptimizers[0m[0;34m.[0m[0moptimizer_v2[0m [0;32mimport[0m [0mutils[0m [0;32mas[0m [0moptimizer_utils[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/initializers/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     20[0m [0;34m[0m[0m
+[1;32m     21[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0minitializers[0m [0;32mimport[0m [0minitializers_v1[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 22[0;31m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0minitializers[0m [0;32mimport[0m [0minitializers_v2[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     23[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mutils[0m [0;32mimport[0m [0mgeneric_utils[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     24[0m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mutils[0m [0;32mimport[0m [0mtf_inspect[0m [0;32mas[0m [0minspect[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/initializers/initializers_v2.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     21[0m [0;34m[0m[0m
+[1;32m     22[0m [0;32mfrom[0m [0mkeras[0m [0;32mimport[0m [0mbackend[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 23[0;31m [0;32mfrom[0m [0mkeras[0m[0;34m.[0m[0mdtensor[0m [0;32mimport[0m [0mutils[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     24[0m [0;34m[0m[0m
+[1;32m     25[0m [0;31m# isort: off[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/keras/dtensor/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     20[0m [0;31m# Conditional import the dtensor API, since it is currently broken in OSS.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     21[0m [0;32mif[0m [0m_DTENSOR_API_ENABLED[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 22[0;31m     [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mcompat[0m[0;34m.[0m[0mv2[0m[0;34m.[0m[0mexperimental[0m [0;32mimport[0m [0mdtensor[0m [0;32mas[0m [0mdtensor_api[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     23[0m [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     24[0m     [0;31m# Leave it with a placeholder, so that the import line from other python[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mImportError[0m: cannot import name 'dtensor' from 'tensorflow.compat.v2.experimental' (/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/tensorflow/_api/v2/compat/v2/experimental/__init__.py)
+ImportError: cannot import name 'dtensor' from 'tensorflow.compat.v2.experimental' (/opt/hostedtoolcache/Python/3.7.13/x64/lib/python3.7/site-packages/tensorflow/_api/v2/compat/v2/experimental/__init__.py)
 

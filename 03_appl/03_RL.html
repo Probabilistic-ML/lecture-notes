@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>11. Efficient Reinforcement Learning &#8212; Introduction to Probabilistic Machine Learning</title>
+    <title>10. Efficient Reinforcement Learning &#8212; Introduction to Probabilistic Machine Learning</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -34,21 +34,24 @@
     
   <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script >let toggleHintShow = 'Click to show';</script>
+    <script >let toggleHintHide = 'Click to hide';</script>
+    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
+    <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -58,7 +61,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="10. Design Uncertainty Analysis" href="02_DesignUncertainty.html" />
+    <link rel="prev" title="9. Bayesian Optimization" href="01_BO.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -102,7 +105,7 @@
   </a>
  </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
+<p class="caption">
  <span class="caption-text">
   Preface
  </span>
@@ -124,7 +127,7 @@
   </a>
  </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
+<p class="caption">
  <span class="caption-text">
   Fundamentals
  </span>
@@ -215,7 +218,7 @@
   </a>
  </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
+<p class="caption">
  <span class="caption-text">
   Probabilistic Machine Learning
  </span>
@@ -316,7 +319,7 @@
   </a>
  </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
+<p class="caption">
  <span class="caption-text">
   Applications
  </span>
@@ -327,14 +330,9 @@
    9. Bayesian Optimization
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02_DesignUncertainty.html">
-   10. Design Uncertainty Analysis
-  </a>
- </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   11. Efficient Reinforcement Learning
+   10. Efficient Reinforcement Learning
   </a>
  </li>
 </ul>
@@ -383,7 +381,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -430,7 +428,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -439,29 +437,29 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#problem-definition">
-   11.1. Problem definition
+   10.1. Problem definition
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#dynamic-model-and-environment">
-     11.1.1. Dynamic model and environment
+     10.1.1. Dynamic model and environment
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#optimization">
-     11.1.2. Optimization
+     10.1.2. Optimization
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#reinforcement-learning">
-     11.1.3. Reinforcement learning
+     10.1.3. Reinforcement learning
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#probabilistic-inference-for-optimal-control">
-   11.2. Probabilistic Inference for Optimal Control
+   10.2. Probabilistic Inference for Optimal Control
   </a>
  </li>
 </ul>
@@ -472,19 +470,64 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Efficient Reinforcement Learning</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-definition">
+   10.1. Problem definition
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dynamic-model-and-environment">
+     10.1.1. Dynamic model and environment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#optimization">
+     10.1.2. Optimization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforcement-learning">
+     10.1.3. Reinforcement learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#probabilistic-inference-for-optimal-control">
+   10.2. Probabilistic Inference for Optimal Control
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="efficient-reinforcement-learning">
-<h1><span class="section-number">11. </span>Efficient Reinforcement Learning<a class="headerlink" href="#efficient-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">10. </span>Efficient Reinforcement Learning<a class="headerlink" href="#efficient-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
 <p>So far, supervised learning (SML) tasks were considered, where an algorithm was expected to learn the relationship <span class="math notranslate nohighlight">\(f: \mathbb{R}^{n_i} : \mathbb{R}^{n_o}\)</span> using a labeled dataset <span class="math notranslate nohighlight">\(\mathbb{D} := \{ (x_j, y_j), j\in [1,  m]\}\)</span> with <span class="math notranslate nohighlight">\(m\)</span> samples, where each sample consists of a tuple of input features <span class="math notranslate nohighlight">\( x_j \in \mathbb{R}^{n_i}\)</span>  and the corresponding labels <span class="math notranslate nohighlight">\( y_j \in \mathbb{R}^{n_o}\)</span>. Although SML is useful for many engineering tasks (e.g. design optimization, model validation and calibration, reliability analysis), it in itself does not provide a solution to problems, where some system parameters are controlled to achieve the desired system behaviour. Such problems are often investigated using the optimal control theory in engineering applications.</p>
 <p>Whether the aim is to obtain the optimal trajectory for a satellite to maximize the fuel efficiency or to obtain the optimal pressure and flow rate of a medicinal ventilator, the description of the task does not coincide with SML. In contrast, reinforcement learning (RL) seeks to directly solve such problems. As such, there are many intersections regarding the optimal control theory and RL.</p>
 <div class="section" id="problem-definition">
-<h2><span class="section-number">11.1. </span>Problem definition<a class="headerlink" href="#problem-definition" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">10.1. </span>Problem definition<a class="headerlink" href="#problem-definition" title="Permalink to this headline">¶</a></h2>
 <p>In optimal control problems, the aim is to find the optimal sequence of <em>control</em> values with respect to objective and constraint functions, one or more of which are formulated over a dynamic system. In RL, the aim is to find the sequence of <em>action</em> values that maximize the <em>expected reward</em>, where reward is a dynamic function as part of the <em>environment</em>.</p>
 <p>Although the definitions look different since the used terminologies stem from different domains, there are many overlaps between the kind of tasks solved in these domains. Let us define individual terms to discuss this further.</p>
 <div class="section" id="dynamic-model-and-environment">
-<h3><span class="section-number">11.1.1. </span>Dynamic model and environment<a class="headerlink" href="#dynamic-model-and-environment" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.1.1. </span>Dynamic model and environment<a class="headerlink" href="#dynamic-model-and-environment" title="Permalink to this headline">¶</a></h3>
 <p>In this work, a dynamic model refers to a time dependent model of following type:</p>
 <div class="math notranslate nohighlight">
 \[ s_{t+dt} = f(s_{t}, u_{t})  \]</div>
@@ -508,7 +551,7 @@ time can be computed as</p>
 </div>
 </div>
 <div class="section" id="optimization">
-<h3><span class="section-number">11.1.2. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.1.2. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h3>
 <p>In the context of optimal control, there are various kinds of optimization problems considering the kind of dynamic model described above.
 Here, we will investigate closed-loop control problems \cite{AnyControlTheoryBook} without constraints.
 In such problems, the aim is to reach and maintain a target state <span class="math notranslate nohighlight">\(s^*\)</span>. Moreover, the expected result is not an optimal trajectory <span class="math notranslate nohighlight">\(\mathbb{T}^*\)</span> but a controller <span class="math notranslate nohighlight">\(\pi: \mathbb{R}^{n_s} \rightarrow \mathbb{R}^{n_u}\)</span>. The actual problem has an infinite horizon, although a finite one <span class="math notranslate nohighlight">\(t_f\)</span> has to be chosen for evaluation due to practical reasons.
@@ -519,7 +562,7 @@ Thus, a possible objective for this kind of problems can be given as</p>
 squared error. As such, the optimal controller <span class="math notranslate nohighlight">\(\pi^*\)</span> is the one, that minimizes the chosen error metric.</p>
 </div>
 <div class="section" id="reinforcement-learning">
-<h3><span class="section-number">11.1.3. </span>Reinforcement learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">10.1.3. </span>Reinforcement learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">¶</a></h3>
 <p>In RL literature, the dynamic model is part of the <em>environment</em> which represents the interaction space for an <em>agent</em> <span class="math notranslate nohighlight">\(\pi\)</span>. For our purposes, <em>agent</em> has the same function as the <em>controller</em> before.
 Besides the dynamic model, environment may also define sources of noise as well as a reward function <span class="math notranslate nohighlight">\(r: \mathbb{R}^{n_s + n_u} \rightarrow \mathbb{R}\)</span> equivalent to an optimization objective. Thus, RL seeks to solve the following optimization problem</p>
 <div class="math notranslate nohighlight">
@@ -530,7 +573,7 @@ Besides the dynamic model, environment may also define sources of noise as well 
 </div>
 </div>
 <div class="section" id="probabilistic-inference-for-optimal-control">
-<h2><span class="section-number">11.2. </span>Probabilistic Inference for Optimal Control<a class="headerlink" href="#probabilistic-inference-for-optimal-control" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">10.2. </span>Probabilistic Inference for Optimal Control<a class="headerlink" href="#probabilistic-inference-for-optimal-control" title="Permalink to this headline">¶</a></h2>
 <p>Assume that the transition function <span class="math notranslate nohighlight">\(f\)</span> in the dynamic model is not known or too expensive to optimize.
 As discussed earlier, SML algorithms can be used to acquire surrogate models, that are usually faster to evaluate at the cost of some accuracy loss.</p>
 <p>Let us use a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> to approximate the unknown transition function <span class="math notranslate nohighlight">\(f\)</span>. Specifically, let us train a model <span class="math notranslate nohighlight">\(\tilde{f}: \mathbb{R}^{n_s + n_a} \rightarrow \mathbb{R}^{n_s}\)</span> to use
@@ -539,8 +582,8 @@ the current state <span class="math notranslate nohighlight">\(s_t\)</span> and 
 \[ s_{t + 1} = s_t + \Delta^s_{t} \]</div>
 <p>We can take a trajectory <span class="math notranslate nohighlight">\(\mathbb{T}\)</span> and create tuples of input <span class="math notranslate nohighlight">\(x^T = [s_t^T, a_t^T]\)</span> and output <span class="math notranslate nohighlight">\(\Delta^s_t = s_{t+1} - s_t\)</span> features from each transition.
 Using this data set, a <span class="math notranslate nohighlight">\(\mathcal{GP}\)</span> model can be trained. The resulting one step (approximate) dynamics model can be given as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c637b373-9ab4-4bf8-8260-e58bf61986f0">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-c637b373-9ab4-4bf8-8260-e58bf61986f0" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-459ba41c-ad57-49f1-93b6-5566b0e6f695">
+<span class="eqno">(10.1)<a class="headerlink" href="#equation-459ba41c-ad57-49f1-93b6-5566b0e6f695" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(s_{t + 1} | s_t, a_t) &amp;= \mathcal{N}(s_{t+1} | \mu_{t+1}, \Sigma_{t+1}) \\
 \mu_{t+1} &amp;= s_t + \mu_{\Delta^s_{t}} \\
 \Sigma_{t+1} &amp;= \Sigma^2_{\Delta^s_{t}} \\
@@ -882,32 +925,30 @@ Samples:     2 Mu: -0.056 Sigma:  2.089 Dura: 0.001673 seconds
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="02_DesignUncertainty.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="01_BO.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">10. </span>Design Uncertainty Analysis</p>
+            <p class="prev-next-title"><span class="section-number">9. </span>Bayesian Optimization</p>
         </div>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
-        
-          <div class="extra_footer">
-            Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
-          </div>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By C. Bogoclu, N. Friedlich & R. Vosshall<br/>
+    
+      <div class="extra_footer">
+        Content on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">a CC BY-NC-NB 4.0 licence</a>.
+      </div>
+  </p>
+</footer>
 </main>
 
 
