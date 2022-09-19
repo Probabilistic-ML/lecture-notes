@@ -1,4 +1,4 @@
-## Non-stationary Gaussian Processes
+# Non-stationary Gaussian Processes
 
 Length scale and other kernel parameters have a large influence on the resulting $\mathcal{GP}$ model. For example, if the lengthscale is too large, the resulting model may underfit the data, smoothing out important characteristics. Similarly, a too small lengthscale will lead to overfitting data points, generating peaks around them. MLE or MAP approaches seek to find a good trade-off between under- and overfitting. 
 

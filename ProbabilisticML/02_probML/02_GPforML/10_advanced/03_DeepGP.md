@@ -1,4 +1,4 @@
-## Gaussian Processes on latent representations
+# Gaussian Processes on latent representations
 
 Although the representative power of a Gaussian process is quite high due to the use of kernels, a single kernel measure may not be sufficient to represent very complicated relationships. Although kernel engineering, i.e. combining multiple kernels, may provide some improvement of the representative power, this may still be insufficient. The kernel evaluation is bound to the original $d$-dimensional space $\mathbb{R}^d$. However, the Euclidean distance as used in stationary kernels may not be the best way of measuring similarity between the samples $x_i \in \mathbb{R}^d$, on which the kernel approximation relies. Thus, a transformation $f_t: \mathbb{R}^d \rightarrow \mathbb{R}^q$ to a latent space $\mathbb{R}^q$ can be deployed to improve the effectivenes of the Eulidean distance on the new latent samples $u_i = f_t(x_i)$.
 
