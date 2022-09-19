@@ -48,7 +48,7 @@
     <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
@@ -469,8 +469,8 @@ p(y_* \lvert X_*X,y) &amp;= \mathcal{N}(y_* \lvert \mu_*, \Sigma_*)\\
 <p>which is needed in the mean and the covariance of the gaussian process.
 This matrix has the size of <span class="math notranslate nohighlight">\(n \times n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of training samples. The problem now is that, for large <span class="math notranslate nohighlight">\(n\)</span> a matrix inversion is intractable.</p>
 <p>The posterior can also be defined as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-06165def-6700-41d3-80cc-9f87fe58fa92">
-<span class="eqno">(7.12)<a class="headerlink" href="#equation-06165def-6700-41d3-80cc-9f87fe58fa92" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-576cf01f-f31e-43fc-b850-d47b760693c3">
+<span class="eqno">(7.12)<a class="headerlink" href="#equation-576cf01f-f31e-43fc-b850-d47b760693c3" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(f_* | X^*,X, y) &amp;= \int p(f_*,f| X^*,X,y)df \quad  \textrm{marginalize }f\\
 p(f_* | X^*,X, y) &amp;= \int p(f_*| X^*,X,f,y)p(f|X^*,X, y)df \quad \textrm{reserve chain rule}\\
 p(f_* | X^*,X, y) &amp;= \int p(f_* | X^*,X,f) p(f| X^*,X, y) df \quad \textrm{drop irrelevant y}
@@ -486,8 +486,8 @@ q(f_*) = \int p(f_* | f_m) \phi(f_m) df_m ,
 \phi(f_m) = \mathcal{N}(f_m | \mu_m, A_m).
 \]</div>
 <p>Here is <span class="math notranslate nohighlight">\(\mu_m\)</span> the mean and <span class="math notranslate nohighlight">\(A_m\)</span> the covariance matrix. The goal is to find optimal values for the mean <span class="math notranslate nohighlight">\(\mu_m\)</span> and covarince <span class="math notranslate nohighlight">\(A_m\)</span> as well as the optimal location of the inducing inputs <span class="math notranslate nohighlight">\(X_m\)</span>. The mean and covariance matrix of the Guassian Process is defined by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b919577d-75a4-42db-8461-ce58ad1afc1e">
-<span class="eqno">(7.13)<a class="headerlink" href="#equation-b919577d-75a4-42db-8461-ce58ad1afc1e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8ad40d81-fae8-4a8f-873b-f10ad9703d67">
+<span class="eqno">(7.13)<a class="headerlink" href="#equation-8ad40d81-fae8-4a8f-873b-f10ad9703d67" title="Permalink to this equation">¶</a></span>\[\begin{align}
 q(f_*) =&amp; \mathcal{N}(f_* | \mu_*^q, \Sigma_*^q) \\
 \mu_*^q =&amp; K_{*m} K_{mm}^{-1} \mu_m  \\
 \Sigma_*^q =&amp; K_{**} - K_{*m} K_{mm}^{-1} K_{m*} + K_{*m} K_{mm}^{-1} \mathbf{A}_m K_{mm}^{-1} K_{m*} 

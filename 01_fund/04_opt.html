@@ -48,7 +48,7 @@
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
@@ -718,8 +718,8 @@
 <div class="section" id="constrained-optimization">
 <h3><span class="section-number">4.2.2. </span>Constrained optimization<a class="headerlink" href="#constrained-optimization" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes, it may be useful to enforce some criteria on the solution of the optimization problem. Specifically, we expect to find <span class="math notranslate nohighlight">\(x^* \in \mathbb{S}\)</span> in the <em>feasible</em> space <span class="math notranslate nohighlight">\(\mathbb{S}\)</span>; a subset <span class="math notranslate nohighlight">\(\mathbb{S}\subseteq\mathbb{R}^d\)</span> of the variable space <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. In this case, the optimization problem is denoted as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bbbbbcf4-bc7b-43b7-8c9b-b3c6408cd883">
-<span class="eqno">(4.1)<a class="headerlink" href="#equation-bbbbbcf4-bc7b-43b7-8c9b-b3c6408cd883" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0b55782d-049d-44c5-adfa-0df2c1479eef">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-0b55782d-049d-44c5-adfa-0df2c1479eef" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x\,&amp; f(x) \\
 \mathrm{subject} \, \mathrm{to} \, &amp; x \in \mathbb{S}
 \end{align}\]</div>
@@ -734,8 +734,8 @@
 <div class="math notranslate nohighlight">
 \[ \mathbb{S}:= \{ x \in \mathbb{R}^d | g_1(x) \geq 0, \dots, g_{n_i}(x) \geq 0, h_1(x) =0, \dots, h_{n_e}(x)=0 \} \]</div>
 <p>where <span class="math notranslate nohighlight">\(n_e\)</span> and <span class="math notranslate nohighlight">\(n_i\)</span> are the number of equality and inequality constraints respectively. For a more concise notation, <span class="math notranslate nohighlight">\(\mathbb{S}\)</span> is often omitted and only the conditions are used for the notation of a constrained optimization problem</p>
-<div class="amsmath math notranslate nohighlight" id="equation-269f818a-4bd7-470d-8e0d-62c48c131515">
-<span class="eqno">(4.2)<a class="headerlink" href="#equation-269f818a-4bd7-470d-8e0d-62c48c131515" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bbbf40e2-a2e4-44ee-89b4-38346a09e14e">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-bbbf40e2-a2e4-44ee-89b4-38346a09e14e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \mathrm{arg}\min_x\,&amp; f(x) \\
 \mathrm{s. t.}\; &amp; g_i(x) \geq 0 \quad \mathrm{for} \, i \in [1, n_i] \\
 &amp;h_j(x) =0 \quad \mathrm{for} \, j \in [1, n_e] \\
