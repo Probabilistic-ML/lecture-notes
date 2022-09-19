@@ -1,3 +1,4 @@
+jinja2<3.1
 sphinx==3.5.4
 jupyter-book==0.12.0
 ghp-import==2.0.1
